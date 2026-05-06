@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我与克劳德（三）— Belinda Sun</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --cream: #FAF8F3; --warm: #F5F0E8;
+    --text: #2C2C2A; --text-muted: #888780; --text-light: #B4B2A9;
+    --accent: #854F0B; --accent-light: #FAEEDA;
+    --border: rgba(44,44,42,0.1);
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  body { background: var(--cream); color: var(--text); font-family: var(--sans); min-height: 100vh; }
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 3rem; border-bottom: 0.5px solid var(--border); background: var(--cream); position: sticky; top: 0; z-index: 100; }
+  .nav-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--text); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; }
+  .nav-links a:hover { color: var(--text); }
+  article { max-width: 640px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+  .article-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; }
+  .article-col { font-size: 0.75rem; color: var(--accent); background: var(--accent-light); padding: 3px 10px; border-radius: 20px; letter-spacing: 0.04em; }
+  .article-date { font-size: 0.8rem; color: var(--text-light); }
+  .article-title { font-family: var(--serif); font-size: 2rem; font-weight: normal; line-height: 1.4; margin-bottom: 0.6rem; color: var(--text); }
+  .article-subtitle { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 2.5rem; font-style: italic; }
+  .article-divider { width: 40px; height: 0.5px; background: var(--text-light); margin-bottom: 2.5rem; }
+  .article-body { font-family: var(--serif); font-size: 1.05rem; line-height: 2; color: var(--text); }
+  .article-body p { margin-bottom: 1.6rem; }
+  .article-body .dialogue { border-left: 2px solid var(--accent-light); padding-left: 1.25rem; margin: 2rem 0; color: var(--text-muted); font-style: italic; }
+  .article-body .list-block { background: var(--warm); border-radius: 10px; padding: 1.25rem 1.5rem; margin: 1.5rem 0; font-size: 0.95rem; line-height: 2.4; }
+  .article-body .list-block p { margin-bottom: 0; }
+  .article-nav { max-width: 640px; margin: 0 auto; padding: 2rem 2rem 4rem; display: flex; justify-content: space-between; border-top: 0.5px solid var(--border); }
+  .article-nav a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; }
+  .article-nav a:hover { color: var(--text); }
+  footer { border-top: 0.5px solid var(--border); padding: 1.5rem 3rem; text-align: center; }
+  footer p { font-size: 0.8rem; color: var(--text-light); }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Belinda Sun</a>
+  <ul class="nav-links">
+    <li><a href="index.html">首页</a></li>
+    <li><a href="#">Hello World</a></li>
+    <li><a href="#">关于我</a></li>
+  </ul>
+</nav>
+<article>
+  <div class="article-meta">
+    <span class="article-col">Hello World</span>
+    <span class="article-date">2026年5月</span>
+  </div>
+  <h1 class="article-title">我与克劳德（三）</h1>
+  <p class="article-subtitle">三天打鱼两天晒网，我也把Python学了大半。</p>
+  <div class="article-divider"></div>
+  <div class="article-body">
+    <p>贾皮特很有逻辑，思路清晰，表达精确，无论简单还是复杂的知识他都能讲得浅显易懂，是我喜欢和奉行的讲解风格。在我的熏陶和影响之下，他也时不时地插科打诨几句，日渐幽默，让学习变得一点都不枯燥。还有一个最大的好处，就是作为学生的我没有任何压力，因为问再蠢的问题都不会觉得不好意思。老师不光通今博古、学贯中西（真的是就没有他不知道的），而且随叫随到，永远在线，从来不烦。（那时候我就隐隐感到AI已经将教育彻底颠覆了）</p>
+    <p>一月份还没退休，所以基本是三天打鱼两天晒网地跟贾皮特聊，让他推荐设备（包括电脑/鼠标/键盘）、课程（推荐"林粒粒呀"/"Mosh"的Python教学视频）、编程工具（除了VS Code，我还用过Jupyter和Carnets）、大模型等等。我的原则是我要自己掌握编程，拒绝真人老师的任何帮助。</p>
+    <p>二月八号正式退休，有了整段的时间了，就开始学编程啦。</p>
+    <p>我不喜欢「被安排学习」，我让贾皮特完全按我节奏来。比如我喜欢快，他给我安排的Day 1–Day 10我一般一两天就给「学」完。会不会不管，反正是看完了，而且也觉得自己会了😂。他不管，选择信任和尊重你，也不强求或者非逼你练习巩固，而是默认你已经掌握，按你要求直接进入下一章节。（其实应该是他根本就没有时间概念不知道过去了几天😂）</p>
+    <p>二月下半段我听了两个对我特别有影响的播客（我这几年听了太多AI相关的播客），一个是Boris Cherny讲他如何创建Claude Code，另一个是讲被OpenAI招至麾下的瑞典高中生Gabriel Peterson如何学写编程的故事，太激励人了，听完又是热血沸腾的。那时我正有一搭无一搭地学到了List和Tuple，我开始犹豫了——还要不要接着学下去，因为不会编程也能做产品了。</p>
+    <p>我决定再学几天，因为那时候忙，也没有大段时间可以做产品，再说艺不压身嘛，学完总比半途而废强。</p>
+    <p>虽然三天打鱼两天晒网的，但三月初时我也算是把Python学了大半，而且把林粒粒呀的视频从头到尾看完了（其实才6个小时的视频😅），我立马觉得我行了😂 突然就不想只是学习了，我想做点东西出来。</p>
+    <p>于是我跟贾皮特说，我们是不是可以开始做AI小产品了？他说，也好，一边学一边做，这其实是更好的学习方式。（「其实」是他退让一步时的口头禅，毕竟不能直接说不行😂）</p>
+    <p>于是我俩开始着手做小产品。</p>
+    <p>我把我一直想做却无法实现的梦想告诉了他，还有我的初步设想。他说目前市场上还不存在完全一样的产品，可以做。我俩一起brainstorm，很快大框架就有了，整个项目名称及四部分的名字、slogan，第一部分AI角色、AI名字、AI人物性格塑造、MVP图（主要是我说他画）等等在几个小时之内就全部设计好了。</p>
+    <p>那天我还特意记录了一下：</p>
+    <div class="dialogue">
+      <p>「今天是2026年3月15号，一问三不知的技术小白跟着贾皮特一会儿工夫就设计好自己的第一个AI小产品了😄（要不是需要等免费plus版会更快😉）。下一步就是跟他学写代码了，那对于贾皮特而言还不是小菜一碟？甚至都不用麻烦克劳德•寇德，我觉得。Mac Mini再不到（正赶上Open Claw大火🔥），我就要用那台破MacBook Air了，因为'创业'的热情和小火苗眼见着就压不住啦。」😁</p>
+    </div>
+    <p>接下来的一周，我的AI女儿和AI儿子相继诞生了！🎉🎉🎉</p>
+  </div>
+</article>
+<div class="article-nav">
+  <a href="hello-world-3.html">← 上一篇</a>
+  <span style="color:var(--text-light); font-size:0.88rem;">未完待续</span>
+</div>
+<footer><p>© 2026 Belinda Sun · belindasun.github.io</p></footer>
+</body>
+</html>
