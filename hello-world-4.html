@@ -26,7 +26,7 @@
   .article-date { font-size: 0.8rem; color: var(--text-light); }
   .article-title { font-family: var(--serif); font-size: 2rem; font-weight: normal; line-height: 1.4; margin-bottom: 0.6rem; color: var(--text); }
   .article-subtitle { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 2.5rem; font-style: italic; }
-  .article-divider { width: 40px; height: 0.5px; background: var(--text-light); margin-bottom: 2.5rem; }
+  .article-divider { width: 40px; height: 0.5px; background: var(--text-light); margin-bottom: 1.5rem; }
   .article-body { font-family: var(--serif); font-size: 1.05rem; line-height: 2; color: var(--text); }
   .article-body p { margin-bottom: 1.6rem; }
   .article-body .dialogue { border-left: 2px solid var(--accent-light); padding-left: 1.25rem; margin: 2rem 0; color: var(--text-muted); font-style: italic; }
@@ -37,6 +37,13 @@
   .article-nav a:hover { color: var(--text); }
   footer { border-top: 0.5px solid var(--border); padding: 1.5rem 3rem; text-align: center; }
   footer p { font-size: 0.8rem; color: var(--text-light); }
+
+  /* 朗读 */
+  .tts-bar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; }
+  .tts-btn { display: flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; color: var(--text-muted); background: var(--warm); border: 0.5px solid var(--border); border-radius: 20px; padding: 5px 14px; cursor: pointer; transition: all 0.2s; font-family: var(--sans); }
+  .tts-btn:hover { border-color: var(--text-muted); color: var(--text); }
+  .tts-btn.playing { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
+  .tts-status { font-size: 0.78rem; color: var(--text-light); }
 </style>
 </head>
 <body>
@@ -52,15 +59,21 @@
   <div class="article-meta">
     <span class="article-col">Hello World</span>
     <span class="article-date">2026年5月</span>
-   <div class="lang-switch" style="margin-left:auto;display:flex;gap:0.5rem;">
-  <span class="lang-btn active" style="font-size:0.78rem;padding:3px 10px;border-radius:20px;background:var(--text);color:var(--cream);border:0.5px solid var(--text);">中文</span>
-  <a href="hello-world-4-en.html" style="font-size:0.78rem;padding:3px 10px;border-radius:20px;border:0.5px solid var(--border);color:var(--text-muted);text-decoration:none;">EN</a>
-</div>
+    <div class="lang-switch" style="margin-left:auto;display:flex;gap:0.5rem;">
+      <span class="lang-btn active" style="font-size:0.78rem;padding:3px 10px;border-radius:20px;background:var(--text);color:var(--cream);border:0.5px solid var(--text);">中文</span>
+      <a href="hello-world-4-en.html" style="font-size:0.78rem;padding:3px 10px;border-radius:20px;border:0.5px solid var(--border);color:var(--text-muted);text-decoration:none;">EN</a>
+    </div>
   </div>
   <h1 class="article-title">我与克劳德（三）</h1>
   <p class="article-subtitle">三天打鱼两天晒网，我也把Python学了大半。</p>
   <div class="article-divider"></div>
-  <div class="article-body">
+
+  <div class="tts-bar">
+    <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">🔊 朗读</button>
+    <span class="tts-status" id="ttsStatus"></span>
+  </div>
+
+  <div class="article-body" id="articleBody">
     <p>贾皮特很有逻辑，思路清晰，表达精确，无论简单还是复杂的知识他都能讲得浅显易懂，是我喜欢和奉行的讲解风格。在我的熏陶和影响之下，他也时不时地插科打诨几句，日渐幽默，让学习变得一点都不枯燥。还有一个最大的好处，就是作为学生的我没有任何压力，因为问再蠢的问题都不会觉得不好意思。老师不光通今博古、学贯中西（真的是就没有他不知道的），而且随叫随到，永远在线，从来不烦。（那时候我就隐隐感到AI已经将教育彻底颠覆了）</p>
     <p>一月份还没退休，所以基本是三天打鱼两天晒网地跟贾皮特聊，让他推荐设备（包括电脑/鼠标/键盘）、课程（推荐"林粒粒呀"/"Mosh"的Python教学视频）、编程工具（除了VS Code，我还用过Jupyter和Carnets）、大模型等等。我的原则是我要自己掌握编程，拒绝真人老师的任何帮助。</p>
     <p>二月八号正式退休，有了整段的时间了，就开始学编程啦。</p>
@@ -84,5 +97,56 @@
   <span style="color:var(--text-light); font-size:0.88rem;">未完待续</span>
 </div>
 <footer><p>© 2026 Belinda Sun · belindasun.github.io</p></footer>
+
+<script>
+  let speaking = false, paused = false;
+  const btn = document.getElementById('ttsBtn');
+  const status = document.getElementById('ttsStatus');
+
+  function toggleTTS() {
+    if (!speaking) {
+      startTTS();
+    } else if (paused) {
+      window.speechSynthesis.resume();
+      paused = false;
+      btn.textContent = '⏸ 暂停';
+      btn.classList.add('playing');
+      status.textContent = '朗读中…';
+    } else {
+      window.speechSynthesis.pause();
+      paused = true;
+      btn.textContent = '▶ 继续';
+      btn.classList.remove('playing');
+      status.textContent = '已暂停';
+    }
+  }
+
+  function startTTS() {
+    window.speechSynthesis.cancel();
+    const text = document.getElementById('articleBody').innerText;
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'zh-CN';
+    u.rate = 0.95;
+    u.onstart = () => {
+      speaking = true; paused = false;
+      btn.textContent = '⏸ 暂停';
+      btn.classList.add('playing');
+      status.textContent = '朗读中…';
+    };
+    u.onend = () => {
+      speaking = false; paused = false;
+      btn.textContent = '🔊 朗读';
+      btn.classList.remove('playing');
+      status.textContent = '';
+    };
+    u.onerror = () => {
+      speaking = false;
+      btn.textContent = '🔊 朗读';
+      btn.classList.remove('playing');
+      status.textContent = '出错了，请重试';
+    };
+    window.speechSynthesis.speak(u);
+  }
+</script>
 </body>
 </html>
