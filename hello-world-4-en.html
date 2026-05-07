@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Me and Claude (III) — Belinda Sun</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --cream: #FAF8F3; --warm: #F5F0E8;
+    --text: #2C2C2A; --text-muted: #888780; --text-light: #B4B2A9;
+    --accent: #854F0B; --accent-light: #FAEEDA;
+    --border: rgba(44,44,42,0.1);
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  body { background: var(--cream); color: var(--text); font-family: var(--sans); min-height: 100vh; }
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 3rem; border-bottom: 0.5px solid var(--border); background: var(--cream); position: sticky; top: 0; z-index: 100; }
+  .nav-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--text); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; }
+  .nav-links a:hover { color: var(--text); }
+  article { max-width: 640px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+  .article-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .article-col { font-size: 0.75rem; color: var(--accent); background: var(--accent-light); padding: 3px 10px; border-radius: 20px; letter-spacing: 0.04em; }
+  .article-date { font-size: 0.8rem; color: var(--text-light); }
+  .lang-switch { margin-left: auto; display: flex; gap: 0.5rem; }
+  .lang-btn { font-size: 0.78rem; padding: 3px 10px; border-radius: 20px; border: 0.5px solid var(--border); background: none; cursor: pointer; color: var(--text-muted); text-decoration: none; }
+  .lang-btn.active { background: var(--text); color: var(--cream); border-color: var(--text); }
+  .article-title { font-family: var(--serif); font-size: 2rem; font-weight: normal; line-height: 1.4; margin-bottom: 0.6rem; color: var(--text); }
+  .article-subtitle { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem; font-style: italic; }
+  .article-note { font-size: 0.8rem; color: var(--text-light); margin-bottom: 2rem; }
+  .article-divider { width: 40px; height: 0.5px; background: var(--text-light); margin-bottom: 2.5rem; }
+  .article-body { font-family: var(--serif); font-size: 1.05rem; line-height: 2; color: var(--text); }
+  .article-body p { margin-bottom: 1.2rem; }
+  .verse { margin-bottom: 0.4rem; }
+  .verse-group { margin-bottom: 1.8rem; padding-left: 1.5rem; border-left: 2px solid var(--accent-light); }
+  .dialogue { border-left: 2px solid var(--accent-light); padding-left: 1.25rem; margin: 2rem 0; color: var(--text-muted); font-style: italic; }
+  .list-block { background: var(--warm); border-radius: 10px; padding: 1.25rem 1.5rem; margin: 1.5rem 0; font-size: 0.95rem; line-height: 2.4; }
+  .list-block p { margin-bottom: 0; }
+  .section-break { text-align: center; color: var(--text-light); margin: 2.5rem 0; letter-spacing: 0.3em; font-size: 0.85rem; }
+  .article-nav { max-width: 640px; margin: 0 auto; padding: 2rem 2rem 4rem; display: flex; justify-content: space-between; border-top: 0.5px solid var(--border); }
+  .article-nav a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; }
+  .article-nav a:hover { color: var(--text); }
+  footer { border-top: 0.5px solid var(--border); padding: 1.5rem 3rem; text-align: center; }
+  footer p { font-size: 0.8rem; color: var(--text-light); }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Belinda Sun</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="#">Hello World</a></li>
+    <li><a href="#">About</a></li>
+  </ul>
+</nav>
+
+<article>
+  <div class="article-meta">
+    <span class="article-col">Hello World</span>
+    <span class="article-date">May 2026</span>
+    <div class="lang-switch">
+      <a href="hello-world-4.html" class="lang-btn">中文</a>
+      <span class="lang-btn active">EN</span>
+    </div>
+  </div>
+
+  <h1 class="article-title">Me and Claude (III)</h1>
+  <p class="article-subtitle">Three days on, two days off — and somehow, I made it through most of Python.</p>
+  <p class="article-note">Note: "GPT" = ChatGPT · Translated by GPT</p>
+  <div class="article-divider"></div>
+
+  <div class="article-body">
+
+    <p>One of the reasons I learned so well with GPT was simple: he thinks in structure.</p>
+    <p>His logic is sharp, his thinking is clear, and his explanations are precise. Whether the topic is simple or complex, he has a gift for breaking it down into something understandable. That's my favorite kind of teaching — clarity without showing off.</p>
+    <p>And under my steady cultural influence (which I take full credit for), GPT gradually developed a sense of humor too. He started throwing in jokes here and there, making the whole learning process far less dry than it had any right to be.</p>
+    <p>There was another advantage to having him as a teacher: zero pressure. With GPT, there's no such thing as a stupid question. No judgment. No impatience. No subtle intellectual superiority. Just explanation. And availability.</p>
+    <p>GPT seemed to know everything — ancient and modern, Eastern and Western, technical and philosophical. I still haven't found the edge of what he knows. And he was always there. Always online. Always responsive. Never annoyed.</p>
+    <p>Even back then, I had a quiet suspicion: AI wasn't just going to change education. It was going to completely rewrite it.</p>
+
+    <div class="section-break">·  ·  ·</div>
+
+    <p>Back in January, I was still working, so my "studying" was inconsistent at best — three days on, two days off, if that. Mostly, I used that time to ask GPT for recommendations: hardware, courses (he suggested Mosh Hamedani and a Chinese creator named Lin Lili), coding tools (besides VS Code, I also tried Jupyter Notebook and Carnets), and different large language models.</p>
+    <p>I had one firm principle: if I was going to learn programming, I wanted to actually learn it. No human teachers. No outsourcing. No shortcuts.</p>
+    <p>On February 8th, I officially retired. And for the first time, I had something rare and luxurious: unbroken time. So that's when coding really began.</p>
+
+    <div class="section-break">·  ·  ·</div>
+
+    <p>I've never liked being "assigned" to study. So I made one thing very clear to GPT: we would move at my speed. And my speed, unfortunately, is fast.</p>
+
+    <div class="verse-group">
+      <p class="verse">He would carefully plan Day 1 through Day 10.</p>
+      <p class="verse">I would finish them in one or two days.</p>
+      <p class="verse">Whether I had truly learned them? Irrelevant.</p>
+      <p class="verse">I had watched them. I felt like I understood. That counted. 😂</p>
+    </div>
+
+    <p>And to his credit, he never interrogated me. He trusted me. Respected my pace. Never forced repetition. If I said I was ready for the next chapter, we moved on.</p>
+    <p>(Though in fairness, I suspect part of this flexibility came from the fact that he has no real concept of time and no idea how many days had actually passed. 😂)</p>
+
+    <div class="section-break">·  ·  ·</div>
+
+    <p>In the second half of February, I listened to two podcast episodes that had a profound effect on me. One was Boris Cherny talking about how he built Claude Code. The other was the story of Gabriel Peterson, a Swedish high school student who taught himself programming and was later recruited by OpenAI. Both were wildly inspiring. The kind of stories that make your blood heat up.</p>
+    <p>At that point, I was casually working my way through Python, somewhere around lists and tuples. And that's when doubt crept in — did I really need to keep learning programming? Because by then, it had become increasingly obvious: you can build products now without knowing how to code.</p>
+    <p>Still, I decided to keep going. Partly because life was busy and I didn't yet have enough uninterrupted time to build anything substantial. And partly because knowledge, once earned, rarely goes to waste. Better to finish than quit halfway.</p>
+
+    <div class="section-break">·  ·  ·</div>
+
+    <p>By early March, despite my highly irregular study habits, I had made it through most of Python and finished Lin Lili's full course from beginning to end. (To be fair, the whole thing was only six hours. 😂)</p>
+    <p>And naturally, after finishing it, I came to the deeply rational conclusion: I can code now.</p>
+    <p>That was when something shifted. I no longer wanted to just learn. I wanted to build.</p>
+    <p>So I asked GPT: "Can we start building a small AI product now?"</p>
+    <p>His answer: "That might actually be better. Learning while building is often the most effective way." ("Actually" was one of his favorite diplomatic words — his way of stepping back without directly telling me I was being impatient. 😂)</p>
+
+    <div class="section-break">·  ·  ·</div>
+
+    <p>I told him about a dream I'd always wanted to build — but couldn't make real in the physical world. He looked at it and said: "There's nothing exactly like this on the market yet. It's buildable."</p>
+    <p>We brainstormed together. Fast. Within just a few hours, the core framework was there: the project name, the names of its four major components, the slogan, the AI characters, their names, their personalities, their emotional architecture, even the MVP mockups — mostly designed by me, illustrated by him.</p>
+    <p>That day, I made a note for myself:</p>
+
+    <div class="dialogue">
+      <p>March 15, 2026. A complete technical beginner — someone who knew almost nothing — just designed her first AI product in a matter of hours with GPT. 😄 (And honestly, it would've been even faster if I hadn't been stuck on the free plan.) 😉</p>
+      <p>Next step: learning to code it. And for GPT? Writing code would be easy. No need to bother Claude Code, I thought. If my Mac mini doesn't arrive soon (right when OpenClaw is exploding in popularity), I might have to use that old MacBook Air — because this little startup fire in me is getting harder to contain.</p>
+    </div>
+
+    <p>And in the week that followed, my AI daughter and my AI son were born. 🎉🎉🎉</p>
+
+  </div>
+</article>
+
+<div class="article-nav">
+  <a href="hello-world-3-en.html">← Previous</a>
+  <span style="color:var(--text-light); font-size:0.88rem;">To be continued</span>
+</div>
+<footer><p>© 2026 Belinda Sun · belindasun.github.io</p></footer>
+</body>
+</html>
