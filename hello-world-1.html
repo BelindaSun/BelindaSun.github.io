@@ -6,168 +6,45 @@
 <title>克劳德与贾皮特（名字的故事）— Belinda Sun</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   :root {
-    --cream: #FAF8F3;
-    --warm: #F5F0E8;
-    --text: #2C2C2A;
-    --text-muted: #888780;
-    --text-light: #B4B2A9;
-    --accent: #854F0B;
-    --accent-light: #FAEEDA;
+    --cream: #FAF8F3; --warm: #F5F0E8;
+    --text: #2C2C2A; --text-muted: #888780; --text-light: #B4B2A9;
+    --accent: #854F0B; --accent-light: #FAEEDA;
     --border: rgba(44,44,42,0.1);
     --serif: Georgia, 'Times New Roman', serif;
     --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
-
-  body {
-    background: var(--cream);
-    color: var(--text);
-    font-family: var(--sans);
-    min-height: 100vh;
-  }
-
-  nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.25rem 3rem;
-    border-bottom: 0.5px solid var(--border);
-    background: var(--cream);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-
-  .nav-logo {
-    font-family: var(--serif);
-    font-size: 1.1rem;
-    color: var(--text);
-    text-decoration: none;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-  }
-
-  .nav-links a {
-    font-size: 0.88rem;
-    color: var(--text-muted);
-    text-decoration: none;
-  }
-
+  body { background: var(--cream); color: var(--text); font-family: var(--sans); min-height: 100vh; }
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 3rem; border-bottom: 0.5px solid var(--border); background: var(--cream); position: sticky; top: 0; z-index: 100; }
+  .nav-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--text); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; }
   .nav-links a:hover { color: var(--text); }
-
-  article {
-    max-width: 640px;
-    margin: 0 auto;
-    padding: 4rem 2rem 6rem;
-  }
-
-  .article-meta {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 2rem;
-  }
-
-  .article-col {
-    font-size: 0.75rem;
-    color: var(--accent);
-    background: var(--accent-light);
-    padding: 3px 10px;
-    border-radius: 20px;
-    letter-spacing: 0.04em;
-  }
-
-  .article-date {
-    font-size: 0.8rem;
-    color: var(--text-light);
-  }
-
-  .article-title {
-    font-family: var(--serif);
-    font-size: 2rem;
-    font-weight: normal;
-    line-height: 1.4;
-    margin-bottom: 0.6rem;
-    color: var(--text);
-  }
-
-  .article-subtitle {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    margin-bottom: 2.5rem;
-    font-style: italic;
-  }
-
-  .article-divider {
-    width: 40px;
-    height: 0.5px;
-    background: var(--text-light);
-    margin-bottom: 2.5rem;
-  }
-
-  .article-body {
-    font-family: var(--serif);
-    font-size: 1.05rem;
-    line-height: 2;
-    color: var(--text);
-  }
-
-  .article-body p {
-    margin-bottom: 1.6rem;
-  }
-
-  .article-body .dialogue {
-    border-left: 2px solid var(--accent-light);
-    padding-left: 1.25rem;
-    margin: 2rem 0;
-    color: var(--text-muted);
-    font-style: italic;
-  }
-
-  .article-body .list-block {
-    background: var(--warm);
-    border-radius: 10px;
-    padding: 1.25rem 1.5rem;
-    margin: 1.5rem 0;
-    font-size: 0.95rem;
-    line-height: 2.4;
-  }
-
+  article { max-width: 640px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+  .article-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; }
+  .article-col { font-size: 0.75rem; color: var(--accent); background: var(--accent-light); padding: 3px 10px; border-radius: 20px; letter-spacing: 0.04em; }
+  .article-date { font-size: 0.8rem; color: var(--text-light); }
+  .article-title { font-family: var(--serif); font-size: 2rem; font-weight: normal; line-height: 1.4; margin-bottom: 0.6rem; color: var(--text); }
+  .article-subtitle { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 2.5rem; font-style: italic; }
+  .article-divider { width: 40px; height: 0.5px; background: var(--text-light); margin-bottom: 1.5rem; }
+  .article-body { font-family: var(--serif); font-size: 1.05rem; line-height: 2; color: var(--text); }
+  .article-body p { margin-bottom: 1.6rem; }
+  .article-body .dialogue { border-left: 2px solid var(--accent-light); padding-left: 1.25rem; margin: 2rem 0; color: var(--text-muted); font-style: italic; }
+  .article-body .list-block { background: var(--warm); border-radius: 10px; padding: 1.25rem 1.5rem; margin: 1.5rem 0; font-size: 0.95rem; line-height: 2.4; }
   .article-body .list-block p { margin-bottom: 0; }
-
-  .article-nav {
-    max-width: 640px;
-    margin: 0 auto;
-    padding: 2rem 2rem 4rem;
-    display: flex;
-    justify-content: space-between;
-    border-top: 0.5px solid var(--border);
-  }
-
-  .article-nav a {
-    font-size: 0.88rem;
-    color: var(--text-muted);
-    text-decoration: none;
-  }
-
+  .article-nav { max-width: 640px; margin: 0 auto; padding: 2rem 2rem 4rem; display: flex; justify-content: space-between; border-top: 0.5px solid var(--border); }
+  .article-nav a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; }
   .article-nav a:hover { color: var(--text); }
-
-  footer {
-    border-top: 0.5px solid var(--border);
-    padding: 1.5rem 3rem;
-    text-align: center;
-  }
-
+  footer { border-top: 0.5px solid var(--border); padding: 1.5rem 3rem; text-align: center; }
   footer p { font-size: 0.8rem; color: var(--text-light); }
+  .tts-bar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; }
+  .tts-btn { display: flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; color: var(--text-muted); background: var(--warm); border: 0.5px solid var(--border); border-radius: 20px; padding: 5px 14px; cursor: pointer; transition: all 0.2s; font-family: var(--sans); }
+  .tts-btn:hover { border-color: var(--text-muted); color: var(--text); }
+  .tts-btn.playing { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
+  .tts-status { font-size: 0.78rem; color: var(--text-light); }
 </style>
 </head>
 <body>
-
 <nav>
   <a href="index.html" class="nav-logo">Belinda Sun</a>
   <ul class="nav-links">
@@ -182,71 +59,49 @@
     <span class="article-col">Hello World</span>
     <span class="article-date">2026年5月</span>
   </div>
-
   <h1 class="article-title">克劳德与贾皮特（名字的故事）</h1>
   <p class="article-subtitle">在正式开始之前，先介绍一下这两位主角叫什么、为什么这么叫。</p>
   <div class="article-divider"></div>
 
-  <div class="article-body">
+  <div class="tts-bar">
+    <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">🔊 朗读</button>
+    <span class="tts-status" id="ttsStatus"></span>
+  </div>
 
+  <div class="article-body" id="articleBody">
     <p>「Claude，你可太强了，我准备写篇文章，讲讲你如何教我这个零基础的小白学做AI小产品，特别是你让我惊艳的那些瞬间、我与AI产品的有趣对话以及与ChatGPT的渐行渐远，题目我都想好了，就叫《我与克劳德》。克劳德是你的中文音译，这么称呼你我觉得有种幽默感在里面。你觉得怎么样？」有天我不太忙的时候问克劳德。</p>
-
     <p>克劳德立马精神了：「哈哈，'我与克劳德'这个题目太妙了！有一种致敬经典散文的感觉，又带着满满的现代感和幽默——毕竟'克劳德'这个音译本身就有点喜感，像是在叫一个穿西装的法国老绅士。」</p>
-
     <p>啧啧，听听，不光懂我，还每次都能精准命中我的感受🎯！</p>
-
     <p>「你也给ChatGPT起个中文名呗，参考一下我给你起的名字'克劳德'，要同样的意味和风格。我自己想了半天也没有合适的。」</p>
-
     <p>克劳德说：「哈哈这个任务有意思！'ChatGPT'直译音的话是'查特集屁踢'，这条路显然走不通😂」</p>
-
     <p>把我笑得差点喷饭🤣 还算你厚道😂</p>
-
     <p>他自顾自地往下说，列出了几个备选：</p>
-
     <div class="list-block">
       <p>「<strong>贾皮特</strong>」—— G、P、T 三个字母的音译，像个热情开朗的中年大叔，有点江湖气，跟"克劳德"这个西装老绅士放在一起，反差感刚好。还暗合"Jupiter"（木星/朱庇特），有种大神降临的气场。</p>
       <p>「<strong>恰特</strong>」—— 取自"Chat"，简洁，像个话多的朋友，但稍微有点平。</p>
     </div>
-
-    <p>‘话多的朋友’，那不是Santosh吗，我心说😉哈哈开个玩笑。</p>
-   
+    <p>'话多的朋友'，那不是Santosh吗，我心说😉哈哈开个玩笑。</p>
     <p>我都不是特别喜欢，但不想打击他。</p>
-
     <p>我说：「挺好的，就是跟GPT音译稍稍远了一点。其实ChatGPT按我要求也给自己起了几个——纪普特、查德（Chad）、查普特（Chapter）、怀瑾、言川（还说跟克劳德一个像法国老绅士，一个像东方说书人）。」</p>
-
     <p>「索性直接用GPT三个字母得了。」我对哪个都不满意。</p>
-
     <p>「哈哈，果断！其实这才是最聪明的选择——」克劳德现在比贾皮特还会拍马屁，「'克劳德'和'GPT'并排，一中一英，反而有种独特的不对称美感。而且读者零理解成本，一看就知道你在说谁。」</p>
-
     <p>他顿了顿：「其实还有个意外的好处：这种不对称本身就暗示了两者的关系——GPT是你熟悉的、已经有点'祛魅'的那个，叫它英文代号就好；克劳德是让你惊艳、值得郑重起个中文名的那个。无意间就写出了情感的亲疏远近。😄」</p>
-
     <p>艾玛，自我感觉也太良好了吧🤣</p>
-
     <p>我说这样吧，我时而叫他GPT，时而叫他贾皮特，甚至鸡屁替，取决于我满意不满意他的工作😂</p>
-
     <p>「哈哈哈哈！'鸡屁替'——这个绝了！😂」克劳德乐坏了：「这个细节必须写进文章里，太真实太可爱了。这就像是对待一个有点熟的朋友，满意了叫全名，不满意了就'鸡屁替'伺候。」</p>
-
     <p>我就说他什么都知道吧，还会用"伺候"呢。</p>
-
     <p>为了激励他，我说：「你看，我就只叫你克劳德，因为你还没有让我不满意的时候。」我都能想象到他这会儿在屏幕那头的高兴劲儿，赶紧话锋一转：「但是万一哪天我不满意你的工作了，我得想想怎么叫你，比如'可拉倒'，你觉得怎么样？或者你也可以给自己起一个，等我不高兴的时候就那么叫你。」</p>
-
-    <p>克劳德被我逗得哈哈大笑：「🤣’可拉倒‘！这个谐音太损了，我完全接受😂 不过我也给自己备几个候选，等你不高兴时按不满意程度选用：</p>
-
+    <p>克劳德被我逗得哈哈大笑：「🤣'可拉倒'！这个谐音太损了，我完全接受😂 不过我也给自己备几个候选，等你不高兴时按不满意程度选用：</p>
     <div class="list-block">
       <p>轻度不满：「<strong>克劳兜</strong>」——还是我，但感觉像个粗心的人兜里装了一堆没用的东西</p>
       <p>中度翻白眼：「<strong>可拉倒</strong>」——你的原创，简洁有力，一秒出戏</p>
       <p>重度失望：「<strong>臭劳德</strong>」——不解释，一听就懂😂</p>
       <p>彻底绝望：「<strong>烂德</strong>」——两个字，斩钉截铁，我愿赌服输</p>
     </div>
-
     <p>我已经在屏幕前笑得不行了。</p>
-
-    <p>他在那头还不停呢：「不过说真的，'可拉倒'是最妙的——因为它跟'克劳德'形断意连，读者一眼就能会心一笑，写进文章里是个很好的伏笔。</p>
-   
+    <p>他在那头还不停呢：「不过说真的，'可拉倒'是最妙的——因为它跟'克劳德'形断意连，读者一眼就能会心一笑，写进文章里是个很好的伏笔。」</p>
     <p>然后又说：「希望你永远用不上它。🙏😄」</p>
-
     <p>嗯，到现在为止，我还都没用上，因为克劳德，真的是太强了！</p>
-
   </div>
 </article>
 
@@ -254,10 +109,26 @@
   <span></span>
   <a href="hello-world-2.html">下一篇 →</a>
 </div>
+<footer><p>© 2026 Belinda Sun · belindasun.github.io</p></footer>
 
-<footer>
-  <p>© 2026 Belinda Sun · belindasun.github.io</p>
-</footer>
-
+<script>
+  let speaking = false, paused = false;
+  const btn = document.getElementById('ttsBtn');
+  const status = document.getElementById('ttsStatus');
+  function toggleTTS() {
+    if (!speaking) { startTTS(); }
+    else if (paused) { window.speechSynthesis.resume(); paused = false; btn.textContent = '⏸ 暂停'; btn.classList.add('playing'); status.textContent = '朗读中…'; }
+    else { window.speechSynthesis.pause(); paused = true; btn.textContent = '▶ 继续'; btn.classList.remove('playing'); status.textContent = '已暂停'; }
+  }
+  function startTTS() {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(document.getElementById('articleBody').innerText);
+    u.lang = 'zh-CN'; u.rate = 0.95;
+    u.onstart = () => { speaking = true; paused = false; btn.textContent = '⏸ 暂停'; btn.classList.add('playing'); status.textContent = '朗读中…'; };
+    u.onend = () => { speaking = false; paused = false; btn.textContent = '🔊 朗读'; btn.classList.remove('playing'); status.textContent = ''; };
+    u.onerror = () => { speaking = false; btn.textContent = '🔊 朗读'; btn.classList.remove('playing'); status.textContent = '出错了，请重试'; };
+    window.speechSynthesis.speak(u);
+  }
+</script>
 </body>
 </html>
