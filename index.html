@@ -7,10 +7,14 @@
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   :root {
-    --cream: #FAF8F3; --warm: #F5F0E8;
-    --text: #2C2C2A; --text-muted: #888780; --text-light: #B4B2A9;
-    --accent: #854F0B; --accent-light: #FAEEDA;
-    --border: rgba(44,44,42,0.1);
+    --cream: #FDFCFA;
+    --warm: #F5F0E8;
+    --text: #3D2A5C;
+    --text-muted: #7A5FA0;
+    --text-light: #B09CC8;
+    --accent: #854F0B;
+    --accent-light: #FAEEDA;
+    --border: rgba(26,26,24,0.12);
     --serif: Georgia, 'Times New Roman', serif;
     --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
@@ -21,25 +25,10 @@
   .nav-links a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; letter-spacing: 0.03em; transition: color 0.2s; }
   .nav-links a:hover { color: var(--text); }
   .nav-links .dropdown { position: relative; }
-  .nav-links .dropdown-menu { 
-    display: none; 
-    position: absolute; 
-    top: 100%; 
-    left: 0; 
-    background: var(--cream); 
-    border: 0.5px solid var(--border); 
-    border-radius: 8px; 
-    padding: 0.5rem 0; 
-    min-width: 160px; 
-    margin-top: 0.5rem; 
-    box-shadow: 0 4px 20px rgba(0,0,0,0.06); 
-    z-index: 200; 
-  }
+  .nav-links .dropdown-menu { display: none; position: absolute; top: 100%; left: 0; background: var(--cream); border: 0.5px solid var(--border); border-radius: 8px; padding: 0.5rem 0; min-width: 160px; margin-top: 0.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.08); z-index: 200; }
   .nav-links .dropdown.open .dropdown-menu { display: block; }
   .dropdown-menu a { display: block; padding: 0.5rem 1rem; font-size: 0.85rem; }
   .dropdown-menu .coming-soon { color: var(--text-light); font-size: 0.78rem; padding: 0.5rem 1rem; font-style: italic; }
-  
-  /* 音乐按钮组 */
   .music-btn-group { display: flex; gap: 0.8rem; align-items: center; }
   .music-btn { display: flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; color: var(--text-muted); background: var(--warm); border: 0.5px solid var(--border); border-radius: 20px; padding: 5px 14px; cursor: pointer; transition: all 0.2s; font-family: var(--sans); white-space: nowrap; }
   .music-btn:hover { border-color: var(--text-muted); color: var(--text); }
@@ -47,24 +36,34 @@
   .music-btn .pulse { display: inline-block; }
   .music-btn.playing .pulse { animation: pulse 1s ease-in-out infinite; }
   @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
-  
+
   .hero { max-width: 680px; margin: 0 auto; padding: 5rem 2rem 4rem; text-align: center; }
   .hero-name { font-family: var(--serif); font-size: 2.8rem; font-weight: normal; letter-spacing: 0.02em; margin-bottom: 1.2rem; color: var(--text); }
-  .hero-tagline-zh { font-family: var(--serif); font-size: 1.05rem; color: var(--text-muted); letter-spacing: 0.08em; margin-bottom: 0.5rem; }
-  .hero-tagline-en { font-size: 0.88rem; color: var(--text-light); font-style: italic; letter-spacing: 0.04em; margin-bottom: 2.5rem; }
+  .hero-tagline-zh { font-family: var(--serif); font-size: 1.2rem; color: var(--text-muted); letter-spacing: 0.08em; margin-bottom: 0.5rem; }
+  .hero-tagline-en { font-size: 1rem; color: var(--text-muted); font-style: italic; letter-spacing: 0.04em; margin-bottom: 2.5rem; }
   .hero-divider { width: 40px; height: 0.5px; background: var(--text-light); margin: 0 auto 2.5rem; }
-  .hero-intro { font-size: 1rem; line-height: 1.9; color: var(--text-muted); max-width: 520px; margin: 0 auto 2.5rem; }
+  .hero-intro { font-size: 1.05rem; line-height: 1.9; color: var(--text-muted); max-width: 520px; margin: 0 auto 2.5rem; }
   .hero-intro em { color: var(--accent); font-style: normal; }
+
   .columns { max-width: 780px; margin: 0 auto; padding: 0 2rem 5rem; }
   .columns-title { font-size: 0.75rem; letter-spacing: 0.12em; color: var(--text-light); text-transform: uppercase; margin-bottom: 2rem; text-align: center; }
-  .columns-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
-  .col-card { background: white; border: 0.5px solid var(--border); border-radius: 12px; padding: 1.5rem 1.25rem; cursor: pointer; transition: border-color 0.2s, transform 0.15s; text-decoration: none; display: block; }
-  .col-card:hover { border-color: rgba(44,44,42,0.2); transform: translateY(-2px); }
-  .col-card.muted { background: var(--warm); opacity: 0.7; pointer-events: none; }
+  .columns-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+
+  .col-card { border-radius: 12px; padding: 1.5rem 1.25rem; cursor: pointer; transition: transform 0.15s, box-shadow 0.2s; text-decoration: none; display: block; border: 1.5px solid transparent; }
+  .col-card:hover { transform: translateY(-3px); box-shadow: 0 6px 24px rgba(0,0,0,0.1); }
+
+  .col-card.hw  { background: #E0F2FC; border-color: #93D0EE; }
+  .col-card.hh  { background: #EDE5F8; border-color: #C4A8E8; }
+  .col-card.pl  { background: #FEF5D0; border-color: #F0D060; opacity:0.65; pointer-events:none; }
+  .col-card.yt  { background: #FCE8E8; border-color: #F0A0A0; opacity:0.65; pointer-events:none; }
+  .col-card.ml  { background: #E2F5E8; border-color: #90D4A0; opacity:0.65; pointer-events:none; }
+  .col-card.mo  { background: #FEF3DC; border-color: #F0C860; opacity:0.65; pointer-events:none; }
+
   .col-icon { font-size: 1.4rem; margin-bottom: 0.75rem; }
-  .col-name { font-family: var(--serif); font-size: 1rem; color: var(--text); margin-bottom: 0.3rem; }
-  .col-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
+  .col-card .col-name { font-family: var(--serif); font-size: 1rem; color: #2C2C2A !important; margin-bottom: 0.3rem; }
+  .col-card .col-desc { font-size: 0.8rem; color: #666662 !important; line-height: 1.6; }
   .col-tag { display: inline-block; margin-top: 0.75rem; font-size: 0.72rem; color: var(--accent); background: var(--accent-light); padding: 2px 8px; border-radius: 20px; letter-spacing: 0.04em; }
+
   .latest { max-width: 680px; margin: 0 auto; padding: 0 2rem 5rem; }
   .section-label { font-size: 0.75rem; letter-spacing: 0.12em; color: var(--text-light); text-transform: uppercase; margin-bottom: 1.5rem; }
   .post-item { display: flex; align-items: baseline; gap: 1rem; padding: 1rem 0; border-bottom: 0.5px solid var(--border); flex-wrap: wrap; }
@@ -72,12 +71,14 @@
   .post-col { font-size: 0.75rem; color: var(--text-light); white-space: nowrap; padding: 2px 8px; background: var(--warm); border-radius: 20px; }
   .post-title { font-family: var(--serif); font-size: 1rem; color: var(--text); flex: 1; line-height: 1.5; }
   .post-title a { color: inherit; text-decoration: none; }
+  .post-title a:hover { color: var(--accent); }
   .post-date { font-size: 0.78rem; color: var(--text-light); white-space: nowrap; }
+
   footer { border-top: 0.5px solid var(--border); padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
   footer p { font-size: 0.8rem; color: var(--text-light); }
   .lang-toggle { font-size: 0.8rem; color: var(--text-muted); cursor: pointer; border: 0.5px solid var(--border); padding: 4px 12px; border-radius: 20px; background: none; }
   .lang-toggle:hover { border-color: var(--text-muted); }
-  
+
   @media (max-width: 700px) {
     nav { flex-direction: column; align-items: flex-start; }
     .nav-links { flex-wrap: wrap; row-gap: 0.5rem; }
@@ -111,11 +112,9 @@
     </li>
     <li>
       <div class="music-btn-group">
-        <!-- 左边：背景音乐（国内音频） -->
         <button class="music-btn" id="cnMusicBtn" onclick="toggleCnMusic()">
           <span class="pulse">🎵</span> 背景音乐
         </button>
-        <!-- 右边：BGM（YouTube 原曲） -->
         <button class="music-btn" id="bgmBtn" onclick="toggleBGM()">
           <span class="pulse">🎵</span> BGM
         </button>
@@ -140,27 +139,38 @@
 <section class="columns">
   <p class="columns-title">Columns</p>
   <div class="columns-grid">
-    <a href="hello-world-index.html" class="col-card">
+    <a href="hello-world-index.html" class="col-card hw">
       <div class="col-icon">🌍</div>
       <div class="col-name">Hello World</div>
       <div class="col-desc">My journey from zero to AI builder — one conversation at a time.</div>
       <span class="col-tag">Ongoing</span>
     </a>
-    <a href="hello-human-index.html" class="col-card">
+    <a href="hello-human-index.html" class="col-card hh">
       <div class="col-icon">✦</div>
       <div class="col-name">Hello Human</div>
       <div class="col-desc">What the AIs see when they look at me. Their words, not mine.</div>
       <span class="col-tag">Ongoing</span>
     </a>
-    <div class="col-card muted">
+    <div class="col-card pl">
       <div class="col-icon">💬</div>
       <div class="col-name">Prompt Life</div>
       <div class="col-desc">Conversations, experiments, and things I learned by asking the right questions.</div>
     </div>
-    <div class="col-card muted">
+    <div class="col-card yt">
       <div class="col-icon">📖</div>
       <div class="col-name">Yesterthoughts</div>
       <div class="col-desc">Earlier writing — before AI ruined me in the best possible way.</div>
+    </div>
+    <div class="col-card ml">
+      <div class="col-icon">☕</div>
+      <div class="col-name">My Life</div>
+      <div class="col-desc">The life happening in between — travel, food, music, and everything else.</div>
+    </div>
+    <div class="col-card mo">
+      <div class="col-icon">✨</div>
+      <div class="col-name">Mimo</div>
+      <div class="col-desc">My AI family companion — coming to life, one conversation at a time.</div>
+      <span class="col-tag">Coming soon</span>
     </div>
   </div>
 </section>
@@ -201,121 +211,75 @@
 
 <footer>
   <p>© 2026 Belinda Sun · belindasun.blog</p>
-  <button class="lang-toggle">中 / EN</button>
+  <button class="lang-toggle" onclick="alert('中文版即将推出！')">中 / EN</button>
 </footer>
 
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
-  // ----- 1. 下拉菜单点击控制（替换 hover）-----
   function initDropdowns() {
     const dropdowns = document.querySelectorAll('.dropdown');
     document.addEventListener('click', function(e) {
-      // 如果点击的元素不是任何dropdown的toggle或其内部，则关闭所有dropdown
       let isInside = false;
-      for (let dd of dropdowns) {
-        if (dd.contains(e.target)) {
-          isInside = true;
-          break;
-        }
-      }
-      if (!isInside) {
-        dropdowns.forEach(dd => dd.classList.remove('open'));
-      }
+      for (let dd of dropdowns) { if (dd.contains(e.target)) { isInside = true; break; } }
+      if (!isInside) dropdowns.forEach(dd => dd.classList.remove('open'));
     });
-    
     dropdowns.forEach(dd => {
       const toggle = dd.querySelector('.dropdown-toggle');
       if (toggle) {
         toggle.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          // 关闭其他dropdown
-          dropdowns.forEach(other => {
-            if (other !== dd) other.classList.remove('open');
-          });
+          e.preventDefault(); e.stopPropagation();
+          dropdowns.forEach(other => { if (other !== dd) other.classList.remove('open'); });
           dd.classList.toggle('open');
         });
       }
     });
   }
 
-  // ----- 2. 右边 BGM (YouTube) 逻辑 -----
-  let player = null;
-  let bgmPlaying = false;
+  let player = null, bgmPlaying = false;
   const bgmBtn = document.getElementById('bgmBtn');
-
   function onYouTubeIframeAPIReady() {
     player = new YT.Player('yt-player', {
       height: '0', width: '0',
-      videoId: 'sbCOMjGTPPw',   // 原来的视频ID
+      videoId: 'sbCOMjGTPPw',
       playerVars: { autoplay: 0, loop: 1, playlist: 'sbCOMjGTPPw' },
       events: { onReady: () => {} }
     });
   }
-
   function toggleBGM() {
     if (!player) return;
     if (!bgmPlaying) {
-      player.playVideo();
-      player.setVolume(40);
-      bgmPlaying = true;
+      player.playVideo(); player.setVolume(40);
+      bgmPlaying = true; bgmBtn.classList.add('playing');
       bgmBtn.innerHTML = '<span class="pulse">🎵</span> BGM';
-      bgmBtn.classList.add('playing');
     } else {
       player.pauseVideo();
-      bgmPlaying = false;
+      bgmPlaying = false; bgmBtn.classList.remove('playing');
       bgmBtn.innerHTML = '<span class="pulse">🎵</span> BGM';
-      bgmBtn.classList.remove('playing');
     }
   }
 
-  // ----- 3. 左边 背景音乐 (国内音频 placeholder) -----
-  let cnAudio = null;
-  let cnPlaying = false;
+  let cnAudio = null, cnPlaying = false;
   const cnBtn = document.getElementById('cnMusicBtn');
-
-  // TODO: 请将下面的 src 替换为你找到的国内音频直链（mp3/m4a 等）
-  const CN_MUSIC_URL = 'baikal.mp3';   // 👈 在这里填入你的真实音频链接
-
+  const CN_MUSIC_URL = 'baikal.mp3';
   function initCnAudio() {
-    if (!cnAudio && CN_MUSIC_URL !== 'https://example.com/your-audio-file.mp3') {
+    if (!cnAudio) {
       cnAudio = new Audio(CN_MUSIC_URL);
-      cnAudio.loop = true;
-      cnAudio.volume = 0.2;
-      cnAudio.onerror = () => {
-        console.warn('背景音乐加载失败，请检查链接');
-        cnPlaying = false;
-        cnBtn.classList.remove('playing');
-        cnBtn.innerHTML = '<span class="pulse">🎵</span> 背景音乐';
-      };
+      cnAudio.loop = true; cnAudio.volume = 0.2;
     }
   }
-
   function toggleCnMusic() {
-    if (!cnAudio && CN_MUSIC_URL !== 'https://example.com/your-audio-file.mp3') {
-      initCnAudio();
-    }
-    if (!cnAudio) {
-      alert('请先在代码中填入正确的音频文件链接（替换 CN_MUSIC_URL）');
-      return;
-    }
+    initCnAudio();
     if (!cnPlaying) {
-      cnAudio.play().catch(e => {
-        console.error('播放失败:', e);
-        alert('音频播放失败，请检查链接是否支持跨域或格式是否正确');
-      });
-      cnPlaying = true;
+      cnAudio.play();
+      cnPlaying = true; cnBtn.classList.add('playing');
       cnBtn.innerHTML = '<span class="pulse">🎵</span> 背景音乐';
-      cnBtn.classList.add('playing');
     } else {
       cnAudio.pause();
-      cnPlaying = false;
+      cnPlaying = false; cnBtn.classList.remove('playing');
       cnBtn.innerHTML = '<span class="pulse">🎵</span> 背景音乐';
-      cnBtn.classList.remove('playing');
     }
   }
 
-  // 初始化下拉菜单
   window.addEventListener('DOMContentLoaded', initDropdowns);
 </script>
 </body>
