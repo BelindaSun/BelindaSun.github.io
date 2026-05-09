@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I Made AI Build Me an Offline Sudoku — Belinda Sun</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --cream: #FDFCFA; --warm: #F5F0E8;
+    --text: #3D2A5C; --text-muted: #7A5FA0; --text-light: #B09CC8;
+    --accent: #854F0B; --accent-light: #FAEEDA;
+    --border: rgba(26,26,24,0.12);
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  body { background: var(--cream); color: var(--text); font-family: var(--sans); min-height: 100vh; }
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 3rem; border-bottom: 0.5px solid var(--border); background: var(--cream); position: sticky; top: 0; z-index: 100; }
+  .nav-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--text); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; }
+  .nav-links a:hover { color: var(--text); }
+  article { max-width: 640px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+  .article-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .article-col { font-size: 0.75rem; color: var(--accent); background: var(--accent-light); padding: 3px 10px; border-radius: 20px; letter-spacing: 0.04em; }
+  .article-date { font-size: 0.8rem; color: var(--text-light); }
+  .lang-switch { margin-left: auto; display: flex; gap: 0.5rem; }
+  .lang-btn { font-size: 0.78rem; padding: 3px 10px; border-radius: 20px; border: 0.5px solid var(--border); background: none; color: var(--text-muted); text-decoration: none; }
+  .lang-btn.active { background: var(--text); color: var(--cream); border-color: var(--text); }
+  .article-title { font-family: var(--serif); font-size: 2rem; font-weight: normal; line-height: 1.4; margin-bottom: 0.6rem; color: var(--text); }
+  .article-subtitle { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 2.5rem; font-style: italic; }
+  .article-divider { width: 40px; height: 0.5px; background: var(--text-light); margin-bottom: 1.5rem; }
+  .tts-bar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; }
+  .tts-btn { display: flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; color: var(--text-muted); background: var(--warm); border: 0.5px solid var(--border); border-radius: 20px; padding: 5px 14px; cursor: pointer; transition: all 0.2s; font-family: var(--sans); }
+  .tts-btn:hover { border-color: var(--text-muted); color: var(--text); }
+  .tts-btn.playing { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
+  .tts-status { font-size: 0.78rem; color: var(--text-light); }
+  .article-body { font-family: var(--serif); font-size: 1.05rem; line-height: 2.1; color: var(--text); }
+  .article-body p { margin-bottom: 1.4rem; }
+  .verse { margin-bottom: 0.4rem; }
+  .verse-group { margin-bottom: 1.8rem; padding-left: 1.5rem; border-left: 2px solid var(--accent-light); }
+  .dialogue { border-left: 2px solid var(--accent-light); padding-left: 1.25rem; margin: 2rem 0; color: var(--text-muted); font-style: italic; }
+  .chanting { background: var(--warm); border-radius: 10px; padding: 1.25rem 1.5rem; margin: 1.5rem 0; font-size: 0.95rem; line-height: 2.2; color: var(--text-muted); font-style: italic; }
+  .chanting p { margin-bottom: 0.3rem; }
+  .section-break { text-align: center; color: var(--text-light); margin: 2.5rem 0; letter-spacing: 0.3em; font-size: 0.85rem; }
+  .emphasis { color: var(--accent); }
+  .article-nav { max-width: 640px; margin: 0 auto; padding: 2rem 2rem 4rem; display: flex; justify-content: space-between; border-top: 0.5px solid var(--border); }
+  .article-nav a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; }
+  .article-nav a:hover { color: var(--text); }
+  footer { border-top: 0.5px solid var(--border); padding: 1.5rem 3rem; text-align: center; }
+  footer p { font-size: 0.8rem; color: var(--text-light); }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Belinda Sun</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="hello-world-index.html">Hello World</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+</nav>
+
+<article>
+  <div class="article-meta">
+    <span class="article-col">Hello World</span>
+    <span class="article-date">May 2026</span>
+    <div class="lang-switch">
+      <a href="hello-world-5.html" class="lang-btn">中文</a>
+      <span class="lang-btn active">EN</span>
+    </div>
+  </div>
+
+  <h1 class="article-title">I Made AI Build Me an Offline Sudoku</h1>
+  <p class="article-subtitle">DeepSeek was calm. GPT was wordy. Claude chanted like a monk. And first place stayed first place.</p>
+  <div class="article-divider"></div>
+
+  <div class="tts-bar">
+    <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">🔊 Read aloud</button>
+    <span class="tts-status" id="ttsStatus"></span>
+  </div>
+
+  <div class="article-body" id="articleBody">
+
+    <p>Today I decided to make AI build me a Sudoku game. Purely for recreational purposes, of course. And, if we're being honest, as a preventative measure against future cognitive decline.</p>
+
+    <p>I'd downloaded a few Sudoku apps from the App Store before, but they all came with the usual annoyances: logins, ads, subscriptions, or some combination of all three.</p>
+
+    <p>At this point, AI had already helped me build products and even my personal website. A small game? That should be easy.</p>
+
+    <div class="section-break">·  ·  ·</div>
+
+    <p>So I started with DeepSeek. DeepSeek has a style I like — quiet, competent, unhurried. Professional in that dangerously reassuring way.</p>
+
+    <div class="dialogue"><p>"Build me an offline Sudoku game."</p></div>
+
+    <p>No Deep Think. No Smart Search. Just the basic model.</p>
+
+    <p>DeepSeek replied: "Here is the complete offline Sudoku game code." And then the code began to arrive. Steadily. Calmly. Like someone laying bricks without breaking eye contact.</p>
+
+    <p>A few minutes later, it was done. Playable. But it needed note-taking mode. I asked. It added it. Still calm. Still steady.</p>
+
+    <p>Then I wanted highlighting. First attempt failed. Second attempt worked. Then I discovered it only ran in Safari — not Chrome, not Firefox. Two or three rounds of compatibility fixes later: solved.</p>
+
+    <p>There was still one tiny flaw: in note mode, numbers wouldn't display live while typing. You had to move the cursor away first. But honestly? Close enough. No need to push my luck.</p>
+
+    <div class="section-break">·  ·  ·</div>
+
+    <p>Then I went to GPT. My old teacher. Still wordy. Even after OpenAI had apparently trimmed 30% of his natural verbosity, the condition remained chronic. But he taught me programming. You don't just leave a teacher like that.</p>
+
+    <div class="dialogue"><p>"Build me an offline Sudoku game. Needs note-taking and highlighting. Handle the rest however you think best."</p></div>
+
+    <p>He didn't waste time. Code poured out in seconds. Fast enough that I briefly thought: <em>Has he changed?</em> He had not. He had simply postponed the speech.</p>
+
+    <p>After the code came a fourteen-point feature framework. Then eighteen lines of "next-step suggestions." Classic.</p>
+
+    <p>I asked if I could play it on my phone. He said yes — but clarified it was "the skeleton version. The house is built, but the furniture hasn't moved in yet." Then another twenty lines of explanation, ending with: "In one sentence: it's a model home. If you want, I can turn it into the real thing next."</p>
+
+    <p>At this point, I had to intervene. Firmly.</p>
+
+    <div class="dialogue"><p>"What I want is a complete playable game. Not another step-by-step construction project. Claude and DeepSeek always deliver the full thing in one shot."</p></div>
+
+    <p>This time, he moved fast. New code. Complete. Then he admitted: "You're right. That last version was more like an interior design preview than the actual game. That one's on me."</p>
+
+    <p>Then, naturally, he added: "Claude and DeepSeek are strong at direct deployment. I'm stronger at making Version Two more aggressive. So this time, I made Version One deployment-ready. Consider it back pay." 😄</p>
+
+    <p>Fair enough. I asked him to make the 3×3 grid boundaries clearer. Done. Then he volunteered: "You should add row and column highlighting too." I said: "Then why didn't you add that the first time?" He replied: "Fair point. That's standard equipment in Sudoku. Not an upgrade."</p>
+
+    <p>Honestly? Solid answer. And yes — it worked. Pretty well, actually.</p>
+
+    <div class="section-break">·  ·  ·</div>
+
+    <p>Then I went to Claude. Same prompt:</p>
+
+    <div class="dialogue"><p>"Build me an offline Sudoku game. Needs note-taking and highlighting. Handle the rest."</p></div>
+
+    <p>And then — silence. No words. But I could tell he was working. His icon kept spinning. And beside it, little status messages kept appearing. Like chants.</p>
+
+    <div class="chanting">
+      <p>Sharpening pencils.</p>
+      <p>Preparing Sudoku board.</p>
+      <p>Laying out the grid.</p>
+      <p>Filling puzzle numbers.</p>
+      <p>…</p>
+    </div>
+
+    <p>Over and over. Like some kind of coding monk reciting scripture. Twice through the cycle. Then the screen began to change — first the title, then the outer grid, then in the middle of the screen, a slow pulse from left to right. Once. Twice. Three times.</p>
+
+    <p>Meanwhile, the chanting continued. For a full ninety seconds.</p>
+
+    <p>Then suddenly — the board appeared. Numbers in place. Puzzle loaded. Playable. Done.</p>
+
+    <p>The feature explanation afterward was, admittedly, very long. But this time I didn't care. Because the game itself was flawless. <span class="emphasis">Passed on the first try. First place stayed first place.</span></p>
+
+    <div class="section-break">·  ·  ·</div>
+
+    <p>Then I realized — to be fair, my test with DeepSeek wasn't entirely equal. I'd only given it one line. So I opened a new chat. Same full prompt. This time with Deep Think and Smart Search enabled. It thought for seventy seconds. Then calmly rolled out an absurd amount of code. First pass. Worked. Clean.</p>
+
+    <p>So the final conclusion? All three can build it. They just build differently.</p>
+
+    <div class="verse-group">
+      <p class="verse">DeepSeek is calm.</p>
+      <p class="verse">GPT is wordy — but coachable.</p>
+      <p class="verse">Claude chants like a monk.</p>
+      <p class="verse">But when the chanting stops, the thing usually works.</p>
+    </div>
+
+    <p>And honestly? <span class="emphasis">That's a kind of magic.</span> 😄</p>
+
+  </div>
+</article>
+
+<div class="article-nav">
+  <a href="hello-world-4-en.html">← Previous</a>
+  <span style="color:var(--text-light); font-size:0.88rem;">To be continued</span>
+</div>
+<footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
+
+<script>
+  let speaking = false, paused = false;
+  const btn = document.getElementById('ttsBtn');
+  const status = document.getElementById('ttsStatus');
+  function toggleTTS() {
+    if (!speaking) { startTTS(); }
+    else if (paused) { window.speechSynthesis.resume(); paused = false; btn.textContent = '⏸ Pause'; btn.classList.add('playing'); status.textContent = 'Reading…'; }
+    else { window.speechSynthesis.pause(); paused = true; btn.textContent = '▶ Resume'; btn.classList.remove('playing'); status.textContent = 'Paused'; }
+  }
+  function startTTS() {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(document.getElementById('articleBody').innerText);
+    u.lang = 'en-US'; u.rate = 0.95;
+    u.onstart = () => { speaking = true; paused = false; btn.textContent = '⏸ Pause'; btn.classList.add('playing'); status.textContent = 'Reading…'; };
+    u.onend = () => { speaking = false; paused = false; btn.textContent = '🔊 Read aloud'; btn.classList.remove('playing'); status.textContent = ''; };
+    u.onerror = () => { speaking = false; btn.textContent = '🔊 Read aloud'; btn.classList.remove('playing'); status.textContent = 'Error, please try again'; };
+    window.speechSynthesis.speak(u);
+  }
+</script>
+</body>
+</html>

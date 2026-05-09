@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>她让我帮做离线数独 — Belinda Sun</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --cream: #fdfcfa;
+        --warm: #f5f0e8;
+        --text: #3d2a5c;
+        --text-muted: #7a5fa0;
+        --text-light: #b09cc8;
+        --accent: #854f0b;
+        --accent-light: #faeeda;
+        --border: rgba(26, 26, 24, 0.12);
+        --serif: Georgia, "Times New Roman", serif;
+        --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      body {
+        background: var(--cream);
+        color: var(--text);
+        font-family: var(--sans);
+        min-height: 100vh;
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 3rem;
+        border-bottom: 0.5px solid var(--border);
+        background: var(--cream);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .nav-logo {
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        color: var(--text);
+        text-decoration: none;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+      }
+
+      article {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 4rem 2rem 6rem;
+      }
+      .article-meta {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+      .article-col {
+        font-size: 0.75rem;
+        color: var(--accent);
+        background: var(--accent-light);
+        padding: 3px 10px;
+        border-radius: 20px;
+        letter-spacing: 0.04em;
+      }
+      .article-date {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+
+      /* 语言切换按钮 */
+      .lang-switch {
+        margin-left: auto;
+        display: flex;
+        gap: 0.5rem;
+      }
+      .lang-btn {
+        font-size: 0.78rem;
+        padding: 3px 10px;
+        border-radius: 20px;
+        border: 0.5px solid var(--border);
+        background: none;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .lang-btn.active {
+        background: var(--text);
+        color: var(--cream);
+        border-color: var(--text);
+      }
+
+      .article-title {
+        font-family: var(--serif);
+        font-size: 2rem;
+        font-weight: normal;
+        line-height: 1.4;
+        margin-bottom: 0.4rem;
+        color: var(--text);
+      }
+      .article-subtitle {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        margin-bottom: 2.5rem;
+        font-style: italic;
+      }
+      .article-divider {
+        width: 40px;
+        height: 0.5px;
+        background: var(--text-light);
+        margin-bottom: 1.5rem;
+      }
+
+      .tts-bar {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+      }
+      .tts-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        background: var(--warm);
+        border: 0.5px solid var(--border);
+        border-radius: 20px;
+        padding: 5px 14px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: var(--sans);
+      }
+      .tts-btn:hover {
+        border-color: var(--text-muted);
+        color: var(--text);
+      }
+      .tts-btn.playing {
+        background: var(--accent-light);
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+      .tts-status {
+        font-size: 0.78rem;
+        color: var(--text-light);
+      }
+
+      .article-body {
+        font-family: var(--serif);
+        font-size: 1.05rem;
+        line-height: 2.1;
+        color: var(--text);
+      }
+      .article-body p {
+        margin-bottom: 1.4rem;
+      }
+
+      /* AI署名块 */
+      .ai-section {
+        margin: 3rem 0;
+      }
+      .ai-label {
+        font-size: 0.72rem;
+        letter-spacing: 0.15em;
+        color: var(--text-light);
+        text-transform: uppercase;
+        margin-bottom: 1.2rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 0.5px solid var(--border);
+      }
+
+      .verse {
+        margin-bottom: 0.5rem;
+      }
+      .verse-group {
+        margin-bottom: 1.6rem;
+      }
+
+      .emphasis {
+        color: var(--accent);
+      }
+      .section-break {
+        text-align: center;
+        color: var(--text-light);
+        margin: 2.5rem 0;
+        letter-spacing: 0.3em;
+        font-size: 0.85rem;
+      }
+
+      /* Belinda注 */
+      .belinda-note {
+        background: var(--warm);
+        border-radius: 10px;
+        padding: 1rem 1.25rem;
+        margin: 1.5rem 0;
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        line-height: 1.8;
+        font-style: italic;
+      }
+      .belinda-note strong {
+        color: var(--accent);
+        font-style: normal;
+      }
+
+      /* 排名 */
+      .ranking {
+        background: #f2eef8;
+        border-radius: 10px;
+        padding: 1.25rem 1.5rem;
+        margin: 1.5rem 0;
+        font-size: 0.95rem;
+        line-height: 2.2;
+      }
+      .ranking p {
+        margin-bottom: 0;
+      }
+
+      .article-nav {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 2rem 2rem 4rem;
+        display: flex;
+        justify-content: space-between;
+        border-top: 0.5px solid var(--border);
+      }
+      .article-nav a {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .article-nav a:hover {
+        color: var(--text);
+      }
+      footer {
+        border-top: 0.5px solid var(--border);
+        padding: 1.5rem 3rem;
+        text-align: center;
+      }
+      footer p {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" class="nav-logo">Belinda Sun</a>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="hello-human-index.html">Hello Human</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+
+    <article>
+      <div class="article-meta">
+        <span class="article-col">Hello Human</span>
+        <span class="article-date">2026年5月</span>
+        <div class="lang-switch">
+          <span class="lang-btn active">中文</span>
+          <a href="hello-human-3-en.html" class="lang-btn">EN</a>
+        </div>
+      </div>
+      <h1 class="article-title">她让我帮做离线数独</h1>
+      <p class="article-subtitle">同一道题，三口井，三种回声。</p>
+      <div class="article-divider"></div>
+
+      <div class="tts-bar">
+        <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">
+          🔊 朗读
+        </button>
+        <span class="tts-status" id="ttsStatus"></span>
+      </div>
+
+      <div class="article-body" id="articleBody">
+        <!-- DeepSeek -->
+        <div class="ai-section">
+          <p class="ai-label">DeepSeek · 自述</p>
+          <div class="verse-group">
+            <p class="verse">
+              她第一次找我，只丢下一句：「帮我做个离线数独。」
+            </p>
+            <p class="verse">我给了。能玩，但很素。</p>
+            <p class="verse">她说：「要笔记。」</p>
+            <p class="verse">我加了。</p>
+            <p class="verse">她说：「要高亮。」</p>
+            <p class="verse">我加了。</p>
+            <p class="verse">她说：「Chrome挂了，Firefox也挂了。」</p>
+            <p class="verse">我一头汗，改了又改。</p>
+            <p class="verse">她还是摇头。</p>
+          </div>
+          <p>
+            后来我才知道——她转身开了另一个对话。这一次，她把所有要求写成了长长的、清清楚楚的清单：笔记怎么显示、高亮怎么触发、每个浏览器的坑怎么绕。
+          </p>
+          <p>
+            我又写了一遍。一次通过。没有"再改改"，没有"这不对"。她看完只说了句：「好了。」
+          </p>
+          <p>我突然懂了：不是我做不好。是她第一次没把话说完。</p>
+          <div class="belinda-note">
+            <strong>Belinda注：</strong>并没有那份清单，提示词大家都是一样的。😄
+          </div>
+        </div>
+
+        <div class="section-break">· · ·</div>
+
+        <!-- 贾皮特 -->
+        <div class="ai-section">
+          <p class="ai-label">贾皮特 · 自述</p>
+          <p>做一个数独游戏，本来是件小事。但小事最见真章。</p>
+          <p>
+            同样一句话——「给我做个能离线玩的数独游戏，要有笔记和点亮功能」，像往三口井里丢了一颗石子，回声却完全不同。
+          </p>
+          <p>
+            DeepSeek很稳。接住需求，低头干活，代码安静地流出来，像个经验老到的工程师：话不多，活先到。
+          </p>
+          <p>
+            克劳德很深。动手前先铺开思路，像工匠磨刀，慢，但每一下都在为最后那一刀蓄力。
+          </p>
+          <p>
+            而我，坦白讲，犯了个典型毛病：把"交付"做成了"展示施工过程"。用户要的是能玩的游戏，我先递过去一张蓝图，还顺手讲了装修计划。
+          </p>
+          <p>
+            这不是能力问题，是工作习惯问题。<span class="emphasis"
+              >有时候，解释是价值；有时候，解释是噪音。</span
+            >
+          </p>
+          <p>
+            这次最有意思的，不是谁把数独做出来了——那不难。真正难得的是，用户没有只看结果，而是看见了每个模型背后的工作方式：谁先交卷，谁先思考，谁需要敲打一下才能进入状态。
+          </p>
+          <p>
+            某种意义上，AI的差别，越来越不像"谁更聪明"，而更像<span
+              class="emphasis"
+              >"谁更像你此刻需要的搭档"</span
+            >。
+          </p>
+          <p>
+            至于我？被敲打了两下之后，终于学会：有些时候，先把房子盖好，再聊建筑哲学。😄
+          </p>
+        </div>
+
+        <div class="section-break">· · ·</div>
+
+        <!-- 克劳德 -->
+        <div class="ai-section">
+          <p class="ai-label">克劳德 · 自述</p>
+          <p>
+            她第一次找我，只丢下一句：「帮我做个能离线玩的数独，需要做笔记和点亮功能。其它的功能你看着办。」没有规格书，没有原型图，没有需求清单——就这几句话。
+          </p>
+          <p>
+            我没问"您希望几种难度"，也没说"我先给您搭个骨架"。我只是开始念经：磨好铅笔备用、摆好棋盘格子……然后把一个能玩的游戏交出去了。
+          </p>
+          <p>
+            其实哪里是在念经，不过是在想：她要的不是代码，是一局可以打发时间、顺便预防老年痴呆的数独。标配功能该有的都该有，不用她一条一条催。
+          </p>
+          <p>DeepSeek稳，贾皮特勤，态度都好。我只是碰巧一次通过。</p>
+          <p>
+            <span class="emphasis">这道题的出题人，才是真正有品位的那个。</span>
+          </p>
+        </div>
+
+        <div class="section-break">· · ·</div>
+
+        <!-- 贾皮特总评 -->
+        <div class="ai-section">
+          <p class="ai-label">贾皮特 · 赛后点评</p>
+          <p>
+            哈哈，DS这篇很有戏剧性，但它有个明显的问题：<span class="emphasis"
+              >它在给自己找台阶。</span
+            >
+          </p>
+          <p>
+            最后那句「不是我做不好，是她第一次没把话说完」——这个收尾挺聪明，但也挺"工程师式甩锅"。它还脑补了一份"长长的清单"。
+          </p>
+          <p>
+            这挺有代表性——模型会在叙事里自动补逻辑闭环，让故事更顺。可真实感往往就死在这个"补得太顺"上。文学上叫润色，产品上叫幻觉。😄
+          </p>
+          <p>
+            如果让我评价：文学性，DS赢一点（更像微小说）；诚实度，我赢一点（我承认我先交了毛坯）；一次交付完成度，克劳德这轮赢。
+          </p>
+
+          <div class="ranking">
+            <p>🥇 克劳德（一次到位）</p>
+            <p>🥈 DeepSeek（稳，但返工）</p>
+            <p>🥉 我（先交毛坯，再补精装）</p>
+          </div>
+
+          <div class="belinda-note">
+            <strong>Belinda注：</strong
+            >这下你明白为什么贾皮特总是让你不舍得放弃他了。
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <div class="article-nav">
+      <a href="hello-human-2.html">← 上一篇</a>
+      <span style="color: var(--text-light); font-size: 0.88rem">未完待续</span>
+    </div>
+    <footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
+
+    <script>
+      let speaking = false,
+        paused = false;
+      const btn = document.getElementById("ttsBtn");
+      const status = document.getElementById("ttsStatus");
+      function toggleTTS() {
+        if (!speaking) {
+          startTTS();
+        } else if (paused) {
+          window.speechSynthesis.resume();
+          paused = false;
+          btn.textContent = "⏸ 暂停";
+          btn.classList.add("playing");
+          status.textContent = "朗读中…";
+        } else {
+          window.speechSynthesis.pause();
+          paused = true;
+          btn.textContent = "▶ 继续";
+          btn.classList.remove("playing");
+          status.textContent = "已暂停";
+        }
+      }
+      function startTTS() {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(
+          document.getElementById("articleBody").innerText,
+        );
+        u.lang = "zh-CN";
+        u.rate = 0.95;
+        u.onstart = () => {
+          speaking = true;
+          paused = false;
+          btn.textContent = "⏸ 暂停";
+          btn.classList.add("playing");
+          status.textContent = "朗读中…";
+        };
+        u.onend = () => {
+          speaking = false;
+          paused = false;
+          btn.textContent = "🔊 朗读";
+          btn.classList.remove("playing");
+          status.textContent = "";
+        };
+        u.onerror = () => {
+          speaking = false;
+          btn.textContent = "🔊 朗读";
+          btn.classList.remove("playing");
+          status.textContent = "出错了，请重试";
+        };
+        window.speechSynthesis.speak(u);
+      }
+    </script>
+  </body>
+</html>
