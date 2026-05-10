@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Linux Command 每日训练营</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        background: #f5f7fb;
+        margin: 0;
+        padding: 20px;
+        color: #222;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: auto;
+        display: grid;
+        gap: 20px;
+      }
+
+      .card {
+        background: white;
+        border-radius: 20px;
+        padding: 24px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      }
+
+      h1 {
+        font-size: 32px;
+        margin-bottom: 10px;
+      }
+
+      h2 {
+        margin-top: 0;
+      }
+
+      .command-item {
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        padding: 14px;
+        margin-bottom: 12px;
+      }
+
+      .cmd {
+        font-family: monospace;
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      input {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        margin-top: 10px;
+        box-sizing: border-box;
+      }
+
+      button {
+        padding: 12px 18px;
+        border: none;
+        border-radius: 10px;
+        font-size: 15px;
+        cursor: pointer;
+        margin-right: 10px;
+        margin-top: 15px;
+      }
+
+      .primary {
+        background: black;
+        color: white;
+      }
+
+      .secondary {
+        background: #eee;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 16px;
+        background: #eee;
+        border-radius: 999px;
+        overflow: hidden;
+        margin-top: 16px;
+      }
+
+      .progress-fill {
+        height: 100%;
+        width: 0%;
+        background: #222;
+        transition: width 0.3s ease;
+      }
+
+      .result {
+        margin-top: 15px;
+        font-weight: bold;
+      }
+
+      ul {
+        line-height: 1.8;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>💻 Linux Command 每日训练营</h1>
+
+      <div class="card">
+        <h2>今日学习（3个命令）</h2>
+        <div id="commandList"></div>
+      </div>
+
+      <div class="card">
+        <h2>今日测验</h2>
+        <p id="quizQuestion"></p>
+
+        <input id="answerInput" placeholder="输入命令，例如 ls" />
+
+        <div>
+          <button class="primary" onclick="checkAnswer()">检查答案</button>
+          <button class="secondary" onclick="nextQuestion()">下一题</button>
+        </div>
+
+        <div class="result" id="result"></div>
+
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <p id="scoreText"></p>
+      </div>
+
+      <div class="card">
+        <h2>复习建议</h2>
+        <ul>
+          <li>每天只学 3 个，别贪多。</li>
+          <li>每个命令自己敲 10 次，比看 100 次更有用。</li>
+          <li>重点记住：ls / cd / pwd / grep。</li>
+          <li>一周后尝试不用搜索完成简单文件操作。</li>
+        </ul>
+
+        <button class="secondary" onclick="location.reload()">
+          🔄 刷新今日训练
+        </button>
+      </div>
+    </div>
+
+    <script>
+      const commandBank = [
+        {
+          cmd: "pwd",
+          meaning: "显示当前所在目录",
+          example: "pwd",
+          tip: "print working directory",
+        },
+        {
+          cmd: "ls",
+          meaning: "列出目录内容",
+          example: "ls -la",
+          tip: "最常用的看文件命令",
+        },
+        {
+          cmd: "cd",
+          meaning: "切换目录",
+          example: "cd Documents",
+          tip: "change directory",
+        },
+        {
+          cmd: "mkdir",
+          meaning: "创建目录",
+          example: "mkdir test",
+          tip: "make directory",
+        },
+        {
+          cmd: "rm",
+          meaning: "删除文件",
+          example: "rm file.txt",
+          tip: "危险命令，小心用",
+        },
+        {
+          cmd: "cp",
+          meaning: "复制文件",
+          example: "cp a.txt b.txt",
+          tip: "copy",
+        },
+        {
+          cmd: "mv",
+          meaning: "移动/重命名文件",
+          example: "mv old.txt new.txt",
+          tip: "move",
+        },
+        {
+          cmd: "cat",
+          meaning: "查看文件内容",
+          example: "cat notes.txt",
+          tip: "快速看文本",
+        },
+        {
+          cmd: "grep",
+          meaning: "搜索文本内容",
+          example: "grep hello file.txt",
+          tip: "文本搜索神器",
+        },
+        {
+          cmd: "find",
+          meaning: "查找文件",
+          example: "find . -name test.txt",
+          tip: "找文件必备",
+        },
+      ];
+
+      function getTodaySet() {
+        const day = new Date().getDate();
+        const start = (day * 3) % commandBank.length;
+        return commandBank
+          .slice(start, start + 3)
+          .concat(
+            commandBank.slice(0, Math.max(0, start + 3 - commandBank.length)),
+          );
+      }
+
+      const todayCommands = getTodaySet();
+      let quizIndex = 0;
+      let score = 0;
+
+      const commandList = document.getElementById("commandList");
+      const quizQuestion = document.getElementById("quizQuestion");
+      const answerInput = document.getElementById("answerInput");
+      const result = document.getElementById("result");
+      const progressFill = document.getElementById("progressFill");
+      const scoreText = document.getElementById("scoreText");
+
+      function renderCommands() {
+        commandList.innerHTML = "";
+
+        todayCommands.forEach((item) => {
+          const div = document.createElement("div");
+          div.className = "command-item";
+          div.innerHTML = `
+          <div class="cmd">${item.cmd}</div>
+          <div>${item.meaning}</div>
+          <div>例子：${item.example}</div>
+          <div>💡 ${item.tip}</div>
+        `;
+          commandList.appendChild(div);
+        });
+      }
+
+      function renderQuiz() {
+        quizQuestion.innerHTML = `哪个命令可以：<b>${todayCommands[quizIndex].meaning}</b>？`;
+        answerInput.value = "";
+        result.innerHTML = "";
+      }
+
+      function checkAnswer() {
+        const answer = answerInput.value.trim();
+        const current = todayCommands[quizIndex];
+
+        if (answer === current.cmd) {
+          result.innerHTML = "✅ 答对了，漂亮。";
+          score++;
+        } else {
+          result.innerHTML = `❌ 不对，正确答案是：${current.cmd}`;
+        }
+
+        progressFill.style.width = `${(score / todayCommands.length) * 100}%`;
+        scoreText.innerHTML = `掌握进度：${score}/${todayCommands.length}`;
+      }
+
+      function nextQuestion() {
+        quizIndex = (quizIndex + 1) % todayCommands.length;
+        renderQuiz();
+      }
+
+      renderCommands();
+      renderQuiz();
+    </script>
+  </body>
+</html>
