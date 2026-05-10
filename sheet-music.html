@@ -1,0 +1,352 @@
+
+<style>
+*{box-sizing:border-box}
+.wrap{padding:1rem 0;font-family:var(--font-sans)}
+.tabs{display:flex;gap:8px;margin-bottom:1.5rem;flex-wrap:wrap}
+.tab{padding:6px 16px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-secondary);cursor:pointer;font-size:13px;font-family:var(--font-sans);transition:all .15s}
+.tab.active{background:var(--color-background-secondary);color:var(--color-text-primary);border-color:var(--color-border-primary);font-weight:500}
+.tab:hover:not(.active){background:var(--color-background-secondary)}
+.panel{display:none}.panel.active{display:block}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:1rem}
+.note-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(72px,1fr));gap:8px;margin-top:1rem}
+.note-btn{padding:10px 4px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-primary);cursor:pointer;font-family:var(--font-sans);transition:all .15s;text-align:center}
+.note-btn:hover{background:var(--color-background-secondary)}
+.note-btn.playing{background:var(--color-background-success);border-color:var(--color-border-success)}
+.note-btn .nn{font-size:18px;font-weight:500}
+.note-btn .ns{font-size:11px;color:var(--color-text-secondary);margin-top:2px}
+.quiz-opts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:1rem}
+.opt{padding:10px 4px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-primary);cursor:pointer;font-size:15px;font-weight:500;font-family:var(--font-sans);transition:all .15s}
+.opt:hover{background:var(--color-background-secondary)}
+.opt.correct{background:var(--color-background-success);border-color:var(--color-border-success);color:var(--color-text-success)}
+.opt.wrong{background:var(--color-background-danger);border-color:var(--color-border-danger);color:var(--color-text-danger)}
+.score-bar{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--color-text-secondary);margin-bottom:1rem}
+.pill{width:10px;height:10px;border-radius:50%;background:var(--color-border-tertiary)}
+.pill.ok{background:#1D9E75}.pill.err{background:#E24B4A}
+.feedback{font-size:13px;margin-top:8px;min-height:20px;color:var(--color-text-secondary)}
+.next-btn{margin-top:.75rem;padding:7px 18px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-primary);cursor:pointer;font-size:13px;font-family:var(--font-sans);display:none}
+.next-btn:hover{background:var(--color-background-secondary)}
+.scale-row{display:flex;gap:0;margin:1rem 0}
+.scale-key{flex:1;padding:10px 0;border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);cursor:pointer;font-family:var(--font-sans);font-size:13px;text-align:center;transition:background .1s}
+.scale-key:first-child{border-radius:var(--border-radius-md) 0 0 var(--border-radius-md)}
+.scale-key:last-child{border-radius:0 var(--border-radius-md) var(--border-radius-md) 0}
+.scale-key:hover{background:var(--color-background-secondary)}
+.scale-key.lit{background:var(--color-background-info);color:var(--color-text-info)}
+.interval-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:1rem}
+.int-btn{padding:7px 14px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-secondary);cursor:pointer;font-size:12px;font-family:var(--font-sans)}
+.int-btn:hover{background:var(--color-background-secondary)}
+.int-btn.active{background:var(--color-background-secondary);color:var(--color-text-primary);border-color:var(--color-border-primary)}
+</style>
+
+<div class="wrap">
+<h2 class="sr-only">五线谱有声学习工具</h2>
+
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('notes')">🎵 认识音符</button>
+  <button class="tab" onclick="switchTab('scale')">🎹 音阶练耳</button>
+  <button class="tab" onclick="switchTab('quiz')">🎯 听音测验</button>
+</div>
+
+<!-- TAB 1: 认识音符 -->
+<div class="panel active" id="panel-notes">
+  <div class="card">
+    <svg id="note-staff" width="100%" viewBox="0 0 580 195">
+      <line x1="60" y1="60" x2="540" y2="60" stroke="var(--color-text-primary)" stroke-width="1.2" opacity=".7"/>
+      <line x1="60" y1="80" x2="540" y2="80" stroke="var(--color-text-primary)" stroke-width="1.2" opacity=".7"/>
+      <line x1="60" y1="100" x2="540" y2="100" stroke="var(--color-text-primary)" stroke-width="1.2" opacity=".7"/>
+      <line x1="60" y1="120" x2="540" y2="120" stroke="var(--color-text-primary)" stroke-width="1.2" opacity=".7"/>
+      <line x1="60" y1="140" x2="540" y2="140" stroke="var(--color-text-primary)" stroke-width="1.2" opacity=".7"/>
+      <text x="64" y="138" font-size="88" fill="var(--color-text-primary)" opacity=".8" style="font-family:serif">𝄞</text>
+      <g id="staff-notes"></g>
+      <ellipse id="hl-dot" cx="-99" cy="0" rx="13" ry="9" fill="#1D9E75" opacity="0" style="transition:all .25s"/>
+      <line id="hl-led" x1="0" y1="0" x2="0" y2="0" stroke="#1D9E75" stroke-width="1.5" opacity="0"/>
+      <text id="hl-label" x="290" y="22" text-anchor="middle" font-size="13" fill="#1D9E75" font-family="var(--font-sans)" opacity="0"></text>
+    </svg>
+  </div>
+  <div class="note-grid" id="note-btns"></div>
+  <p style="font-size:12px;color:var(--color-text-tertiary);margin:12px 0 0">点击音名 → 五线谱高亮 + 播放声音</p>
+</div>
+
+<!-- TAB 2: 音阶练耳 -->
+<div class="panel" id="panel-scale">
+  <div class="card">
+    <p style="font-size:13px;color:var(--color-text-secondary);margin:0 0 8px">点击琴键听单音，或播放整段音阶</p>
+    <div class="scale-row" id="scale-keys"></div>
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <button onclick="playScale()" style="padding:7px 18px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;cursor:pointer;font-size:13px;font-family:var(--font-sans)"><i class="ti ti-player-play" aria-hidden="true"></i> 顺序播放</button>
+      <button onclick="playScale(true)" style="padding:7px 18px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;cursor:pointer;font-size:13px;font-family:var(--font-sans)"><i class="ti ti-arrows-shuffle" aria-hidden="true"></i> 随机播放</button>
+    </div>
+  </div>
+  <div class="card">
+    <p style="font-size:13px;font-weight:500;margin:0 0 8px">听音程差异</p>
+    <p style="font-size:12px;color:var(--color-text-secondary);margin:0 0 8px">选一对音，感受它们之间的距离感</p>
+    <div class="interval-row" id="interval-btns"></div>
+    <p style="font-size:12px;color:var(--color-text-tertiary);margin:10px 0 0" id="interval-desc"></p>
+  </div>
+</div>
+
+<!-- TAB 3: 听音测验 -->
+<div class="panel" id="panel-quiz">
+  <div class="score-bar">
+    <span id="score-txt">得分：0 / 0</span>
+    <div style="display:flex;gap:4px" id="pills"></div>
+    <button onclick="resetQuiz()" style="margin-left:auto;padding:4px 12px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-secondary);cursor:pointer;font-size:12px;font-family:var(--font-sans)">重置</button>
+  </div>
+  <div class="card">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+      <p style="font-size:13px;color:var(--color-text-secondary);margin:0" id="quiz-mode-label">听音辨位：点击播放，选出对应音名</p>
+      <button onclick="toggleQuizMode()" style="margin-left:auto;padding:5px 12px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;cursor:pointer;font-size:12px;font-family:var(--font-sans)" id="mode-toggle-btn">切换：看谱选音</button>
+    </div>
+    <div id="quiz-visual"></div>
+    <div class="quiz-opts" id="quiz-opts"></div>
+    <div class="feedback" id="quiz-fb"></div>
+    <button class="next-btn" id="next-btn" onclick="nextQuestion()">下一题 →</button>
+  </div>
+</div>
+</div>
+
+<script>
+const AudioCtx = window.AudioContext || window.webkitAudioContext;
+let ctx = null;
+function getCtx(){ if(!ctx) ctx = new AudioCtx(); return ctx; }
+
+const NOTES = [
+  {name:'C', solfege:'Do / 1', freq:261.63, cy:160, ledger:true,  pos:'第一加线下'},
+  {name:'D', solfege:'Re / 2', freq:293.66, cy:150, ledger:false, pos:'第一间下方'},
+  {name:'E', solfege:'Mi / 3', freq:329.63, cy:140, ledger:false, pos:'第一线'},
+  {name:'F', solfege:'Fa / 4', freq:349.23, cy:130, ledger:false, pos:'第一间'},
+  {name:'G', solfege:'Sol / 5',freq:392.00, cy:120, ledger:false, pos:'第二线'},
+  {name:'A', solfege:'La / 6', freq:440.00, cy:110, ledger:false, pos:'第二间'},
+  {name:'B', solfege:'Si / 7', freq:493.88, cy:100, ledger:false, pos:'第三线'},
+  {name:'C5',solfege:'Do / 1↑',freq:523.25, cy:90,  ledger:false, pos:'第三间'},
+  {name:'D5',solfege:'Re / 2↑',freq:587.33, cy:80,  ledger:false, pos:'第四线'},
+  {name:'E5',solfege:'Mi / 3↑',freq:659.25, cy:70,  ledger:false, pos:'第四间'},
+];
+
+const INTERVALS = [
+  {label:'小二度',notes:['C','D'],desc:'半音，非常紧张，如"眼泪"'},
+  {label:'大二度',notes:['C','D'],desc:'全音，相邻级，Do→Re'},
+  {label:'纯四度',notes:['C','F'],desc:'稳定上升，如"婚礼进行曲"开头'},
+  {label:'纯五度',notes:['C','G'],desc:'最和谐之一，空旷辽远'},
+  {label:'纯八度',notes:['C','C5'],desc:'同音高低，完全谐和'},
+];
+
+function playTone(freq, dur=0.6, delay=0){
+  const ac = getCtx();
+  const osc = ac.createOscillator();
+  const gain = ac.createGain();
+  osc.type = 'sine';
+  osc.frequency.value = freq;
+  gain.gain.setValueAtTime(0, ac.currentTime + delay);
+  gain.gain.linearRampToValueAtTime(0.35, ac.currentTime + delay + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + delay + dur);
+  osc.connect(gain); gain.connect(ac.destination);
+  osc.start(ac.currentTime + delay);
+  osc.stop(ac.currentTime + delay + dur + 0.05);
+}
+
+function playNote(n, delay=0){ playTone(n.freq, 0.7, delay); }
+
+let lastBtn = null;
+function highlightNote(n, btn){
+  if(lastBtn){ lastBtn.classList.remove('playing'); }
+  if(btn){ btn.classList.add('playing'); lastBtn = btn; setTimeout(()=>btn.classList.remove('playing'),750); }
+  const hl = document.getElementById('hl-dot');
+  hl.setAttribute('cx', noteX(n));
+  hl.setAttribute('cy', n.cy);
+  hl.setAttribute('opacity','1');
+  const led = document.getElementById('hl-led');
+  if(n.ledger){
+    led.setAttribute('x1', noteX(n)-18); led.setAttribute('y1',n.cy);
+    led.setAttribute('x2', noteX(n)+18); led.setAttribute('y2',n.cy);
+    led.setAttribute('opacity','0.8');
+  } else { led.setAttribute('opacity','0'); }
+  const lbl = document.getElementById('hl-label');
+  lbl.textContent = n.name + '（' + n.solfege + '）— ' + n.pos;
+  lbl.setAttribute('opacity','1');
+  playNote(n);
+  setTimeout(()=>{
+    hl.setAttribute('opacity','0');
+    led.setAttribute('opacity','0');
+    lbl.setAttribute('opacity','0');
+  }, 900);
+}
+
+function noteX(n){ return 130 + NOTES.indexOf(n)*46; }
+
+function buildNoteStaff(){
+  const g = document.getElementById('staff-notes');
+  NOTES.forEach((n,i)=>{
+    const x = noteX(n);
+    const el = document.createElementNS('http://www.w3.org/2000/svg','ellipse');
+    el.setAttribute('cx',x); el.setAttribute('cy',n.cy);
+    el.setAttribute('rx','11'); el.setAttribute('ry','8');
+    el.setAttribute('fill','var(--color-text-secondary)'); el.setAttribute('opacity','0.2');
+    g.appendChild(el);
+    if(n.ledger){
+      const ll = document.createElementNS('http://www.w3.org/2000/svg','line');
+      ll.setAttribute('x1',x-15); ll.setAttribute('y1',n.cy);
+      ll.setAttribute('x2',x+15); ll.setAttribute('y2',n.cy);
+      ll.setAttribute('stroke','var(--color-text-secondary)'); ll.setAttribute('stroke-width','1');
+      ll.setAttribute('opacity','0.3'); g.appendChild(ll);
+    }
+    const t = document.createElementNS('http://www.w3.org/2000/svg','text');
+    t.setAttribute('x',x); t.setAttribute('y','182'); t.setAttribute('text-anchor','middle');
+    t.setAttribute('font-size','11'); t.setAttribute('fill','var(--color-text-tertiary)');
+    t.setAttribute('font-family','var(--font-sans)'); t.textContent = n.name;
+    g.appendChild(t);
+  });
+}
+
+function buildNoteBtns(){
+  const c = document.getElementById('note-btns');
+  NOTES.forEach(n=>{
+    const b = document.createElement('button');
+    b.className = 'note-btn'; b.id = 'nbtn-'+n.name;
+    b.innerHTML = `<div class="nn">${n.name}</div><div class="ns">${n.solfege}</div>`;
+    b.onclick = ()=>highlightNote(n,b);
+    c.appendChild(b);
+  });
+}
+
+function buildScaleKeys(){
+  const c = document.getElementById('scale-keys');
+  NOTES.forEach(n=>{
+    const b = document.createElement('button');
+    b.className = 'scale-key'; b.id = 'skey-'+n.name;
+    b.innerHTML = `<div style="font-weight:500">${n.name}</div><div style="font-size:11px;color:var(--color-text-secondary)">${n.solfege.split('/')[0].trim()}</div>`;
+    b.onclick = ()=>{ playNote(n); litKey(n.name); };
+    c.appendChild(b);
+  });
+}
+
+function litKey(name){
+  document.querySelectorAll('.scale-key').forEach(k=>k.classList.remove('lit'));
+  const k = document.getElementById('skey-'+name);
+  if(k){ k.classList.add('lit'); setTimeout(()=>k.classList.remove('lit'),750); }
+}
+
+let scaleTimer=null;
+function playScale(shuffle=false){
+  if(scaleTimer) clearTimeout(scaleTimer);
+  const list = shuffle ? [...NOTES].sort(()=>Math.random()-.5) : NOTES;
+  list.forEach((n,i)=>{ playTone(n.freq,0.55,i*0.55); setTimeout(()=>litKey(n.name), i*550); });
+}
+
+function buildIntervalBtns(){
+  const c = document.getElementById('interval-btns');
+  INTERVALS.forEach((iv,i)=>{
+    const b = document.createElement('button');
+    b.className = 'int-btn'; b.textContent = iv.label;
+    b.onclick = ()=>{
+      document.querySelectorAll('.int-btn').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      document.getElementById('interval-desc').textContent = iv.desc;
+      const n0 = NOTES.find(n=>n.name===iv.notes[0]);
+      const n1 = NOTES.find(n=>n.name===iv.notes[1]);
+      playNote(n0,0); playNote(n1,0.65);
+    };
+    c.appendChild(b);
+  });
+}
+
+let qScore=0,qTotal=0,qHistory=[],qCurrent=null,qAnswered=false,qMode='listen';
+
+function toggleQuizMode(){
+  qMode = qMode==='listen'?'read':'listen';
+  document.getElementById('quiz-mode-label').textContent = qMode==='listen'?'听音辨位：点击播放，选出对应音名':'看谱辨音：根据音符位置选出音名';
+  document.getElementById('mode-toggle-btn').textContent = qMode==='listen'?'切换：看谱选音':'切换：听音辨位';
+  nextQuestion();
+}
+
+function buildQuizVisual(n){
+  const c = document.getElementById('quiz-visual');
+  if(qMode==='listen'){
+    c.innerHTML = `<div style="text-align:center;margin:8px 0">
+      <button onclick="playNote(qCurrent)" style="padding:10px 24px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;cursor:pointer;font-size:14px;font-family:var(--font-sans)"><i class="ti ti-volume" aria-hidden="true"></i> 播放声音</button>
+      <p style="font-size:12px;color:var(--color-text-tertiary);margin:6px 0 0">可多次点击</p>
+    </div>`;
+  } else {
+    const ledX = 200, cy = n.cy;
+    const lines = [44,64,84,104,124].map(y=>`<line x1="40" y1="${y}" x2="360" y2="${y}" stroke="var(--color-text-primary)" stroke-width="1.2" opacity=".7"/>`).join('');
+    const ledger = n.ledger ? `<line x1="${ledX-18}" y1="${cy}" x2="${ledX+18}" y2="${cy}" stroke="var(--color-text-primary)" stroke-width="1.2"/>` : '';
+    c.innerHTML = `<svg width="100%" viewBox="0 0 400 160" style="margin:4px 0">
+      ${lines}
+      <text x="44" y="122" font-size="80" fill="var(--color-text-primary)" opacity=".8" style="font-family:serif">𝄞</text>
+      ${ledger}
+      <ellipse cx="${ledX}" cy="${cy}" rx="14" ry="10" fill="var(--color-text-primary)"/>
+    </svg>`;
+  }
+}
+
+function buildQuizNote(n){
+  const ledX=200;
+  return {
+    cy: 44 + (NOTES.length-1 - NOTES.indexOf(n))*20,
+    ledger: n.ledger,
+    ledX
+  };
+}
+
+const QUIZ_CY = [144,134,124,114,104,94,84,74,64,54];
+
+function nextQuestion(){
+  qAnswered=false;
+  document.getElementById('next-btn').style.display='none';
+  document.getElementById('quiz-fb').textContent='';
+  document.querySelectorAll('.opt').forEach(b=>b.classList.remove('correct','wrong'));
+  const idx = Math.floor(Math.random()*NOTES.length);
+  qCurrent = {...NOTES[idx], cy: QUIZ_CY[idx]};
+  buildQuizVisual(qCurrent);
+  const pool = NOTES.map(n=>n.name).filter(n=>n!==qCurrent.name).sort(()=>Math.random()-.5).slice(0,3);
+  const opts = [...pool, qCurrent.name].sort(()=>Math.random()-.5);
+  const c = document.getElementById('quiz-opts');
+  c.innerHTML='';
+  opts.forEach(o=>{
+    const b=document.createElement('button'); b.className='opt'; b.textContent=o;
+    b.onclick=()=>checkAnswer(o,b);
+    c.appendChild(b);
+  });
+  if(qMode==='listen') setTimeout(()=>playNote(qCurrent),200);
+}
+
+function checkAnswer(chosen,btn){
+  if(qAnswered) return;
+  qAnswered=true; qTotal++;
+  const correct = qCurrent.name;
+  const ok = chosen===correct;
+  if(ok){ qScore++; btn.classList.add('correct'); document.getElementById('quiz-fb').textContent='✓ 正确！'; }
+  else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('.opt').forEach(b=>{ if(b.textContent===correct) b.classList.add('correct'); });
+    const nd = NOTES.find(n=>n.name===correct);
+    document.getElementById('quiz-fb').textContent = '✗ 是 ' + correct + '（' + (nd?nd.solfege:'') + '）';
+  }
+  qHistory.push(ok);
+  document.getElementById('score-txt').textContent='得分：'+qScore+' / '+qTotal;
+  const pills=document.getElementById('pills');
+  pills.innerHTML=qHistory.slice(-10).map(r=>`<div class="pill ${r?'ok':'err'}"></div>`).join('');
+  document.getElementById('next-btn').style.display='inline-block';
+}
+
+function resetQuiz(){
+  qScore=0;qTotal=0;qHistory=[];qAnswered=false;qCurrent=null;
+  document.getElementById('score-txt').textContent='得分：0 / 0';
+  document.getElementById('pills').innerHTML='';
+  document.getElementById('quiz-fb').textContent='';
+  document.getElementById('next-btn').style.display='none';
+  nextQuestion();
+}
+
+function switchTab(t){
+  ['notes','scale','quiz'].forEach((id,i)=>{
+    document.querySelectorAll('.tab')[i].classList.toggle('active',id===t);
+    document.getElementById('panel-'+id).classList.toggle('active',id===t);
+  });
+  if(t==='quiz'&&!qCurrent) nextQuestion();
+}
+
+buildNoteStaff();
+buildNoteBtns();
+buildScaleKeys();
+buildIntervalBtns();
+</script>

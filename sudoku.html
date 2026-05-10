@@ -1,0 +1,336 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans)}
+#app{padding:1rem 0;max-width:520px;margin:0 auto;user-select:none}
+h2.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+#header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+#title{font-size:18px;font-weight:500;color:var(--color-text-primary)}
+#stats{display:flex;gap:12px;align-items:center}
+.stat{font-size:13px;color:var(--color-text-secondary)}
+.stat span{font-weight:500;color:var(--color-text-primary)}
+#toolbar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
+.tb-btn{background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:6px 12px;font-size:13px;color:var(--color-text-primary);cursor:pointer;display:flex;align-items:center;gap:6px;transition:background 0.1s}
+.tb-btn:hover{background:var(--color-background-secondary)}
+.tb-btn.active{background:var(--color-background-info);border-color:var(--color-border-info);color:var(--color-text-info)}
+.tb-btn i{font-size:16px}
+#difficulty{font-size:13px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:6px 10px;color:var(--color-text-primary);background:var(--color-background-primary);cursor:pointer}
+#board-wrap{position:relative;margin-bottom:12px}
+#board{display:grid;grid-template-columns:repeat(9,1fr);border:2px solid var(--color-border-primary);border-radius:var(--border-radius-md);overflow:hidden;width:100%;aspect-ratio:1}
+.cell{position:relative;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:clamp(14px,3vw,22px);font-weight:500;border-right:0.5px solid var(--color-border-tertiary);border-bottom:0.5px solid var(--color-border-tertiary);background:var(--color-background-primary);transition:background 0.1s;color:var(--color-text-primary)}
+.cell:nth-child(3n){border-right:2px solid var(--color-border-primary)}
+.cell:nth-child(9n){border-right:none}
+.cell:nth-child(n+19):nth-child(-n+27),.cell:nth-child(n+46):nth-child(-n+54),.cell:nth-child(n+73):nth-child(-n+81){border-bottom:2px solid var(--color-border-primary)}
+.cell.given{color:var(--color-text-primary);font-weight:500}
+.cell.user{color:#185FA5}
+.cell.selected{background:#E6F1FB}
+.cell.highlight{background:var(--color-background-secondary)}
+.cell.same-num{background:#B5D4F4}
+.cell.error{color:#A32D2D}
+.cell.lit{background:#FAEEDA}
+.notes-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);width:100%;height:100%;padding:2px}
+.note-num{font-size:clamp(6px,1.2vw,10px);color:var(--color-text-secondary);display:flex;align-items:center;justify-content:center;font-weight:400}
+.note-num.set{color:#185FA5}
+#numpad{display:grid;grid-template-columns:repeat(9,1fr);gap:6px;margin-bottom:12px}
+.num-btn{background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);aspect-ratio:1;font-size:clamp(14px,2.5vw,20px);font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--color-text-primary);transition:background 0.1s}
+.num-btn:hover{background:var(--color-background-secondary)}
+.num-btn.depleted{opacity:0.3}
+#actions{display:flex;gap:8px;margin-bottom:12px}
+.act-btn{flex:1;background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:8px;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;color:var(--color-text-primary);transition:background 0.1s}
+.act-btn:hover{background:var(--color-background-secondary)}
+#msg{font-size:13px;color:var(--color-text-secondary);text-align:center;min-height:20px}
+#win-banner{display:none;background:var(--color-background-success);border:0.5px solid var(--color-border-success);border-radius:var(--border-radius-lg);padding:1rem;text-align:center;margin-top:8px}
+#win-banner p{font-size:16px;font-weight:500;color:var(--color-text-success)}
+#win-banner small{font-size:13px;color:var(--color-text-success);opacity:0.8}
+</style>
+
+<div id="app">
+  <h2 class="sr-only">数独游戏，支持笔记、高亮和错误检查</h2>
+  <div id="header">
+    <div id="title">数独</div>
+    <div id="stats">
+      <div class="stat">错误 <span id="err-count">0</span>/3</div>
+      <div class="stat">⏱ <span id="timer">00:00</span></div>
+    </div>
+  </div>
+  <div id="toolbar">
+    <select id="difficulty">
+      <option value="easy">简单</option>
+      <option value="medium" selected>普通</option>
+      <option value="hard">困难</option>
+    </select>
+    <button class="tb-btn" id="new-btn"><i class="ti ti-refresh" aria-hidden="true"></i>新游戏</button>
+    <button class="tb-btn" id="note-btn"><i class="ti ti-pencil" aria-hidden="true"></i>笔记</button>
+    <button class="tb-btn" id="light-btn"><i class="ti ti-bulb" aria-hidden="true"></i>点亮</button>
+    <button class="tb-btn" id="hint-btn"><i class="ti ti-help" aria-hidden="true"></i>提示 <span id="hint-left">3</span></button>
+  </div>
+  <div id="board-wrap"><div id="board"></div></div>
+  <div id="numpad"></div>
+  <div id="actions">
+    <button class="act-btn" id="undo-btn"><i class="ti ti-arrow-back-up" aria-hidden="true"></i>撤销</button>
+    <button class="act-btn" id="erase-btn"><i class="ti ti-eraser" aria-hidden="true"></i>擦除</button>
+    <button class="act-btn" id="check-btn"><i class="ti ti-checks" aria-hidden="true"></i>检查</button>
+  </div>
+  <div id="msg"></div>
+  <div id="win-banner"><p>🎉 恭喜完成！</p><small id="win-time"></small></div>
+</div>
+
+<script>
+const PUZZLES = {
+easy:[
+  "530070000600195000098000060800060003400803001700020006060000280000419005000080079",
+  "010020300004005060070000054090700800600000007003008020530000040040900200008030010"
+],
+medium:[
+  "800000000003600000070090200060005030004803001030200060020007005000600073000000801",
+  "000006000059000008200008000045000000003000600006003054000325000600000000000000000"
+],
+hard:[
+  "000000000000003085001020000000507000004000100090000000500000073002010000000040009",
+  "800000000003600000070090200060005030004803001030200060020007005000600073000000800"
+]
+};
+
+let grid=[], given=[], notes=[], solution=[];
+let selected=-1, noteMode=false, lightMode=false;
+let errors=0, hintsLeft=3, history=[];
+let timerInterval=null, seconds=0, gameOver=false;
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+
+function solveSudoku(g){
+  const empty=[];
+  for(let i=0;i<81;i++) if(g[i]===0) empty.push(i);
+  function valid(g,pos,num){
+    const r=Math.floor(pos/9),c=pos%9,br=Math.floor(r/3)*3,bc=Math.floor(c/3)*3;
+    for(let i=0;i<9;i++){
+      if(g[r*9+i]===num||g[i*9+c]===num||g[(br+Math.floor(i/3))*9+(bc+i%3)]===num) return false;
+    }
+    return true;
+  }
+  function solve(idx){
+    if(idx===empty.length) return true;
+    const pos=empty[idx];
+    const nums=shuffle([1,2,3,4,5,6,7,8,9]);
+    for(const n of nums){
+      if(valid(g,pos,n)){g[pos]=n;if(solve(idx+1)) return true;g[pos]=0;}
+    }
+    return false;
+  }
+  solve(0);
+  return g;
+}
+
+function generatePuzzle(diff){
+  const base=Array(81).fill(0);
+  solveSudoku(base);
+  solution=[...base];
+  const remove={easy:40,medium:52,hard:62}[diff]||52;
+  const positions=shuffle([...Array(81).keys()]);
+  const puzzle=[...base];
+  for(let i=0;i<remove;i++) puzzle[positions[i]]=0;
+  return puzzle;
+}
+
+function startGame(){
+  const diff=document.getElementById('difficulty').value;
+  const puzzleArr=PUZZLES[diff];
+  let raw;
+  if(Math.random()<0.5&&puzzleArr){
+    raw=puzzleArr[Math.floor(Math.random()*puzzleArr.length)].split('').map(Number);
+    const tmp=[...raw]; solveSudoku(tmp); solution=[...tmp];
+    grid=[...raw];
+  } else {
+    grid=generatePuzzle(diff);
+  }
+  given=grid.map(v=>v!==0);
+  notes=Array(81).fill(null).map(()=>new Set());
+  errors=0; hintsLeft=3; history=[]; selected=-1; gameOver=false;
+  document.getElementById('err-count').textContent='0';
+  document.getElementById('hint-left').textContent='3';
+  document.getElementById('win-banner').style.display='none';
+  document.getElementById('msg').textContent='';
+  clearInterval(timerInterval); seconds=0;
+  document.getElementById('timer').textContent='00:00';
+  timerInterval=setInterval(()=>{
+    if(gameOver) return;
+    seconds++;
+    const m=String(Math.floor(seconds/60)).padStart(2,'0');
+    const s=String(seconds%60).padStart(2,'0');
+    document.getElementById('timer').textContent=m+':'+s;
+  },1000);
+  renderBoard();
+  updateNumpad();
+}
+
+function renderBoard(){
+  const board=document.getElementById('board');
+  board.innerHTML='';
+  for(let i=0;i<81;i++){
+    const cell=document.createElement('div');
+    cell.className='cell'+(given[i]?' given':'')+(i===selected?' selected':'');
+    if(selected!==-1){
+      const sr=Math.floor(selected/9),sc=selected%9,sbr=Math.floor(sr/3),sbc=Math.floor(sc/3);
+      const cr=Math.floor(i/9),cc=i%9,cbr=Math.floor(cr/3),cbc=Math.floor(cc/3);
+      if(i!==selected&&(cr===sr||cc===sc||cbr===sbr&&cbc===sbc)) cell.classList.add('highlight');
+      if(grid[selected]>0&&grid[i]===grid[selected]&&i!==selected) cell.classList.add('same-num');
+    }
+    if(lightMode&&selected!==-1&&grid[i]===grid[selected]&&grid[i]>0) cell.classList.add('lit');
+    if(!given[i]&&grid[i]>0&&solution[i]&&grid[i]!==solution[i]) cell.classList.add('error');
+
+    if(grid[i]>0){
+      cell.textContent=grid[i];
+      if(!given[i]) cell.classList.add('user');
+    } else if(notes[i].size>0){
+      const ng=document.createElement('div');
+      ng.className='notes-grid';
+      for(let n=1;n<=9;n++){
+        const nd=document.createElement('div');
+        nd.className='note-num'+(notes[i].has(n)?' set':'');
+        nd.textContent=notes[i].has(n)?n:'';
+        ng.appendChild(nd);
+      }
+      cell.appendChild(ng);
+    }
+    cell.addEventListener('click',()=>selectCell(i));
+    board.appendChild(cell);
+  }
+}
+
+function selectCell(i){
+  if(gameOver) return;
+  selected=i;
+  renderBoard();
+}
+
+function inputNumber(n){
+  if(selected===-1||gameOver) return;
+  if(given[selected]) return;
+  if(noteMode){
+    const prev=notes[selected].has(n);
+    history.push({type:'note',idx:selected,num:n,had:prev,val:grid[selected]});
+    if(notes[selected].has(n)) notes[selected].delete(n);
+    else notes[selected].add(n);
+  } else {
+    history.push({type:'val',idx:selected,old:grid[selected],oldNotes:new Set(notes[selected])});
+    grid[selected]=n;
+    notes[selected]=new Set();
+    clearRelatedNotes(selected,n);
+    if(solution[selected]&&n!==solution[selected]){
+      errors++;
+      document.getElementById('err-count').textContent=errors;
+      if(errors>=3){
+        document.getElementById('msg').textContent='错误次数过多，游戏结束！';
+        gameOver=true; clearInterval(timerInterval);
+      }
+    }
+    checkWin();
+  }
+  renderBoard(); updateNumpad();
+}
+
+function clearRelatedNotes(idx,n){
+  const r=Math.floor(idx/9),c=idx%9,br=Math.floor(r/3)*3,bc=Math.floor(c/3)*3;
+  for(let i=0;i<81;i++){
+    const ir=Math.floor(i/9),ic=i%9,ibr=Math.floor(ir/3)*3,ibc=Math.floor(ic/3)*3;
+    if(i!==idx&&(ir===r||ic===c||ibr===br&&ibc===bc)) notes[i].delete(n);
+  }
+}
+
+function checkWin(){
+  if(grid.every((v,i)=>v>0&&v===solution[i])){
+    gameOver=true; clearInterval(timerInterval);
+    const m=String(Math.floor(seconds/60)).padStart(2,'0');
+    const s=String(seconds%60).padStart(2,'0');
+    document.getElementById('win-banner').style.display='block';
+    document.getElementById('win-time').textContent='用时 '+m+':'+s;
+  }
+}
+
+function updateNumpad(){
+  const counts=Array(10).fill(0);
+  grid.forEach(v=>{if(v>0)counts[v]++;});
+  const pad=document.getElementById('numpad');
+  pad.innerHTML='';
+  for(let n=1;n<=9;n++){
+    const btn=document.createElement('button');
+    btn.className='num-btn'+(counts[n]>=9?' depleted':'');
+    btn.textContent=n;
+    btn.addEventListener('click',()=>inputNumber(n));
+    pad.appendChild(btn);
+  }
+}
+
+document.getElementById('new-btn').addEventListener('click',startGame);
+
+document.getElementById('note-btn').addEventListener('click',()=>{
+  noteMode=!noteMode;
+  document.getElementById('note-btn').classList.toggle('active',noteMode);
+  document.getElementById('msg').textContent=noteMode?'笔记模式开启':'笔记模式关闭';
+  setTimeout(()=>{if(document.getElementById('msg').textContent.includes('笔记'))document.getElementById('msg').textContent=''},1500);
+});
+
+document.getElementById('light-btn').addEventListener('click',()=>{
+  lightMode=!lightMode;
+  document.getElementById('light-btn').classList.toggle('active',lightMode);
+  renderBoard();
+});
+
+document.getElementById('hint-btn').addEventListener('click',()=>{
+  if(hintsLeft<=0){document.getElementById('msg').textContent='提示已用完';return;}
+  if(selected===-1){document.getElementById('msg').textContent='请先选择一个格子';return;}
+  if(given[selected]||grid[selected]===solution[selected]){document.getElementById('msg').textContent='这格已经正确';return;}
+  history.push({type:'val',idx:selected,old:grid[selected],oldNotes:new Set(notes[selected])});
+  grid[selected]=solution[selected];
+  notes[selected]=new Set();
+  clearRelatedNotes(selected,solution[selected]);
+  hintsLeft--;
+  document.getElementById('hint-left').textContent=hintsLeft;
+  renderBoard(); updateNumpad(); checkWin();
+});
+
+document.getElementById('erase-btn').addEventListener('click',()=>{
+  if(selected===-1||given[selected]) return;
+  history.push({type:'val',idx:selected,old:grid[selected],oldNotes:new Set(notes[selected])});
+  grid[selected]=0; notes[selected]=new Set();
+  renderBoard(); updateNumpad();
+});
+
+document.getElementById('undo-btn').addEventListener('click',()=>{
+  if(!history.length) return;
+  const h=history.pop();
+  if(h.type==='val'){
+    grid[h.idx]=h.old;
+    notes[h.idx]=h.oldNotes;
+  } else {
+    if(h.had) notes[h.idx].add(h.num);
+    else notes[h.idx].delete(h.num);
+  }
+  renderBoard(); updateNumpad();
+});
+
+document.getElementById('check-btn').addEventListener('click',()=>{
+  let wrong=0;
+  for(let i=0;i<81;i++){
+    if(!given[i]&&grid[i]>0&&grid[i]!==solution[i]) wrong++;
+  }
+  if(wrong===0) document.getElementById('msg').textContent='目前填入的数字全部正确 ✓';
+  else document.getElementById('msg').textContent=`发现 ${wrong} 个错误，已用红色标出`;
+  renderBoard();
+  setTimeout(()=>document.getElementById('msg').textContent='',3000);
+});
+
+document.addEventListener('keydown',e=>{
+  if(e.key>='1'&&e.key<='9') inputNumber(parseInt(e.key));
+  if(e.key==='Backspace'||e.key==='Delete') document.getElementById('erase-btn').click();
+  if(e.key==='n'||e.key==='N') document.getElementById('note-btn').click();
+  const dirs={ArrowUp:-9,ArrowDown:9,ArrowLeft:-1,ArrowRight:1};
+  if(dirs[e.key]!==undefined&&selected!==-1){
+    e.preventDefault();
+    const ns=selected+dirs[e.key];
+    if(ns>=0&&ns<81) selectCell(ns);
+  }
+});
+
+startGame();
+</script>

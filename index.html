@@ -7,13 +7,9 @@
 <style>
   html { font-size: 18px; }
   :root {
-    --cream: #FDFCFA;
-    --warm: #F5F0E8;
-    --text: #3D2A5C;
-    --text-muted: #7A5FA0;
-    --text-light: #B09CC8;
-    --accent: #854F0B;
-    --accent-light: #FAEEDA;
+    --cream: #FDFCFA; --warm: #F5F0E8;
+    --text: #3D2A5C; --text-muted: #7A5FA0; --text-light: #B09CC8;
+    --accent: #854F0B; --accent-light: #FAEEDA;
     --border: rgba(26,26,24,0.12);
     --serif: Georgia, 'Times New Roman', serif;
     --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -36,7 +32,6 @@
   .music-btn .pulse { display: inline-block; }
   .music-btn.playing .pulse { animation: pulse 1s ease-in-out infinite; }
   @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
-
   .hero { max-width: 680px; margin: 0 auto; padding: 5rem 2rem 4rem; text-align: center; }
   .hero-name { font-family: var(--serif); font-size: 2.8rem; font-weight: normal; letter-spacing: 0.02em; margin-bottom: 1.2rem; color: var(--text); }
   .hero-tagline-zh { font-family: var(--serif); font-size: 1.2rem; color: var(--text-muted); letter-spacing: 0.08em; margin-bottom: 0.5rem; }
@@ -44,26 +39,21 @@
   .hero-divider { width: 40px; height: 0.5px; background: var(--text-light); margin: 0 auto 2.5rem; }
   .hero-intro { font-size: 1.05rem; line-height: 1.9; color: var(--text-muted); max-width: 520px; margin: 0 auto 2.5rem; }
   .hero-intro em { color: var(--accent); font-style: normal; }
-
   .columns { max-width: 780px; margin: 0 auto; padding: 0 2rem 5rem; }
   .columns-title { font-size: 0.75rem; letter-spacing: 0.12em; color: var(--text-light); text-transform: uppercase; margin-bottom: 2rem; text-align: center; }
   .columns-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-
   .col-card { border-radius: 12px; padding: 1.5rem 1.25rem; cursor: pointer; transition: transform 0.15s, box-shadow 0.2s; text-decoration: none; display: block; border: 1.5px solid transparent; }
   .col-card:hover { transform: translateY(-3px); box-shadow: 0 6px 24px rgba(0,0,0,0.1); }
-
   .col-card.hw  { background: #E0F2FC; border-color: #93D0EE; }
   .col-card.hh  { background: #EDE5F8; border-color: #C4A8E8; }
   .col-card.pl  { background: #FEF5D0; border-color: #F0D060; opacity:0.65; pointer-events:none; }
   .col-card.yt  { background: #FCE8E8; border-color: #F0A0A0; opacity:0.65; pointer-events:none; }
   .col-card.ml  { background: #E2F5E8; border-color: #90D4A0; opacity:0.65; pointer-events:none; }
-  .col-card.mo  { background: #FEF3DC; border-color: #F0C860; opacity:0.65; pointer-events:none; }
-
+  .col-card.tk  { background: #F0E8FC; border-color: #C8A8F0; }
   .col-icon { font-size: 1.4rem; margin-bottom: 0.75rem; }
   .col-card .col-name { font-family: var(--serif); font-size: 1rem; color: #2C2C2A !important; margin-bottom: 0.3rem; }
   .col-card .col-desc { font-size: 0.92rem; color: #666662 !important; line-height: 1.6; }
   .col-tag { display: inline-block; margin-top: 0.75rem; font-size: 0.72rem; color: var(--accent); background: var(--accent-light); padding: 2px 8px; border-radius: 20px; letter-spacing: 0.04em; }
-
   .latest { max-width: 680px; margin: 0 auto; padding: 0 2rem 5rem; }
   .section-label { font-size: 0.75rem; letter-spacing: 0.12em; color: var(--text-light); text-transform: uppercase; margin-bottom: 1.5rem; }
   .post-item { display: flex; align-items: baseline; gap: 1rem; padding: 1rem 0; border-bottom: 0.5px solid var(--border); flex-wrap: wrap; }
@@ -73,12 +63,10 @@
   .post-title a { color: inherit; text-decoration: none; }
   .post-title a:hover { color: var(--accent); }
   .post-date { font-size: 0.78rem; color: var(--text-light); white-space: nowrap; }
-
   footer { border-top: 0.5px solid var(--border); padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
   footer p { font-size: 0.8rem; color: var(--text-light); }
   .lang-toggle { font-size: 0.8rem; color: var(--text-muted); cursor: pointer; border: 0.5px solid var(--border); padding: 4px 12px; border-radius: 20px; background: none; }
   .lang-toggle:hover { border-color: var(--text-muted); }
-
   @media (max-width: 700px) {
     nav { flex-direction: column; align-items: flex-start; }
     .nav-links { flex-wrap: wrap; row-gap: 0.5rem; }
@@ -104,10 +92,13 @@
     </li>
     <li><a href="my-life.html">My Life</a></li>
     <li><a href="about.html">About</a></li>
-    <li class="dropdown" id="mimoDropdown">
-      <a href="#" class="dropdown-toggle">Mimo ▾</a>
+    <li class="dropdown" id="tinkerlandDropdown">
+      <a href="#" class="dropdown-toggle">Tinkerland ▾</a>
       <div class="dropdown-menu">
-        <div class="coming-soon">✦ Coming soon</div>
+        <a href="sudoku.html">🎲 数独 Sudoku</a>
+        <a href="sheet_music.html">🎵 五线谱 Sheet Music</a>
+        <div class="coming-soon">✦ Mimo · coming soon</div>
+        <div class="coming-soon">✦ More to come…</div>
       </div>
     </li>
     <li>
@@ -166,12 +157,12 @@
       <div class="col-name">My Life</div>
       <div class="col-desc">The life happening in between — travel, food, music, and everything else.</div>
     </div>
-    <div class="col-card mo">
-      <div class="col-icon">✨</div>
-      <div class="col-name">Mimo</div>
-      <div class="col-desc">My AI family companion — coming to life, one conversation at a time.</div>
-      <span class="col-tag">Coming soon</span>
-    </div>
+    <a href="tinkerland.html" class="col-card tk">
+      <div class="col-icon">🔧</div>
+      <div class="col-name">Tinkerland</div>
+      <div class="col-desc">Games, tools, and little things built for fun. Come play.</div>
+      <span class="col-tag">New</span>
+    </a>
   </div>
 </section>
 
@@ -251,7 +242,6 @@
       }
     });
   }
-
   let player = null, bgmPlaying = false;
   const bgmBtn = document.getElementById('bgmBtn');
   function onYouTubeIframeAPIReady() {
@@ -274,29 +264,22 @@
       bgmBtn.innerHTML = '<span class="pulse">🎵</span> BGM';
     }
   }
-
   let cnAudio = null, cnPlaying = false;
   const cnBtn = document.getElementById('cnMusicBtn');
   const CN_MUSIC_URL = 'baikal.mp3';
   function initCnAudio() {
-    if (!cnAudio) {
-      cnAudio = new Audio(CN_MUSIC_URL);
-      cnAudio.loop = true; cnAudio.volume = 0.2;
-    }
+    if (!cnAudio) { cnAudio = new Audio(CN_MUSIC_URL); cnAudio.loop = true; cnAudio.volume = 0.2; }
   }
   function toggleCnMusic() {
     initCnAudio();
     if (!cnPlaying) {
-      cnAudio.play();
-      cnPlaying = true; cnBtn.classList.add('playing');
+      cnAudio.play(); cnPlaying = true; cnBtn.classList.add('playing');
       cnBtn.innerHTML = '<span class="pulse">🎵</span> 背景音乐';
     } else {
-      cnAudio.pause();
-      cnPlaying = false; cnBtn.classList.remove('playing');
+      cnAudio.pause(); cnPlaying = false; cnBtn.classList.remove('playing');
       cnBtn.innerHTML = '<span class="pulse">🎵</span> 背景音乐';
     }
   }
-
   window.addEventListener('DOMContentLoaded', initDropdowns);
 </script>
 </body>
