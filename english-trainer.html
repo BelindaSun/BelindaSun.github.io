@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>每日英语词汇训练营</title>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        background: #f4f7fb;
+        color: #222;
+      }
+
+      .container {
+        max-width: 820px;
+        margin: auto;
+        display: grid;
+        gap: 20px;
+      }
+
+      .card {
+        background: white;
+        border-radius: 22px;
+        padding: 24px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      }
+
+      h1 {
+        font-size: 34px;
+        margin-bottom: 10px;
+      }
+
+      h2 {
+        margin-top: 0;
+      }
+
+      .word-card {
+        border: 1px solid #ddd;
+        border-radius: 14px;
+        padding: 16px;
+        margin-bottom: 14px;
+      }
+
+      .word {
+        font-size: 28px;
+        font-weight: bold;
+        color: #111;
+      }
+
+      .level {
+        display: inline-block;
+        margin-top: 8px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: #eee;
+        font-size: 13px;
+      }
+
+      .meaning {
+        margin-top: 12px;
+        font-size: 17px;
+      }
+
+      .example {
+        margin-top: 10px;
+        color: #555;
+        line-height: 1.7;
+      }
+
+      input {
+        width: 100%;
+        padding: 14px;
+        border-radius: 12px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+        margin-top: 12px;
+        box-sizing: border-box;
+      }
+
+      button {
+        border: none;
+        border-radius: 12px;
+        padding: 12px 18px;
+        margin-top: 16px;
+        margin-right: 10px;
+        cursor: pointer;
+        font-size: 15px;
+      }
+
+      .primary {
+        background: black;
+        color: white;
+      }
+
+      .secondary {
+        background: #eee;
+      }
+
+      .result {
+        margin-top: 16px;
+        font-weight: bold;
+        font-size: 17px;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 16px;
+        background: #eee;
+        border-radius: 999px;
+        overflow: hidden;
+        margin-top: 18px;
+      }
+
+      .progress-fill {
+        width: 0%;
+        height: 100%;
+        background: #111;
+        transition: width 0.3s ease;
+      }
+
+      .quote {
+        font-style: italic;
+        color: #666;
+        line-height: 1.8;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>📚 每日英语词汇训练营</h1>
+
+      <div class="card">
+        <h2>今日词汇（5个）</h2>
+        <div id="wordList"></div>
+      </div>
+
+      <div class="card">
+        <h2>今日挑战</h2>
+
+        <p id="quizQuestion"></p>
+
+        <input id="answerInput" placeholder="输入英文单词" />
+
+        <div>
+          <button class="primary" onclick="checkAnswer()">检查答案</button>
+          <button class="secondary" onclick="nextQuestion()">下一题</button>
+        </div>
+
+        <div class="result" id="result"></div>
+
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <p id="scoreText"></p>
+      </div>
+
+      <div class="card">
+        <h2>学习建议</h2>
+
+        <div class="quote">
+          “背单词不是收集单词，而是让它们进入你的语言系统。”
+        </div>
+
+        <ul>
+          <li>每天 5 个，坚持比爆肝更重要。</li>
+          <li>不要只看中文意思，要读例句。</li>
+          <li>大声念出来，嘴巴比眼睛更会记忆。</li>
+          <li>遇到喜欢的词，尝试自己造句。</li>
+          <li>重复，是词汇量真正的秘密。</li>
+        </ul>
+
+        <button class="secondary" onclick="location.reload()">
+          🔄 刷新今日词汇
+        </button>
+      </div>
+      <div class="card">
+        <h2>后续功能</h2>
+
+        <div class="quote">“后续会增加以下功能, 敬请期待”</div>
+
+        <ul>
+          <li>🔊 真人发音</li>
+          <li>🧠 艾宾浩斯记忆曲线</li>
+          <li>📈 单词熟练度系统</li>
+          <li>🌙 深色模式</li>
+          <li>🎯 TOEFL / GRE / IELTS 模式切换</li>
+          <li>📝 拼写模式</li>
+          <li>🎮 RPG 闯关模式</li>
+          <li>🏆 连续学习 streak</li>
+          <li>📱 手机 PWA App</li>
+          <li>🤖 AI 造句练习</li>
+        </ul>
+      </div>
+    </div>
+
+    <script>
+      const vocabularyBank = [
+        {
+          word: "ubiquitous",
+          meaning: "无处不在的",
+          level: "GRE",
+          example: "Smartphones have become ubiquitous in modern society.",
+        },
+        {
+          word: "meticulous",
+          meaning: "一丝不苟的",
+          level: "IELTS",
+          example: "She kept meticulous notes during the lecture.",
+        },
+        {
+          word: "pragmatic",
+          meaning: "务实的",
+          level: "GMAT",
+          example: "We need a pragmatic solution, not a perfect one.",
+        },
+        {
+          word: "resilient",
+          meaning: "有韧性的",
+          level: "TOEFL",
+          example: "Children are often more resilient than adults expect.",
+        },
+        {
+          word: "eloquent",
+          meaning: "有说服力的；雄辩的",
+          level: "IELTS",
+          example: "Her speech was clear, elegant, and eloquent.",
+        },
+        {
+          word: "obscure",
+          meaning: "模糊的；鲜为人知的",
+          level: "GRE",
+          example: "The author referenced several obscure philosophers.",
+        },
+        {
+          word: "innovative",
+          meaning: "创新的",
+          level: "TOEFL",
+          example: "The company introduced an innovative business model.",
+        },
+        {
+          word: "diligent",
+          meaning: "勤奋的",
+          level: "IELTS",
+          example: "He is a diligent student who rarely misses deadlines.",
+        },
+        {
+          word: "ambiguous",
+          meaning: "模棱两可的",
+          level: "GRE",
+          example: "The instructions were too ambiguous to follow.",
+        },
+        {
+          word: "compelling",
+          meaning: "引人注目的；令人信服的",
+          level: "GMAT",
+          example: "She made a compelling argument for change.",
+        },
+        {
+          word: "intricate",
+          meaning: "复杂精细的",
+          level: "GRE",
+          example: "The watch contained an intricate mechanical system.",
+        },
+        {
+          word: "versatile",
+          meaning: "多才多艺的；用途广泛的",
+          level: "TOEFL",
+          example: "This tool is versatile enough for many tasks.",
+        },
+      ];
+
+      function getTodayWords() {
+        const day = new Date().getDate();
+        const start = (day * 5) % vocabularyBank.length;
+
+        return vocabularyBank
+          .slice(start, start + 5)
+          .concat(
+            vocabularyBank.slice(
+              0,
+              Math.max(0, start + 5 - vocabularyBank.length),
+            ),
+          );
+      }
+
+      const todayWords = getTodayWords();
+
+      let quizIndex = 0;
+      let score = 0;
+
+      const wordList = document.getElementById("wordList");
+      const quizQuestion = document.getElementById("quizQuestion");
+      const answerInput = document.getElementById("answerInput");
+      const result = document.getElementById("result");
+      const progressFill = document.getElementById("progressFill");
+      const scoreText = document.getElementById("scoreText");
+
+      function renderWords() {
+        wordList.innerHTML = "";
+
+        todayWords.forEach((item) => {
+          const div = document.createElement("div");
+
+          div.className = "word-card";
+
+          div.innerHTML = `
+          <div class="word">${item.word}</div>
+          <div class="level">${item.level}</div>
+          <div class="meaning">${item.meaning}</div>
+          <div class="example">💡 ${item.example}</div>
+        `;
+
+          wordList.appendChild(div);
+        });
+      }
+
+      function renderQuiz() {
+        const current = todayWords[quizIndex];
+
+        quizQuestion.innerHTML = `哪个英文单词表示：<b>${current.meaning}</b>？`;
+
+        answerInput.value = "";
+        result.innerHTML = "";
+      }
+
+      function checkAnswer() {
+        const answer = answerInput.value.trim().toLowerCase();
+        const current = todayWords[quizIndex];
+
+        if (answer === current.word.toLowerCase()) {
+          result.innerHTML = "✅ 正确！这个词已经开始进入你的长期记忆了。";
+          score++;
+        } else {
+          result.innerHTML = `❌ 正确答案是：${current.word}`;
+        }
+
+        progressFill.style.width = `${(score / todayWords.length) * 100}%`;
+
+        scoreText.innerHTML = `今日掌握：${score}/${todayWords.length}`;
+      }
+
+      function nextQuestion() {
+        quizIndex = (quizIndex + 1) % todayWords.length;
+        renderQuiz();
+      }
+
+      renderWords();
+      renderQuiz();
+    </script>
+  </body>
+</html>
