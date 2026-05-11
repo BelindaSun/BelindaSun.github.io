@@ -1,282 +1,150 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Linux Command 每日训练营</title>
-    <style>
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-        background: #f5f7fb;
-        margin: 0;
-        padding: 20px;
-        color: #222;
-      }
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linux 命令行 — Belinda Sun</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --serif:Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --cream:#FDFCFA;--warm:#F5F0E8;
+  --text:#3D2A5C;--text-muted:#7A5FA0;--text-light:#B09CC8;
+  --accent:#854F0B;--accent-light:#FAEEDA;
+  --border:rgba(26,26,24,0.12);
+}
+body{font-family:var(--sans);background:var(--cream);min-height:100vh;color:var(--text);}
+.page-nav{display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;border-bottom:0.5px solid var(--border);background:var(--cream);position:sticky;top:0;z-index:100;}
+.page-nav a{font-family:var(--serif);font-size:0.95rem;color:var(--text);text-decoration:none;}
+.page-nav a:hover{color:var(--text-muted);}
+.page-nav .nav-right{display:flex;gap:1.5rem;}
+.page-nav .nav-right a{font-family:var(--sans);font-size:0.85rem;color:var(--text-muted);}
 
-      .container {
-        max-width: 800px;
-        margin: auto;
-        display: grid;
-        gap: 20px;
-      }
+.container{max-width:780px;margin:0 auto;padding:2rem 1.5rem;display:grid;gap:1.5rem;}
 
-      .card {
-        background: white;
-        border-radius: 20px;
-        padding: 24px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      }
+h1{font-family:var(--serif);font-size:2rem;font-weight:normal;color:var(--text);margin-bottom:0.5rem;}
+h2{font-family:var(--serif);font-size:1.2rem;font-weight:normal;color:var(--text);margin-bottom:1rem;}
 
-      h1 {
-        font-size: 32px;
-        margin-bottom: 10px;
-      }
+.card{background:#fff;border-radius:16px;padding:1.5rem;border:0.5px solid var(--border);box-shadow:0 2px 12px rgba(0,0,0,0.04);}
 
-      h2 {
-        margin-top: 0;
-      }
+.command-item{border:0.5px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:0.75rem;background:var(--warm);}
+.cmd{font-family:monospace;font-size:1.2rem;font-weight:bold;color:var(--accent);margin-bottom:0.3rem;}
+.cmd-meaning{font-size:0.95rem;color:var(--text);margin-bottom:0.2rem;}
+.cmd-example{font-size:0.85rem;color:var(--text-muted);font-family:monospace;}
+.cmd-tip{font-size:0.82rem;color:var(--text-light);margin-top:0.3rem;}
 
-      .command-item {
-        border: 1px solid #ddd;
-        border-radius: 12px;
-        padding: 14px;
-        margin-bottom: 12px;
-      }
+.quiz-question{font-size:1rem;color:var(--text-muted);margin-bottom:0.75rem;line-height:1.7;}
+.quiz-question b{color:var(--text);}
 
-      .cmd {
-        font-family: monospace;
-        font-size: 20px;
-        font-weight: bold;
-      }
+input{width:100%;padding:0.75rem 1rem;font-size:0.95rem;border-radius:8px;border:0.5px solid var(--border);background:var(--cream);color:var(--text);font-family:monospace;margin-bottom:0.75rem;outline:none;}
+input:focus{border-color:var(--text-muted);}
 
-      input {
-        width: 100%;
-        padding: 12px;
-        font-size: 16px;
-        border-radius: 10px;
-        border: 1px solid #ccc;
-        margin-top: 10px;
-        box-sizing: border-box;
-      }
+.btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;}
+.btn-primary{padding:8px 20px;border:none;border-radius:20px;font-size:0.88rem;cursor:pointer;background:var(--text);color:var(--cream);font-family:var(--sans);}
+.btn-primary:hover{opacity:0.85;}
+.btn-secondary{padding:8px 20px;border:0.5px solid var(--border);border-radius:20px;font-size:0.88rem;cursor:pointer;background:none;color:var(--text-muted);font-family:var(--sans);}
+.btn-secondary:hover{background:var(--warm);}
 
-      button {
-        padding: 12px 18px;
-        border: none;
-        border-radius: 10px;
-        font-size: 15px;
-        cursor: pointer;
-        margin-right: 10px;
-        margin-top: 15px;
-      }
+.result{margin-top:0.75rem;font-size:0.95rem;font-weight:500;min-height:1.4rem;}
+.result.ok{color:#1D6A4A;}
+.result.err{color:#A32D2D;}
 
-      .primary {
-        background: black;
-        color: white;
-      }
+.progress-bar{width:100%;height:8px;background:var(--warm);border-radius:999px;overflow:hidden;margin-top:1rem;}
+.progress-fill{height:100%;width:0%;background:var(--text);transition:width 0.3s ease;border-radius:999px;}
+.score-text{font-size:0.82rem;color:var(--text-light);margin-top:0.5rem;}
 
-      .secondary {
-        background: #eee;
-      }
+.tips ul{padding-left:1.25rem;}
+.tips li{font-size:0.9rem;color:var(--text-muted);line-height:2;}
+</style>
+</head>
+<body>
 
-      .progress-bar {
-        width: 100%;
-        height: 16px;
-        background: #eee;
-        border-radius: 999px;
-        overflow: hidden;
-        margin-top: 16px;
-      }
+<nav class="page-nav">
+  <a href="index.html">Belinda Sun</a>
+  <div class="nav-right">
+    <a href="tinkerland.html">🔧 Tinkerland</a>
+  </div>
+</nav>
 
-      .progress-fill {
-        height: 100%;
-        width: 0%;
-        background: #222;
-        transition: width 0.3s ease;
-      }
+<div class="container">
+  <div>
+    <h1>💻 Linux 命令行</h1>
+    <p style="color:var(--text-muted);font-size:0.95rem;">别怕终端，它没看起来那么凶。</p>
+  </div>
 
-      .result {
-        margin-top: 15px;
-        font-weight: bold;
-      }
+  <div class="card">
+    <h2>今日学习（3个命令）</h2>
+    <div id="commandList"></div>
+  </div>
 
-      ul {
-        line-height: 1.8;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <h1>💻 Linux Command 每日训练营</h1>
-
-      <div class="card">
-        <h2>今日学习（3个命令）</h2>
-        <div id="commandList"></div>
-      </div>
-
-      <div class="card">
-        <h2>今日测验</h2>
-        <p id="quizQuestion"></p>
-
-        <input id="answerInput" placeholder="输入命令，例如 ls" />
-
-        <div>
-          <button class="primary" onclick="checkAnswer()">检查答案</button>
-          <button class="secondary" onclick="nextQuestion()">下一题</button>
-        </div>
-
-        <div class="result" id="result"></div>
-
-        <div class="progress-bar">
-          <div class="progress-fill" id="progressFill"></div>
-        </div>
-
-        <p id="scoreText"></p>
-      </div>
-
-      <div class="card">
-        <h2>复习建议</h2>
-        <ul>
-          <li>每天只学 3 个，别贪多。</li>
-          <li>每个命令自己敲 10 次，比看 100 次更有用。</li>
-          <li>重点记住：ls / cd / pwd / grep。</li>
-          <li>一周后尝试不用搜索完成简单文件操作。</li>
-        </ul>
-
-        <button class="secondary" onclick="location.reload()">
-          🔄 刷新今日训练
-        </button>
-      </div>
+  <div class="card">
+    <h2>今日测验</h2>
+    <p class="quiz-question" id="quizQuestion"></p>
+    <input id="answerInput" placeholder="输入命令，例如 ls" />
+    <div class="btn-row">
+      <button class="btn-primary" onclick="checkAnswer()">检查答案</button>
+      <button class="btn-secondary" onclick="nextQuestion()">下一题</button>
     </div>
+    <div class="result" id="result"></div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <p class="score-text" id="scoreText"></p>
+  </div>
 
-    <script>
-      const commandBank = [
-        {
-          cmd: "pwd",
-          meaning: "显示当前所在目录",
-          example: "pwd",
-          tip: "print working directory",
-        },
-        {
-          cmd: "ls",
-          meaning: "列出目录内容",
-          example: "ls -la",
-          tip: "最常用的看文件命令",
-        },
-        {
-          cmd: "cd",
-          meaning: "切换目录",
-          example: "cd Documents",
-          tip: "change directory",
-        },
-        {
-          cmd: "mkdir",
-          meaning: "创建目录",
-          example: "mkdir test",
-          tip: "make directory",
-        },
-        {
-          cmd: "rm",
-          meaning: "删除文件",
-          example: "rm file.txt",
-          tip: "危险命令，小心用",
-        },
-        {
-          cmd: "cp",
-          meaning: "复制文件",
-          example: "cp a.txt b.txt",
-          tip: "copy",
-        },
-        {
-          cmd: "mv",
-          meaning: "移动/重命名文件",
-          example: "mv old.txt new.txt",
-          tip: "move",
-        },
-        {
-          cmd: "cat",
-          meaning: "查看文件内容",
-          example: "cat notes.txt",
-          tip: "快速看文本",
-        },
-        {
-          cmd: "grep",
-          meaning: "搜索文本内容",
-          example: "grep hello file.txt",
-          tip: "文本搜索神器",
-        },
-        {
-          cmd: "find",
-          meaning: "查找文件",
-          example: "find . -name test.txt",
-          tip: "找文件必备",
-        },
-      ];
+  <div class="card tips">
+    <h2>复习建议</h2>
+    <ul>
+      <li>每天只学 3 个，别贪多。</li>
+      <li>每个命令自己敲 10 次，比看 100 次更有用。</li>
+      <li>重点记住：ls / cd / pwd / grep。</li>
+      <li>一周后尝试不用搜索完成简单文件操作。</li>
+    </ul>
+    <div style="margin-top:1rem;">
+      <button class="btn-secondary" onclick="location.reload()">🔄 刷新今日训练</button>
+    </div>
+  </div>
+</div>
 
-      function getTodaySet() {
-        const day = new Date().getDate();
-        const start = (day * 3) % commandBank.length;
-        return commandBank
-          .slice(start, start + 3)
-          .concat(
-            commandBank.slice(0, Math.max(0, start + 3 - commandBank.length)),
-          );
-      }
-
-      const todayCommands = getTodaySet();
-      let quizIndex = 0;
-      let score = 0;
-
-      const commandList = document.getElementById("commandList");
-      const quizQuestion = document.getElementById("quizQuestion");
-      const answerInput = document.getElementById("answerInput");
-      const result = document.getElementById("result");
-      const progressFill = document.getElementById("progressFill");
-      const scoreText = document.getElementById("scoreText");
-
-      function renderCommands() {
-        commandList.innerHTML = "";
-
-        todayCommands.forEach((item) => {
-          const div = document.createElement("div");
-          div.className = "command-item";
-          div.innerHTML = `
-          <div class="cmd">${item.cmd}</div>
-          <div>${item.meaning}</div>
-          <div>例子：${item.example}</div>
-          <div>💡 ${item.tip}</div>
-        `;
-          commandList.appendChild(div);
-        });
-      }
-
-      function renderQuiz() {
-        quizQuestion.innerHTML = `哪个命令可以：<b>${todayCommands[quizIndex].meaning}</b>？`;
-        answerInput.value = "";
-        result.innerHTML = "";
-      }
-
-      function checkAnswer() {
-        const answer = answerInput.value.trim();
-        const current = todayCommands[quizIndex];
-
-        if (answer === current.cmd) {
-          result.innerHTML = "✅ 答对了，漂亮。";
-          score++;
-        } else {
-          result.innerHTML = `❌ 不对，正确答案是：${current.cmd}`;
-        }
-
-        progressFill.style.width = `${(score / todayCommands.length) * 100}%`;
-        scoreText.innerHTML = `掌握进度：${score}/${todayCommands.length}`;
-      }
-
-      function nextQuestion() {
-        quizIndex = (quizIndex + 1) % todayCommands.length;
-        renderQuiz();
-      }
-
-      renderCommands();
-      renderQuiz();
-    </script>
-  </body>
+<script>
+const commandBank=[
+  {cmd:"pwd",meaning:"显示当前所在目录",example:"pwd",tip:"print working directory"},
+  {cmd:"ls",meaning:"列出目录内容",example:"ls -la",tip:"最常用的看文件命令"},
+  {cmd:"cd",meaning:"切换目录",example:"cd Documents",tip:"change directory"},
+  {cmd:"mkdir",meaning:"创建目录",example:"mkdir test",tip:"make directory"},
+  {cmd:"rm",meaning:"删除文件",example:"rm file.txt",tip:"危险命令，小心用"},
+  {cmd:"cp",meaning:"复制文件",example:"cp a.txt b.txt",tip:"copy"},
+  {cmd:"mv",meaning:"移动/重命名文件",example:"mv old.txt new.txt",tip:"move"},
+  {cmd:"cat",meaning:"查看文件内容",example:"cat notes.txt",tip:"快速看文本"},
+  {cmd:"grep",meaning:"搜索文本内容",example:"grep hello file.txt",tip:"文本搜索神器"},
+  {cmd:"find",meaning:"查找文件",example:"find . -name test.txt",tip:"找文件必备"},
+];
+function getTodaySet(){const day=new Date().getDate();const start=(day*3)%commandBank.length;return commandBank.slice(start,start+3).concat(commandBank.slice(0,Math.max(0,start+3-commandBank.length)));}
+const todayCommands=getTodaySet();
+let quizIndex=0,score=0;
+function renderCommands(){
+  const c=document.getElementById('commandList');c.innerHTML='';
+  todayCommands.forEach(item=>{
+    const div=document.createElement('div');div.className='command-item';
+    div.innerHTML=`<div class="cmd">${item.cmd}</div><div class="cmd-meaning">${item.meaning}</div><div class="cmd-example">$ ${item.example}</div><div class="cmd-tip">💡 ${item.tip}</div>`;
+    c.appendChild(div);
+  });
+}
+function renderQuiz(){
+  document.getElementById('quizQuestion').innerHTML=`哪个命令可以：<b>${todayCommands[quizIndex].meaning}</b>？`;
+  document.getElementById('answerInput').value='';
+  const r=document.getElementById('result');r.innerHTML='';r.className='result';
+}
+function checkAnswer(){
+  const answer=document.getElementById('answerInput').value.trim();
+  const current=todayCommands[quizIndex];
+  const r=document.getElementById('result');
+  if(answer===current.cmd){r.innerHTML='✅ 答对了，漂亮。';r.className='result ok';score++;}
+  else{r.innerHTML=`❌ 不对，正确答案是：<code>${current.cmd}</code>`;r.className='result err';}
+  document.getElementById('progressFill').style.width=`${(score/todayCommands.length)*100}%`;
+  document.getElementById('scoreText').textContent=`掌握进度：${score}/${todayCommands.length}`;
+}
+function nextQuestion(){quizIndex=(quizIndex+1)%todayCommands.length;renderQuiz();}
+renderCommands();renderQuiz();
+</script>
+</body>
 </html>
