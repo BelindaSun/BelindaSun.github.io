@@ -56,6 +56,7 @@ input:focus{border-color:var(--text-muted);}
 
 .tips ul{padding-left:1.25rem;}
 .tips li{font-size:0.9rem;color:var(--text-muted);line-height:2;}
+.group-nav{display:flex;gap:0.75rem;align-items:center;margin-top:1rem;flex-wrap:wrap;}
 </style>
 </head>
 <body>
@@ -70,12 +71,17 @@ input:focus{border-color:var(--text-muted);}
 <div class="container">
   <div>
     <h1>💻 Linux 命令行</h1>
-    <p style="color:var(--text-muted);font-size:0.95rem;">别怕终端，它没看起来那么凶。</p>
+    <p style="color:var(--text-muted);font-size:0.95rem;">别怕终端，它没看起来那么凶 — 支持上下组切换，每日一组5个命令</p>
   </div>
 
   <div class="card">
-    <h2>今日学习（3个命令）</h2>
+    <h2>今日学习（每组5个命令）</h2>
     <div id="commandList"></div>
+    <div class="group-nav">
+      <button class="btn-secondary" id="prevGroupBtn">◀ 上一组</button>
+      <button class="btn-secondary" id="nextGroupBtn">下一组 ▶</button>
+      <button class="btn-secondary" id="resetTodayBtn">📅 重置今日基准组</button>
+    </div>
   </div>
 
   <div class="card">
@@ -83,8 +89,8 @@ input:focus{border-color:var(--text-muted);}
     <p class="quiz-question" id="quizQuestion"></p>
     <input id="answerInput" placeholder="输入命令，例如 ls" />
     <div class="btn-row">
-      <button class="btn-primary" onclick="checkAnswer()">检查答案</button>
-      <button class="btn-secondary" onclick="nextQuestion()">下一题</button>
+      <button class="btn-primary" id="checkBtn">检查答案</button>
+      <button class="btn-secondary" id="nextBtn">下一题</button>
     </div>
     <div class="result" id="result"></div>
     <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
@@ -94,57 +100,229 @@ input:focus{border-color:var(--text-muted);}
   <div class="card tips">
     <h2>复习建议</h2>
     <ul>
-      <li>每天只学 3 个，别贪多。</li>
+      <li>每天只学一组（5个命令），别贪多。</li>
       <li>每个命令自己敲 10 次，比看 100 次更有用。</li>
-      <li>重点记住：ls / cd / pwd / grep。</li>
+      <li>重点掌握：文件操作、权限、进程、网络。</li>
       <li>一周后尝试不用搜索完成简单文件操作。</li>
     </ul>
     <div style="margin-top:1rem;">
-      <button class="btn-secondary" onclick="location.reload()">🔄 刷新今日训练</button>
+      <button class="btn-secondary" id="legacyResetBtn">🔄 刷新今日训练</button>
     </div>
   </div>
 </div>
 
 <script>
-const commandBank=[
-  {cmd:"pwd",meaning:"显示当前所在目录",example:"pwd",tip:"print working directory"},
-  {cmd:"ls",meaning:"列出目录内容",example:"ls -la",tip:"最常用的看文件命令"},
-  {cmd:"cd",meaning:"切换目录",example:"cd Documents",tip:"change directory"},
-  {cmd:"mkdir",meaning:"创建目录",example:"mkdir test",tip:"make directory"},
-  {cmd:"rm",meaning:"删除文件",example:"rm file.txt",tip:"危险命令，小心用"},
-  {cmd:"cp",meaning:"复制文件",example:"cp a.txt b.txt",tip:"copy"},
-  {cmd:"mv",meaning:"移动/重命名文件",example:"mv old.txt new.txt",tip:"move"},
-  {cmd:"cat",meaning:"查看文件内容",example:"cat notes.txt",tip:"快速看文本"},
-  {cmd:"grep",meaning:"搜索文本内容",example:"grep hello file.txt",tip:"文本搜索神器"},
-  {cmd:"find",meaning:"查找文件",example:"find . -name test.txt",tip:"找文件必备"},
+// ======================= 80+ 常用 Linux 命令库 ========================
+const commandBank = [
+  {cmd:"ls", meaning:"列出目录内容", example:"ls -la", tip:"最常用的看文件命令"},
+  {cmd:"cd", meaning:"切换目录", example:"cd /etc", tip:"change directory"},
+  {cmd:"pwd", meaning:"显示当前目录路径", example:"pwd", tip:"print working directory"},
+  {cmd:"mkdir", meaning:"创建目录", example:"mkdir new_folder", tip:"make directory"},
+  {cmd:"rmdir", meaning:"删除空目录", example:"rmdir empty_folder", tip:"remove empty directory"},
+  {cmd:"rm", meaning:"删除文件或目录", example:"rm -rf folder", tip:"危险命令，慎用"},
+  {cmd:"cp", meaning:"复制文件或目录", example:"cp a.txt b.txt", tip:"copy"},
+  {cmd:"mv", meaning:"移动或重命名文件", example:"mv old.txt new.txt", tip:"move"},
+  {cmd:"touch", meaning:"创建空文件或更新时间戳", example:"touch file.txt", tip:"常用于快速创建文件"},
+  {cmd:"cat", meaning:"查看文件内容", example:"cat file.txt", tip:"concatenate"},
+  {cmd:"less", meaning:"分页查看文件内容", example:"less large.log", tip:"比cat更适合大文件"},
+  {cmd:"head", meaning:"查看文件前十行", example:"head -n 20 file.txt", tip:"默认10行"},
+  {cmd:"tail", meaning:"查看文件后十行", example:"tail -f log.txt", tip:"-f 实时跟踪"},
+  {cmd:"grep", meaning:"搜索文本内容", example:"grep error log.txt", tip:"强大的文本搜索"},
+  {cmd:"find", meaning:"查找文件", example:"find . -name '*.txt'", tip:"按名称/类型查找"},
+  {cmd:"chmod", meaning:"修改文件权限", example:"chmod 755 script.sh", tip:"数字或符号模式"},
+  {cmd:"chown", meaning:"修改文件所有者", example:"chown user:group file", tip:"需root权限"},
+  {cmd:"ps", meaning:"查看进程", example:"ps aux | grep nginx", tip:"process status"},
+  {cmd:"top", meaning:"动态查看系统进程", example:"top", tip:"按q退出"},
+  {cmd:"kill", meaning:"终止进程", example:"kill -9 1234", tip:"-9强制杀"},
+  {cmd:"df", meaning:"查看磁盘空间", example:"df -h", tip:"disk free"},
+  {cmd:"du", meaning:"查看目录大小", example:"du -sh folder", tip:"disk usage"},
+  {cmd:"free", meaning:"查看内存使用", example:"free -h", tip:"内存和swap"},
+  {cmd:"uname", meaning:"查看系统信息", example:"uname -a", tip:"kernel版本"},
+  {cmd:"whoami", meaning:"查看当前用户名", example:"whoami", tip:"简单实用"},
+  {cmd:"id", meaning:"显示用户及组ID", example:"id", tip:"用户权限信息"},
+  {cmd:"echo", meaning:"输出文本或变量", example:"echo $PATH", tip:"常用脚本"},
+  {cmd:"export", meaning:"设置环境变量", example:"export PATH=$PATH:/newpath", tip:"临时生效"},
+  {cmd:"alias", meaning:"创建命令别名", example:"alias ll='ls -al'", tip:"简化命令"},
+  {cmd:"history", meaning:"显示历史命令", example:"history 10", tip:"!!重复上一条"},
+  {cmd:"man", meaning:"查看命令手册", example:"man ls", tip:"救命文档"},
+  {cmd:"which", meaning:"定位命令路径", example:"which python", tip:"查找可执行文件"},
+  {cmd:"whereis", meaning:"查找命令源码/手册", example:"whereis ls", tip:"更全路径"},
+  {cmd:"type", meaning:"判断命令类型", example:"type cd", tip:"内置/外部命令"},
+  {cmd:"tar", meaning:"打包/解包", example:"tar -czf archive.tar.gz folder/", tip:"常用压缩"},
+  {cmd:"gzip", meaning:"压缩文件", example:"gzip file.txt", tip:"生成.gz"},
+  {cmd:"gunzip", meaning:"解压.gz文件", example:"gunzip file.gz", tip:"或者gzip -d"},
+  {cmd:"zip", meaning:"打包为zip", example:"zip -r archive.zip folder/", tip:"Windows兼容"},
+  {cmd:"unzip", meaning:"解压zip", example:"unzip archive.zip", tip:"常用"},
+  {cmd:"ssh", meaning:"远程连接", example:"ssh user@192.168.1.1", tip:"secure shell"},
+  {cmd:"scp", meaning:"远程复制文件", example:"scp file.txt user@host:/path", tip:"基于ssh"},
+  {cmd:"rsync", meaning:"高效同步文件", example:"rsync -av source/ dest/", tip:"增量备份"},
+  {cmd:"wget", meaning:"下载文件", example:"wget https://example.com/file.zip", tip:"非交互下载"},
+  {cmd:"curl", meaning:"传输数据", example:"curl -O http://example.com/file", tip:"API调试利器"},
+  {cmd:"ping", meaning:"测试网络连通", example:"ping google.com", tip:"按Ctrl+C停止"},
+  {cmd:"traceroute", meaning:"路由追踪", example:"traceroute google.com", tip:"诊断网络"},
+  {cmd:"netstat", meaning:"查看网络状态", example:"netstat -tulnp", tip:"端口监听"},
+  {cmd:"ss", meaning:"更快的socket统计", example:"ss -tulnp", tip:"替代netstat"},
+  {cmd:"ifconfig", meaning:"查看网卡配置", example:"ifconfig", tip:"较老命令，推荐ip"},
+  {cmd:"ip", meaning:"更现代的网卡管理", example:"ip addr show", tip:"替代ifconfig"},
+  {cmd:"route", meaning:"路由表", example:"route -n", tip:"查看网关"},
+  {cmd:"hostname", meaning:"显示/设置主机名", example:"hostname", tip:"系统标识"},
+  {cmd:"date", meaning:"显示/设置日期时间", example:"date +%Y-%m-%d", tip:"格式化输出"},
+  {cmd:"cal", meaning:"显示日历", example:"cal 2025", tip:"calendar"},
+  {cmd:"uptime", meaning:"系统运行时间", example:"uptime", tip:"负载情况"},
+  {cmd:"dmesg", meaning:"内核日志", example:"dmesg | tail", tip:"硬件诊断"},
+  {cmd:"lscpu", meaning:"查看CPU信息", example:"lscpu", tip:"架构/核心数"},
+  {cmd:"lsblk", meaning:"查看块设备", example:"lsblk", tip:"磁盘分区"},
+  {cmd:"fdisk", meaning:"磁盘分区工具", example:"sudo fdisk -l", tip:"小心操作"},
+  {cmd:"mount", meaning:"挂载文件系统", example:"mount /dev/sdb1 /mnt", tip:"需root"},
+  {cmd:"umount", meaning:"卸载文件系统", example:"umount /mnt", tip:"卸载"},
+  {cmd:"ln", meaning:"创建链接", example:"ln -s target link", tip:"软链接"},
+  {cmd:"stat", meaning:"查看文件详细状态", example:"stat file.txt", tip:"inode信息"},
+  {cmd:"wc", meaning:"统计行/字/字符", example:"wc -l file.txt", tip:"word count"},
+  {cmd:"sort", meaning:"排序", example:"sort -n numbers.txt", tip:"数字排序"},
+  {cmd:"uniq", meaning:"去重", example:"sort file | uniq -c", tip:"常与sort配合"},
+  {cmd:"cut", meaning:"切分文本列", example:"cut -d: -f1 /etc/passwd", tip:"提取字段"},
+  {cmd:"awk", meaning:"文本处理语言", example:"awk '{print $1}' file", tip:"强大数据处理"},
+  {cmd:"sed", meaning:"流编辑器", example:"sed 's/old/new/g' file", tip:"替换文本"},
+  {cmd:"tr", meaning:"字符替换/删除", example:"echo hello | tr 'a-z' 'A-Z'", tip:"大小写转换"},
+  {cmd:"tee", meaning:"同时输出到屏幕和文件", example:"echo text | tee file.txt", tip:"双重重定向"},
+  {cmd:"xargs", meaning:"将标准输入转为命令行参数", example:"find . -name '*.txt' | xargs rm", tip:"批量操作"},
+  {cmd:"watch", meaning:"定期执行命令", example:"watch -n 1 'date'", tip:"监控输出变化"},
+  {cmd:"screen", meaning:"多窗口终端", example:"screen -S mysession", tip:"断开重连"},
+  {cmd:"tmux", meaning:"终端复用器", example:"tmux new -s session", tip:"更现代"},
+  {cmd:"crontab", meaning:"定时任务", example:"crontab -e", tip:"计划任务"},
+  {cmd:"systemctl", meaning:"系统服务管理", example:"systemctl status sshd", tip:"systemd"},
+  {cmd:"journalctl", meaning:"查看日志", example:"journalctl -u sshd", tip:"systemd日志"},
+  {cmd:"useradd", meaning:"添加用户", example:"sudo useradd -m newuser", tip:"需root"},
+  {cmd:"passwd", meaning:"修改密码", example:"passwd username", tip:"owner可改自己的"},
+  {cmd:"su", meaning:"切换用户", example:"su - root", tip:"switch user"},
+  {cmd:"sudo", meaning:"提权执行", example:"sudo apt update", tip:"需要配置"},
+  {cmd:"shutdown", meaning:"关机/重启", example:"shutdown -h now", tip:"谨慎使用"},
+  {cmd:"reboot", meaning:"重启系统", example:"reboot", tip:"需要root"}
 ];
-function getTodaySet(){const day=new Date().getDate();const start=(day*3)%commandBank.length;return commandBank.slice(start,start+3).concat(commandBank.slice(0,Math.max(0,start+3-commandBank.length)));}
-const todayCommands=getTodaySet();
-let quizIndex=0,score=0;
-function renderCommands(){
-  const c=document.getElementById('commandList');c.innerHTML='';
-  todayCommands.forEach(item=>{
-    const div=document.createElement('div');div.className='command-item';
-    div.innerHTML=`<div class="cmd">${item.cmd}</div><div class="cmd-meaning">${item.meaning}</div><div class="cmd-example">$ ${item.example}</div><div class="cmd-tip">💡 ${item.tip}</div>`;
-    c.appendChild(div);
+
+// ---------- 配置 ----------
+const GROUP_SIZE = 5;      // 每组5个命令
+const TOTAL_CMDS = commandBank.length;
+let currentOffset = 0;     // 偏移组数，0 = 今日基准组
+let currentCommands = [];
+let quizIndex = 0, score = 0;
+let lastScoredIndex = null;
+
+// 获取今日基准起始索引（基于日期，每天不同）
+function getBaseStartIndex() {
+  const today = new Date();
+  const seed = today.getFullYear() * 365 + today.getMonth() * 31 + today.getDate();
+  return (seed * 5) % TOTAL_CMDS;
+}
+
+// 根据偏移组数获取命令列表（一组5个）
+function getCommandsByOffset(offset) {
+  const baseStart = getBaseStartIndex();
+  let start = (baseStart + offset * GROUP_SIZE) % TOTAL_CMDS;
+  const result = [];
+  for (let i = 0; i < GROUP_SIZE; i++) {
+    const idx = (start + i) % TOTAL_CMDS;
+    result.push({ ...commandBank[idx] });
+  }
+  return result;
+}
+
+// 刷新整个页面
+function refresh() {
+  currentCommands = getCommandsByOffset(currentOffset);
+  if (!currentCommands.length) return;
+  quizIndex = 0;
+  score = 0;
+  lastScoredIndex = null;
+  renderCommands();
+  renderQuiz();
+  updateProgress();
+}
+
+// 渲染命令列表
+function renderCommands() {
+  const container = document.getElementById('commandList');
+  if (!container) return;
+  container.innerHTML = '';
+  currentCommands.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'command-item';
+    div.innerHTML = `
+      <div class="cmd">${item.cmd}</div>
+      <div class="cmd-meaning">${item.meaning}</div>
+      <div class="cmd-example">$ ${item.example}</div>
+      <div class="cmd-tip">💡 ${item.tip}</div>
+    `;
+    container.appendChild(div);
   });
 }
-function renderQuiz(){
-  document.getElementById('quizQuestion').innerHTML=`哪个命令可以：<b>${todayCommands[quizIndex].meaning}</b>？`;
-  document.getElementById('answerInput').value='';
-  const r=document.getElementById('result');r.innerHTML='';r.className='result';
+
+// 渲染当前测验题目
+function renderQuiz() {
+  if (!currentCommands.length) return;
+  const current = currentCommands[quizIndex];
+  document.getElementById('quizQuestion').innerHTML = `哪个命令的功能是：<b>${current.meaning}</b>？`;
+  document.getElementById('answerInput').value = '';
+  const resultDiv = document.getElementById('result');
+  resultDiv.innerHTML = '';
+  resultDiv.className = 'result';
 }
-function checkAnswer(){
-  const answer=document.getElementById('answerInput').value.trim();
-  const current=todayCommands[quizIndex];
-  const r=document.getElementById('result');
-  if(answer===current.cmd){r.innerHTML='✅ 答对了，漂亮。';r.className='result ok';score++;}
-  else{r.innerHTML=`❌ 不对，正确答案是：<code>${current.cmd}</code>`;r.className='result err';}
-  document.getElementById('progressFill').style.width=`${(score/todayCommands.length)*100}%`;
-  document.getElementById('scoreText').textContent=`掌握进度：${score}/${todayCommands.length}`;
+
+// 更新进度条和得分
+function updateProgress() {
+  const fill = document.getElementById('progressFill');
+  const text = document.getElementById('scoreText');
+  if (fill) fill.style.width = `${(score / GROUP_SIZE) * 100}%`;
+  if (text) text.textContent = `当前组掌握：${score}/${GROUP_SIZE}`;
 }
-function nextQuestion(){quizIndex=(quizIndex+1)%todayCommands.length;renderQuiz();}
-renderCommands();renderQuiz();
+
+// 检查答案
+function checkAnswer() {
+  if (!currentCommands.length) return;
+  const answer = document.getElementById('answerInput').value.trim();
+  const current = currentCommands[quizIndex];
+  const resultDiv = document.getElementById('result');
+  if (answer === current.cmd) {
+    resultDiv.innerHTML = '✅ 答对了，漂亮！继续下一题。';
+    resultDiv.className = 'result ok';
+    if (lastScoredIndex !== quizIndex) {
+      score++;
+      lastScoredIndex = quizIndex;
+      updateProgress();
+    }
+  } else {
+    resultDiv.innerHTML = `❌ 不对，正确答案是：<code>${current.cmd}</code>`;
+    resultDiv.className = 'result err';
+  }
+}
+
+// 下一题
+function nextQuestion() {
+  if (!currentCommands.length) return;
+  quizIndex = (quizIndex + 1) % GROUP_SIZE;
+  lastScoredIndex = null;
+  renderQuiz();
+  updateProgress();
+}
+
+// 上下组切换
+function nextGroup() { currentOffset++; refresh(); }
+function prevGroup() { currentOffset--; refresh(); }
+function resetToToday() { currentOffset = 0; refresh(); }
+
+// 绑定事件
+function bindEvents() {
+  document.getElementById('checkBtn').onclick = checkAnswer;
+  document.getElementById('nextBtn').onclick = nextQuestion;
+  document.getElementById('prevGroupBtn').onclick = prevGroup;
+  document.getElementById('nextGroupBtn').onclick = nextGroup;
+  document.getElementById('resetTodayBtn').onclick = resetToToday;
+  document.getElementById('legacyResetBtn').onclick = resetToToday;
+}
+
+// 初始化
+refresh();
+bindEvents();
 </script>
 </body>
 </html>
