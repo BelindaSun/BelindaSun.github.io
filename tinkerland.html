@@ -1,282 +1,118 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tinkerland — Belinda Sun</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      :root {
-        --cream: #fdfcfa;
-        --warm: #f5f0e8;
-        --text: #3d2a5c;
-        --text-muted: #7a5fa0;
-        --text-light: #b09cc8;
-        --accent: #854f0b;
-        --accent-light: #faeeda;
-        --border: rgba(26, 26, 24, 0.12);
-        --serif: Georgia, "Times New Roman", serif;
-        --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      }
-      body {
-        background: var(--cream);
-        color: var(--text);
-        font-family: var(--sans);
-        min-height: 100vh;
-      }
-      nav {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 1.25rem 3rem;
-        border-bottom: 0.5px solid var(--border);
-        background: var(--cream);
-        position: sticky;
-        top: 0;
-        z-index: 100;
-      }
-      .nav-logo {
-        font-family: var(--serif);
-        font-size: 1.1rem;
-        color: var(--text);
-        text-decoration: none;
-      }
-      .nav-links {
-        display: flex;
-        gap: 2rem;
-        list-style: none;
-      }
-      .nav-links a {
-        font-size: 0.88rem;
-        color: var(--text-muted);
-        text-decoration: none;
-      }
-      .nav-links a:hover {
-        color: var(--text);
-      }
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tinkerland — Belinda Sun</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --cream: #FDFCFA; --warm: #F5F0E8;
+    --text: #3D2A5C; --text-muted: #7A5FA0; --text-light: #B09CC8;
+    --accent: #854F0B; --accent-light: #FAEEDA;
+    --border: rgba(26,26,24,0.12);
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  body { background: var(--cream); color: var(--text); font-family: var(--sans); min-height: 100vh; }
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 3rem; border-bottom: 0.5px solid var(--border); background: var(--cream); position: sticky; top: 0; z-index: 100; }
+  .nav-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--text); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; }
+  .nav-links a:hover { color: var(--text); }
 
-      .page-header {
-        max-width: 680px;
-        margin: 0 auto;
-        padding: 4rem 2rem 3rem;
-      }
-      .page-label {
-        font-size: 0.75rem;
-        letter-spacing: 0.12em;
-        color: var(--text-light);
-        text-transform: uppercase;
-        margin-bottom: 1rem;
-      }
-      .page-title {
-        font-family: var(--serif);
-        font-size: 2.2rem;
-        font-weight: normal;
-        margin-bottom: 0.8rem;
-      }
-      .page-desc {
-        font-size: 0.95rem;
-        color: var(--text-muted);
-        line-height: 1.8;
-        max-width: 480px;
-      }
-      .page-divider {
-        width: 40px;
-        height: 0.5px;
-        background: var(--text-light);
-        margin: 2rem 0;
-      }
+  .page-header { max-width: 680px; margin: 0 auto; padding: 4rem 2rem 3rem; }
+  .page-label { font-size: 0.75rem; letter-spacing: 0.12em; color: var(--text-light); text-transform: uppercase; margin-bottom: 1rem; }
+  .page-title { font-family: var(--serif); font-size: 2.2rem; font-weight: normal; margin-bottom: 0.8rem; }
+  .page-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.8; max-width: 480px; }
+  .page-divider { width: 40px; height: 0.5px; background: var(--text-light); margin: 2rem 0; }
 
-      .grid {
-        max-width: 860px;
-        margin: 0 auto;
-        padding: 0 2rem 6rem;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 1.5rem;
-      }
+  .grid { max-width: 860px; margin: 0 auto; padding: 0 2rem 6rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
 
-      .item-card {
-        border-radius: 14px;
-        padding: 1.75rem 1.5rem;
-        text-decoration: none;
-        display: block;
-        border: 1.5px solid transparent;
-        transition:
-          transform 0.15s,
-          box-shadow 0.2s;
-      }
-      .item-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
-      }
-      .item-card.sudoku {
-        background: #e8f4fd;
-        border-color: #90c8e8;
-      }
-      .item-card.music {
-        background: #eef5e8;
-        border-color: #a0d090;
-      }
-      .item-card.gomoku {
-        background: #fef4e3;
-        border-color: #f5d9a8;
-      }
-      .item-card.linux {
-        background: #ebe9f5;
-        border-color: #c7bce0;
-      }
-      .item-card.english {
-        background: #dbf0f0;
-        border-color: #8fcaca;
-      }
-      .item-card.mimo {
-        background: #fef3dc;
-        border-color: #f0c860;
-        opacity: 0.6;
-        pointer-events: none;
-      }
+  .item-card { border-radius: 14px; padding: 1.75rem 1.5rem; text-decoration: none; display: block; border: 1.5px solid transparent; transition: transform 0.15s, box-shadow 0.2s; }
+  .item-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.1); }
+  .item-card.sudoku { background: #E8F4FD; border-color: #90C8E8; }
+  .item-card.music  { background: #EEF5E8; border-color: #A0D090; }
+  .item-card.gomoku { background: #FEF4E3; border-color: #F5D9A8; }
+  .item-card.linux  { background: #EBE9F5; border-color: #C7BCE0; }
+  .item-card.english { background: #DBF0F0; border-color: #8FCACA; }
+  .item-card.mimo   { background: #FEF3DC; border-color: #F0C860; opacity: 0.6; pointer-events: none; }
 
-      .item-icon {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-      }
-      .item-name {
-        font-family: var(--serif);
-        font-size: 1.1rem;
-        color: #2c2c2a;
-        margin-bottom: 0.4rem;
-      }
-      .item-desc {
-        font-size: 0.85rem;
-        color: #666662;
-        line-height: 1.7;
-        margin-bottom: 1rem;
-      }
-      .item-tag {
-        display: inline-block;
-        font-size: 0.72rem;
-        color: var(--accent);
-        background: var(--accent-light);
-        padding: 2px 8px;
-        border-radius: 20px;
-      }
-      .item-tag.soon {
-        color: var(--text-light);
-        background: var(--warm);
-      }
+  .item-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .item-name { font-family: var(--serif); font-size: 1.1rem; color: #2C2C2A; margin-bottom: 0.4rem; }
+  .item-desc { font-size: 0.85rem; color: #666662; line-height: 1.7; margin-bottom: 1rem; }
+  .item-tag { display: inline-block; font-size: 0.72rem; color: var(--accent); background: var(--accent-light); padding: 2px 8px; border-radius: 20px; text-decoration: none; }
+  .item-tag.soon { color: var(--text-light); background: var(--warm); pointer-events: none; }
 
-      .item-card .article-link {
-        display: inline-block;
-        margin-top: 0.75rem;
-        font-size: 0.78rem;
-        color: var(--text-muted);
-        font-style: italic;
-      }
+  footer { border-top: 0.5px solid var(--border); padding: 1.5rem 3rem; text-align: center; }
+  footer p { font-size: 0.8rem; color: var(--text-light); }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Belinda Sun</a>
+  <ul class="nav-links">
+    <li><a href="index.html">首页</a></li>
+    <li><a href="hello-world-index.html">Hello World</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+</nav>
 
-      footer {
-        border-top: 0.5px solid var(--border);
-        padding: 1.5rem 3rem;
-        text-align: center;
-      }
-      footer p {
-        font-size: 0.8rem;
-        color: var(--text-light);
-      }
-    </style>
-  </head>
-  <body>
-    <nav>
-      <a href="index.html" class="nav-logo">Belinda Sun</a>
-      <ul class="nav-links">
-        <li><a href="index.html">首页</a></li>
-        <li><a href="hello-world-index.html">Hello World</a></li>
-        <li><a href="about.html">About</a></li>
-      </ul>
-    </nav>
+<div class="page-header">
+  <p class="page-label">Tinkerland</p>
+  <h1 class="page-title">🔧 Tinkerland</h1>
+  <p class="page-desc">好奇心、无聊感，加上一点点对 AI 的迷恋，慢慢长成了这些小游戏、小工具。<br><br>Little games, tiny experiments. Built for fun — some with AI, some for AI, all made to play with. Come in, look around, stay as long as you like.</p>
+  <div class="page-divider"></div>
+</div>
 
-    <div class="page-header">
-      <p class="page-label">Tinkerland</p>
-      <h1 class="page-title">🔧 Tinkerland</h1>
-      <p class="page-desc">
-        好奇心、无聊感， 加上一点点对 AI
-        的迷恋，慢慢长成了这些小游戏、小工具。<br /><br />Little games, tiny
-        experiments. Built for fun — some with AI, some for AI, all made to play
-        with. Come in, look around, stay as long as you like.
-      </p>
-      <div class="page-divider"></div>
+<div class="grid">
+  <!-- 数独卡片：改用 div + 内部两个链接，解决嵌套问题 -->
+  <div class="item-card sudoku">
+    <div class="item-icon">🎲</div>
+    <div class="item-name">数独 Sudoku</div>
+    <div class="item-desc">不吵不闹，一个人慢慢上头。<br><br>No login. No ads. Just you and the puzzle.</div>
+    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 0.5rem;">
+      <a href="sudoku.html" class="item-tag" style="text-decoration: none;">Play now</a>
+      <a href="hello-world-5.html" style="font-size: 0.65rem; color: var(--text-muted); text-decoration: none;">→ 背后的故事</a>
     </div>
+  </div>
 
-    <div class="grid">
-      <a href="sudoku.html" class="item-card sudoku">
-        <div class="item-icon">🎲</div>
-        <div class="item-name">数独 Sudoku</div>
-        <div class="item-desc">
-          不吵不闹，一个人慢慢上头。<br /><br />No login. No ads. Just you and the puzzle.
-        </div>
-        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 0.5rem;">
-        <span class="item-tag">Play now</span>
-        <a href="hello-world-5.html" style="font-size: 0.65rem; color: var(--text-muted); text-decoration: none;">→ 背后的故事</a>
-      </div>
-    </a>
-      
+  <a href="musical-staff.html" class="item-card music">
+    <div class="item-icon">🎵</div>
+    <div class="item-name">五线谱 Musical Staff</div>
+    <div class="item-desc">从 Do Re Mi 开始，慢慢看见音乐。<br><br>For people who love music but never learned to read it.</div>
+    <span class="item-tag">Play now</span>
+  </a>
 
-      <a href="musical-staff.html" class="item-card music">
-        <div class="item-icon">🎵</div>
-        <div class="item-name">五线谱 Musical Staff</div>
-        <div class="item-desc">
-          从 Do Re Mi 开始，慢慢看见音乐。<br /><br />For people who love music
-          but never learned to read it.
-        </div>
-        <span class="item-tag">Play now</span>
-      </a>
+  <a href="gomoku.html" class="item-card gomoku">
+    <div class="item-icon">⚫️⚪️</div>
+    <div class="item-name">五子棋 Gomoku</div>
+    <div class="item-desc">随时来一局，简单的快乐。<br><br>A quiet little battle of black and white.</div>
+    <span class="item-tag">Play now</span>
+  </a>
 
-      <!-- 五子棋 Gomoku -->
-      <a href="gomoku.html" class="item-card gomoku">
-        <div class="item-icon">⚫️⚪️</div>
-        <div class="item-name">五子棋 Gomoku</div>
-        <div class="item-desc">
-          随时来一局，简单的快乐。<br /><br />A quiet little battle of black and
-          white.
-        </div>
-        <span class="item-tag">Play now</span>
-      </a>
+  <a href="linux-command-trainer.html" class="item-card linux">
+    <div class="item-icon">🐧</div>
+    <div class="item-name">Linux 命令行 Linux CLI</div>
+    <div class="item-desc">别怕终端，它没看起来那么凶。<br><br>Learn commands, break nothing, look smart.</div>
+    <span class="item-tag">Play now</span>
+  </a>
 
-      <!-- Linux 命令行学习 -->
-      <a href="linux-command-trainer.html" class="item-card linux">
-        <div class="item-icon">🐧</div>
-        <div class="item-name">Linux 命令行 Linux CLI</div>
-        <div class="item-desc">
-          别怕终端，它没看起来那么凶。<br /><br />Learn commands, break nothing,
-          look smart.
-        </div>
-        <span class="item-tag">Play now</span>
-      </a>
+  <a href="english-trainer.html" class="item-card english">
+    <div class="item-icon">📖</div>
+    <div class="item-name">每日英语词汇 Daily English</div>
+    <div class="item-desc">一天几个词，慢慢把世界听懂。<br><br>Tiny words. Bigger worlds.</div>
+    <span class="item-tag">Play now</span>
+  </a>
 
-      <!-- Daily English Vocabulary Trainer -->
-      <a href="english-trainer.html" class="item-card english">
-        <div class="item-icon">📖</div>
-        <div class="item-name">每日英语词汇 Daily English</div>
-        <div class="item-desc">
-          一天几个词，慢慢把世界听懂。<br /><br />Tiny words. Bigger worlds.
-        </div>
-        <span class="item-tag">Play now</span>
-      </a>
+  <div class="item-card mimo">
+    <div class="item-icon">✨</div>
+    <div class="item-name">Mimo → MASS</div>
+    <div class="item-desc">如果人生不能重来，或许可以体验另一种可能。<br><br>If life cannot be replayed, perhaps it can still be reimagined.</div>
+    <span class="item-tag soon">Coming soon</span>
+  </div>
+</div>
 
-      <div class="item-card mimo">
-        <div class="item-icon">✨</div>
-        <div class="item-name">Mimo-->MASS</div>
-        <div class="item-desc">
-          如果人生不能重来， 或许可以体验另一种可能。<br /><br />If life cannot
-          be replayed, perhaps it can still be reimagined.
-        </div>
-        <span class="item-tag soon">Coming soon</span>
-      </div>
-    </div>
-
-    <footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
-  </body>
+<footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
+</body>
 </html>
