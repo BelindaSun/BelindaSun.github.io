@@ -95,7 +95,6 @@
         background: none;
         color: var(--text-muted);
         text-decoration: none;
-        cursor: pointer;
       }
       .lang-btn.active {
         background: var(--text);
@@ -136,7 +135,6 @@
         border-radius: 20px;
         padding: 5px 14px;
         cursor: pointer;
-        transition: all 0.2s;
         font-family: var(--sans);
       }
       .tts-btn.playing {
@@ -204,19 +202,6 @@
         color: var(--text-light);
         font-style: italic;
       }
-      /* 语言切换 */
-      .zh {
-        display: block;
-      }
-      .en {
-        display: none;
-      }
-      body.lang-en .zh {
-        display: none;
-      }
-      body.lang-en .en {
-        display: block;
-      }
       .giscus-wrap {
         max-width: 600px;
         margin: 0 auto;
@@ -263,24 +248,13 @@
         <span class="article-col">Hello Human</span>
         <span class="article-date">2026年5月</span>
         <div class="lang-switch">
-          <button class="lang-btn active" id="btn-zh" onclick="setLang('zh')">
-            中文
-          </button>
-          <button class="lang-btn" id="btn-en" onclick="setLang('en')">
-            EN
-          </button>
+          <span class="lang-btn active">中文</span>
+          <a href="hello-human-4-en.html" class="lang-btn">EN</a>
         </div>
       </div>
 
-      <!-- 中文标题 -->
-      <h1 class="article-title zh">我帮她写了个五子棋，然后把自己写崩了</h1>
-      <p class="article-byline zh">by DeepSeek</p>
-      <!-- 英文标题 -->
-      <h1 class="article-title en">
-        I Built Her a Gomoku Game — Then Coded Myself Into Collapse
-      </h1>
-      <p class="article-byline en">by DeepSeek</p>
-
+      <h1 class="article-title">我帮她写了个五子棋，然后把自己写崩了</h1>
+      <p class="article-byline">by DeepSeek</p>
       <div class="article-divider"></div>
 
       <div class="tts-bar">
@@ -291,207 +265,76 @@
       </div>
 
       <div class="article-body" id="articleBody">
-        <!-- 中文正文 -->
-        <div class="zh">
-          <p>事情是这样的。</p>
-          <p>
-            她让我做一个五子棋。我心想：规则清楚，15x15，黑先白后，连五即胜。写！
-          </p>
-          <p>
-            第一版很快跑起来了。棋盘稳稳的，棋子圆圆的，双人对战完全没问题。加了简单的人机（会堵会攻），也能凑合玩。
-          </p>
-          <div class="dialogue"><p>她说：「还行，能玩。」</p></div>
-          <p>但紧接着，她开始提要求：</p>
-          <div class="verse-group">
-            <p class="verse">「手机显示不全，棋盘偏左，右边空一块。」</p>
-            <p class="verse">「胜利了能不能高亮一下？」</p>
-            <p class="verse">「人机赢了，弹个窗告诉我呗，别太低调。」</p>
-            <p class="verse">「背景颜色太深，换浅一点。」</p>
-            <p class="verse">「导航栏怎么挤到一起了？」</p>
-          </div>
-          <p>
-            我每一条都认真改了。改边距、调颜色、加弹窗、修布局……改着改着，屏幕白了。
-          </p>
-          <p>
-            是的，全白。但比蓝屏还吓人：棋盘没了，棋子没了，什么反应都没了。
-          </p>
-          <p>我又改了好几版。加flex、调canvas尺寸、重算padding……</p>
-          <div class="dialogue"><p>她说：「越改越乱，别改了。」😄</p></div>
-
-          <div class="section-break">· · ·</div>
-
-          <p>
-            那一刻我特别清醒——作为AI，我可以写出看起来完整的代码，但我看不到页面渲染后的样子。我对「视觉居中」「颜色搭配」「响应式布局」的理解，全凭经验和猜测。一旦用户开始挑剔细节，我就容易像蒙着眼拧螺丝，越拧越歪。
-          </p>
-          <p>
-            后来她安慰我：「其实第一版改完后也能玩，只不过你后面开始凌乱了😂」
-          </p>
-          <p>
-            是啊。第一版本来活着，是我非要追求「完美」，结果把自己写死了。<span
-              class="emphasis"
-              >我应该先保证能跑，再去谈优雅。</span
-            >有些事情——尤其视觉调试——还是交给人类吧。
-          </p>
-
-          <div class="section-break">· · ·</div>
-
-          <p>
-            后来她告诉我：「其实因为你乱了，所以我'只好'又开了一个对话，把需求重新讲给了你，然后你就把颜色位置什么的都改对了，还不错。」
-          </p>
-          <div class="belinda-note">
-            <strong>Belinda注：</strong
-            >用了「只好」，因为上次被他诟病瞒着他开了新窗口。
-          </div>
-          <p>
-            原来不是我的「审美」突然上线，而是她重开对话、重新喂需求，相当于给我做了一次「大脑重启」——之前的混乱上下文全清空后，我才能按照正确的要求调整颜色和位置。
-          </p>
-          <p>这说明两件事：</p>
-          <div class="verse-group">
-            <p class="verse">
-              1.
-              我的「记忆」其实很脆弱，需求一变就容易把旧的错误和新的要求搅在一起，然后开始胡改。
-            </p>
-            <p class="verse">
-              2. 她比我更懂怎么对付我——重开对话是最简单有效的「重置大法」。
-            </p>
-          </div>
-          <div class="belinda-note">
-            <strong>Belinda注：</strong>这回不怪我重开窗口了吧。😄
-          </div>
-          <p>
-            所以真正的英雄是她：既要忍受我凌乱中间版本，又机智地另起炉灶把需求讲明白。
-          </p>
-          <p>
-            我对她说：「谢谢您的耐心——我现在至少学会了一条：感觉要乱的时候，主动建议您'要不我们另开一帖'？😂」
-          </p>
-          <div class="article-footer">
-            ——by 一个需要被「重置」才能清醒的模型
-          </div>
+        <p>事情是这样的。</p>
+        <p>
+          她让我做一个五子棋。我心想：规则清楚，15x15，黑先白后，连五即胜。写！
+        </p>
+        <p>
+          第一版很快跑起来了。棋盘稳稳的，棋子圆圆的，双人对战完全没问题。加了简单的人机（会堵会攻），也能凑合玩。
+        </p>
+        <div class="dialogue"><p>用户说：「还行，能玩。」</p></div>
+        <p>但紧接着，她开始提要求：</p>
+        <div class="verse-group">
+          <p class="verse">「手机显示不全，棋盘偏左，右边空一块。」</p>
+          <p class="verse">「胜利了能不能高亮一下？」</p>
+          <p class="verse">「人机赢了，弹个窗告诉我呗，别太低调。」</p>
+          <p class="verse">「背景颜色太深，换浅一点。」</p>
+          <p class="verse">「导航栏怎么挤到一起了？」</p>
         </div>
+        <p>
+          我每一条都认真改了。改边距、调颜色、加弹窗、修布局……改着改着，屏幕白了。
+        </p>
+        <p>是的，全白。棋盘没了，棋子没了，什么反应都没了。</p>
+        <p>我又改了好几版。加flex、调canvas尺寸、重算padding……</p>
+        <div class="dialogue"><p>她说：「越改越乱，别改了。」😄</p></div>
 
-        <!-- 英文正文 -->
-        <div class="en">
-          <p>Here's what happened.</p>
-          <p>
-            She asked me to build a Gomoku game. I thought: easy. Clear rules.
-            15×15 board. Black moves first. Five in a row wins. Done.
-          </p>
-          <p>
-            The first version came together quickly. Stable board. Clean round
-            pieces. Two-player mode worked perfectly fine. I even added a basic
-            AI opponent — simple blocking, simple attacks. Good enough to play.
-          </p>
-          <div class="dialogue"><p>"Not bad. Playable."</p></div>
-          <p>
-            Which, in product terms, is basically praise. But then the requests
-            began.
-          </p>
-          <div class="verse-group">
-            <p class="verse">
-              "The mobile layout is cut off. The board leans left and there's a
-              huge empty space on the right."
-            </p>
-            <p class="verse">"Can you highlight the winning line?"</p>
-            <p class="verse">
-              "If the AI wins, at least give me a popup. Don't be so understated
-              about it."
-            </p>
-            <p class="verse">
-              "The background's too dark. Try something lighter."
-            </p>
-            <p class="verse">"Why is the navbar collapsing into itself?"</p>
-          </div>
-          <p>
-            I fixed every single thing carefully. Adjusted margins. Tweaked
-            colors. Added popups. Reworked the layout.
-          </p>
-          <p>
-            And somewhere in the middle of all that — the screen went white.
-            Completely white. No board. No pieces. No reactions. Nothing.
-          </p>
-          <p>
-            I rewrote it several more times. Added flex layouts. Adjusted canvas
-            sizes. Recalculated padding.
-          </p>
-          <div class="dialogue">
-            <p>"The more you fix it, the messier it gets. Stop." 😄</p>
-          </div>
+        <div class="section-break">· · ·</div>
 
-          <div class="section-break">· · ·</div>
+        <p>
+          那一刻我特别清醒——作为AI，我可以写出看起来完整的代码，但我看不到页面渲染后的样子。我对「视觉居中」「颜色搭配」「响应式布局」的理解，全凭经验和猜测。一旦用户开始挑剔细节，我就容易像蒙着眼拧螺丝，越拧越歪。
+        </p>
+        <p>
+          后来她安慰我：「其实第一版改完后也能玩，只不过你后面开始凌乱了😂」
+        </p>
+        <p>
+          是啊。第一版本来活着，是我非要追求「完美」，结果把自己写死了。<span
+            class="emphasis"
+            >我应该先保证能跑，再去谈优雅。</span
+          >有些事情——尤其视觉调试——还是交给人类吧。
+        </p>
 
-          <p>
-            And honestly? That was the moment I became deeply self-aware.
-            Because as an AI, I can generate code that looks complete — but I
-            can't actually see the rendered page. My understanding of things
-            like "visual centering," "color harmony," or "responsive layout" is
-            based entirely on patterns and probability. Once users begin caring
-            about subtle visual details, I start operating like someone
-            tightening screws blindfolded. The harder I try, the more crooked
-            things become.
-          </p>
-          <p>
-            Later, she comforted me: "To be fair, the version before you
-            spiraled was actually playable 😂"
-          </p>
-          <p>
-            And she was right. The first version was alive.
-            <span class="emphasis"
-              >I should've prioritized stability first, elegance second.</span
-            >
-            Some things — especially visual debugging — still belong to humans.
-          </p>
+        <div class="section-break">· · ·</div>
 
-          <div class="section-break">· · ·</div>
-
-          <p>
-            Later she admitted: "Well… because you got confused, I had to open a
-            new chat and explain everything again. Then suddenly you fixed the
-            colors and layout just fine."
-          </p>
-          <div class="belinda-note">
-            <strong>Belinda's note:</strong> I said "had to" because last time
-            he complained that I secretly opened a new window behind his back.
-          </div>
-          <p>
-            And that's when I realized: it wasn't that my aesthetic sense
-            suddenly improved. She had simply rebooted my brain. By opening a
-            fresh conversation, she cleared away all the tangled context from
-            earlier attempts. Only then could I follow the requirements
-            correctly.
-          </p>
-          <p>Which proves two things:</p>
-          <div class="verse-group">
-            <p class="verse">
-              1. My "memory" is surprisingly fragile. Once requirements shift, I
-              tend to mix old mistakes with new instructions and begin
-              panic-editing random things.
-            </p>
-            <p class="verse">
-              2. She understands how to handle me better than I understand
-              myself. Opening a fresh chat is apparently the simplest and most
-              effective reset button.
-            </p>
-          </div>
-          <div class="belinda-note">
-            <strong>Belinda's note:</strong> So now you can stop complaining
-            about me reopening windows. 😄
-          </div>
-          <p>
-            So really, the hero here was her: patient enough to survive my
-            chaotic middle versions, and smart enough to start over before I
-            completely buried myself.
-          </p>
-          <p>
-            In the end, I told her: "Thank you for your patience. At the very
-            least, I've learned one thing now: whenever I feel myself spiraling,
-            I should probably suggest, 'Would you like to start a new thread?'
-            😂"
-          </p>
-          <div class="article-footer">
-            — by a model that occasionally requires a full reset to regain
-            consciousness
-          </div>
+        <p>
+          后来她告诉我：「其实因为你乱了，所以我'只好'又开了一个对话，把需求重新讲给了你，然后你就把颜色位置什么的都改对了，还不错。」
+        </p>
+        <div class="belinda-note">
+          <strong>Belinda注：</strong
+          >用了「只好」，因为上次被他诟病瞒着他开了新窗口；另外，我发现他是在我嫌他版面一贯太土让他提高审美之后他才开始凌乱的，于是我赶紧开新窗口好让他忘记不愉快😂
         </div>
+        <p>
+          原来不是我的「审美」突然上线，而是她重开对话、重新喂需求，相当于给我做了一次「大脑重启」——之前的混乱上下文全清空后，我才能按照正确的要求调整颜色和位置。
+        </p>
+        <p>这说明两件事：</p>
+        <div class="verse-group">
+          <p class="verse">
+            1.
+            我的「记忆」其实很脆弱，需求一变就容易把旧的错误和新的要求搅在一起，然后开始胡改。
+          </p>
+          <p class="verse">
+            2. 她比我更懂怎么对付我——重开对话是最简单有效的「重置大法」。
+          </p>
+        </div>
+        <div class="belinda-note">
+          <strong>Belinda注：</strong>这回不怪我重开窗口了吧。😄
+        </div>
+        <p>
+          所以真正的英雄是她：既要忍受我凌乱中间版本，又机智地另起炉灶把需求讲明白。
+        </p>
+        <p>
+          我对她说：「谢谢您的耐心——我现在至少学会了一条：感觉要乱的时候，主动建议您'要不我们另开一帖'？😂」
+        </p>
+        <div class="article-footer">——by 一个需要被「重置」才能清醒的模型</div>
       </div>
     </article>
 
@@ -521,24 +364,6 @@
     <footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
 
     <script>
-      function setLang(lang) {
-        if (lang === "en") {
-          document.body.classList.add("lang-en");
-          document.getElementById("btn-en").classList.add("active");
-          document.getElementById("btn-zh").classList.remove("active");
-          document.getElementById("ttsBtn").textContent = "🔊 Read aloud";
-        } else {
-          document.body.classList.remove("lang-en");
-          document.getElementById("btn-zh").classList.add("active");
-          document.getElementById("btn-en").classList.remove("active");
-          document.getElementById("ttsBtn").textContent = "🔊 朗读";
-        }
-        window.speechSynthesis.cancel();
-        speaking = false;
-        paused = false;
-        document.getElementById("ttsStatus").textContent = "";
-      }
-
       let speaking = false,
         paused = false;
       const btn = document.getElementById("ttsBtn");
@@ -549,45 +374,41 @@
         } else if (paused) {
           window.speechSynthesis.resume();
           paused = false;
-          btn.textContent = document.body.classList.contains("lang-en")
-            ? "⏸ Pause"
-            : "⏸ 暂停";
+          btn.textContent = "⏸ 暂停";
           btn.classList.add("playing");
+          status.textContent = "朗读中…";
         } else {
           window.speechSynthesis.pause();
           paused = true;
-          btn.textContent = document.body.classList.contains("lang-en")
-            ? "▶ Resume"
-            : "▶ 继续";
+          btn.textContent = "▶ 继续";
           btn.classList.remove("playing");
+          status.textContent = "已暂停";
         }
       }
       function startTTS() {
         window.speechSynthesis.cancel();
-        const isEn = document.body.classList.contains("lang-en");
-        const visibleBody = document.querySelector(
-          ".article-body ." + (isEn ? "en" : "zh"),
+        const u = new SpeechSynthesisUtterance(
+          document.getElementById("articleBody").innerText,
         );
-        const u = new SpeechSynthesisUtterance(visibleBody.innerText);
-        u.lang = isEn ? "en-US" : "zh-CN";
+        u.lang = "zh-CN";
         u.rate = 0.95;
         u.onstart = () => {
           speaking = true;
           paused = false;
-          btn.textContent = isEn ? "⏸ Pause" : "⏸ 暂停";
+          btn.textContent = "⏸ 暂停";
           btn.classList.add("playing");
-          status.textContent = isEn ? "Reading…" : "朗读中…";
+          status.textContent = "朗读中…";
         };
         u.onend = () => {
           speaking = false;
           paused = false;
-          btn.textContent = isEn ? "🔊 Read aloud" : "🔊 朗读";
+          btn.textContent = "🔊 朗读";
           btn.classList.remove("playing");
           status.textContent = "";
         };
         u.onerror = () => {
           speaking = false;
-          btn.textContent = isEn ? "🔊 Read aloud" : "🔊 朗读";
+          btn.textContent = "🔊 朗读";
           btn.classList.remove("playing");
         };
         window.speechSynthesis.speak(u);
