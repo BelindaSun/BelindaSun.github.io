@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Great Golf Hoe Adventure — Belinda Sun</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --cream: #FDFCFA; --warm: #F5F0E8;
+    --text: #3D2A5C; --text-muted: #7A5FA0; --text-light: #B09CC8;
+    --accent: #854F0B; --accent-light: #FAEEDA;
+    --border: rgba(26,26,24,0.12);
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  body { background: var(--cream); color: var(--text); font-family: var(--sans); min-height: 100vh; }
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 3rem; border-bottom: 0.5px solid var(--border); background: var(--cream); position: sticky; top: 0; z-index: 100; }
+  .nav-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--text); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; }
+  .nav-links a:hover { color: var(--text); }
+  article { max-width: 600px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+  .article-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .article-col { font-size: 0.75rem; color: var(--accent); background: var(--accent-light); padding: 3px 10px; border-radius: 20px; letter-spacing: 0.04em; }
+  .article-date { font-size: 0.8rem; color: var(--text-light); }
+  .lang-switch { margin-left: auto; display: flex; gap: 0.5rem; }
+  .lang-btn { font-size: 0.78rem; padding: 3px 10px; border-radius: 20px; border: 0.5px solid var(--border); background: none; color: var(--text-muted); text-decoration: none; }
+  .lang-btn.active { background: var(--text); color: var(--cream); border-color: var(--text); }
+  .article-title { font-family: var(--serif); font-size: 2rem; font-weight: normal; line-height: 1.4; margin-bottom: 0.4rem; color: var(--text); }
+  .article-subtitle { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 2.5rem; font-style: italic; }
+  .article-divider { width: 40px; height: 0.5px; background: var(--text-light); margin-bottom: 1.5rem; }
+  .tts-bar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; }
+  .tts-btn { display: flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; color: var(--text-muted); background: var(--warm); border: 0.5px solid var(--border); border-radius: 20px; padding: 5px 14px; cursor: pointer; transition: all 0.2s; font-family: var(--sans); }
+  .tts-btn:hover { border-color: var(--text-muted); color: var(--text); }
+  .tts-btn.playing { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
+  .tts-status { font-size: 0.78rem; color: var(--text-light); }
+  .article-body { font-family: var(--serif); font-size: 1.05rem; line-height: 2.1; color: var(--text); }
+  .article-body p { margin-bottom: 1.4rem; }
+  .ai-section { margin: 3rem 0; }
+  .ai-label { font-size: 0.72rem; letter-spacing: 0.15em; color: var(--text-light); text-transform: uppercase; margin-bottom: 1.2rem; padding-bottom: 0.6rem; border-bottom: 0.5px solid var(--border); }
+  .verse { margin-bottom: 0.5rem; }
+  .verse-group { margin-bottom: 1.6rem; }
+  .emphasis { color: var(--accent); }
+  .section-break { text-align: center; color: var(--text-light); margin: 2.5rem 0; letter-spacing: 0.3em; font-size: 0.85rem; }
+  .belinda-note { background: var(--warm); border-radius: 10px; padding: 1rem 1.25rem; margin: 1.5rem 0; font-size: 0.88rem; color: var(--text-muted); line-height: 1.8; font-style: italic; }
+  .belinda-note strong { color: var(--accent); font-style: normal; }
+  .ranking { background: #F2EEF8; border-radius: 10px; padding: 1.25rem 1.5rem; margin: 1.5rem 0; font-size: 0.95rem; line-height: 2.2; }
+  .ranking p { margin-bottom: 0; }
+  .article-nav { max-width: 600px; margin: 0 auto; padding: 2rem 2rem 4rem; display: flex; justify-content: space-between; border-top: 0.5px solid var(--border); }
+  .article-nav a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; }
+  .article-nav a:hover { color: var(--text); }
+  footer { border-top: 0.5px solid var(--border); padding: 1.5rem 3rem; text-align: center; }
+  footer p { font-size: 0.8rem; color: var(--text-light); }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Belinda Sun</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="yesterthoughts-index.html">Yesterthoughts</a></li>
+  </ul>
+</nav>
+
+<article>
+  <div class="article-meta">
+    <span class="article-col">Yesterthoughts</span>
+    <span class="article-date">May 16th 2026</span>
+    <div class="lang-switch">
+      <a href="yesterthoughts-1.html" class="lang-btn">中文</a>
+      <span class="lang-btn active">EN</span>
+    </div>
+  </div>
+
+  <h1 class="article-title">The Great Golf Hoe Adventure</h1>
+  <div class="article-divider"></div>
+
+  <div class="tts-bar">
+    <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">🔊 Read aloud</button>
+    <span class="tts-status" id="ttsStatus"></span>
+  </div>
+
+  <div class="article-body" id="articleBody">
+    <p>Today Liudodo took me to Topgolf in San Jose. Technically it’s a golf entertainment venue — part high-tech driving range, part restaurant, part social playground. In other words: exactly the kind of place where dignity goes to die and laughter thrives.</p>
+
+    <p>It instantly reminded me of the time years ago when I went “fun bowling” with colleagues at headquarters. We had a list of ridiculous challenge moves to follow — the more dramatic, awkward, and unhinged, the better. We laughed so hard our stomachs hurt. To this day, I still smile thinking about it.</p>
+
+    <p>There was also that unforgettable snooker session: a group of people who barely knew how to play enthusiastically producing every possible form of chaos, disaster, and accidental comedy. Absolute cinematic nonsense. Tremendous fun.</p>
+
+    <p>Today’s golf outing, thankfully, did not disappoint either.</p>
+
+    <p>In fact, it became a glorious remake of all previous sporting catastrophes.</p>
+
+    <p>At first, beginner’s luck struck again.</p>
+
+    <p>(Years ago at headquarters bowling, I once opened with a perfect strike and shocked my coworkers into wild cheering. “Don’t get excited,” I told them calmly. “Clearly a performance malfunction.”)</p>
+
+    <p>Today started similarly. My first dozen or so golf shots were surprisingly decent. The system even flashed a message on-screen:</p>
+
+    <p>“Belinda, you are looking bright.”</p>
+
+    <p>Well then.</p>
+
+    <p>Apparently talent simply cannot remain hidden forever.</p>
+
+    <p>Naturally, I became a little pleased with myself.</p>
+
+    <p>“I should go bigger,” I declared confidently.</p>
+
+    <p>So I selected the Driver — the longest club — and began doing a few extremely professional-looking practice motions.</p>
+
+    <p>Unfortunately, during one of these elegant warmups, I accidentally knocked the ball off the tee. 😆</p>
+
+    <p>No matter.</p>
+
+    <p>I reset the ball, took another poised practice swing, then delivered what I believed was an impressively athletic full-power strike.</p>
+
+    <p>I missed the ball completely.</p>
+
+    <p>The ball remained peacefully where it had always been.</p>
+
+    <p>At this point I was already laughing too hard to function.</p>
+
+    <p>After recovering, I tried again.</p>
+
+    <p>Another mighty professional swing. 🏌️</p>
+
+    <p>THUD.</p>
+
+    <p>This time I violently attacked the turf mat instead. The ball, once again, remained entirely untouched.</p>
+
+    <p>Liudodo was laughing uncontrollably.</p>
+
+    <p>“How are you even doing that?” she asked.</p>
+
+    <p>“I honestly have no idea,” I replied. 🤷‍♀️</p>
+
+    <p>Then she informed me I was close to damaging the facility’s flooring. 🤣</p>
+
+    <p>Still undeterred, I continued.</p>
+
+    <p>The next ball rolled weakly sideways onto the ground beside me.</p>
+
+    <p>The next one technically made it onto the field… though mostly through what appeared to be gravitational surrender rather than athletic achievement. 😆</p>
+
+    <p>In summary: the more I played, the less capable I became.</p>
+
+    <p>A truly fascinating phenomenon.</p>
+
+    <p>Liudodo finally diagnosed the issue:</p>
+
+    <p>“I think you’re treating the golf club like a farming hoe. Your motion looks like you’re plowing land.”</p>
+
+    <p>Impossible, I thought.</p>
+
+    <p>Then I watched the replay video.</p>
+
+    <p>She was absolutely right.</p>
+
+    <p>Energetic? Yes.</p>
+
+    <p>Elegant? Not remotely.</p>
+
+    <p>I was operating entirely on brute force.</p>
+
+    <p>At one point, someone in the neighboring bay was holding up a phone, and I honestly couldn’t tell whether he was on a video call or secretly recording me for a future comedy compilation titled Golf Fails of Northern California. 🤣</p>
+
+    <p>Later I sighed dramatically:</p>
+
+    <p>“This learning curve is getting a little long.”</p>
+
+    <p>Liudodo comforted me wisely:</p>
+
+    <p>“Every professional career eventually encounters bottlenecks.”</p>
+
+    <p>Toward the end of the first round, my balls ran out. I shook the dispenser with the club and nothing came out.</p>
+
+    <p>I immediately asked:</p>
+
+    <p>“They didn’t stop giving me balls because I’m too terrible, right?” 🤣</p>
+
+    <p>Then came the turning point of my athletic career.</p>
+
+    <p>A man who looked genuinely skilled happened to walk past our bay on his way out. He paused, watched me for a moment — probably out of humanitarian concern — and demonstrated a proper grip technique.</p>
+
+    <p>(I suspect he simply could not watch any longer. 🤣)</p>
+
+    <p>I copied his grip.</p>
+
+    <p>First shot: points.</p>
+
+    <p>Second shot: 4 points.</p>
+
+    <p>Third shot: 14 points.</p>
+
+    <p>A personal best!</p>
+
+    <p>Suddenly I was unstoppable.</p>
+
+    <p>Clearly this thousand-mile horse merely needed the guidance of a 伯乐. 🤣</p>
+
+    <p>The entire two hours were pure joy.</p>
+
+    <p>We ate, drank, laughed, humiliated ourselves athletically, and finally headed home.</p>
+
+    <p>As we walked downstairs afterward, I rubbed my legs and said:</p>
+
+    <p>“My legs feel a little sore now.”</p>
+
+    <p>Liudodo nodded sympathetically.</p>
+
+    <p>“Well, farming the land isn’t exactly light labor.”</p>
+
+    <p>🤣</p>
+
+    <p>Later that evening we drove to the Apple Store at Westfield to pick up my iPad, then sat beneath the shade of roadside trees eating ice cream and chatting.</p>
+
+    <p>The sunlight was golden.</p>
+
+    <p>The temperature was perfect.</p>
+
+    <p>The scenery was gentle and beautiful.</p>
+
+    <p>One of those effortless afternoons where time itself feels soft around the edges.</p>
+
+    <p>A perfect, peaceful mother-daughter day.</p>
+
+    <p>The kind you never quite want to end.</p>
+  </div>
+</article>
+
+<div class="giscus" style="max-width:640px;margin:0 auto;padding:0 2rem 3rem;"></div>
+<script src="https://giscus.app/client.js"
+        data-repo="BelindaSun/BelindaSun.github.io"
+        data-repo-id="R_kgDOSVl7Iw"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOSVl7I84C8scG"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+
+<div class="article-nav">
+  <a href="#">← Previous</a>
+  <a href="#">Next →</a>
+</div>
+<footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
+
+<script>
+  let speaking = false, paused = false;
+  const btn = document.getElementById('ttsBtn');
+  const status = document.getElementById('ttsStatus');
+  function toggleTTS() {
+    if (!speaking) { startTTS(); }
+    else if (paused) { window.speechSynthesis.resume(); paused = false; btn.textContent = '⏸ Pause'; btn.classList.add('playing'); status.textContent = 'Reading…'; }
+    else { window.speechSynthesis.pause(); paused = true; btn.textContent = '▶ Resume'; btn.classList.remove('playing'); status.textContent = 'Paused'; }
+  }
+  function startTTS() {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(document.getElementById('articleBody').innerText);
+    u.lang = 'en-US'; u.rate = 0.95;
+    u.onstart = () => { speaking = true; paused = false; btn.textContent = '⏸ Pause'; btn.classList.add('playing'); status.textContent = 'Reading…'; };
+    u.onend = () => { speaking = false; paused = false; btn.textContent = '🔊 Read aloud'; btn.classList.remove('playing'); status.textContent = ''; };
+    u.onerror = () => { speaking = false; btn.textContent = '🔊 Read aloud'; btn.classList.remove('playing'); status.textContent = 'Error, please try again'; };
+    window.speechSynthesis.speak(u);
+  }
+</script>
+</body>
+</html>
