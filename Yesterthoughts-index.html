@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hello World — Belinda Sun</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --cream: #faf8f3;
+        --warm: #f5f0e8;
+        --text: #2c2c2a;
+        --text-muted: #888780;
+        --text-light: #b4b2a9;
+        --accent: #854f0b;
+        --accent-light: #faeeda;
+        --border: rgba(44, 44, 42, 0.1);
+        --serif: Georgia, "Times New Roman", serif;
+        --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      body {
+        background: var(--cream);
+        color: var(--text);
+        font-family: var(--sans);
+        min-height: 100vh;
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 3rem;
+        border-bottom: 0.5px solid var(--border);
+        background: var(--cream);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .nav-logo {
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        color: var(--text);
+        text-decoration: none;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+      }
+
+      .page-header {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 4rem 2rem 3rem;
+      }
+      .page-label {
+        font-size: 0.75rem;
+        letter-spacing: 0.12em;
+        color: var(--text-light);
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+      }
+      .page-title {
+        font-family: var(--serif);
+        font-size: 2.2rem;
+        font-weight: normal;
+        margin-bottom: 0.8rem;
+      }
+      .page-desc {
+        font-size: 0.95rem;
+        color: var(--text-muted);
+        line-height: 1.8;
+        max-width: 480px;
+      }
+      .page-divider {
+        width: 40px;
+        height: 0.5px;
+        background: var(--text-light);
+        margin: 2rem 0;
+      }
+
+      .post-list {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 0 2rem 6rem;
+      }
+      .post-item {
+        display: flex;
+        align-items: baseline;
+        gap: 1rem;
+        padding: 1.2rem 0;
+        border-bottom: 0.5px solid var(--border);
+      }
+      .post-item:last-child {
+        border-bottom: none;
+      }
+      .post-num {
+        font-size: 0.78rem;
+        color: var(--text-light);
+        min-width: 1.5rem;
+      }
+      .post-title {
+        font-family: var(--serif);
+        font-size: 1rem;
+        color: var(--text);
+        flex: 1;
+        line-height: 1.5;
+      }
+      .post-title a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .post-title a:hover {
+        color: var(--accent);
+      }
+      .post-meta {
+        display: flex;
+        gap: 0.75rem;
+        align-items: center;
+      }
+      .post-date {
+        font-size: 0.78rem;
+        color: var(--text-light);
+        white-space: nowrap;
+      }
+      .post-lang {
+        font-size: 0.72rem;
+        color: var(--accent);
+        background: var(--accent-light);
+        padding: 1px 7px;
+        border-radius: 20px;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+
+      footer {
+        border-top: 0.5px solid var(--border);
+        padding: 1.5rem 3rem;
+        text-align: center;
+      }
+      footer p {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" class="nav-logo">Belinda Sun</a>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="hello-world-index.html">Hello World</a></li>
+        <li><a href="hello-human-index.html">Hello Human</a></li>
+      </ul>
+    </nav>
+
+    <div class="page-header">
+      <p class="page-label">Column</p>
+      <h1 class="page-title">昨日旧思 Yesterthoughts 📖</h1>
+      <p class="page-desc">
+        那时文字——在AI把我“带坏”之前。 Earlier writing — before AI ruined me in
+        the best possible way.
+      </p>
+      <div class="page-divider"></div>
+    </div>
+
+    <div class="post-list">
+      <div class="post-item">
+        <span class="post-num">07</span>
+        <span class="post-title"
+          ><a href="yesterthoughts-1.html"
+            >我与克劳德（四)| Me and Claude</a
+          ></span
+        >
+        <div class="post-meta">
+          <a href="yesterthoughts-1-en.html" class="post-lang">EN</a>
+          <span class="post-date">May 15th, 2026</span>
+        </div>
+      </div>
+    </div>
+
+    <footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
+  </body>
+</html>
