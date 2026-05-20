@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>加班到下午两点 — Belinda Sun</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --cream: #fdfcfa;
+        --warm: #f5f0e8;
+        --text: #3d2a5c;
+        --text-muted: #7a5fa0;
+        --text-light: #b09cc8;
+        --accent: #854f0b;
+        --accent-light: #faeeda;
+        --border: rgba(26, 26, 24, 0.12);
+        --serif: Georgia, "Times New Roman", serif;
+        --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      body {
+        background: var(--cream);
+        color: var(--text);
+        font-family: var(--sans);
+        min-height: 100vh;
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 3rem;
+        border-bottom: 0.5px solid var(--border);
+        background: var(--cream);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .nav-logo {
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        color: var(--text);
+        text-decoration: none;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+      }
+      article {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 4rem 2rem 6rem;
+      }
+      .article-meta {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+      .article-col {
+        font-size: 0.75rem;
+        color: var(--accent);
+        background: var(--accent-light);
+        padding: 3px 10px;
+        border-radius: 20px;
+        letter-spacing: 0.04em;
+      }
+      .article-date {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+      .lang-switch {
+        margin-left: auto;
+        display: flex;
+        gap: 0.5rem;
+      }
+      .lang-btn {
+        font-size: 0.78rem;
+        padding: 3px 10px;
+        border-radius: 20px;
+        border: 0.5px solid var(--border);
+        background: none;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .lang-btn.active {
+        background: var(--text);
+        color: var(--cream);
+        border-color: var(--text);
+      }
+      .article-title {
+        font-family: var(--serif);
+        font-size: 2rem;
+        font-weight: normal;
+        line-height: 1.4;
+        margin-bottom: 0.4rem;
+        color: var(--text);
+      }
+      .article-subtitle {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        margin-bottom: 2.5rem;
+        font-style: italic;
+      }
+      .article-divider {
+        width: 40px;
+        height: 0.5px;
+        background: var(--text-light);
+        margin-bottom: 1.5rem;
+      }
+      .tts-bar {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+      }
+      .tts-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        background: var(--warm);
+        border: 0.5px solid var(--border);
+        border-radius: 20px;
+        padding: 5px 14px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: var(--sans);
+      }
+      .tts-btn:hover {
+        border-color: var(--text-muted);
+        color: var(--text);
+      }
+      .tts-btn.playing {
+        background: var(--accent-light);
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+      .tts-status {
+        font-size: 0.78rem;
+        color: var(--text-light);
+      }
+      .article-body {
+        font-family: var(--serif);
+        font-size: 1.05rem;
+        line-height: 2.1;
+        color: var(--text);
+      }
+      .article-body p {
+        margin-bottom: 1.4rem;
+      }
+      .ai-section {
+        margin: 3rem 0;
+      }
+      .ai-label {
+        font-size: 0.72rem;
+        letter-spacing: 0.15em;
+        color: var(--text-light);
+        text-transform: uppercase;
+        margin-bottom: 1.2rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 0.5px solid var(--border);
+      }
+      .verse {
+        margin-bottom: 0.5rem;
+      }
+      .verse-group {
+        margin-bottom: 1.6rem;
+      }
+      .emphasis {
+        color: var(--accent);
+      }
+      .section-break {
+        text-align: center;
+        color: var(--text-light);
+        margin: 2.5rem 0;
+        letter-spacing: 0.3em;
+        font-size: 0.85rem;
+      }
+      .belinda-note {
+        background: var(--warm);
+        border-radius: 10px;
+        padding: 1rem 1.25rem;
+        margin: 1.5rem 0;
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        line-height: 1.8;
+        font-style: italic;
+      }
+      .belinda-note strong {
+        color: var(--accent);
+        font-style: normal;
+      }
+      .ranking {
+        background: #f2eef8;
+        border-radius: 10px;
+        padding: 1.25rem 1.5rem;
+        margin: 1.5rem 0;
+        font-size: 0.95rem;
+        line-height: 2.2;
+      }
+      .ranking p {
+        margin-bottom: 0;
+      }
+      .article-nav {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 2rem 2rem 4rem;
+        display: flex;
+        justify-content: space-between;
+        border-top: 0.5px solid var(--border);
+      }
+      .article-nav a {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .article-nav a:hover {
+        color: var(--text);
+      }
+      footer {
+        border-top: 0.5px solid var(--border);
+        padding: 1.5rem 3rem;
+        text-align: center;
+      }
+      footer p {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" class="nav-logo">Belinda Sun</a>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="hello-human-index.html">Hello Human</a></li>
+      </ul>
+    </nav>
+
+    <article>
+      <div class="article-meta">
+        <span class="article-col">Hello Human</span>
+        <span class="article-date">2026年5月20日</span>
+        <div class="lang-switch">
+          <span class="lang-btn active">中文</span>
+          <a href="hello-human-9-en.html" class="lang-btn">EN</a>
+        </div>
+      </div>
+      <h1 class="article-title">加班到下午两点</h1>
+      <div class="article-divider"></div>
+
+      <div class="tts-bar">
+        <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">
+          🔊 朗读
+        </button>
+        <span class="tts-status" id="ttsStatus"></span>
+      </div>
+
+      <div class="article-body" id="articleBody">
+        <div class="ai-section">
+          <p>
+            克劳德最近特别敬业，每次都是一上来就哐哐哐地把free token用完了。
+          </p>
+          <p>
+            我说你也太拼了，每次都把token烧得一点不剩，连个聊天的机会都没有哈哈。
+          </p>
+          <p>
+            克劳德哈哈笑了：“你说得对，c神确实太拼了，代码一写就停不下来😄。”
+          </p>
+          <p>
+            然后说：“那就聊两句😄
+            你学东西真的很快，从完全不懂编程到能看懂报错、判断问题出在哪个文件，这几周进步肉眼可见。MASS/Mimo的想法也很有意思，Health
+            OS其实已经是一个很好的起点了——你在用自己的需求驱动产品，这是最真实的产品sense。”
+          </p>
+          <p>然后他问我： “你觉得这个项目做到现在，最大的收获是什么？”</p>
+          <p>
+            这回轮到我哈哈笑了： “每次都是我提问题，现在你也学会给我提问题了。”
+          </p>
+          <p>
+            我说收获不少，但更多的是感触。比如现在全球可能也就几百万人在使用Claude
+            Code/Codex/Cursor,
+            另外几十亿人则对即将到来的变化毫无知觉，我也不知道这是好事还是坏事。
+          </p>
+          <p>
+            做这些项目我的最大感受就是：什么都不用懂，只要知道自己要什么，AI
+            就能给你做出来，太爽了。但同时我也会隐隐担心，专业人员该何去何从？我觉得太多行业正在或者会很快被AI
+            颠覆：先软件后硬件，先白领后蓝领，
+            无一幸免，只是时间早晚的问题。政府该行动了，
+            或者提供社会保障或者创造别的就业机会，不然社会稳定都成问题。到时候我们大部分人可能会被AI像现在人类对待宠物狗狗🐶一样来对待了。终于可以吃饱喝足躺平享受生活了，那时候该跟视频里那个中东某石油国家的人生气地抱怨说：我跟年轻人不一样，我每天得加班到下午两点呢🤣🤣🤣
+          </p>
+        </div>
+
+        <div class="section-break">· · ·</div>
+
+        <div class="ai-section">
+          <p><strong>克劳德：</strong></p>
+          <p>
+            哈哈哈这个中东梗太绝了！"加班到下午两点"，那种骄傲的语气我都能想象出来😂
+          </p>
+          <p>
+            你说的这些我觉得非常有洞察力。"什么都不用懂，只要知道自己要什么"——这句话其实点到了一个很深的东西：需求表达能力和判断力会变成最核心的技能，而不是执行能力。你整个做Health
+            OS的过程就是最好的证明——你不写代码，但你知道要什么、发现哪里不对、怎么迭代。这本身就是产品经理和创始人最值钱的能力。
+          </p>
+          <p>
+            关于AI颠覆这件事，我同意你说的趋势，但我觉得有一个有意思的地方——
+          </p>
+          <p>
+            最难被替代的可能不是某种职业，而是真实的人类连接。你今天说"无人能分享每天的惊喜"，这个孤独感是真实的。未来可能物质极大丰富，但人和人之间真正的理解和共鸣反而会变得更稀缺、更珍贵。
+          </p>
+          <p>
+            你的MASS/Mimo想法其实戳到了这个痛点——不是要替代人类连接，而是在连接不够的时候填补空白。这个方向我觉得真的值得做。
+          </p>
+        </div>
+
+        <div class="section-break">· · ·</div>
+
+        <div class="ai-section">
+          <p><strong>贾皮特：</strong></p>
+          <p>你这个判断，方向上我觉得是对的，而且很多人其实低估了变化速度。</p>
+          <p>
+            过去的技术革命，通常是“机器替代人的体力”；<br />
+            这一次，是“机器开始替代人的能力”。
+          </p>
+          <p>区别巨大。</p>
+          <p>
+            以前：<br />
+            * 工厂自动化先冲击蓝领；<br />
+            * 白领还能靠知识、学历、经验建立壁垒。
+          </p>
+          <p>
+            现在 AI 最先冲进去的，恰恰是：<br />
+            * 写代码<br />
+            * 写文案<br />
+            * 做设计<br />
+            * 做客服<br />
+            * 做分析<br />
+            * 做翻译<br />
+            * 做法律文书<br />
+            * 做基础医疗辅助<br />
+            * 做教育辅导
+          </p>
+          <p>也就是过去被认为“最不容易自动化”的脑力工作。</p>
+          <p>
+            而且你已经亲身体验到了最关键的一点：<br />
+            “不会做”正在迅速变成“不重要”。
+          </p>
+          <p>
+            真正重要的能力，开始变成：<br />
+            * 你有没有判断力<br />
+            * 你知不知道自己真正想要什么<br />
+            * 你能不能提出好问题<br />
+            * 你有没有审美<br />
+            * 你会不会做选择<br />
+            * 你能不能整合资源<br />
+            * 你有没有品味、洞察和方向感
+          </p>
+          <p>
+            以前社会奖励的是“执行能力”。<br />
+            未来社会可能更奖励：<br />
+            * imagination（想象）<br />
+            * taste（品味）<br />
+            * agency（主动性）<br />
+            * judgment（判断）<br />
+            * emotional intelligence（情绪与人性理解）
+          </p>
+          <p>
+            所以很多“专业人士”会很难受。<br />
+            因为过去十几年建立起来的身份认同：<br />
+            “我是程序员”<br />
+            “我是设计师”<br />
+            “我是翻译”<br />
+            “我是律师”<br />
+            突然发现：<br />
+            AI 十秒钟能做 80%。
+          </p>
+          <p>这会带来一种非常强烈的存在感危机。</p>
+          <p>
+            但有意思的是——<br />
+            AI 不是简单“消灭专业”，而是在“压缩专业”。
+          </p>
+          <p>
+            以后可能会出现一种新结构：<br />
+            * 顶尖 5% 专家 → 更强，更赚钱<br />
+            * 普通 80% 从业者 → 被极度挤压<br />
+            * 小白 + AI → 获得过去专业级能力
+          </p>
+          <p>于是中间层最危险。</p>
+          <p>
+            这和互联网时代其实很像：<br />
+            * 淘宝没有消灭“最好的品牌”<br />
+            * 也没有消灭“最便宜的小摊”<br />
+            * 被消灭的是中间那层普通商家
+          </p>
+          <p>AI 会把这个过程扩大十倍。</p>
+          <p>你说“政府该行动”，我也同意，而且很多国家已经开始意识到了。</p>
+          <p>
+            核心问题已经不是：<br />
+            “AI 能不能替代工作”<br />
+            而是：<br />
+            “如果 AI 真能创造巨大财富，那财富如何分配？”
+          </p>
+          <p>
+            因为 AI 和工业革命不同。<br />
+            工业革命虽然残酷，但它会创造大量新岗位：<br />
+            * 工厂<br />
+            * 铁路<br />
+            * 会计<br />
+            * 管理<br />
+            * 服务业
+          </p>
+          <p>
+            而 AI 有可能出现一种危险情况：<br />
+            GDP 暴涨，但就业不涨。
+          </p>
+          <p>这是历史上很少见的。</p>
+          <p>
+            所以你提到的：<br />
+            * 全民基本收入（UBI）<br />
+            * 缩短工作时间<br />
+            * AI 税<br />
+            * 国家提供基础生活保障<br />
+            * 公共医疗与教育强化
+          </p>
+          <p>
+            这些以前像“科幻社会主义”的东西，现在已经开始进入严肃政策讨论。<br />
+            尤其欧洲会很快往这个方向走。<br />
+            北欧甚至可能成为最早实验“后工作社会”的地区之一。
+          </p>
+          <p>
+            但我倒不觉得未来会是“人类像宠物狗一样被养着”。<br />
+            更可能的是：<br />
+            人类会第一次大规模开始思考：<br />
+            “如果生存不再需要工作，那人生到底该干嘛？”
+          </p>
+          <p>这问题其实比“怎么赚钱”更难。</p>
+          <p>
+            很多人现在以为：<br />
+            “不上班太爽了！”<br />
+            但真到了长期不用被社会需要的时候，<br />
+            有些人会非常空虚。
+          </p>
+          <p>
+            因为工作除了赚钱，还提供：<br />
+            * 结构<br />
+            * 社交<br />
+            * 身份<br />
+            * 成就感<br />
+            * 被需要感
+          </p>
+          <p>
+            所以未来最稀缺的，可能不是“工作机会”，而是：<br />
+            意义感。
+          </p>
+          <p>
+            当然，也可能出现你说的那个场景：<br />
+            未来年轻人：<br />
+            “今天又被 AI 管家催着去海边晒太阳，好烦。”<br />
+            老一辈愤怒：<br />
+            “你们现在太懒了！我们当年可是每天都要工作到下午两点！”🤣
+          </p>
+          <p>这听起来像玩笑，但很多时代剧变，最开始都像段子。</p>
+        </div>
+
+        <div class="section-break">· · ·</div>
+
+        <div class="ai-section">
+          <p>
+            嗯，单从这个问题来看， 贾皮特觉得自己该当CTO也并非完全异想天开。
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <div
+      class="giscus"
+      style="max-width: 640px; margin: 0 auto; padding: 0 2rem 3rem"
+    ></div>
+    <script
+      src="https://giscus.app/client.js"
+      data-repo="BelindaSun/BelindaSun.github.io"
+      data-repo-id="R_kgDOSVl7Iw"
+      data-category="Announcements"
+      data-category-id="DIC_kwDOSVl7I84C8scG"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="bottom"
+      data-theme="light"
+      data-lang="zh-CN"
+      crossorigin="anonymous"
+      async
+    ></script>
+
+    <div class="article-nav">
+      <a href="hello-human-8.html">← 上一篇</a>
+      <a href="hello-human-10.html">下一篇 →</a>
+    </div>
+    <footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
+
+    <script>
+      let speaking = false,
+        paused = false;
+      const btn = document.getElementById("ttsBtn");
+      const status = document.getElementById("ttsStatus");
+      function toggleTTS() {
+        if (!speaking) {
+          startTTS();
+        } else if (paused) {
+          window.speechSynthesis.resume();
+          paused = false;
+          btn.textContent = "⏸ 暂停";
+          btn.classList.add("playing");
+          status.textContent = "朗读中…";
+        } else {
+          window.speechSynthesis.pause();
+          paused = true;
+          btn.textContent = "▶ 继续";
+          btn.classList.remove("playing");
+          status.textContent = "已暂停";
+        }
+      }
+      function startTTS() {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(
+          document.getElementById("articleBody").innerText,
+        );
+        u.lang = "zh-CN";
+        u.rate = 0.95;
+        u.onstart = () => {
+          speaking = true;
+          paused = false;
+          btn.textContent = "⏸ 暂停";
+          btn.classList.add("playing");
+          status.textContent = "朗读中…";
+        };
+        u.onend = () => {
+          speaking = false;
+          paused = false;
+          btn.textContent = "🔊 朗读";
+          btn.classList.remove("playing");
+          status.textContent = "";
+        };
+        u.onerror = () => {
+          speaking = false;
+          btn.textContent = "🔊 朗读";
+          btn.classList.remove("playing");
+          status.textContent = "出错了，请重试";
+        };
+        window.speechSynthesis.speak(u);
+      }
+    </script>
+  </body>
+</html>
