@@ -228,11 +228,7 @@
         grid-template-columns: repeat(3, 1fr);
         gap: 1rem;
       }
-      @media (max-width: 600px) {
-        .columns-grid {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }  
+
       .col-card {
         border-radius: 12px;
         padding: 1.5rem 1.25rem;
@@ -412,6 +408,7 @@
         nav {
           flex-direction: column;
           align-items: flex-start;
+          padding: 1rem 1.25rem;
         }
         .nav-links {
           flex-wrap: wrap;
@@ -419,6 +416,47 @@
         }
         .music-btn-group {
           margin-left: auto;
+        }
+
+        /* 专栏卡片：手机上改为 2 列，避免拉伸 */
+        .columns-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 0.75rem;
+        }
+        .col-card {
+          padding: 1.1rem 1rem;
+        }
+        .columns {
+          padding: 0 1rem 3rem;
+        }
+
+        /* 最新文章：手机上改为竖排布局，标题单独占一行 */
+        .post-item {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.4rem;
+          padding: 0.85rem 0;
+        }
+        .post-title {
+          flex: none;
+          width: 100%;
+          text-align: left;
+          font-size: 0.95rem;
+        }
+        .post-date {
+          align-self: flex-end;
+          margin-top: 0.1rem;
+        }
+        .latest {
+          padding: 0 1rem 3rem;
+        }
+
+        /* Hero 区域紧凑一些 */
+        .hero {
+          padding: 3rem 1.25rem 2.5rem;
+        }
+        .hero-name {
+          font-size: 2.1rem;
         }
       }
     </style>
@@ -627,13 +665,16 @@
         <span class="en">Latest</span>
       </p>
 
-
       <div class="post-item">
         <span class="post-col">Hello World</span>
         <span class="post-title">
-          <span class="zh"><a href="hello-world-10.html">十九个红灯之后</a></span>
+          <span class="zh"
+            ><a href="hello-world-10.html">十九个红灯之后</a></span
+          >
           <span class="en"
-            ><a href="hello-world-10-en.html">After Nineteen Red Lights</a></span
+            ><a href="hello-world-10-en.html"
+              >After Nineteen Red Lights</a
+            ></span
           >
         </span>
         <span class="zh"
@@ -668,25 +709,15 @@
         >
         <span class="post-date">May 21st 2026</span>
       </div>
-      
 
-
-
-
-      
-      
       <div class="post-item">
         <span class="post-col">Hello Human</span>
         <span class="post-title">
           <span class="zh"
-            ><a href="hello-human-9.html">
-              加班到下午两点</a
-            ></span
+            ><a href="hello-human-9.html"> 加班到下午两点</a></span
           >
           <span class="en"
-            ><a href="hello-human-9-en.html">
-              Working Until 2 PM</a
-            ></span
+            ><a href="hello-human-9-en.html"> Working Until 2 PM</a></span
           >
         </span>
         <span class="zh"
@@ -721,7 +752,7 @@
         >
         <span class="post-date">May 20th 2026</span>
       </div>
-      
+
       <div class="post-item">
         <span class="post-col">Hello Human</span>
         <span class="post-title">
@@ -938,7 +969,8 @@
             ><a href="hello-human-6.html">我们后来连网站都做了</a></span
           >
           <span class="en"
-            ><a href="hello-human-6-en.html">Then We Ended Up Building a Website Too</a
+            ><a href="hello-human-6-en.html"
+              >Then We Ended Up Building a Website Too</a
             ></span
           >
         </span>
@@ -1025,7 +1057,8 @@
             ><a href="hello-world-6.html">我的AI伙伴们性情大变</a></span
           >
           <span class="en"
-            ><a href="hello-world-6-en.html">The AIs Were Acting Strange Today</a
+            ><a href="hello-world-6-en.html"
+              >The AIs Were Acting Strange Today</a
             ></span
           >
         </span>
@@ -1062,8 +1095,6 @@
         <span class="post-date">May 13th 2026</span>
       </div>
 
-
-      
       <div class="post-item">
         <span class="post-col">Hello Human</span>
         <span class="post-title">
@@ -1071,7 +1102,8 @@
             ><a href="hello-human-3.html">她让我做个离线数独游戏</a></span
           >
           <span class="en"
-            ><a href="hello-human-3-en.html">She Asked Me to Build an Offline Sudoku</a
+            ><a href="hello-human-3-en.html"
+              >She Asked Me to Build an Offline Sudoku</a
             ></span
           >
         </span>
@@ -1114,7 +1146,8 @@
             ><a href="hello-world-5.html">我让AI做个离线数独游戏</a></span
           >
           <span class="en"
-            ><a href="hello-world-5-en.html">I Made AI Build Me an Offline Sudoku</a
+            ><a href="hello-world-5-en.html"
+              >I Made AI Build Me an Offline Sudoku</a
             ></span
           >
         </span>
@@ -1283,7 +1316,8 @@
             ><a href="hello-world-1.html">克劳德与贾皮特（名字的故事）</a></span
           >
           <span class="en"
-            ><a href="hello-world-1-en.html">Claude and ChatGPT (The Story of Names)</a
+            ><a href="hello-world-1-en.html"
+              >Claude and ChatGPT (The Story of Names)</a
             ></span
           >
         </span>
