@@ -1,0 +1,3746 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>每日英语 — Belinda Sun</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --serif: Georgia, "Times New Roman", serif;
+        --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --cream: #fdfcfa;
+        --warm: #f5f0e8;
+        --text: #3d2a5c;
+        --text-muted: #7a5fa0;
+        --text-light: #b09cc8;
+        --accent: #854f0b;
+        --accent-light: #faeeda;
+        --border: rgba(26, 26, 24, 0.12);
+      }
+      body {
+        font-family: var(--sans);
+        background: var(--cream);
+        min-height: 100vh;
+        color: var(--text);
+      }
+      .page-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 2rem;
+        border-bottom: 0.5px solid var(--border);
+        background: var(--cream);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .page-nav a {
+        font-family: var(--serif);
+        font-size: 0.95rem;
+        color: var(--text);
+        text-decoration: none;
+      }
+      .page-nav a:hover {
+        color: var(--text-muted);
+      }
+      .page-nav .nav-right {
+        display: flex;
+        gap: 1.5rem;
+      }
+      .page-nav .nav-right a {
+        font-family: var(--sans);
+        font-size: 0.85rem;
+        color: var(--text-muted);
+      }
+
+      .container {
+        max-width: 780px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+        display: grid;
+        gap: 1.5rem;
+      }
+
+      h1 {
+        font-family: var(--serif);
+        font-size: 2rem;
+        font-weight: normal;
+        color: var(--text);
+        margin-bottom: 0.5rem;
+      }
+      h2 {
+        font-family: var(--serif);
+        font-size: 1.2rem;
+        font-weight: normal;
+        color: var(--text);
+        margin-bottom: 1rem;
+      }
+
+      .card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 1.5rem;
+        border: 0.5px solid var(--border);
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+      }
+
+      .word-card {
+        border: 0.5px solid var(--border);
+        border-radius: 10px;
+        padding: 1rem 1.25rem;
+        margin-bottom: 0.75rem;
+        background: var(--warm);
+      }
+      .word {
+        font-family: var(--serif);
+        font-size: 1.6rem;
+        font-weight: normal;
+        color: var(--text);
+        margin-bottom: 0.2rem;
+      }
+      .pronunciation {
+        font-family: monospace;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin-bottom: 0.4rem;
+      }
+      .level {
+        display: inline-block;
+        padding: 2px 10px;
+        border-radius: 20px;
+        background: var(--accent-light);
+        color: var(--accent);
+        font-size: 0.72rem;
+        letter-spacing: 0.04em;
+        margin-bottom: 0.5rem;
+      }
+      .meaning {
+        font-size: 1rem;
+        color: var(--text);
+        margin-bottom: 0.4rem;
+      }
+      .example {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        line-height: 1.7;
+        font-style: italic;
+      }
+
+      .quiz-question {
+        font-size: 1rem;
+        color: var(--text-muted);
+        margin-bottom: 0.75rem;
+        line-height: 1.7;
+      }
+      .quiz-question b {
+        color: var(--text);
+      }
+
+      input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        font-size: 0.95rem;
+        border-radius: 8px;
+        border: 0.5px solid var(--border);
+        background: var(--cream);
+        color: var(--text);
+        font-family: var(--serif);
+        margin-bottom: 0.75rem;
+        outline: none;
+      }
+      input:focus {
+        border-color: var(--text-muted);
+      }
+
+      .btn-row {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+      }
+      .btn-primary {
+        padding: 8px 20px;
+        border: none;
+        border-radius: 20px;
+        font-size: 0.88rem;
+        cursor: pointer;
+        background: var(--text);
+        color: var(--cream);
+        font-family: var(--sans);
+      }
+      .btn-primary:hover {
+        opacity: 0.85;
+      }
+      .btn-secondary {
+        padding: 8px 20px;
+        border: 0.5px solid var(--border);
+        border-radius: 20px;
+        font-size: 0.88rem;
+        cursor: pointer;
+        background: none;
+        color: var(--text-muted);
+        font-family: var(--sans);
+      }
+      .btn-secondary:hover {
+        background: var(--warm);
+      }
+
+      .result {
+        margin-top: 0.75rem;
+        font-size: 0.95rem;
+        font-weight: 500;
+        min-height: 1.4rem;
+      }
+      .result.ok {
+        color: #1d6a4a;
+      }
+      .result.err {
+        color: #a32d2d;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: var(--warm);
+        border-radius: 999px;
+        overflow: hidden;
+        margin-top: 1rem;
+      }
+      .progress-fill {
+        height: 100%;
+        width: 0%;
+        background: var(--text);
+        transition: width 0.3s ease;
+        border-radius: 999px;
+      }
+      .score-text {
+        font-size: 0.82rem;
+        color: var(--text-light);
+        margin-top: 0.5rem;
+      }
+
+      .quote {
+        font-style: italic;
+        color: var(--text-muted);
+        line-height: 1.8;
+        margin-bottom: 1rem;
+        font-size: 0.95rem;
+      }
+      .tips ul {
+        padding-left: 1.25rem;
+      }
+      .tips li {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        line-height: 2;
+      }
+      .group-nav {
+        display: flex;
+        gap: 0.75rem;
+        align-items: center;
+        margin-top: 1rem;
+        flex-wrap: wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="page-nav">
+      <a href="index.html">Belinda Sun</a>
+      <div class="nav-right">
+        <a href="tinkerland.html">🔧 Tinkerland</a>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div>
+        <h1>📚 每日英语</h1>
+        <p style="color: var(--text-muted); font-size: 0.95rem">
+          一天几个词，慢慢把世界听懂
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>今日词汇（每组5词）</h2>
+        <div id="wordList"></div>
+        <div class="group-nav">
+          <button class="btn-secondary" id="prevGroupBtn">◀ 上一组</button>
+          <button class="btn-secondary" id="nextGroupBtn">下一组 ▶</button>
+          <button class="btn-secondary" id="resetTodayBtn">
+            📅 重置今日词汇
+          </button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>今日挑战</h2>
+        <p class="quiz-question" id="quizQuestion"></p>
+        <input id="answerInput" placeholder="输入英文单词" />
+        <div class="btn-row">
+          <button class="btn-primary" id="checkBtn">检查答案</button>
+          <button class="btn-secondary" id="nextBtn">下一题</button>
+        </div>
+        <div class="result" id="result"></div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <p class="score-text" id="scoreText"></p>
+      </div>
+
+      <div class="card tips">
+        <h2>学习建议</h2>
+        <div class="quote">
+          "背单词不是收集单词，而是让它们进入你的语言系统。"
+        </div>
+        <ul>
+          <li>每天 5 个，坚持比数量更重要。</li>
+          <li>不要只看中文意思，要读例句。</li>
+          <li>大声念出来，嘴巴比眼睛更会记忆。</li>
+          <li>遇到喜欢的词，尝试自己造句。</li>
+          <li>重复，是词汇量真正的秘密。</li>
+        </ul>
+        <div style="margin-top: 1rem">
+          <button class="btn-secondary" id="legacyResetBtn">
+            🔄 刷新今日词汇
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // ======================= 完整 GRE 词汇库（已自动添加音标）=======================
+      const vocabularyBank = [
+        {
+          word: "nuanced",
+          meaning: "微妙的；有细微差别的",
+          level: "Advanced",
+          example:
+            "Her analysis was nuanced, avoiding simple binary judgments.",
+          pronunciation: "ˈnuːɑːnst",
+        },
+        {
+          word: "articulate",
+          meaning: "善于表达的；口齿清晰的",
+          level: "Advanced",
+          example: "He is an articulate spokesman for the tech industry.",
+          pronunciation: "ɑːrˈtɪkjələt",
+        },
+        {
+          word: "compelling",
+          meaning: "令人信服的；引人入胜的",
+          level: "Advanced",
+          example:
+            "The report offers a compelling argument for early investment.",
+          pronunciation: "kəmˈpelɪŋ",
+        },
+        {
+          word: "coherent",
+          meaning: "连贯的；条理清晰的",
+          level: "Advanced",
+          example: "You need to build a coherent strategy, not random tactics.",
+          pronunciation: "koʊˈhɪrənt",
+        },
+        {
+          word: "friction",
+          meaning: "摩擦；阻力（尤指流程中的低效）",
+          level: "Advanced",
+          example: "Good UX removes friction between user intent and action.",
+          pronunciation: "ˈfrɪkʃən",
+        },
+        {
+          word: "leverage",
+          meaning: "杠杆作用；利用（资源）",
+          level: "Advanced",
+          example: "We can leverage existing data to train a smaller model.",
+          pronunciation: "ˈlevərɪdʒ",
+        },
+        {
+          word: "ambiguity",
+          meaning: "含糊；歧义",
+          level: "Advanced",
+          example:
+            "Great leaders tolerate ambiguity and make decisions with imperfect info.",
+          pronunciation: "ˌæmbɪˈɡjuːəti",
+        },
+        {
+          word: "iterate",
+          meaning: "迭代；反复改进",
+          level: "Advanced",
+          example:
+            "The best products come from shipping early and iterating fast.",
+          pronunciation: "ˈɪtəreɪt",
+        },
+        {
+          word: "sophisticated",
+          meaning: "复杂的；精密的；老练的",
+          level: "Advanced",
+          example:
+            "Modern AI requires sophisticated understanding of statistics.",
+          pronunciation: "səˈfɪstɪkeɪtɪd",
+        },
+        {
+          word: "intuitive",
+          meaning: "直觉的；易懂的",
+          level: "Advanced",
+          example:
+            "The interface should be intuitive even for first-time users.",
+          pronunciation: "ɪnˈtuːɪtɪv",
+        },
+        {
+          word: "scalable",
+          meaning: "可扩展的",
+          level: "Advanced",
+          example:
+            "We need a scalable solution, not a hack that works for ten users.",
+          pronunciation: "ˈskeɪləbəl",
+        },
+        {
+          word: "deliberate",
+          meaning: "故意的；从容的；深思熟虑的",
+          level: "Advanced",
+          example: "He moved with deliberate calm during the crisis.",
+          pronunciation: "dɪˈlɪbərət",
+        },
+        {
+          word: "optimize",
+          meaning: "优化",
+          level: "Advanced",
+          example: "Don’t prematurely optimize; get the flow right first.",
+          pronunciation: "ˈɑːptɪmaɪz",
+        },
+        {
+          word: "insightful",
+          meaning: "有深刻见解的",
+          level: "Advanced",
+          example: "That was one of the most insightful comments I’ve heard.",
+          pronunciation: "ˈɪnsaɪtfəl",
+        },
+        {
+          word: "resilient",
+          meaning: "有韧性的；能复原的",
+          level: "Advanced",
+          example: "Resilient teams bounce back from failures faster.",
+          pronunciation: "rɪˈzɪliənt",
+        },
+        {
+          word: "delineate",
+          meaning: "勾画；描述",
+          level: "Advanced",
+          example:
+            "The paper clearly delineates the boundaries between supervised and unsupervised learning.",
+          pronunciation: "dɪˈlɪnieɪt",
+        },
+        {
+          word: "synthesize",
+          meaning: "综合；合成",
+          level: "Advanced",
+          example:
+            "A good essay synthesizes multiple sources into a new argument.",
+          pronunciation: "ˈsɪnθəsaɪz",
+        },
+        {
+          word: "extrapolate",
+          meaning: "外推；推断",
+          level: "Advanced",
+          example: "You cannot simply extrapolate past growth into the future.",
+          pronunciation: "ɪkˈstræpəleɪt",
+        },
+        {
+          word: "salient",
+          meaning: "显著的；最重要的",
+          level: "Advanced",
+          example:
+            "The salient feature of this architecture is its low latency.",
+          pronunciation: "ˈseɪliənt",
+        },
+        {
+          word: "lucid",
+          meaning: "清晰的；易懂的",
+          level: "Advanced",
+          example: "He writes with lucid prose and sharp logic.",
+          pronunciation: "ˈluːsɪd",
+        },
+        {
+          word: "pithy",
+          meaning: "简练有力的",
+          level: "Advanced",
+          example: "His pithy summary saved us twenty minutes of discussion.",
+          pronunciation: "ˈpɪθi",
+        },
+        {
+          word: "succinct",
+          meaning: "简洁的",
+          level: "Advanced",
+          example: "Please keep your answer succinct — under two minutes.",
+          pronunciation: "səkˈsɪŋkt",
+        },
+        {
+          word: "trenchant",
+          meaning: "锐利的；一针见血的",
+          level: "Advanced",
+          example: "She made a trenchant critique of the overhyped startup.",
+          pronunciation: "ˈtrentʃənt",
+        },
+        {
+          word: "incisive",
+          meaning: "敏锐深刻的",
+          level: "Advanced",
+          example: "His incisive questions revealed the flaw in the logic.",
+          pronunciation: "ɪnˈsaɪsɪv",
+        },
+        {
+          word: "paradigm",
+          meaning: "范式；范例",
+          level: "Advanced",
+          example:
+            "LLMs represent a paradigm shift in human-computer interaction.",
+          pronunciation: "ˈpærədaɪm",
+        },
+        {
+          word: "incentivize",
+          meaning: "激励",
+          level: "Advanced",
+          example:
+            "Bonuses incentivize short-term thinking if not designed carefully.",
+          pronunciation: "ɪnˈsentɪvaɪz",
+        },
+        {
+          word: "granular",
+          meaning: "颗粒状的；精细的",
+          level: "Advanced",
+          example: "We need more granular data, not just daily aggregates.",
+          pronunciation: "ˈɡrænjələr",
+        },
+        {
+          word: "actionable",
+          meaning: "可操作的；能付诸行动的",
+          level: "Advanced",
+          example: "Give me actionable feedback, not vague praise.",
+          pronunciation: "ˈækʃənəbəl",
+        },
+        {
+          word: "emergent",
+          meaning: "突现的；新兴的",
+          level: "Advanced",
+          example: "Intelligence is an emergent property of complex systems.",
+          pronunciation: "iˈmɜːrdʒənt",
+        },
+        {
+          word: "latent",
+          meaning: "潜在的；潜伏的",
+          level: "Advanced",
+          example:
+            "Latent representations in neural networks capture abstract features.",
+          pronunciation: "ˈleɪtnt",
+        },
+        {
+          word: "hallucinate",
+          meaning: "（AI）产生幻觉；虚假感知",
+          level: "Advanced",
+          example:
+            "Sometimes the model hallucinates facts that sound plausible.",
+          pronunciation: "həˈluːsɪneɪt",
+        },
+        {
+          word: "spurious",
+          meaning: "虚假的；伪造的",
+          level: "Advanced",
+          example: "The correlation was spurious, caused by a third variable.",
+          pronunciation: "ˈspjʊriəs",
+        },
+        {
+          word: "anomaly",
+          meaning: "异常",
+          level: "Advanced",
+          example:
+            "Detecting anomalies in time series is a classic ML problem.",
+          pronunciation: "əˈnɑːməli",
+        },
+        {
+          word: "deterministic",
+          meaning: "确定性的",
+          level: "Advanced",
+          example: "The process is not deterministic; randomness plays a role.",
+          pronunciation: "dɪˌtɜːrmɪˈnɪstɪk",
+        },
+        {
+          word: "idiosyncratic",
+          meaning: "独特的；特质的",
+          level: "Advanced",
+          example: "His writing style is idiosyncratic but always engaging.",
+          pronunciation: "ˌɪdiəsɪŋˈkrætɪk",
+        },
+        {
+          word: "mundane",
+          meaning: "平凡的；单调的",
+          level: "Advanced",
+          example:
+            "AI will automate mundane tasks, freeing up human creativity.",
+          pronunciation: "mʌnˈdeɪn",
+        },
+        {
+          word: "visceral",
+          meaning: "发自内心的；本能的",
+          level: "Advanced",
+          example:
+            "Good storytelling triggers a visceral reaction, not just intellectual agreement.",
+          pronunciation: "ˈvɪsərəl",
+        },
+        {
+          word: "counterintuitive",
+          meaning: "反直觉的",
+          level: "Advanced",
+          example:
+            "It sounds counterintuitive, but sleeping less actually reduces productivity.",
+          pronunciation: "ˌkaʊntərɪnˈtuːɪtɪv",
+        },
+        {
+          word: "compounding",
+          meaning: "复合的；叠加的",
+          level: "Advanced",
+          example:
+            "Small daily improvements have a compounding effect over years.",
+          pronunciation: "kəmˈpaʊndɪŋ",
+        },
+        {
+          word: "velocity",
+          meaning: "速度；速率",
+          level: "Advanced",
+          example:
+            "In startups, decision velocity matters more than perfection.",
+          pronunciation: "vəˈlɑːsəti",
+        },
+        {
+          word: "trajectory",
+          meaning: "轨迹；发展轨道",
+          level: "Advanced",
+          example: "We are on a trajectory to hit 10 million users next year.",
+          pronunciation: "trəˈdʒektəri",
+        },
+        {
+          word: "asymmetric",
+          meaning: "不对称的",
+          level: "Advanced",
+          example:
+            "Venture capital thrives on asymmetric risk‑reward opportunities.",
+          pronunciation: "ˌeɪsɪˈmetrɪk",
+        },
+        {
+          word: "optionality",
+          meaning: "可选性；灵活性",
+          level: "Advanced",
+          example: "Keep your downside small to preserve optionality.",
+          pronunciation: "ˌɑːpʃəˈnæləti",
+        },
+        {
+          word: "moat",
+          meaning: "护城河（商业壁垒）",
+          level: "Advanced",
+          example:
+            "Network effects create a powerful moat against competitors.",
+          pronunciation: "moʊt",
+        },
+        {
+          word: "heuristic",
+          meaning: "启发式方法；经验法则",
+          level: "Advanced",
+          example:
+            "Use this simple heuristic: if it’s not a hell yes, it’s a no.",
+          pronunciation: "hjʊˈrɪstɪk",
+        },
+        {
+          word: "bottleneck",
+          meaning: "瓶颈",
+          level: "Advanced",
+          example:
+            "Identify the bottleneck before trying to optimize anything.",
+          pronunciation: "ˈbɑːtlnek",
+        },
+        {
+          word: "trade-off",
+          meaning: "权衡",
+          level: "Advanced",
+          example:
+            "Every architecture choice involves a trade-off between speed and accuracy.",
+          pronunciation: "ˈtreɪd ɔːf",
+        },
+        {
+          word: "orthogonal",
+          meaning: "正交的；互不影响的",
+          level: "Advanced",
+          example: "These two problems are orthogonal; solve them separately.",
+          pronunciation: "ɔːrˈθɑːɡənəl",
+        },
+        {
+          word: "degenerate",
+          meaning: "退化的；堕落的",
+          level: "Advanced",
+          example:
+            "Avoid degenerate cases where the algorithm divides by zero.",
+          pronunciation: "dɪˈdʒenərət",
+        },
+        {
+          word: "robust",
+          meaning: "稳健的；鲁棒的",
+          level: "Advanced",
+          example:
+            "We need a robust solution that handles edge cases gracefully.",
+          pronunciation: "roʊˈbʌst",
+        },
+        {
+          word: "fragile",
+          meaning: "脆弱的",
+          level: "Advanced",
+          example: "A fragile system breaks under small perturbations.",
+          pronunciation: "ˈfrædʒəl",
+        },
+        {
+          word: "antifragile",
+          meaning: "反脆弱的",
+          level: "Advanced",
+          example:
+            "Some things actually gain from disorder — that’s antifragile.",
+          pronunciation: "ˌæntiˈfrædʒəl",
+        },
+        {
+          word: "stochastic",
+          meaning: "随机的",
+          level: "Advanced",
+          example:
+            "Gradient descent with stochastic sampling works surprisingly well.",
+          pronunciation: "stəˈkæstɪk",
+        },
+        {
+          word: "bias-variance",
+          meaning: "偏差-方差权衡",
+          level: "Advanced",
+          example:
+            "Understanding the bias‑variance trade-off is key to avoiding overfitting.",
+          pronunciation: "ˈbaɪəs ˈveriəns",
+        },
+        {
+          word: "overfit",
+          meaning: "过拟合",
+          level: "Advanced",
+          example:
+            "A model that memorizes the training data will overfit badly.",
+          pronunciation: "ˌoʊvərˈfɪt",
+        },
+        {
+          word: "generalize",
+          meaning: "泛化",
+          level: "Advanced",
+          example:
+            "The goal is to generalize to unseen data, not to ace the training set.",
+          pronunciation: "ˈdʒenrəlaɪz",
+        },
+        {
+          word: "abstraction",
+          meaning: "抽象",
+          level: "Advanced",
+          example: "Good code uses layers of abstraction to hide complexity.",
+          pronunciation: "æbˈstrækʃən",
+        },
+        {
+          word: "inductive",
+          meaning: "归纳的",
+          level: "Advanced",
+          example:
+            "Machine learning is essentially inductive reasoning from examples.",
+          pronunciation: "ɪnˈdʌktɪv",
+        },
+        {
+          word: "deductive",
+          meaning: "演绎的",
+          level: "Advanced",
+          example:
+            "Mathematics relies on deductive proofs, not empirical evidence.",
+          pronunciation: "dɪˈdʌktɪv",
+        },
+        {
+          word: "latency",
+          meaning: "延迟",
+          level: "Advanced",
+          example:
+            "Low latency is crucial for real‑time applications like voice assistants.",
+          pronunciation: "ˈleɪtənsi",
+        },
+        {
+          word: "throughput",
+          meaning: "吞吐量",
+          level: "Advanced",
+          example: "We doubled throughput by parallelizing the data pipeline.",
+          pronunciation: "ˈθruːpʊt",
+        },
+        {
+          word: "bandwidth",
+          meaning: "带宽；（比喻）精力/能力",
+          level: "Advanced",
+          example:
+            "I don’t have the bandwidth to take on another project right now.",
+          pronunciation: "ˈbændwɪdθ",
+        },
+        {
+          word: "deep-dive",
+          meaning: "深度探究",
+          level: "Advanced",
+          example: "Let’s do a deep‑dive into the retention metrics next week.",
+          pronunciation: "diːp daɪv",
+        },
+        {
+          word: "actionable",
+          meaning: "可付诸行动的",
+          level: "Advanced",
+          example:
+            "Every meeting should end with clear, actionable next steps.",
+          pronunciation: "ˈækʃənəbəl",
+        },
+        {
+          word: "blue-sky",
+          meaning: "天马行空的；不切实际的",
+          level: "Advanced",
+          example:
+            "Blue‑sky research sometimes leads to unexpected breakthroughs.",
+          pronunciation: "bluː skaɪ",
+        },
+        {
+          word: "bootstrapping",
+          meaning: "自举；自力更生",
+          level: "Advanced",
+          example:
+            "We bootstrapped the company for two years before raising VC.",
+          pronunciation: "ˈbuːtstræpɪŋ",
+        },
+        {
+          word: "canonical",
+          meaning: "典范的；权威的",
+          level: "Advanced",
+          example:
+            "This paper is the canonical reference for attention mechanisms.",
+          pronunciation: "kəˈnɑːnɪkəl",
+        },
+        {
+          word: "conflation",
+          meaning: "混为一谈",
+          level: "Advanced",
+          example:
+            "The conflation of correlation with causation is a common fallacy.",
+          pronunciation: "kənˈfleɪʃən",
+        },
+        {
+          word: "convergence",
+          meaning: "收敛；趋同",
+          level: "Advanced",
+          example:
+            "We observed fast convergence of the loss function after 100 steps.",
+          pronunciation: "kənˈvɜːrdʒəns",
+        },
+        {
+          word: "divergence",
+          meaning: "发散；分歧",
+          level: "Advanced",
+          example:
+            "If the learning rate is too high, the training may show divergence.",
+          pronunciation: "daɪˈvɜːrdʒəns",
+        },
+        {
+          word: "curation",
+          meaning: "策展；筛选",
+          level: "Advanced",
+          example: "Good content curation is more valuable than sheer volume.",
+          pronunciation: "kjʊˈreɪʃən",
+        },
+        {
+          word: "decay",
+          meaning: "衰减",
+          level: "Advanced",
+          example:
+            "Learning rate decay helps the optimizer settle into a minimum.",
+          pronunciation: "dɪˈkeɪ",
+        },
+        {
+          word: "discrete",
+          meaning: "离散的",
+          level: "Advanced",
+          example:
+            "Language is discrete; continuous representations are an approximation.",
+          pronunciation: "dɪˈskriːt",
+        },
+        {
+          word: "continuous",
+          meaning: "连续的",
+          level: "Advanced",
+          example:
+            "Time is treated as continuous in physics but discrete in computers.",
+          pronunciation: "kənˈtɪnjuəs",
+        },
+        {
+          word: "drift",
+          meaning: "漂移",
+          level: "Advanced",
+          example:
+            "Model drift occurs when the real‑world distribution changes over time.",
+          pronunciation: "drɪft",
+        },
+        {
+          word: "eigenvalue",
+          meaning: "特征值",
+          level: "Advanced",
+          example:
+            "Principal component analysis uses eigenvalues to rank variance.",
+          pronunciation: "ˈaɪɡənˌvæljuː",
+        },
+        {
+          word: "embedding",
+          meaning: "嵌入（向量）",
+          level: "Advanced",
+          example:
+            "Word embeddings capture semantic similarity in a dense vector space.",
+          pronunciation: "ɪmˈbedɪŋ",
+        },
+        {
+          word: "endogenous",
+          meaning: "内生的",
+          level: "Advanced",
+          example:
+            "Endogenous factors like team morale affect output just as much as external funding.",
+          pronunciation: "enˈdɑːdʒənəs",
+        },
+        {
+          word: "exogenous",
+          meaning: "外生的",
+          level: "Advanced",
+          example:
+            "An exogenous shock, like a pandemic, disrupts all planning.",
+          pronunciation: "ekˈsɑːdʒənəs",
+        },
+        {
+          word: "entropy",
+          meaning: "熵；无序度",
+          level: "Advanced",
+          example:
+            "High entropy means high uncertainty; low entropy means more predictability.",
+          pronunciation: "ˈentrəpi",
+        },
+        {
+          word: "equilibrium",
+          meaning: "均衡",
+          level: "Advanced",
+          example:
+            "Markets tend toward equilibrium, but never stay there for long.",
+          pronunciation: "ˌiːkwɪˈlɪbriəm",
+        },
+        {
+          word: "ergodic",
+          meaning: "遍历性的",
+          level: "Advanced",
+          example:
+            "In an ergodic system, time averages equal ensemble averages.",
+          pronunciation: "ɜːrˈɡɑːdɪk",
+        },
+        {
+          word: "feedback loop",
+          meaning: "反馈回路",
+          level: "Advanced",
+          example:
+            "User growth creates a positive feedback loop: more users attract more users.",
+          pronunciation: "ˈfiːdbæk luːp",
+        },
+        {
+          word: "fit-for-purpose",
+          meaning: "合乎目的",
+          level: "Advanced",
+          example:
+            "Don’t aim for perfection; aim for something fit‑for‑purpose.",
+          pronunciation: "fɪt fɔːr ˈpɜːrpəs",
+        },
+        {
+          word: "fuzzy",
+          meaning: "模糊的",
+          level: "Advanced",
+          example:
+            "The boundary between supervised and unsupervised learning is fuzzy.",
+          pronunciation: "ˈfʌzi",
+        },
+        {
+          word: "greedy",
+          meaning: "贪心的",
+          level: "Advanced",
+          example:
+            "A greedy algorithm picks the best immediate option, which may not lead to global optimum.",
+          pronunciation: "ˈɡriːdi",
+        },
+        {
+          word: "ground truth",
+          meaning: "真实答案；基准真相",
+          level: "Advanced",
+          example:
+            "We need high‑quality ground truth labels to train a classifier.",
+          pronunciation: "ɡraʊnd truːθ",
+        },
+        {
+          word: "heuristic",
+          meaning: "启发式（方法）",
+          level: "Advanced",
+          example: "A good heuristic reduces search space dramatically.",
+          pronunciation: "hjʊˈrɪstɪk",
+        },
+        {
+          word: "holistic",
+          meaning: "整体的",
+          level: "Advanced",
+          example:
+            "Take a holistic view of the product, not just isolated features.",
+          pronunciation: "hoʊˈlɪstɪk",
+        },
+        {
+          word: "hyperparameter",
+          meaning: "超参数",
+          level: "Advanced",
+          example: "Tuning hyperparameters is more art than science.",
+          pronunciation: "ˈhaɪpərpəˌræmɪtər",
+        },
+        {
+          word: "incremental",
+          meaning: "增量的",
+          level: "Advanced",
+          example:
+            "We ship incremental improvements every week rather than big annual releases.",
+          pronunciation: "ˌɪŋkrəˈmentl",
+        },
+        {
+          word: "inductive bias",
+          meaning: "归纳偏置",
+          level: "Advanced",
+          example:
+            "Every ML algorithm has an inductive bias that shapes what it can learn.",
+          pronunciation: "ɪnˈdʌktɪv ˈbaɪəs",
+        },
+        {
+          word: "inference",
+          meaning: "推理",
+          level: "Advanced",
+          example:
+            "Training takes weeks, but inference must happen in milliseconds.",
+          pronunciation: "ˈɪnfərəns",
+        },
+        {
+          word: "information asymmetry",
+          meaning: "信息不对称",
+          level: "Advanced",
+          example:
+            "Used car markets suffer from information asymmetry between buyer and seller.",
+          pronunciation: "ˌɪnfərˈmeɪʃən eɪˈsɪmətri",
+        },
+        {
+          word: "interpolate",
+          meaning: "插值",
+          level: "Advanced",
+          example: "The model interpolates smoothly between training points.",
+          pronunciation: "ɪnˈtɜːrpəleɪt",
+        },
+        {
+          word: "intractable",
+          meaning: "棘手的；难处理的",
+          level: "Advanced",
+          example:
+            "Exact optimization becomes intractable for large discrete spaces.",
+          pronunciation: "ɪnˈtræktəbəl",
+        },
+        {
+          word: "latent space",
+          meaning: "隐空间",
+          level: "Advanced",
+          example:
+            "Generative models learn a structured latent space that encodes features.",
+          pronunciation: "ˈleɪtnt speɪs",
+        },
+        {
+          word: "likelihood",
+          meaning: "似然",
+          level: "Advanced",
+          example:
+            "Maximum likelihood estimation finds parameters that make observed data most probable.",
+          pronunciation: "ˈlaɪklihʊd",
+        },
+        {
+          word: "local optimum",
+          meaning: "局部最优",
+          level: "Advanced",
+          example:
+            "Gradient descent can get stuck in a local optimum if the landscape is non‑convex.",
+          pronunciation: "ˈloʊkəl ˈɑːptɪməm",
+        },
+        {
+          word: "logit",
+          meaning: "对数几率",
+          level: "Advanced",
+          example:
+            "The final layer outputs logits before the softmax transforms them into probabilities.",
+          pronunciation: "ˈloʊdʒɪt",
+        },
+        {
+          word: "long-tail",
+          meaning: "长尾",
+          level: "Advanced",
+          example:
+            "E‑commerce profits often come from the long tail of niche products.",
+          pronunciation: "lɔːŋ teɪl",
+        },
+        {
+          word: "manifold",
+          meaning: "流形",
+          level: "Advanced",
+          example:
+            "High‑dimensional data often lies on a low‑dimensional manifold.",
+          pronunciation: "ˈmænɪfoʊld",
+        },
+        {
+          word: "marginal",
+          meaning: "边际的",
+          level: "Advanced",
+          example:
+            "Marginal benefit decreases after a certain point — that’s diminishing returns.",
+          pronunciation: "ˈmɑːrdʒɪnəl",
+        },
+        {
+          word: "minimal viable",
+          meaning: "最小可行",
+          level: "Advanced",
+          example:
+            "Build a minimal viable product, then iterate based on feedback.",
+          pronunciation: "ˈmɪnɪməl ˈvaɪəbəl",
+        },
+        {
+          word: "multi-modal",
+          meaning: "多模态的",
+          level: "Advanced",
+          example: "A multi‑modal model can process both images and text.",
+          pronunciation: "ˌmʌlti ˈmoʊdəl",
+        },
+        {
+          word: "naive",
+          meaning: "朴素的；天真的",
+          level: "Advanced",
+          example:
+            "A naive Bayes classifier assumes features are independent, which is rarely true.",
+          pronunciation: "naɪˈiːv",
+        },
+        {
+          word: "non‑linear",
+          meaning: "非线性的",
+          level: "Advanced",
+          example:
+            "Neural networks excel at modeling non‑linear relationships.",
+          pronunciation: "nɑːn ˈlɪniər",
+        },
+        {
+          word: "normalize",
+          meaning: "归一化",
+          level: "Advanced",
+          example:
+            "Always normalize input features to have zero mean and unit variance.",
+          pronunciation: "ˈnɔːrməlaɪz",
+        },
+        {
+          word: "offline vs online",
+          meaning: "离线 vs 在线",
+          level: "Advanced",
+          example: "Offline evaluation differs from online A/B testing.",
+          pronunciation: "ˌɔːfˈlaɪn vɜːrsəs ˌɑːnˈlaɪn",
+        },
+        {
+          word: "overparametrized",
+          meaning: "过参数化的",
+          level: "Advanced",
+          example:
+            "Modern models are heavily overparametrized yet generalize well — a mystery.",
+          pronunciation: "ˌoʊvərpəˈræmətraɪzd",
+        },
+        {
+          word: "pipeline",
+          meaning: "流水线",
+          level: "Advanced",
+          example:
+            "The data pipeline cleans, transforms, and loads features for training.",
+          pronunciation: "ˈpaɪplaɪn",
+        },
+        {
+          word: "posterior",
+          meaning: "后验的",
+          level: "Advanced",
+          example:
+            "Bayesian inference combines prior beliefs with data to form a posterior distribution.",
+          pronunciation: "pɑːˈstɪriər",
+        },
+        {
+          word: "prior",
+          meaning: "先验的",
+          level: "Advanced",
+          example: "A strong prior can help when data is scarce.",
+          pronunciation: "ˈpraɪər",
+        },
+        {
+          word: "regularization",
+          meaning: "正则化",
+          level: "Advanced",
+          example:
+            "L2 regularization penalizes large weights to prevent overfitting.",
+          pronunciation: "ˌreɡjələrəˈzeɪʃən",
+        },
+        {
+          word: "representation",
+          meaning: "表示",
+          level: "Advanced",
+          example:
+            "Learning good representations is the core of deep learning.",
+          pronunciation: "ˌreprɪzenˈteɪʃən",
+        },
+        {
+          word: "sampling",
+          meaning: "采样",
+          level: "Advanced",
+          example:
+            "Random sampling without replacement is a common validation technique.",
+          pronunciation: "ˈsæmplɪŋ",
+        },
+        {
+          word: "scaffolding",
+          meaning: "脚手架；支撑结构",
+          level: "Advanced",
+          example:
+            "Teachers provide scaffolding that fades as students gain competence.",
+          pronunciation: "ˈskæfəldɪŋ",
+        },
+        {
+          word: "second‑order",
+          meaning: "二阶的",
+          level: "Advanced",
+          example:
+            "Newton’s method uses second‑order derivatives for faster convergence.",
+          pronunciation: "ˈsekənd ˈɔːrdər",
+        },
+        {
+          word: "sharding",
+          meaning: "分片",
+          level: "Advanced",
+          example: "Database sharding distributes load across many servers.",
+          pronunciation: "ˈʃɑːrdɪŋ",
+        },
+        {
+          word: "sigmoid",
+          meaning: "S型函数",
+          level: "Advanced",
+          example:
+            "The sigmoid squashes any real number into the (0,1) interval.",
+          pronunciation: "ˈsɪɡmɔɪd",
+        },
+        {
+          word: "siloed",
+          meaning: "孤立的",
+          level: "Advanced",
+          example: "Data silos prevent cross‑functional insights.",
+          pronunciation: "ˈsaɪloʊd",
+        },
+        {
+          word: "sparse",
+          meaning: "稀疏的",
+          level: "Advanced",
+          example: "High‑dimensional one‑hot vectors are extremely sparse.",
+          pronunciation: "spɑːrs",
+        },
+        {
+          word: "dense",
+          meaning: "稠密的",
+          level: "Advanced",
+          example: "Embeddings produce dense vectors with fewer zeros.",
+          pronunciation: "dens",
+        },
+        {
+          word: "stationary",
+          meaning: "平稳的",
+          level: "Advanced",
+          example: "Many time‑series models assume the process is stationary.",
+          pronunciation: "ˈsteɪʃəneri",
+        },
+        {
+          word: "stochastic gradient descent",
+          meaning: "随机梯度下降",
+          level: "Advanced",
+          example:
+            "SGD updates weights using a single random example, not the full batch.",
+          pronunciation: "stəˈkæstɪk ˈɡreɪdiənt dɪˈsent",
+        },
+        {
+          word: "sweep",
+          meaning: "扫描；全面搜索",
+          level: "Advanced",
+          example:
+            "We performed a hyperparameter sweep over learning rate and batch size.",
+          pronunciation: "swiːp",
+        },
+        {
+          word: "symmetry",
+          meaning: "对称性",
+          level: "Advanced",
+          example:
+            "Breaking symmetry is important so neurons learn different features.",
+          pronunciation: "ˈsɪmətri",
+        },
+        {
+          word: "tractable",
+          meaning: "易处理的",
+          level: "Advanced",
+          example:
+            "Convex problems are tractable and have a single global optimum.",
+          pronunciation: "ˈtræktəbəl",
+        },
+        {
+          word: "transfer learning",
+          meaning: "迁移学习",
+          level: "Advanced",
+          example:
+            "Fine‑tune a pretrained model: that’s transfer learning in action.",
+          pronunciation: "trænsˈfɜːr ˈlɜːrnɪŋ",
+        },
+        {
+          word: "unstructured",
+          meaning: "非结构化的",
+          level: "Advanced",
+          example: "Text and images are unstructured data, unlike SQL tables.",
+          pronunciation: "ʌnˈstrʌktʃərd",
+        },
+        {
+          word: "validation",
+          meaning: "验证",
+          level: "Advanced",
+          example:
+            "Use a hold‑out validation set to estimate real‑world performance.",
+          pronunciation: "ˌvælɪˈdeɪʃən",
+        },
+        {
+          word: "vanishing gradient",
+          meaning: "梯度消失",
+          level: "Advanced",
+          example:
+            "Deep networks used to suffer from vanishing gradients before ResNets.",
+          pronunciation: "ˈvænɪʃɪŋ ˈɡreɪdiənt",
+        },
+        {
+          word: "vectorize",
+          meaning: "向量化",
+          level: "Advanced",
+          example: "Vectorized operations run much faster than Python loops.",
+          pronunciation: "ˈvektəraɪz",
+        },
+        {
+          word: "zero‑sum",
+          meaning: "零和的",
+          level: "Advanced",
+          example: "Negotiation is often zero‑sum if only price is discussed.",
+          pronunciation: "ˈzɪroʊ sʌm",
+        },
+        {
+          word: "adversarial",
+          meaning: "对抗的",
+          level: "Advanced",
+          example: "Adversarial examples fool a model with tiny perturbations.",
+          pronunciation: "ˌædvərˈseriəl",
+        },
+        {
+          word: "affordance",
+          meaning: "可供性",
+          level: "Advanced",
+          example: "A button’s visual affordance suggests it can be clicked.",
+          pronunciation: "əˈfɔːrdəns",
+        },
+        {
+          word: "agnostic",
+          meaning: "不可知论的；（比喻）不偏袒的",
+          level: "Advanced",
+          example:
+            "We are model‑agnostic: we choose whichever algorithm works best.",
+          pronunciation: "æɡˈnɑːstɪk",
+        },
+        {
+          word: "algorithmic",
+          meaning: "算法的",
+          level: "Advanced",
+          example: "Algorithmic bias can amplify real‑world discrimination.",
+          pronunciation: "ˌælɡəˈrɪðmɪk",
+        },
+        {
+          word: "analogous",
+          meaning: "类似的",
+          level: "Advanced",
+          example: "The attention mechanism is analogous to a database lookup.",
+          pronunciation: "əˈnæləɡəs",
+        },
+        {
+          word: "anecdotal",
+          meaning: "轶事的；非典型的",
+          level: "Advanced",
+          example:
+            "Anecdotal evidence is not a substitute for statistical significance.",
+          pronunciation: "ˌænɪkˈdoʊtl",
+        },
+        {
+          word: "artifactual",
+          meaning: "人为的；虚假的",
+          level: "Advanced",
+          example:
+            "Some correlations are artifactual and disappear in larger samples.",
+          pronunciation: "ˌɑːrtɪˈfæktʃuəl",
+        },
+        {
+          word: "attention",
+          meaning: "注意力机制",
+          level: "Advanced",
+          example:
+            "Transformers use self‑attention to weigh the importance of each token.",
+          pronunciation: "əˈtenʃən",
+        },
+        {
+          word: "autoregressive",
+          meaning: "自回归的",
+          level: "Advanced",
+          example: "GPT generates text autoregressively, one token at a time.",
+          pronunciation: "ˌɔːtoʊrɪˈɡresɪv",
+        },
+        {
+          word: "baseline",
+          meaning: "基线",
+          level: "Advanced",
+          example:
+            "Our baseline is a simple logistic regression; we aim to beat it by 10%.",
+          pronunciation: "ˈbeɪslaɪn",
+        },
+        {
+          word: "benign",
+          meaning: "良性的",
+          level: "Advanced",
+          example: "Overparameterization turns out to be benign, not harmful.",
+          pronunciation: "bɪˈnaɪn",
+        },
+        {
+          word: "brittle",
+          meaning: "脆弱的",
+          level: "Advanced",
+          example: "Old NLP systems were brittle and broke on unseen phrasing.",
+          pronunciation: "ˈbrɪtl",
+        },
+        {
+          word: "calibrated",
+          meaning: "校准的",
+          level: "Advanced",
+          example: "A well‑calibrated model’s confidence matches its accuracy.",
+          pronunciation: "ˈkælɪbreɪtɪd",
+        },
+        {
+          word: "causal",
+          meaning: "因果的",
+          level: "Advanced",
+          example:
+            "Correlation is not causation; establishing causal links requires experiments.",
+          pronunciation: "ˈkɔːzəl",
+        },
+        {
+          word: "cherry‑pick",
+          meaning: "挑选有利数据",
+          level: "Advanced",
+          example: "Cherry‑picking examples can make any model look perfect.",
+          pronunciation: "ˈtʃeri pɪk",
+        },
+        {
+          word: "churn",
+          meaning: "流失",
+          level: "Advanced",
+          example:
+            "Reducing churn by 1% can double the lifetime value of customers.",
+          pronunciation: "tʃɜːrn",
+        },
+        {
+          word: "circumvent",
+          meaning: "规避",
+          level: "Advanced",
+          example: "We circumvented the API limit by batching requests.",
+          pronunciation: "ˌsɜːrkəmˈvent",
+        },
+        {
+          word: "cold start",
+          meaning: "冷启动",
+          level: "Advanced",
+          example:
+            "The recommendation system has a cold start problem for new users.",
+          pronunciation: "koʊld stɑːrt",
+        },
+        {
+          word: "combinatorial",
+          meaning: "组合的",
+          level: "Advanced",
+          example:
+            "The search space is combinatorially huge, so we need pruning.",
+          pronunciation: "kəmˌbaɪnəˈtɔːriəl",
+        },
+        {
+          word: "common sense",
+          meaning: "常识",
+          level: "Advanced",
+          example: "Language models still lack genuine common sense reasoning.",
+          pronunciation: "ˈkɑːmən sens",
+        },
+        {
+          word: "compartmentalize",
+          meaning: "划分；隔离",
+          level: "Advanced",
+          example:
+            "Mentally compartmentalizing work and home life reduces stress.",
+          pronunciation: "kəmˌpɑːrtˈmentəlaɪz",
+        },
+        {
+          word: "complementary",
+          meaning: "互补的",
+          level: "Advanced",
+          example:
+            "Rule‑based and ML systems are complementary, not competitive.",
+          pronunciation: "ˌkɑːmplɪˈmentri",
+        },
+        {
+          word: "composable",
+          meaning: "可组合的",
+          level: "Advanced",
+          example: "Microservices should be composable like Lego bricks.",
+          pronunciation: "kəmˈpoʊzəbəl",
+        },
+        {
+          word: "concatenate",
+          meaning: "连接",
+          level: "Advanced",
+          example: "Concatenate the two strings with a space in between.",
+          pronunciation: "kɑːnˈkætəneɪt",
+        },
+        {
+          word: "conceptual",
+          meaning: "概念的",
+          level: "Advanced",
+          example: "The conceptual leap from RNN to Transformer was huge.",
+          pronunciation: "kənˈseptʃuəl",
+        },
+        {
+          word: "concision",
+          meaning: "简洁",
+          level: "Advanced",
+          example: "Concision is a virtue in technical writing.",
+          pronunciation: "kənˈsɪʒən",
+        },
+        {
+          word: "confounding",
+          meaning: "混杂的",
+          level: "Advanced",
+          example: "A confounding variable can create a spurious correlation.",
+          pronunciation: "kənˈfaʊndɪŋ",
+        },
+        {
+          word: "consensus",
+          meaning: "共识",
+          level: "Advanced",
+          example: "There is no consensus on how to evaluate creativity in AI.",
+          pronunciation: "kənˈsensəs",
+        },
+        {
+          word: "constrained",
+          meaning: "受约束的",
+          level: "Advanced",
+          example:
+            "Optimization under constrained resources is the reality of engineering.",
+          pronunciation: "kənˈstreɪnd",
+        },
+        {
+          word: "contextual",
+          meaning: "上下文的",
+          level: "Advanced",
+          example: "Contextual word embeddings (ELMo, BERT) capture polysemy.",
+          pronunciation: "kənˈtekstʃuəl",
+        },
+        {
+          word: "contingency",
+          meaning: "偶然性；应急预案",
+          level: "Advanced",
+          example: "Always have a contingency plan for server outages.",
+          pronunciation: "kənˈtɪndʒənsi",
+        },
+        {
+          word: "contradiction",
+          meaning: "矛盾",
+          level: "Advanced",
+          example: "The two statements are in direct contradiction.",
+          pronunciation: "ˌkɑːntrəˈdɪkʃən",
+        },
+        {
+          word: "convergent",
+          meaning: "收敛的",
+          level: "Advanced",
+          example: "If the loss is not convergent, tune your learning rate.",
+          pronunciation: "kənˈvɜːrdʒənt",
+        },
+        {
+          word: "core‑quisite",
+          meaning: "互为先决条件的",
+          level: "Advanced",
+          example:
+            "Scalability and reliability are corequisites, not independent goals.",
+          pronunciation: "kɔːr ˈkwɪzɪt",
+        },
+        {
+          word: "corroborate",
+          meaning: "证实",
+          level: "Advanced",
+          example: "We need another experiment to corroborate these findings.",
+          pronunciation: "kəˈrɑːbəreɪt",
+        },
+        {
+          word: "cumulative",
+          meaning: "累积的",
+          level: "Advanced",
+          example:
+            "Cumulative error can grow quickly in autoregressive generation.",
+          pronunciation: "ˈkjuːmjəleɪtɪv",
+        },
+        {
+          word: "curse of dimensionality",
+          meaning: "维度灾难",
+          level: "Advanced",
+          example:
+            "The curse of dimensionality makes distance metrics meaningless in high dimensions.",
+          pronunciation: "kɜːrs əv daɪˌmenʃəˈnæləti",
+        },
+        {
+          word: "decompose",
+          meaning: "分解",
+          level: "Advanced",
+          example: "Decompose a complex problem into manageable subproblems.",
+          pronunciation: "ˌdiːkəmˈpoʊz",
+        },
+        {
+          word: "deconfounding",
+          meaning: "去混杂",
+          level: "Advanced",
+          example:
+            "Causal inference methods aim at deconfounding observational data.",
+          pronunciation: "diːkənˈfaʊndɪŋ",
+        },
+        {
+          word: "deep",
+          meaning: "深的（多层）",
+          level: "Advanced",
+          example: "Deep networks have many layers; shallow networks have few.",
+          pronunciation: "diːp",
+        },
+        {
+          word: "deploy",
+          meaning: "部署",
+          level: "Advanced",
+          example:
+            "We deploy new models every Tuesday using a blue‑green strategy.",
+          pronunciation: "dɪˈplɔɪ",
+        },
+        {
+          word: "diagnostic",
+          meaning: "诊断性的",
+          level: "Advanced",
+          example: "Loss curves are diagnostic tools for training problems.",
+          pronunciation: "ˌdaɪəɡˈnɑːstɪk",
+        },
+        {
+          word: "dichotomy",
+          meaning: "二分法",
+          level: "Advanced",
+          example:
+            "The false dichotomy between human and machine intelligence is unhelpful.",
+          pronunciation: "daɪˈkɑːtəmi",
+        },
+        {
+          word: "diffusion",
+          meaning: "扩散",
+          level: "Advanced",
+          example:
+            "Diffusion models generate images by reversing a noising process.",
+          pronunciation: "dɪˈfjuːʒən",
+        },
+        {
+          word: "diminishing returns",
+          meaning: "收益递减",
+          level: "Advanced",
+          example:
+            "After 1000 images, adding more data gives diminishing returns.",
+          pronunciation: "dɪˈmɪnɪʃɪŋ rɪˈtɜːrnz",
+        },
+        {
+          word: "disambiguate",
+          meaning: "消除歧义",
+          level: "Advanced",
+          example: "Part‑of‑speech tagging helps disambiguate word senses.",
+          pronunciation: "ˌdɪsæmˈbɪɡjueɪt",
+        },
+        {
+          word: "disentangle",
+          meaning: "解耦；理清",
+          level: "Advanced",
+          example: "Disentangled representations separate style from content.",
+          pronunciation: "ˌdɪsɪnˈtæŋɡəl",
+        },
+        {
+          word: "distill",
+          meaning: "蒸馏",
+          level: "Advanced",
+          example:
+            "Knowledge distillation compresses a large model into a smaller one.",
+          pronunciation: "dɪˈstɪl",
+        },
+        {
+          word: "distributional",
+          meaning: "分布的",
+          level: "Advanced",
+          example:
+            "Distributional semantics hypothesizes that words are defined by their contexts.",
+          pronunciation: "ˌdɪstrɪˈbjuːʃənl",
+        },
+        {
+          word: "downstream",
+          meaning: "下游的",
+          level: "Advanced",
+          example: "Pretraining improves performance on many downstream tasks.",
+          pronunciation: "ˈdaʊnstriːm",
+        },
+        {
+          word: "dovetail",
+          meaning: "吻合；衔接",
+          level: "Advanced",
+          example:
+            "Our product roadmap dovetails with the upcoming API changes.",
+          pronunciation: "ˈdʌvteɪl",
+        },
+        {
+          word: "dual",
+          meaning: "对偶的",
+          level: "Advanced",
+          example:
+            "Every optimization problem has a dual problem that provides bounds.",
+          pronunciation: "ˈduːəl",
+        },
+        {
+          word: "dynamical",
+          meaning: "动态的",
+          level: "Advanced",
+          example: "A dynamical system evolves over time according to rules.",
+          pronunciation: "daɪˈnæmɪkəl",
+        },
+        {
+          word: "echelon",
+          meaning: "梯队",
+          level: "Advanced",
+          example: "Top‑echelon leaders think in decades, not quarters.",
+          pronunciation: "ˈeʃəlɑːn",
+        },
+        {
+          word: "ecological validity",
+          meaning: "生态效度",
+          level: "Advanced",
+          example:
+            "Lab experiments often lack ecological validity compared to real‑world settings.",
+          pronunciation: "ˌiːkəˈlɑːdʒɪkəl vəˈlɪdəti",
+        },
+        {
+          word: "efficacy",
+          meaning: "功效",
+          level: "Advanced",
+          example:
+            "The efficacy of the new algorithm was proven on three benchmarks.",
+          pronunciation: "ˈefɪkəsi",
+        },
+        {
+          word: "eigenvector",
+          meaning: "特征向量",
+          level: "Advanced",
+          example:
+            "The principal eigenvector corresponds to the largest eigenvalue.",
+          pronunciation: "ˈaɪɡənˌvektər",
+        },
+        {
+          word: "elicit",
+          meaning: "引出",
+          level: "Advanced",
+          example:
+            "A good prompt can elicit creative responses from the model.",
+          pronunciation: "iˈlɪsɪt",
+        },
+        {
+          word: "empirical",
+          meaning: "经验的；实证的",
+          level: "Advanced",
+          example:
+            "Empirical results matter more than theoretical elegance in applied ML.",
+          pronunciation: "ɪmˈpɪrɪkəl",
+        },
+        {
+          word: "encapsulate",
+          meaning: "封装",
+          level: "Advanced",
+          example: "Encapsulate domain logic into a separate module.",
+          pronunciation: "ɪnˈkæpsjuleɪt",
+        },
+        {
+          word: "ensemble",
+          meaning: "集成",
+          level: "Advanced",
+          example: "Random forest is an ensemble of many decision trees.",
+          pronunciation: "ɑːnˈsɑːmbəl",
+        },
+        {
+          word: "epistemic",
+          meaning: "认知的",
+          level: "Advanced",
+          example:
+            "Epistemic uncertainty comes from lack of knowledge, not randomness.",
+          pronunciation: "ˌepɪˈstiːmɪk",
+        },
+        {
+          word: "ergodicity",
+          meaning: "遍历性",
+          level: "Advanced",
+          example: "Ergodicity matters for decision‑making under uncertainty.",
+          pronunciation: "ɜːrɡəˈdɪsəti",
+        },
+        {
+          word: "error surface",
+          meaning: "误差曲面",
+          level: "Advanced",
+          example: "The error surface of a deep network is highly non‑convex.",
+          pronunciation: "ˈerər ˈsɜːrfɪs",
+        },
+        {
+          word: "estimand",
+          meaning: "估计目标",
+          level: "Advanced",
+          example: "Clearly define the estimand before choosing an estimator.",
+          pronunciation: "ˈestɪmænd",
+        },
+        {
+          word: "evidential",
+          meaning: "证据的",
+          level: "Advanced",
+          example:
+            "Evidential deep learning quantifies uncertainty in a principled way.",
+          pronunciation: "ˌevɪˈdenʃəl",
+        },
+        {
+          word: "exaptation",
+          meaning: "功能借用",
+          level: "Advanced",
+          example:
+            "A feature evolved for one purpose may find exaptation in a new context.",
+          pronunciation: "ˌeksæpˈteɪʃən",
+        },
+        {
+          word: "exemplar",
+          meaning: "范例",
+          level: "Advanced",
+          example: "The k‑nearest neighbors method stores training exemplars.",
+          pronunciation: "ɪɡˈzemplɑːr",
+        },
+        {
+          word: "exogenous",
+          meaning: "外生的",
+          level: "Advanced",
+          example: "An exogenous change in regulation forced us to pivot.",
+          pronunciation: "ekˈsɑːdʒənəs",
+        },
+        {
+          word: "exploration vs exploitation",
+          meaning: "探索与利用",
+          level: "Advanced",
+          example:
+            "Multi‑armed bandit problems balance exploration and exploitation.",
+          pronunciation: "ˌekspləˈreɪʃən vɜːrsəs ˌeksplɔɪˈteɪʃən",
+        },
+        {
+          word: "expressivity",
+          meaning: "表达能力",
+          level: "Advanced",
+          example: "Deep networks have high expressivity but need large data.",
+          pronunciation: "ɪkˌspresɪˈvɪvəti",
+        },
+        {
+          word: "extrapolation",
+          meaning: "外推",
+          level: "Advanced",
+          example: "Linear extrapolation beyond the training range is risky.",
+          pronunciation: "ɪkˌstræpəˈleɪʃən",
+        },
+        {
+          word: "failure mode",
+          meaning: "失效模式",
+          level: "Advanced",
+          example:
+            "Understanding failure modes is more important than average accuracy.",
+          pronunciation: "ˈfeɪljər moʊd",
+        },
+        {
+          word: "fat‑tail",
+          meaning: "肥尾",
+          level: "Advanced",
+          example:
+            "Financial returns have fat tails, meaning extreme events are more likely than Gaussian predicts.",
+          pronunciation: "fæt teɪl",
+        },
+        {
+          word: "feasible",
+          meaning: "可行的",
+          level: "Advanced",
+          example:
+            "Is it feasible to train a 100B‑parameter model on this budget?",
+          pronunciation: "ˈfiːzəbəl",
+        },
+        {
+          word: "feature engineering",
+          meaning: "特征工程",
+          level: "Advanced",
+          example:
+            "Deep learning reduces the need for manual feature engineering.",
+          pronunciation: "ˈfiːtʃər ˌendʒɪˈnɪrɪŋ",
+        },
+        {
+          word: "feedforward",
+          meaning: "前馈的",
+          level: "Advanced",
+          example: "A feedforward network has no cycles; a recurrent one does.",
+          pronunciation: "ˈfiːdfɔːrwərd",
+        },
+        {
+          word: "fertile",
+          meaning: "肥沃的；富有成果的",
+          level: "Advanced",
+          example:
+            "The intersection of NLP and graphics is a fertile research area.",
+          pronunciation: "ˈfɜːrtl",
+        },
+        {
+          word: "few‑shot",
+          meaning: "少样本的",
+          level: "Advanced",
+          example:
+            "Few‑shot learning aims to generalize from a handful of examples.",
+          pronunciation: "fjuː ʃɑːt",
+        },
+        {
+          word: "fidelity",
+          meaning: "保真度",
+          level: "Advanced",
+          example:
+            "Low‑fidelity prototypes are fast to build; high‑fidelity ones look real.",
+          pronunciation: "fɪˈdeləti",
+        },
+        {
+          word: "first‑principles",
+          meaning: "第一性原理",
+          level: "Advanced",
+          example:
+            "Reason from first principles, not by analogy to existing products.",
+          pronunciation: "fɜːrst ˈprɪnsəpəlz",
+        },
+        {
+          word: "foreground",
+          meaning: "前景；凸显",
+          level: "Advanced",
+          example:
+            "In design, foreground the primary action, background secondary info.",
+          pronunciation: "ˈfɔːrɡraʊnd",
+        },
+        {
+          word: "fork",
+          meaning: "分叉",
+          level: "Advanced",
+          example: "The codebase forked into two divergent versions.",
+          pronunciation: "fɔːrk",
+        },
+        {
+          word: "formative",
+          meaning: "形成性的",
+          level: "Advanced",
+          example:
+            "Formative feedback early in the project prevents big mistakes later.",
+          pronunciation: "ˈfɔːrmətɪv",
+        },
+        {
+          word: "frontier",
+          meaning: "前沿",
+          level: "Advanced",
+          example: "Working at the frontier of AI requires constant learning.",
+          pronunciation: "frʌnˈtɪr",
+        },
+        {
+          word: "frugal",
+          meaning: "节俭的",
+          level: "Advanced",
+          example:
+            "Frugal AI uses minimal compute to achieve acceptable accuracy.",
+          pronunciation: "ˈfruːɡəl",
+        },
+        {
+          word: "fundamental",
+          meaning: "根本的",
+          level: "Advanced",
+          example:
+            "There’s a fundamental tension between exploration and safety.",
+          pronunciation: "ˌfʌndəˈmentl",
+        },
+        {
+          word: "generative",
+          meaning: "生成的",
+          level: "Advanced",
+          example: "Generative models learn the joint distribution p(x,y).",
+          pronunciation: "ˈdʒenərətɪv",
+        },
+        {
+          word: "geometric",
+          meaning: "几何的",
+          level: "Advanced",
+          example:
+            "Geometric deep learning generalizes CNNs to graphs and manifolds.",
+          pronunciation: "ˌdʒiːəˈmetrɪk",
+        },
+        {
+          word: "gestalt",
+          meaning: "完形；整体",
+          level: "Advanced",
+          example: "A gestalt perception is more than the sum of its parts.",
+          pronunciation: "ɡəˈʃtɑːlt",
+        },
+        {
+          word: "gist",
+          meaning: "要点",
+          level: "Advanced",
+          example: "You don’t need every detail; just capture the gist.",
+          pronunciation: "dʒɪst",
+        },
+        {
+          word: "golden path",
+          meaning: "黄金路径",
+          level: "Advanced",
+          example: "Document the golden path first, then edge cases.",
+          pronunciation: "ˈɡoʊldən pæθ",
+        },
+        {
+          word: "goodness of fit",
+          meaning: "拟合优度",
+          level: "Advanced",
+          example: "Residual plots help assess goodness of fit.",
+          pronunciation: "ˈɡʊdnəs əv fɪt",
+        },
+        {
+          word: "granularity",
+          meaning: "粒度",
+          level: "Advanced",
+          example:
+            "The granularity of the log data determines what questions you can answer.",
+          pronunciation: "ˌɡrænjəˈlærəti",
+        },
+        {
+          word: "grounding",
+          meaning: "基础；将符号与现实关联",
+          level: "Advanced",
+          example:
+            "Symbol grounding problem: how do words get connected to the world?",
+          pronunciation: "ˈɡraʊndɪŋ",
+        },
+        {
+          word: "hand‑wavy",
+          meaning: "含糊的；不严谨的",
+          level: "Advanced",
+          example: "His explanation was hand‑wavy and lacked concrete numbers.",
+          pronunciation: "hænd ˈweɪvi",
+        },
+        {
+          word: "heavy‑tailed",
+          meaning: "重尾的",
+          level: "Advanced",
+          example:
+            "Natural language follows a heavy‑tailed (Zipfian) distribution.",
+          pronunciation: "ˈhevi teɪld",
+        },
+        {
+          word: "hidden",
+          meaning: "隐藏的",
+          level: "Advanced",
+          example:
+            "Hidden units in a neural network learn intermediate features.",
+          pronunciation: "ˈhɪdən",
+        },
+        {
+          word: "hierarchy",
+          meaning: "层次结构",
+          level: "Advanced",
+          example: "A hierarchy of concepts helps generalization.",
+          pronunciation: "ˈhaɪərɑːrki",
+        },
+        {
+          word: "high‑signal",
+          meaning: "高信噪比的",
+          level: "Advanced",
+          example: "Focus on high‑signal feedback, ignore noise.",
+          pronunciation: "haɪ ˈsɪɡnəl",
+        },
+        {
+          word: "holdout",
+          meaning: "留出集",
+          level: "Advanced",
+          example: "Never touch the holdout set until final evaluation.",
+          pronunciation: "ˈhoʊldaʊt",
+        },
+        {
+          word: "human‑in‑the‑loop",
+          meaning: "人在回路中",
+          level: "Advanced",
+          example:
+            "Human‑in‑the‑loop systems combine model speed with human oversight.",
+          pronunciation: "ˈhjuːmən ɪn ðə luːp",
+        },
+        {
+          word: "hybrid",
+          meaning: "混合的",
+          level: "Advanced",
+          example: "A hybrid model uses both symbolic rules and neural nets.",
+          pronunciation: "ˈhaɪbrɪd",
+        },
+        {
+          word: "hyperbolic",
+          meaning: "双曲线的；夸张的",
+          level: "Advanced",
+          example:
+            "Hyperbolic discounting explains why we prefer small immediate rewards over larger later ones.",
+          pronunciation: "ˌhaɪpərˈbɑːlɪk",
+        },
+        {
+          word: "hypothesis",
+          meaning: "假设",
+          level: "Advanced",
+          example:
+            "Formulate a testable hypothesis before running an A/B test.",
+          pronunciation: "haɪˈpɑːθəsɪs",
+        },
+        {
+          word: "idempotent",
+          meaning: "幂等的",
+          level: "Advanced",
+          example: "Make your API operations idempotent so retries are safe.",
+          pronunciation: "ˌaɪdəmˈpoʊtənt",
+        },
+        {
+          word: "identifiable",
+          meaning: "可识别的",
+          level: "Advanced",
+          example:
+            "A model is identifiable if different parameters imply different distributions.",
+          pronunciation: "aɪˈdentɪfaɪəbəl",
+        },
+        {
+          word: "impedance mismatch",
+          meaning: "阻抗不匹配",
+          level: "Advanced",
+          example:
+            "The object‑relational impedance mismatch complicates database design.",
+          pronunciation: "ɪmˈpiːdəns ˈmɪsmætʃ",
+        },
+        {
+          word: "implicit",
+          meaning: "隐式的",
+          level: "Advanced",
+          example:
+            "Implicit feedback (clicks, dwell time) is noisy but abundant.",
+          pronunciation: "ɪmˈplɪsɪt",
+        },
+        {
+          word: "in situ",
+          meaning: "在原位",
+          level: "Advanced",
+          example:
+            "We test the model in situ, not just in a staging environment.",
+          pronunciation: "ɪn ˈsaɪtuː",
+        },
+        {
+          word: "in the wild",
+          meaning: "真实环境中",
+          level: "Advanced",
+          example: "Models that work in the lab often fail in the wild.",
+          pronunciation: "ɪn ðə waɪld",
+        },
+        {
+          word: "incentive compatibility",
+          meaning: "激励相容",
+          level: "Advanced",
+          example:
+            "Auction designs need incentive compatibility to discourage cheating.",
+          pronunciation: "ɪnˈsentɪv kəmˌpætəˈbɪləti",
+        },
+        {
+          word: "incumbent",
+          meaning: "在职者；现有者",
+          level: "Advanced",
+          example: "The incumbent platform has a massive user base.",
+          pronunciation: "ɪnˈkʌmbənt",
+        },
+        {
+          word: "inertia",
+          meaning: "惯性",
+          level: "Advanced",
+          example: "Organizational inertia makes change difficult.",
+          pronunciation: "ɪˈnɜːrʃə",
+        },
+        {
+          word: "inflection point",
+          meaning: "拐点",
+          level: "Advanced",
+          example:
+            "We are at an inflection point where AI begins to accelerate science.",
+          pronunciation: "ɪnˈflekʃən pɔɪnt",
+        },
+        {
+          word: "information bottleneck",
+          meaning: "信息瓶颈",
+          level: "Advanced",
+          example:
+            "The information bottleneck principle explains why deep nets generalize.",
+          pronunciation: "ˌɪnfərˈmeɪʃən ˈbɑːtlnek",
+        },
+        {
+          word: "input space",
+          meaning: "输入空间",
+          level: "Advanced",
+          example: "Normalizing the input space helps gradient descent.",
+          pronunciation: "ˈɪnpʊt speɪs",
+        },
+        {
+          word: "instrumental",
+          meaning: "工具性的",
+          level: "Advanced",
+          example: "Money has instrumental value, not intrinsic value.",
+          pronunciation: "ˌɪnstrəˈmentl",
+        },
+        {
+          word: "interleaving",
+          meaning: "交错",
+          level: "Advanced",
+          example:
+            "Interleaving different subjects improves long‑term retention.",
+          pronunciation: "ˌɪntərˈliːvɪŋ",
+        },
+        {
+          word: "interpolate",
+          meaning: "插值",
+          level: "Advanced",
+          example:
+            "The model interpolates between training points but fails to extrapolate.",
+          pronunciation: "ɪnˈtɜːrpəleɪt",
+        },
+        {
+          word: "interpretability",
+          meaning: "可解释性",
+          level: "Advanced",
+          example:
+            "Interpretability is crucial for high‑stakes applications like medicine.",
+          pronunciation: "ɪnˌtɜːrprətəˈbɪləti",
+        },
+        {
+          word: "intervention",
+          meaning: "干预",
+          level: "Advanced",
+          example:
+            "Causal inference asks: what would happen under an intervention?",
+          pronunciation: "ˌɪntərˈvenʃən",
+        },
+        {
+          word: "intractable",
+          meaning: "难处理的",
+          level: "Advanced",
+          example:
+            "Exact inference in a large Bayesian network is intractable.",
+          pronunciation: "ɪnˈtræktəbəl",
+        },
+        {
+          word: "intrinsic",
+          meaning: "内在的",
+          level: "Advanced",
+          example:
+            "Intrinsic motivation often leads to more creative solutions than extrinsic rewards.",
+          pronunciation: "ɪnˈtrɪnsɪk",
+        },
+        {
+          word: "invariant",
+          meaning: "不变的",
+          level: "Advanced",
+          example:
+            "A good representation should be invariant to irrelevant transformations.",
+          pronunciation: "ɪnˈveriənt",
+        },
+        {
+          word: "inverse",
+          meaning: "逆的",
+          level: "Advanced",
+          example:
+            "The inverse problem of recovering inputs from outputs is often ill‑posed.",
+          pronunciation: "ˌɪnˈvɜːrs",
+        },
+        {
+          word: "irreducible",
+          meaning: "不可约的",
+          level: "Advanced",
+          example: "There is irreducible noise in any real‑world measurement.",
+          pronunciation: "ˌɪrɪˈduːsəbəl",
+        },
+        {
+          word: "joint distribution",
+          meaning: "联合分布",
+          level: "Advanced",
+          example:
+            "Modeling the joint distribution p(x,y) is harder than modeling p(y|x).",
+          pronunciation: "dʒɔɪnt ˌdɪstrɪˈbjuːʃən",
+        },
+        {
+          word: "kernel",
+          meaning: "核函数",
+          level: "Advanced",
+          example:
+            "The kernel trick maps data to a higher‑dimensional space without explicit computation.",
+          pronunciation: "ˈkɜːrnl",
+        },
+        {
+          word: "lag",
+          meaning: "滞后",
+          level: "Advanced",
+          example:
+            "There is a one‑week lag between data collection and reporting.",
+          pronunciation: "læɡ",
+        },
+        {
+          word: "landscape",
+          meaning: "地形；态势",
+          level: "Advanced",
+          example: "The loss landscape of deep nets is surprisingly navigable.",
+          pronunciation: "ˈlændskeɪp",
+        },
+        {
+          word: "leaky abstraction",
+          meaning: "泄漏的抽象",
+          level: "Advanced",
+          example:
+            "The law of leaky abstractions: you eventually have to understand the lower layer.",
+          pronunciation: "ˈliːki æbˈstrækʃən",
+        },
+        {
+          word: "lightweight",
+          meaning: "轻量级的",
+          level: "Advanced",
+          example: "We built a lightweight proxy to cache requests.",
+          pronunciation: "ˈlaɪtweɪt",
+        },
+        {
+          word: "linear",
+          meaning: "线性的",
+          level: "Advanced",
+          example: "Linear models are interpretable but less expressive.",
+          pronunciation: "ˈlɪniər",
+        },
+        {
+          word: "low‑hanging fruit",
+          meaning: "容易摘的果子",
+          level: "Advanced",
+          example:
+            "Let’s grab the low‑hanging fruit before tackling hard problems.",
+          pronunciation: "loʊ ˈhæŋɪŋ fruːt",
+        },
+        {
+          word: "machine intuition",
+          meaning: "机器直觉",
+          level: "Advanced",
+          example:
+            "Large models develop a form of machine intuition after seeing enough data.",
+          pronunciation: "məˈʃiːn ˌɪntuːˈɪʃən",
+        },
+        {
+          word: "manifold hypothesis",
+          meaning: "流形假设",
+          level: "Advanced",
+          example:
+            "The manifold hypothesis says real‑world data lives on low‑dim manifolds.",
+          pronunciation: "ˈmænɪfoʊld haɪˈpɑːθəsɪs",
+        },
+        {
+          word: "marginal",
+          meaning: "边际的",
+          level: "Advanced",
+          example: "Marginal revenue should exceed marginal cost.",
+          pronunciation: "ˈmɑːrdʒɪnəl",
+        },
+        {
+          word: "meta‑learning",
+          meaning: "元学习",
+          level: "Advanced",
+          example: "Meta‑learning learns the learning algorithm itself.",
+          pronunciation: "ˈmetə ˈlɜːrnɪŋ",
+        },
+        {
+          word: "metric",
+          meaning: "指标",
+          level: "Advanced",
+          example: "Choose the right metric: accuracy is not always the goal.",
+          pronunciation: "ˈmetrɪk",
+        },
+        {
+          word: "micro‑optimization",
+          meaning: "微观优化",
+          level: "Advanced",
+          example: "Avoid micro‑optimizations before profiling.",
+          pronunciation: "ˈmaɪkroʊ ˌɑːptɪmɪˈzeɪʃən",
+        },
+        {
+          word: "minimum viable product",
+          meaning: "最小可行产品",
+          level: "Advanced",
+          example:
+            "MVP is about learning, not about shipping a half‑baked product.",
+          pronunciation: "ˈmɪnɪməm ˈvaɪəbəl ˈprɑːdʌkt",
+        },
+        {
+          word: "mitigate",
+          meaning: "缓解",
+          level: "Advanced",
+          example: "We can mitigate bias by reweighting the training data.",
+          pronunciation: "ˈmɪtɪɡeɪt",
+        },
+        {
+          word: "model collapse",
+          meaning: "模型崩溃",
+          level: "Advanced",
+          example:
+            "Training on synthetic data from a previous model can lead to model collapse.",
+          pronunciation: "ˈmɑːdəl kəˈlæps",
+        },
+        {
+          word: "momentum",
+          meaning: "动量",
+          level: "Advanced",
+          example: "Momentum helps SGD escape shallow local minima.",
+          pronunciation: "moʊˈmentəm",
+        },
+        {
+          word: "monotonic",
+          meaning: "单调的",
+          level: "Advanced",
+          example: "The loss function decreased monotonically during training.",
+          pronunciation: "ˌmɑːnəˈtɑːnɪk",
+        },
+        {
+          word: "multi‑task learning",
+          meaning: "多任务学习",
+          level: "Advanced",
+          example:
+            "Multi‑task learning shares representations across related tasks.",
+          pronunciation: "ˈmʌlti tæsk ˈlɜːrnɪŋ",
+        },
+        {
+          word: "mutual information",
+          meaning: "互信息",
+          level: "Advanced",
+          example:
+            "Maximizing mutual information between input and representation is a training objective.",
+          pronunciation: "ˈmjuːtʃuəl ˌɪnfərˈmeɪʃən",
+        },
+        {
+          word: "naive",
+          meaning: "朴素的",
+          level: "Advanced",
+          example: "The naive solution often ignores important constraints.",
+          pronunciation: "naɪˈiːv",
+        },
+        {
+          word: "near‑term",
+          meaning: "短期的",
+          level: "Advanced",
+          example:
+            "Near‑term risks of AI include job displacement, not superintelligence.",
+          pronunciation: "nɪr tɜːrm",
+        },
+        {
+          word: "negative transfer",
+          meaning: "负迁移",
+          level: "Advanced",
+          example:
+            "Learning a second language can cause negative transfer if the grammars conflict.",
+          pronunciation: "ˈneɡətɪv trænsˈfɜːr",
+        },
+        {
+          word: "noise",
+          meaning: "噪声",
+          level: "Advanced",
+          example:
+            "Label noise harms model performance more than feature noise.",
+          pronunciation: "nɔɪz",
+        },
+        {
+          word: "non‑convex",
+          meaning: "非凸的",
+          level: "Advanced",
+          example:
+            "Deep learning optimizes a non‑convex loss function, but still works.",
+          pronunciation: "nɑːn kɑːnˈveks",
+        },
+        {
+          word: "non‑parametric",
+          meaning: "非参数的",
+          level: "Advanced",
+          example: "k‑NN is a non‑parametric method: it grows with data.",
+          pronunciation: "nɑːn ˌperəˈmetrɪk",
+        },
+        {
+          word: "norm",
+          meaning: "范数",
+          level: "Advanced",
+          example: "L2 norm measures Euclidean distance.",
+          pronunciation: "nɔːrm",
+        },
+        {
+          word: "objective function",
+          meaning: "目标函数",
+          level: "Advanced",
+          example:
+            "The objective function quantifies what we want to minimize or maximize.",
+          pronunciation: "əbˈdʒektɪv ˈfʌŋkʃən",
+        },
+        {
+          word: "observational",
+          meaning: "观察性的",
+          level: "Advanced",
+          example: "Observational studies cannot easily infer causation.",
+          pronunciation: "ˌɑːbzərˈveɪʃənl",
+        },
+        {
+          word: "offset",
+          meaning: "抵消；偏移",
+          level: "Advanced",
+          example: "The gain in speed offsets the small loss in accuracy.",
+          pronunciation: "ˈɔːfset",
+        },
+        {
+          word: "one‑hot",
+          meaning: "独热编码",
+          level: "Advanced",
+          example:
+            "A one‑hot vector has a 1 at the index of the class and 0 elsewhere.",
+          pronunciation: "wʌn hɑːt",
+        },
+        {
+          word: "online learning",
+          meaning: "在线学习",
+          level: "Advanced",
+          example: "Online learning updates the model after each example.",
+          pronunciation: "ˌɑːnˈlaɪn ˈlɜːrnɪŋ",
+        },
+        {
+          word: "open‑ended",
+          meaning: "开放式的",
+          level: "Advanced",
+          example:
+            "Open‑ended tasks like ‘write a story’ are harder to evaluate.",
+          pronunciation: "ˈoʊpən ˈendɪd",
+        },
+        {
+          word: "operationalize",
+          meaning: "实施；操作化",
+          level: "Advanced",
+          example:
+            "We need to operationalize our diversity goals into concrete hiring metrics.",
+          pronunciation: "ˌɑːpəˈreɪʃənəlaɪz",
+        },
+        {
+          word: "optimal transport",
+          meaning: "最优传输",
+          level: "Advanced",
+          example:
+            "Optimal transport gives a geometry‑aware distance between distributions.",
+          pronunciation: "ˈɑːptɪməl ˈtrænspɔːrt",
+        },
+        {
+          word: "orthogonal",
+          meaning: "正交的",
+          level: "Advanced",
+          example:
+            "These two features are nearly orthogonal, meaning little redundancy.",
+          pronunciation: "ɔːrˈθɑːɡənəl",
+        },
+        {
+          word: "outlier",
+          meaning: "离群值",
+          level: "Advanced",
+          example: "Robust statistics are less sensitive to outliers.",
+          pronunciation: "ˈaʊtlaɪər",
+        },
+        {
+          word: "output space",
+          meaning: "输出空间",
+          level: "Advanced",
+          example: "For classification, the output space is discrete classes.",
+          pronunciation: "ˈaʊtpʊt speɪs",
+        },
+        {
+          word: "overparameterization",
+          meaning: "过参数化",
+          level: "Advanced",
+          example: "Overparameterization can actually help optimization.",
+          pronunciation: "ˌoʊvərpəˌræmətərɪˈzeɪʃən",
+        },
+        {
+          word: "pairwise",
+          meaning: "成对的",
+          level: "Advanced",
+          example: "Pairwise ranking loss is used for recommendation systems.",
+          pronunciation: "ˈperwaɪz",
+        },
+        {
+          word: "pandas",
+          meaning: "Pandas库（比喻数据处理）",
+          level: "Advanced",
+          example: "Clean your data with pandas before feeding it to a model.",
+          pronunciation: "ˈpændəz",
+        },
+        {
+          word: "parameter",
+          meaning: "参数",
+          level: "Advanced",
+          example: "A neural network has millions of parameters.",
+          pronunciation: "pəˈræmɪtər",
+        },
+        {
+          word: "pareto",
+          meaning: "帕累托",
+          level: "Advanced",
+          example: "A Pareto improvement benefits some without harming others.",
+          pronunciation: "pəˈreɪtoʊ",
+        },
+        {
+          word: "partial",
+          meaning: "部分的",
+          level: "Advanced",
+          example:
+            "Partial derivatives measure sensitivity with respect to one variable.",
+          pronunciation: "ˈpɑːrʃəl",
+        },
+        {
+          word: "path dependency",
+          meaning: "路径依赖",
+          level: "Advanced",
+          example: "QWERTY keyboard is a classic example of path dependency.",
+          pronunciation: "pæθ dɪˈpendənsi",
+        },
+        {
+          word: "penalty",
+          meaning: "惩罚项",
+          level: "Advanced",
+          example: "Add a penalty term to discourage large weights.",
+          pronunciation: "ˈpenəlti",
+        },
+        {
+          word: "perceptron",
+          meaning: "感知机",
+          level: "Advanced",
+          example: "The perceptron was an early linear classifier.",
+          pronunciation: "pərˈseptrɑːn",
+        },
+        {
+          word: "performance ceiling",
+          meaning: "性能天花板",
+          level: "Advanced",
+          example:
+            "We hit a performance ceiling; we need a different architecture.",
+          pronunciation: "pərˈfɔːrməns ˈsiːlɪŋ",
+        },
+        {
+          word: "permutation",
+          meaning: "排列",
+          level: "Advanced",
+          example: "The model is invariant to permutation of input order.",
+          pronunciation: "ˌpɜːrmjuˈteɪʃən",
+        },
+        {
+          word: "perturbation",
+          meaning: "扰动",
+          level: "Advanced",
+          example:
+            "Small perturbations in input can cause large changes in output for unstable models.",
+          pronunciation: "ˌpɜːrtərˈbeɪʃən",
+        },
+        {
+          word: "pipeline",
+          meaning: "流水线",
+          level: "Advanced",
+          example: "An end‑to‑end pipeline from raw data to dashboard.",
+          pronunciation: "ˈpaɪplaɪn",
+        },
+        {
+          word: "plausible",
+          meaning: "貌似合理的",
+          level: "Advanced",
+          example:
+            "The model generates plausible but sometimes incorrect answers.",
+          pronunciation: "ˈplɔːzəbəl",
+        },
+        {
+          word: "policy",
+          meaning: "策略",
+          level: "Advanced",
+          example:
+            "Reinforcement learning learns a policy mapping states to actions.",
+          pronunciation: "ˈpɑːləsi",
+        },
+        {
+          word: "polynomial",
+          meaning: "多项式的",
+          level: "Advanced",
+          example:
+            "Polynomial regression can overfit if the degree is too high.",
+          pronunciation: "ˌpɑːliˈnoʊmiəl",
+        },
+        {
+          word: "positive feedback",
+          meaning: "正反馈",
+          level: "Advanced",
+          example: "Virality creates a positive feedback loop.",
+          pronunciation: "ˈpɑːzətɪv ˈfiːdbæk",
+        },
+        {
+          word: "post‑hoc",
+          meaning: "事后的",
+          level: "Advanced",
+          example:
+            "Post‑hoc explainability methods like LIME approximate the model locally.",
+          pronunciation: "poʊst hɑːk",
+        },
+        {
+          word: "precision vs recall",
+          meaning: "精确率 vs 召回率",
+          level: "Advanced",
+          example:
+            "Medical tests need high recall; spam filters need high precision.",
+          pronunciation: "prɪˈsɪʒən vɜːrsəs rɪˈkɔːl",
+        },
+        {
+          word: "preferable",
+          meaning: "更可取的",
+          level: "Advanced",
+          example:
+            "Simple and wrong is sometimes preferable to complex and slightly better.",
+          pronunciation: "ˈprefrəbəl",
+        },
+        {
+          word: "pretraining",
+          meaning: "预训练",
+          level: "Advanced",
+          example:
+            "Pretraining on a large corpus, then fine‑tuning on a small task.",
+          pronunciation: "priːˈtreɪnɪŋ",
+        },
+        {
+          word: "prioritization",
+          meaning: "优先级排序",
+          level: "Advanced",
+          example: "Good prioritization is saying no to most ideas.",
+          pronunciation: "praɪˌɔːrtɪˈzeɪʃən",
+        },
+        {
+          word: "probe",
+          meaning: "探针；探测",
+          level: "Advanced",
+          example: "We trained a small probe to see what a layer learned.",
+          pronunciation: "proʊb",
+        },
+        {
+          word: "process",
+          meaning: "过程",
+          level: "Advanced",
+          example: "Trust the process, not just the outcome.",
+          pronunciation: "ˈprɑːses",
+        },
+        {
+          word: "proximal",
+          meaning: "近端的",
+          level: "Advanced",
+          example:
+            "Proximal policy optimization (PPO) is a popular RL algorithm.",
+          pronunciation: "ˈprɑːksɪməl",
+        },
+        {
+          word: "pseudo‑label",
+          meaning: "伪标签",
+          level: "Advanced",
+          example:
+            "Semi‑supervised learning uses pseudo‑labels on unlabeled data.",
+          pronunciation: "ˈsuːdoʊ ˈleɪbəl",
+        },
+        {
+          word: "quantile",
+          meaning: "分位数",
+          level: "Advanced",
+          example:
+            "The 0.9 quantile is the value below which 90% of data falls.",
+          pronunciation: "ˈkwɑːntaɪl",
+        },
+        {
+          word: "query",
+          meaning: "查询",
+          level: "Advanced",
+          example:
+            "In attention, the query matches against keys to produce weights.",
+          pronunciation: "ˈkwɪri",
+        },
+        {
+          word: "random seed",
+          meaning: "随机种子",
+          level: "Advanced",
+          example: "Set a random seed for reproducibility.",
+          pronunciation: "ˈrændəm siːd",
+        },
+        {
+          word: "rank",
+          meaning: "秩；排名",
+          level: "Advanced",
+          example: "Matrix factorization approximates a matrix with low rank.",
+          pronunciation: "ræŋk",
+        },
+        {
+          word: "ratchet",
+          meaning: "棘轮；渐进提高",
+          level: "Advanced",
+          example:
+            "The standard ratchets up over time, making it harder to pass.",
+          pronunciation: "ˈrætʃɪt",
+        },
+        {
+          word: "re‑evaluate",
+          meaning: "重新评估",
+          level: "Advanced",
+          example: "Re‑evaluate your assumptions when new data arrives.",
+          pronunciation: "riː ɪˈvæljueɪt",
+        },
+        {
+          word: "readout",
+          meaning: "读出",
+          level: "Advanced",
+          example: "The final readout layer maps hidden states to outputs.",
+          pronunciation: "ˈriːdaʊt",
+        },
+        {
+          word: "reasoning trace",
+          meaning: "推理轨迹",
+          level: "Advanced",
+          example: "Chain‑of‑thought prompts produce a reasoning trace.",
+          pronunciation: "ˈriːzənɪŋ treɪs",
+        },
+        {
+          word: "receptive field",
+          meaning: "感受野",
+          level: "Advanced",
+          example:
+            "CNNs have a local receptive field; transformers have global.",
+          pronunciation: "rɪˈseptɪv fiːld",
+        },
+        {
+          word: "reciprocal",
+          meaning: "相互的",
+          level: "Advanced",
+          example: "Reciprocal altruism evolves in repeated interactions.",
+          pronunciation: "rɪˈsɪprəkəl",
+        },
+        {
+          word: "reconstruct",
+          meaning: "重构",
+          level: "Advanced",
+          example: "Autoencoders learn to reconstruct their inputs.",
+          pronunciation: "ˌriːkənˈstrʌkt",
+        },
+        {
+          word: "recursive",
+          meaning: "递归的",
+          level: "Advanced",
+          example:
+            "A recursive function calls itself; RNNs are recursive in time.",
+          pronunciation: "rɪˈkɜːrsɪv",
+        },
+        {
+          word: "redundancy",
+          meaning: "冗余",
+          level: "Advanced",
+          example: "System redundancy improves fault tolerance.",
+          pronunciation: "rɪˈdʌndənsi",
+        },
+        {
+          word: "reference",
+          meaning: "参考",
+          level: "Advanced",
+          example: "The reference model is a simple baseline we want to beat.",
+          pronunciation: "ˈrefrəns",
+        },
+        {
+          word: "refinement",
+          meaning: "细化",
+          level: "Advanced",
+          example: "Successive refinement gradually improves a prototype.",
+          pronunciation: "rɪˈfaɪnmənt",
+        },
+        {
+          word: "regularizer",
+          meaning: "正则化器",
+          level: "Advanced",
+          example: "Dropout acts as a regularizer by preventing co‑adaptation.",
+          pronunciation: "ˈreɡjələraɪzər",
+        },
+        {
+          word: "reinforcement",
+          meaning: "强化",
+          level: "Advanced",
+          example: "Reinforcement learning uses rewards to shape behavior.",
+          pronunciation: "ˌriːɪnˈfɔːrsmənt",
+        },
+        {
+          word: "reliability",
+          meaning: "可靠性",
+          level: "Advanced",
+          example:
+            "Reliability is more important than peak performance in safety‑critical systems.",
+          pronunciation: "rɪˌlaɪəˈbɪləti",
+        },
+        {
+          word: "residual",
+          meaning: "残差；剩余的",
+          level: "Advanced",
+          example: "Residual connections allow gradients to flow more easily.",
+          pronunciation: "rɪˈzɪdʒuəl",
+        },
+        {
+          word: "resolution",
+          meaning: "分辨率；（问题）解决",
+          level: "Advanced",
+          example: "Low‑resolution images lack fine details.",
+          pronunciation: "ˌrezəˈluːʃən",
+        },
+        {
+          word: "retrieval",
+          meaning: "检索",
+          level: "Advanced",
+          example:
+            "Retrieval‑augmented generation (RAG) looks up relevant documents.",
+          pronunciation: "rɪˈtriːvəl",
+        },
+        {
+          word: "robustness",
+          meaning: "鲁棒性",
+          level: "Advanced",
+          example:
+            "Robustness to adversarial examples is an active research area.",
+          pronunciation: "roʊˈbʌstnəs",
+        },
+        {
+          word: "routing",
+          meaning: "路由",
+          level: "Advanced",
+          example:
+            "Mixture of experts learns to route tokens to specialized sub‑networks.",
+          pronunciation: "ˈruːtɪŋ",
+        },
+        {
+          word: "runaway",
+          meaning: "失控的",
+          level: "Advanced",
+          example: "Runaway feedback loops can destabilize a system.",
+          pronunciation: "ˈrʌnəweɪ",
+        },
+        {
+          word: "sanity check",
+          meaning: "合理性检查",
+          level: "Advanced",
+          example: "Always do a sanity check before trusting the output.",
+          pronunciation: "ˈsænəti tʃek",
+        },
+        {
+          word: "scaffold",
+          meaning: "脚手架；支架",
+          level: "Advanced",
+          example:
+            "Use a scaffold to structure the project before adding details.",
+          pronunciation: "ˈskæfoʊld",
+        },
+        {
+          word: "scalability",
+          meaning: "可扩展性",
+          level: "Advanced",
+          example:
+            "Scalability is not an afterthought; it’s a design constraint.",
+          pronunciation: "ˌskeɪləˈbɪləti",
+        },
+        {
+          word: "scenario",
+          meaning: "情景",
+          level: "Advanced",
+          example: "Consider a worst‑case scenario when planning capacity.",
+          pronunciation: "səˈnærioʊ",
+        },
+        {
+          word: "schema",
+          meaning: "模式；框架",
+          level: "Advanced",
+          example: "A database schema defines tables and relationships.",
+          pronunciation: "ˈskiːmə",
+        },
+        {
+          word: "search space",
+          meaning: "搜索空间",
+          level: "Advanced",
+          example: "Pruning reduces the search space dramatically.",
+          pronunciation: "sɜːrtʃ speɪs",
+        },
+        {
+          word: "self‑attention",
+          meaning: "自注意力",
+          level: "Advanced",
+          example:
+            "Self‑attention allows each token to attend to every other token.",
+          pronunciation: "self əˈtenʃən",
+        },
+        {
+          word: "semantic",
+          meaning: "语义的",
+          level: "Advanced",
+          example: "Semantic similarity is about meaning, not surface form.",
+          pronunciation: "sɪˈmæntɪk",
+        },
+        {
+          word: "sensitivity",
+          meaning: "敏感性",
+          level: "Advanced",
+          example: "The model shows high sensitivity to small input changes.",
+          pronunciation: "ˌsensəˈtɪvəti",
+        },
+        {
+          word: "sequential",
+          meaning: "顺序的",
+          level: "Advanced",
+          example: "Sequential data like text or audio has temporal order.",
+          pronunciation: "sɪˈkwenʃəl",
+        },
+        {
+          word: "serve",
+          meaning: "服务（模型部署）",
+          level: "Advanced",
+          example: "We serve the model using a low‑latency inference engine.",
+          pronunciation: "sɜːrv",
+        },
+        {
+          word: "shallow",
+          meaning: "浅的",
+          level: "Advanced",
+          example: "A shallow network has one or two hidden layers.",
+          pronunciation: "ˈʃæloʊ",
+        },
+        {
+          word: "sharding",
+          meaning: "分片",
+          level: "Advanced",
+          example: "Horizontal sharding splits a table across many nodes.",
+          pronunciation: "ˈʃɑːrdɪŋ",
+        },
+        {
+          word: "shortcut",
+          meaning: "捷径",
+          level: "Advanced",
+          example:
+            "Models often take shortcut solutions that don’t generalize.",
+          pronunciation: "ˈʃɔːrtkʌt",
+        },
+        {
+          word: "sigmoid",
+          meaning: "S型函数",
+          level: "Advanced",
+          example: "The sigmoid function squashes any real number to (0,1).",
+          pronunciation: "ˈsɪɡmɔɪd",
+        },
+        {
+          word: "signal",
+          meaning: "信号",
+          level: "Advanced",
+          example: "Separate the signal from the noise.",
+          pronunciation: "ˈsɪɡnəl",
+        },
+        {
+          word: "silicon valley",
+          meaning: "硅谷（文化）",
+          level: "Advanced",
+          example: "The Silicon Valley mindset values speed over perfection.",
+          pronunciation: "ˈsɪlɪkən ˈvæli",
+        },
+        {
+          word: "simplicity",
+          meaning: "简洁性",
+          level: "Advanced",
+          example: "Simplicity is the ultimate sophistication.",
+          pronunciation: "sɪmˈplɪsəti",
+        },
+        {
+          word: "simulation",
+          meaning: "模拟",
+          level: "Advanced",
+          example: "Run a Monte Carlo simulation to estimate uncertainty.",
+          pronunciation: "ˌsɪmjʊˈleɪʃən",
+        },
+        {
+          word: "skeuomorph",
+          meaning: "拟物化设计",
+          level: "Advanced",
+          example: "The trash can icon is a skeuomorph from physical desktops.",
+          pronunciation: "ˈskjuːəmɔːrf",
+        },
+        {
+          word: "sloppy",
+          meaning: "马虎的",
+          level: "Advanced",
+          example: "Sloppy data leads to sloppy models.",
+          pronunciation: "ˈslɑːpi",
+        },
+        {
+          word: "smooth",
+          meaning: "平滑的",
+          level: "Advanced",
+          example: "Label smoothing prevents overconfidence.",
+          pronunciation: "smuːð",
+        },
+        {
+          word: "softmax",
+          meaning: "Softmax函数",
+          level: "Advanced",
+          example: "Softmax converts logits into a probability distribution.",
+          pronunciation: "ˈsɔːftmæks",
+        },
+        {
+          word: "span",
+          meaning: "跨度；范围",
+          level: "Advanced",
+          example: "The model’s context window spans 2048 tokens.",
+          pronunciation: "spæn",
+        },
+        {
+          word: "sparsity",
+          meaning: "稀疏性",
+          level: "Advanced",
+          example: "Sparsity can be exploited for faster computation.",
+          pronunciation: "ˈspɑːrsəti",
+        },
+        {
+          word: "spectrum",
+          meaning: "谱；范围",
+          level: "Advanced",
+          example: "There is a spectrum from fully supervised to unsupervised.",
+          pronunciation: "ˈspektrəm",
+        },
+        {
+          word: "speculative",
+          meaning: "推测的",
+          level: "Advanced",
+          example: "Speculative execution runs multiple branches in parallel.",
+          pronunciation: "ˈspekjələtɪv",
+        },
+        {
+          word: "stability",
+          meaning: "稳定性",
+          level: "Advanced",
+          example:
+            "Stability and plasticity are two goals in continual learning.",
+          pronunciation: "stəˈbɪləti",
+        },
+        {
+          word: "stack",
+          meaning: "栈；技术栈",
+          level: "Advanced",
+          example: "Our tech stack includes PyTorch, FastAPI, and PostgreSQL.",
+          pronunciation: "stæk",
+        },
+        {
+          word: "stagnation",
+          meaning: "停滞",
+          level: "Advanced",
+          example: "Avoid stagnation by regularly re‑evaluating goals.",
+          pronunciation: "stæɡˈneɪʃən",
+        },
+        {
+          word: "steep",
+          meaning: "陡峭的",
+          level: "Advanced",
+          example: "The learning curve is steep, but the payoff is large.",
+          pronunciation: "stiːp",
+        },
+        {
+          word: "stereotype",
+          meaning: "刻板印象",
+          level: "Advanced",
+          example: "Language models can amplify harmful stereotypes.",
+          pronunciation: "ˈsteriətaɪp",
+        },
+        {
+          word: "stochasticity",
+          meaning: "随机性",
+          level: "Advanced",
+          example: "A little stochasticity helps exploration.",
+          pronunciation: "stəˈkæstɪsəti",
+        },
+        {
+          word: "strategy",
+          meaning: "策略",
+          level: "Advanced",
+          example: "Strategy is what you do when there’s no playbook.",
+          pronunciation: "ˈstrætədʒi",
+        },
+        {
+          word: "straw man",
+          meaning: "稻草人谬误",
+          level: "Advanced",
+          example:
+            "Attacking a straw man version of an argument is a logical fallacy.",
+          pronunciation: "strɔː mæn",
+        },
+        {
+          word: "strict",
+          meaning: "严格的",
+          level: "Advanced",
+          example: "Strict type checking catches errors at compile time.",
+          pronunciation: "strɪkt",
+        },
+        {
+          word: "suboptimal",
+          meaning: "次优的",
+          level: "Advanced",
+          example:
+            "Local optima are suboptimal compared to the global optimum.",
+          pronunciation: "sʌbˈɑːptɪməl",
+        },
+        {
+          word: "subproblem",
+          meaning: "子问题",
+          level: "Advanced",
+          example: "Divide the main problem into independent subproblems.",
+          pronunciation: "ˈsʌbprɑːbləm",
+        },
+        {
+          word: "subspace",
+          meaning: "子空间",
+          level: "Advanced",
+          example: "PCA projects data onto a lower‑dimensional subspace.",
+          pronunciation: "ˈsʌbspəs",
+        },
+        {
+          word: "substrate",
+          meaning: "基底；底层",
+          level: "Advanced",
+          example: "The neural substrate of consciousness is still unknown.",
+          pronunciation: "ˈsʌbstreɪt",
+        },
+        {
+          word: "summarization",
+          meaning: "摘要",
+          level: "Advanced",
+          example:
+            "Extractive summarization picks sentences; abstractive generates new text.",
+          pronunciation: "ˌsʌməraɪˈzeɪʃən",
+        },
+        {
+          word: "superficial",
+          meaning: "肤浅的",
+          level: "Advanced",
+          example: "Superficial patterns don’t lead to robust generalization.",
+          pronunciation: "ˌsuːpərˈfɪʃəl",
+        },
+        {
+          word: "sustainability",
+          meaning: "可持续性",
+          level: "Advanced",
+          example: "Model sustainability means low energy consumption.",
+          pronunciation: "səˌsteɪnəˈbɪləti",
+        },
+        {
+          word: "symmetric",
+          meaning: "对称的",
+          level: "Advanced",
+          example: "The distance metric should be symmetric.",
+          pronunciation: "sɪˈmetrɪk",
+        },
+        {
+          word: "synaptic",
+          meaning: "突触的",
+          level: "Advanced",
+          example:
+            "Synaptic plasticity is key to learning in biological brains.",
+          pronunciation: "sɪˈnæptɪk",
+        },
+        {
+          word: "synchronization",
+          meaning: "同步",
+          level: "Advanced",
+          example: "Synchronization barriers slow down distributed training.",
+          pronunciation: "ˌsɪŋkrənaɪˈzeɪʃən",
+        },
+        {
+          word: "syntactic",
+          meaning: "句法的",
+          level: "Advanced",
+          example:
+            "Syntactic parsing reveals the grammatical structure of a sentence.",
+          pronunciation: "sɪnˈtæktɪk",
+        },
+        {
+          word: "systematic",
+          meaning: "系统性的",
+          level: "Advanced",
+          example: "A systematic review covers all relevant studies.",
+          pronunciation: "ˌsɪstəˈmætɪk",
+        },
+        {
+          word: "tail",
+          meaning: "尾部",
+          level: "Advanced",
+          example: "The long tail of rare events is hard to model.",
+          pronunciation: "teɪl",
+        },
+        {
+          word: "task‑oriented",
+          meaning: "任务导向的",
+          level: "Advanced",
+          example:
+            "Task‑oriented dialogue systems help users achieve specific goals.",
+          pronunciation: "tæsk ˈɔːrientɪd",
+        },
+        {
+          word: "teleological",
+          meaning: "目的论的",
+          level: "Advanced",
+          example:
+            "Avoid teleological explanations in evolution: there is no end goal.",
+          pronunciation: "ˌtiːliəˈlɑːdʒɪkəl",
+        },
+        {
+          word: "temperature",
+          meaning: "温度（softmax参数）",
+          level: "Advanced",
+          example: "Higher temperature yields more diverse outputs.",
+          pronunciation: "ˈtemprətʃər",
+        },
+        {
+          word: "temporal",
+          meaning: "时间的",
+          level: "Advanced",
+          example: "Temporal data includes timestamps and sequences.",
+          pronunciation: "ˈtempərəl",
+        },
+        {
+          word: "tensor",
+          meaning: "张量",
+          level: "Advanced",
+          example:
+            "A tensor is a multi‑dimensional array, the basic data structure in PyTorch.",
+          pronunciation: "ˈtensər",
+        },
+        {
+          word: "threshold",
+          meaning: "阈值",
+          level: "Advanced",
+          example:
+            "Set a probability threshold to convert scores to binary decisions.",
+          pronunciation: "ˈθreʃhoʊld",
+        },
+        {
+          word: "tight",
+          meaning: "紧凑的；严格的",
+          level: "Advanced",
+          example: "We have a tight deadline but also tight resources.",
+          pronunciation: "taɪt",
+        },
+        {
+          word: "tokenization",
+          meaning: "分词",
+          level: "Advanced",
+          example: "Subword tokenization handles rare words better.",
+          pronunciation: "ˌtoʊkənaɪˈzeɪʃən",
+        },
+        {
+          word: "tolerance",
+          meaning: "容忍度",
+          level: "Advanced",
+          example:
+            "Fault tolerance allows the system to continue despite component failures.",
+          pronunciation: "ˈtɑːlərəns",
+        },
+        {
+          word: "top‑down",
+          meaning: "自上而下的",
+          level: "Advanced",
+          example: "Top‑down attention modulates bottom‑up processing.",
+          pronunciation: "tɑːp daʊn",
+        },
+        {
+          word: "trade‑off",
+          meaning: "权衡",
+          level: "Advanced",
+          example: "Every optimization is a trade‑off.",
+          pronunciation: "ˈtreɪd ɔːf",
+        },
+        {
+          word: "transductive",
+          meaning: "直推的",
+          level: "Advanced",
+          example:
+            "Transductive learning makes predictions only for specific test points.",
+          pronunciation: "trænsˈdʌktɪv",
+        },
+        {
+          word: "transfer",
+          meaning: "迁移",
+          level: "Advanced",
+          example: "Transfer learning reuses a pretrained model on a new task.",
+          pronunciation: "trænsˈfɜːr",
+        },
+        {
+          word: "transformer",
+          meaning: "Transformer模型",
+          level: "Advanced",
+          example:
+            "The transformer architecture replaced RNNs for most sequence tasks.",
+          pronunciation: "trænsˈfɔːrmər",
+        },
+        {
+          word: "transparency",
+          meaning: "透明性",
+          level: "Advanced",
+          example: "Algorithmic transparency helps users understand decisions.",
+          pronunciation: "trænsˈpærənsi",
+        },
+        {
+          word: "trivial",
+          meaning: "平凡的；琐碎的",
+          level: "Advanced",
+          example: "Don’t spend time on trivial optimizations.",
+          pronunciation: "ˈtrɪviəl",
+        },
+        {
+          word: "tuning",
+          meaning: "调参",
+          level: "Advanced",
+          example:
+            "Hyperparameter tuning can be automated via Bayesian optimization.",
+          pronunciation: "ˈtuːnɪŋ",
+        },
+        {
+          word: "two‑sided",
+          meaning: "双边的",
+          level: "Advanced",
+          example:
+            "A marketplace is a two‑sided platform connecting buyers and sellers.",
+          pronunciation: "tuː ˈsaɪdɪd",
+        },
+        {
+          word: "tyranny",
+          meaning: "暴政；不好的主导",
+          level: "Advanced",
+          example: "The tyranny of the majority can silence minority voices.",
+          pronunciation: "ˈtɪrəni",
+        },
+        {
+          word: "uncertainty",
+          meaning: "不确定性",
+          level: "Advanced",
+          example: "Quantify uncertainty to make better decisions.",
+          pronunciation: "ʌnˈsɜːrtnti",
+        },
+        {
+          word: "underdetermined",
+          meaning: "欠定的",
+          level: "Advanced",
+          example:
+            "An underdetermined system has more unknowns than equations.",
+          pronunciation: "ˌʌndərdɪˈtɜːrmɪnd",
+        },
+        {
+          word: "underfit",
+          meaning: "欠拟合",
+          level: "Advanced",
+          example: "A linear model will underfit complex data.",
+          pronunciation: "ˌʌndərˈfɪt",
+        },
+        {
+          word: "underspecified",
+          meaning: "说明不足的",
+          level: "Advanced",
+          example:
+            "Many real‑world tasks are underspecified; multiple solutions exist.",
+          pronunciation: "ˌʌndərˈspesɪfaɪd",
+        },
+        {
+          word: "unidirectional",
+          meaning: "单向的",
+          level: "Advanced",
+          example: "GPT uses unidirectional attention; BERT is bidirectional.",
+          pronunciation: "ˌjuːnɪdɪˈrekʃənl",
+        },
+        {
+          word: "unintended",
+          meaning: "非预期的",
+          level: "Advanced",
+          example:
+            "Unintended consequences often arise from well‑intentioned rules.",
+          pronunciation: "ˌʌnɪnˈtendɪd",
+        },
+        {
+          word: "unstructured",
+          meaning: "非结构化的",
+          level: "Advanced",
+          example:
+            "Unstructured text is harder to query than structured databases.",
+          pronunciation: "ʌnˈstrʌktʃərd",
+        },
+        {
+          word: "upstream",
+          meaning: "上游的",
+          level: "Advanced",
+          example: "Fixing bugs upstream saves downstream headaches.",
+          pronunciation: "ˈʌpstriːm",
+        },
+        {
+          word: "utility",
+          meaning: "效用",
+          level: "Advanced",
+          example:
+            "The utility function captures preferences in decision theory.",
+          pronunciation: "juːˈtɪləti",
+        },
+        {
+          word: "validation",
+          meaning: "验证",
+          level: "Advanced",
+          example:
+            "Cross‑validation reduces variance in performance estimates.",
+          pronunciation: "ˌvælɪˈdeɪʃən",
+        },
+        {
+          word: "variance",
+          meaning: "方差",
+          level: "Advanced",
+          example:
+            "High‑variance models are sensitive to training data fluctuations.",
+          pronunciation: "ˈveriəns",
+        },
+        {
+          word: "vector space",
+          meaning: "向量空间",
+          level: "Advanced",
+          example: "Word2vec embeds words in a continuous vector space.",
+          pronunciation: "ˈvektər speɪs",
+        },
+        {
+          word: "verification",
+          meaning: "验证",
+          level: "Advanced",
+          example: "Model verification checks if specifications are met.",
+          pronunciation: "ˌverɪfɪˈkeɪʃən",
+        },
+        {
+          word: "versatile",
+          meaning: "多功能的",
+          level: "Advanced",
+          example:
+            "Transformers are versatile: they work on text, images, audio.",
+          pronunciation: "ˈvɜːrsətəl",
+        },
+        {
+          word: "vice versa",
+          meaning: "反之亦然",
+          level: "Advanced",
+          example: "Good data can improve a model, and vice versa.",
+          pronunciation: "ˈvaɪs ˈvɜːrsə",
+        },
+        {
+          word: "virtual",
+          meaning: "虚拟的；几乎…的",
+          level: "Advanced",
+          example: "A virtual certainty in tech is that change is constant.",
+          pronunciation: "ˈvɜːrtʃuəl",
+        },
+        {
+          word: "weight",
+          meaning: "权重",
+          level: "Advanced",
+          example: "Weight initialization matters for convergence speed.",
+          pronunciation: "weɪt",
+        },
+        {
+          word: "win‑win",
+          meaning: "双赢",
+          level: "Advanced",
+          example: "Look for win‑win solutions, not zero‑sum battles.",
+          pronunciation: "wɪn wɪn",
+        },
+        {
+          word: "wrapper",
+          meaning: "包装器",
+          level: "Advanced",
+          example: "Write a wrapper library to simplify the API.",
+          pronunciation: "ˈræpər",
+        },
+        {
+          word: "zero‑shot",
+          meaning: "零样本",
+          level: "Advanced",
+          example:
+            "Zero‑shot classification works without any training examples.",
+          pronunciation: "ˈzɪroʊ ʃɑːt",
+        },
+      ];
+
+      // ---------- 核心逻辑 ----------
+      const GROUP_SIZE = 5;
+      const TOTAL_WORDS = vocabularyBank.length;
+      let currentOffset = 0;
+      let currentWords = [];
+      let quizIndex = 0,
+        score = 0;
+      let lastScoredIndex = null;
+
+      function getBaseStartIndex() {
+        const today = new Date();
+        const seed =
+          today.getFullYear() * 365 + today.getMonth() * 31 + today.getDate();
+        return (seed * 5) % TOTAL_WORDS;
+      }
+
+      function getWordsByOffset(offset) {
+        const baseStart = getBaseStartIndex();
+        let start = (baseStart + offset * GROUP_SIZE) % TOTAL_WORDS;
+        const result = [];
+        for (let i = 0; i < GROUP_SIZE; i++) {
+          const idx = (start + i) % TOTAL_WORDS;
+          result.push({ ...vocabularyBank[idx] });
+        }
+        return result;
+      }
+
+      function refresh() {
+        currentWords = getWordsByOffset(currentOffset);
+        if (currentWords.length === 0) return;
+        quizIndex = 0;
+        score = 0;
+        lastScoredIndex = null;
+        renderWords();
+        renderQuiz();
+        updateProgress();
+      }
+
+      function renderWords() {
+        const container = document.getElementById("wordList");
+        if (!container) return;
+        container.innerHTML = "";
+        currentWords.forEach((item) => {
+          const div = document.createElement("div");
+          div.className = "word-card";
+          const pronHtml = item.pronunciation
+            ? `<div class="pronunciation">/${item.pronunciation}/</div>`
+            : "";
+          div.innerHTML = `
+      <div class="word">${item.word}</div>
+      ${pronHtml}
+      <span class="level">${item.level}</span>
+      <div class="meaning">${item.meaning}</div>
+      <div class="example">💡 ${item.example}</div>
+    `;
+          container.appendChild(div);
+        });
+      }
+
+      function renderQuiz() {
+        if (!currentWords.length) return;
+        const current = currentWords[quizIndex];
+        document.getElementById("quizQuestion").innerHTML =
+          `哪个英文单词表示：<b>${current.meaning}</b>？`;
+        document.getElementById("answerInput").value = "";
+        document.getElementById("result").innerHTML = "";
+        document.getElementById("result").className = "result";
+      }
+
+      function updateProgress() {
+        const fill = document.getElementById("progressFill");
+        const text = document.getElementById("scoreText");
+        if (fill) fill.style.width = `${(score / GROUP_SIZE) * 100}%`;
+        if (text) text.textContent = `今日掌握：${score}/${GROUP_SIZE}`;
+      }
+
+      function checkAnswer() {
+        if (!currentWords.length) return;
+        const answer = document
+          .getElementById("answerInput")
+          .value.trim()
+          .toLowerCase();
+        const current = currentWords[quizIndex];
+        const resultDiv = document.getElementById("result");
+        if (answer === current.word.toLowerCase()) {
+          resultDiv.innerHTML = "✅ 正确！这个词已经开始进入你的长期记忆了。";
+          resultDiv.className = "result ok";
+          if (lastScoredIndex !== quizIndex) {
+            score++;
+            lastScoredIndex = quizIndex;
+            updateProgress();
+          }
+        } else {
+          resultDiv.innerHTML = `❌ 正确答案是：<em>${current.word}</em>`;
+          resultDiv.className = "result err";
+        }
+      }
+
+      function nextQuestion() {
+        if (!currentWords.length) return;
+        quizIndex = (quizIndex + 1) % GROUP_SIZE;
+        lastScoredIndex = null;
+        renderQuiz();
+        updateProgress();
+      }
+
+      function nextGroup() {
+        currentOffset++;
+        refresh();
+      }
+      function prevGroup() {
+        currentOffset--;
+        refresh();
+      }
+      function resetToToday() {
+        currentOffset = 0;
+        refresh();
+      }
+
+      function bindEvents() {
+        document.getElementById("checkBtn").onclick = checkAnswer;
+        document.getElementById("nextBtn").onclick = nextQuestion;
+        document.getElementById("prevGroupBtn").onclick = prevGroup;
+        document.getElementById("nextGroupBtn").onclick = nextGroup;
+        document.getElementById("resetTodayBtn").onclick = resetToToday;
+        document.getElementById("legacyResetBtn").onclick = resetToToday;
+      }
+
+      refresh();
+      bindEvents();
+    </script>
+  </body>
+</html>
