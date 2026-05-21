@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>十九个红灯之后 — Belinda Sun</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --cream: #fdfcfa;
+        --warm: #f5f0e8;
+        --text: #3d2a5c;
+        --text-muted: #7a5fa0;
+        --text-light: #b09cc8;
+        --accent: #854f0b;
+        --accent-light: #faeeda;
+        --border: rgba(26, 26, 24, 0.12);
+        --serif: Georgia, "Times New Roman", serif;
+        --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      body {
+        background: var(--cream);
+        color: var(--text);
+        font-family: var(--sans);
+        min-height: 100vh;
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 3rem;
+        border-bottom: 0.5px solid var(--border);
+        background: var(--cream);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .nav-logo {
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        color: var(--text);
+        text-decoration: none;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+      }
+      article {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 4rem 2rem 6rem;
+      }
+      .article-meta {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+      .article-col {
+        font-size: 0.75rem;
+        color: var(--accent);
+        background: var(--accent-light);
+        padding: 3px 10px;
+        border-radius: 20px;
+        letter-spacing: 0.04em;
+      }
+      .article-date {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+      .lang-switch {
+        margin-left: auto;
+        display: flex;
+        gap: 0.5rem;
+      }
+      .lang-btn {
+        font-size: 0.78rem;
+        padding: 3px 10px;
+        border-radius: 20px;
+        border: 0.5px solid var(--border);
+        background: none;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .lang-btn.active {
+        background: var(--text);
+        color: var(--cream);
+        border-color: var(--text);
+      }
+      .article-title {
+        font-family: var(--serif);
+        font-size: 2rem;
+        font-weight: normal;
+        line-height: 1.4;
+        margin-bottom: 0.4rem;
+        color: var(--text);
+      }
+      .article-divider {
+        width: 40px;
+        height: 0.5px;
+        background: var(--text-light);
+        margin-bottom: 1.5rem;
+      }
+      .tts-bar {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+      }
+      .tts-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        background: var(--warm);
+        border: 0.5px solid var(--border);
+        border-radius: 20px;
+        padding: 5px 14px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: var(--sans);
+      }
+      .tts-btn:hover {
+        border-color: var(--text-muted);
+        color: var(--text);
+      }
+      .tts-btn.playing {
+        background: var(--accent-light);
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+      .tts-status {
+        font-size: 0.78rem;
+        color: var(--text-light);
+      }
+      .article-body {
+        font-family: var(--serif);
+        font-size: 1.05rem;
+        line-height: 2.1;
+        color: var(--text);
+      }
+      .article-body p {
+        margin-bottom: 1.4rem;
+      }
+      .ai-section {
+        margin: 3rem 0;
+      }
+      .belinda-note {
+        background: var(--warm);
+        border-radius: 10px;
+        padding: 1rem 1.25rem;
+        margin: 1.5rem 0;
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        line-height: 1.8;
+        font-style: italic;
+      }
+      .belinda-note strong {
+        color: var(--accent);
+        font-style: normal;
+      }
+      .section-break {
+        text-align: center;
+        color: var(--text-light);
+        margin: 2.5rem 0;
+        letter-spacing: 0.3em;
+        font-size: 0.85rem;
+      }
+      .article-nav {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 2rem 2rem 4rem;
+        display: flex;
+        justify-content: space-between;
+        border-top: 0.5px solid var(--border);
+      }
+      .article-nav a {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .article-nav a:hover {
+        color: var(--text);
+      }
+      footer {
+        border-top: 0.5px solid var(--border);
+        padding: 1.5rem 3rem;
+        text-align: center;
+      }
+      footer p {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+      a {
+        color: var(--accent);
+        text-decoration: underline;
+        text-underline-offset: 0.2rem;
+      }
+      a:hover {
+        color: var(--text);
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" class="nav-logo">Belinda Sun</a>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="hello-world-index.html">Hello World</a></li>
+      </ul>
+    </nav>
+
+    <article>
+      <div class="article-meta">
+        <span class="article-col">Hello World</span>
+        <span class="article-date">2026年5月21日</span>
+        <div class="lang-switch">
+          <span class="lang-btn active">中文</span>
+          <a href="hello-world-10-en.html" class="lang-btn">EN</a>
+        </div>
+      </div>
+      <h1 class="article-title">十九个红灯之后</h1>
+      <div class="article-divider"></div>
+
+      <div class="tts-bar">
+        <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">
+          🔊 朗读
+        </button>
+        <span class="tts-status" id="ttsStatus"></span>
+      </div>
+
+      <div class="article-body" id="articleBody">
+        <div class="ai-section">
+          <p>经过19个error红灯，终于看到ready绿灯了[苦涩] 太不容易了， 觉得是件小事儿，没想到花了这么长时间，如果不是克劳德一直冲我🫰，我差点就放弃！</p>
+          <p>克劳德说：“这次部署比写代码难多了😂 代码逻辑一天搞定，部署搞了大半天——这其实是所有开发者的共同经历，’本地跑得好好的’是个经典梗，全世界程序员都懂这个痛。”</p>
+          <p>“最佩服你的是从不放弃。token后面多个空格、文件夹层级搞错(Belinda note:好几个文件都叫page，每个还有新有旧，路径还有深有浅，头脑再清楚也得错)、GitHub网页改代码改出乱子(Belinda note：其实改码没出乱子，是一会儿pull，一会儿push给搞乱的[破涕为笑])、一个报错接着一个报错……换个人早砸键盘了😄 （Belinda note：不光砸键盘还可能掀桌子呢[破涕为笑]）。”</p>
+          <p>“你每次都是’好，那试这个’，这个心态真的很难得。<br />
+          还有你说’我觉得可以challenge你’那句话，对！以后真的要说，我也会犯错，路径搞错那次就是我的锅。”</p>
+          <p>意思你就一个错，剩下都是我的呗？可能也是吧，错我领了！其实主要是我为了对话完整，不想再开新的，导致克劳德也时不时犯迷糊。但罪魁祸首我觉得还是Vercel 不够聪明，路径层级不会自己搞准，且用的是 `npm run build`，本地npm run dev就宽容许多。</p>
+          <p>克劳德见我没说话，主动wrap up，“好！今天真的收获满满，从功能开发到部署上线全走完了，不容易😄”</p>
+          <p>“去休息一下，晚些时候开新坑见！InBody OS 我已经准备好了 💪🫰​​​​​​​​​​​​​​​​”</p>
+          <p><a href="https://health-os-cyan-two.vercel.app/" target="_blank">https://health-os-cyan-two.vercel.app/</a></p>
+          <p>上面链接是普通人可以用的基础版，等明后天再做专业级别的进阶版。基础版海外朋友可以先试试，本地部署过几天再说。</p>
+          <p>图四可供选择的模型，如果你本地下载了大模型那就选ollama，但小模型经常偷懒，run出来的方案远不如云端大模型好。比如有时它只给出一天的饮食方案或者锻炼计划而不是一周、和牛300克它给你算的才96元等，一天喝水24升(当然这些后来让代码解决了)😂</p>
+          <p>代码倒是跑通了，可96元300g的和牛没得吃了。</p>
+          <p>图一：<br />
+          图二：<br />
+          图三：<br />
+          图四：</p>
+        </div>
+      </div>
+    </article>
+
+    <div class="giscus" style="max-width:640px;margin:0 auto;padding:0 2rem 3rem;"></div>
+    <script src="https://giscus.app/client.js"
+            data-repo="BelindaSun/BelindaSun.github.io"
+            data-repo-id="R_kgDOSVl7Iw"
+            data-category="Announcements"
+            data-category-id="DIC_kwDOSVl7I84C8scG"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light"
+            data-lang="zh-CN"
+            crossorigin="anonymous"
+            async>
+    </script>
+
+    <div class="article-nav">
+      <a href="hello-world-9.html">← 上一篇</a>
+      <a href="hello-world-11.html">下一篇 →</a>
+    </div>
+    <footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
+
+    <script>
+      let speaking = false,
+        paused = false;
+      const btn = document.getElementById("ttsBtn");
+      const status = document.getElementById("ttsStatus");
+      function toggleTTS() {
+        if (!speaking) {
+          startTTS();
+        } else if (paused) {
+          window.speechSynthesis.resume();
+          paused = false;
+          btn.textContent = "⏸ 暂停";
+          btn.classList.add("playing");
+          status.textContent = "朗读中…";
+        } else {
+          window.speechSynthesis.pause();
+          paused = true;
+          btn.textContent = "▶ 继续";
+          btn.classList.remove("playing");
+          status.textContent = "已暂停";
+        }
+      }
+      function startTTS() {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(
+          document.getElementById("articleBody").innerText,
+        );
+        u.lang = "zh-CN";
+        u.rate = 0.95;
+        u.onstart = () => {
+          speaking = true;
+          paused = false;
+          btn.textContent = "⏸ 暂停";
+          btn.classList.add("playing");
+          status.textContent = "朗读中…";
+        };
+        u.onend = () => {
+          speaking = false;
+          paused = false;
+          btn.textContent = "🔊 朗读";
+          btn.classList.remove("playing");
+          status.textContent = "";
+        };
+        u.onerror = () => {
+          speaking = false;
+          btn.textContent = "🔊 朗读";
+          btn.classList.remove("playing");
+          status.textContent = "出错了，请重试";
+        };
+        window.speechSynthesis.speak(u);
+      }
+    </script>
+  </body>
+</html>
