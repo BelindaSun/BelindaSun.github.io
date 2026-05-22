@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Father — Belinda Sun</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --cream: #FDFCFA; --warm: #F5F0E8;
+    --text: #3D2A5C; --text-muted: #7A5FA0; --text-light: #B09CC8;
+    --accent: #854F0B; --accent-light: #FAEEDA;
+    --border: rgba(26,26,24,0.12);
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  body { background: var(--cream); color: var(--text); font-family: var(--sans); min-height: 100vh; }
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 3rem; border-bottom: 0.5px solid var(--border); background: var(--cream); position: sticky; top: 0; z-index: 100; }
+  .nav-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--text); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; }
+  .nav-links a:hover { color: var(--text); }
+  article { max-width: 600px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+  .article-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .article-col { font-size: 0.75rem; color: var(--accent); background: var(--accent-light); padding: 3px 10px; border-radius: 20px; letter-spacing: 0.04em; }
+  .article-date { font-size: 0.8rem; color: var(--text-light); }
+  .lang-switch { margin-left: auto; display: flex; gap: 0.5rem; }
+  .lang-btn { font-size: 0.78rem; padding: 3px 10px; border-radius: 20px; border: 0.5px solid var(--border); background: none; color: var(--text-muted); text-decoration: none; }
+  .lang-btn.active { background: var(--text); color: var(--cream); border-color: var(--text); }
+  .article-title { font-family: var(--serif); font-size: 2rem; font-weight: normal; line-height: 1.4; margin-bottom: 0.4rem; color: var(--text); }
+  .article-divider { width: 40px; height: 0.5px; background: var(--text-light); margin-bottom: 1.5rem; }
+  .tts-bar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; }
+  .tts-btn { display: flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; color: var(--text-muted); background: var(--warm); border: 0.5px solid var(--border); border-radius: 20px; cursor: pointer; transition: all 0.2s; font-family: var(--sans); }
+  .tts-btn:hover { border-color: var(--text-muted); color: var(--text); }
+  .tts-btn.playing { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
+  .tts-status { font-size: 0.78rem; color: var(--text-light); }
+  .article-body { font-family: var(--serif); font-size: 1.05rem; line-height: 2.1; color: var(--text); }
+  .article-body p { margin-bottom: 1.4rem; }
+  .article-nav { max-width: 600px; margin: 0 auto; padding: 2rem 2rem 4rem; display: flex; justify-content: space-between; border-top: 0.5px solid var(--border); }
+  .article-nav a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; }
+  .article-nav a:hover { color: var(--text); }
+  .article-nav span { font-size: 0.88rem; color: var(--text-light); }
+  footer { border-top: 0.5px solid var(--border); padding: 1.5rem 3rem; text-align: center; }
+  footer p { font-size: 0.8rem; color: var(--text-light); }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Belinda Sun</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="yesterthoughts-index.html">Yesterthoughts</a></li>
+  </ul>
+</nav>
+
+<article>
+  <div class="article-meta">
+    <span class="article-col">Yesterthoughts</span>
+    <span class="article-date">Spring Festival 2007</span>
+    <div class="lang-switch">
+      <a href="yesterthoughts-7.html" class="lang-btn">中文</a>
+      <span class="lang-btn active">EN</span>
+    </div>
+  </div>
+
+  <h1 class="article-title">Father</h1>
+  <div class="article-divider"></div>
+
+  <div class="tts-bar">
+    <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">🔊 Read aloud</button>
+    <span class="tts-status" id="ttsStatus"></span>
+  </div>
+
+  <div class="article-body" id="articleBody">
+    <p>Listening to <em>A Place Nearby</em>, remembering my father in heaven.</p>
+
+    <p>I enjoy the life I have now, and yet every so often I find myself longing for the simplicity of childhood New Years — for the hardship of those days, and even more, for the anticipation that came with them.</p>
+
+    <p>The other day, I watched my daughter running beneath bright winter sunlight, clutching a little pinwheel, wearing only a thin down jacket, her scarf undone, her neck exposed to the cold air. I turned to my husband and said, “When I was little, there were piercing northwest winds that hurt your face, and tiny dirty hands frozen red from the cold, too numb to come out of your sleeves…”</p>
+
+    <p>My husband continued softly: “And icicles hanging from the eaves, and snow on the ground that seemed as though it would never melt…”</p>
+
+    <p>Yes. We shared similar childhoods, though he is a few years older than I am.</p>
+
+    <p>But there was one thing I didn’t say aloud — something I had already remembered a thousand times in silence:</p>
+
+    <p>When I was little, New Year also meant the arrival of one more person. Someone who brought us endless treats from distant places, and who loved teasing me with his scratchy beard.</p>
+
+    <p>That was my father.</p>
+
+    <p>If he were still alive, he would have been seventy-four this year. My father was rarely home. Most years, we only saw him during Spring Festival — a slightly heavyset middle-aged man who was always impeccably clean, carefully dressed, and quietly composed.</p>
+
+    <p>He would first spend an entire afternoon, sometimes a whole day, sitting with my grandmother in her room. Mother and son would talk slowly, unhurriedly, about everything under the sun. After that, he would laugh and chat with my mother while making dumplings for New Year’s Eve dinner.</p>
+
+    <p>Back then, I was strangely afraid of him. I never understood why. And yet I loved the delicious things he brought back from everywhere he traveled.</p>
+
+    <p>On the day he arrived, I would awkwardly mumble a quiet “Dad,” because otherwise my mother wouldn’t let me touch the treats. Then I’d immediately dash outside again to continue playing. Every so often I’d come back, stealing glances at him from afar — though mostly I was returning for snacks. I’d grab something to eat and disappear again in a blur.</p>
+
+    <p>I didn’t really want to see him. But I constantly longed for the things he brought home. So sometimes, in the selfish logic of childhood, I even thought: Wouldn’t it be wonderful if the treats could come back without the person attached to them?</p>
+
+    <p>A few days later, though, I would slowly grow familiar with him again. And then inevitably he would scoop me up in his arms and rub his rough stubbled cheeks against mine.</p>
+
+    <p>I could never understand it. He clearly knew I hated it, yet he did it over and over with endless delight. Why not tease my sister instead? Or my brother? Or honestly, my mother would’ve been perfectly acceptable too.</p>
+
+    <p>But no. I was the chosen victim. Every Spring Festival, several times without fail. And every time he did it, I would run dramatically to complain: “Mom! He did it again! He rubbed his beard on me again!”</p>
+
+    <p>I’ve never had a particularly good memory. There are very few things from childhood that remain vivid and intact. But my father teasing me with his beard is one of them.</p>
+
+    <p>And he seemed to enjoy it immensely, because each year he became even more enthusiastic about it. Men everywhere seem to share this strange instinct. Sometimes my husband does the same thing to our daughter now — and she is very obviously not enjoying the experience either.</p>
+
+    <p>My father was also an excellent chess player. But he never taught me. We simply had too little time together. And most of that precious little time was spent becoming familiar with one another all over again. I was always slow to warm up. Just as I finally relaxed around him, he would leave again.</p>
+
+    <p>Year after year. The same cycle repeating endlessly.</p>
+
+    <p>And yet my feelings for him ran impossibly deep. Not the kind of closeness born from everyday companionship, but something quieter and more permanent — something carried in the blood itself. A love, a longing, an attachment no one else could ever replace.</p>
+
+    <p>Only in recent years, whenever I think of him, tears come almost immediately. I no longer even have the courage to miss him properly.</p>
+
+    <p>During this Spring Festival, for reasons I cannot explain, I found myself thinking of him again. Yet I still could not calmly face those memories, or write the words I wanted to write. So perhaps I will leave them for another time.</p>
+
+    <p>“Mommy, Daddy rubbed his beard on me again!” My daughter was complaining from across the room.</p>
+
+    <p>I turned to look at her without speaking. And in that moment, quite suddenly, I envied her more than words can say.</p>
+
+    <p>…</p>
+
+    <p>Spring Festival, 2007</p>
+  </div>
+</article>
+
+<div class="giscus" style="max-width:640px;margin:0 auto;padding:0 2rem 3rem;"></div>
+<script src="https://giscus.app/client.js"
+        data-repo="BelindaSun/BelindaSun.github.io"
+        data-repo-id="R_kgDOSVl7Iw"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOSVl7I84C8scG"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+
+<div class="article-nav">
+  <a href="yesterthoughts-6-en.html">← Previous</a>
+  <span>To be continued</span>
+</div>
+<footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
+
+<script>
+  let speaking = false, paused = false;
+  const btn = document.getElementById('ttsBtn');
+  const status = document.getElementById('ttsStatus');
+  function toggleTTS() {
+    if (!speaking) { startTTS(); }
+    else if (paused) { window.speechSynthesis.resume(); paused = false; btn.textContent = '⏸ Pause'; btn.classList.add('playing'); status.textContent = 'Reading…'; }
+    else { window.speechSynthesis.pause(); paused = true; btn.textContent = '▶ Resume'; btn.classList.remove('playing'); status.textContent = 'Paused'; }
+  }
+  function startTTS() {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(document.getElementById('articleBody').innerText);
+    u.lang = 'en-US'; u.rate = 0.95;
+    u.onstart = () => { speaking = true; paused = false; btn.textContent = '⏸ Pause'; btn.classList.add('playing'); status.textContent = 'Reading…'; };
+    u.onend = () => { speaking = false; paused = false; btn.textContent = '🔊 Read aloud'; btn.classList.remove('playing'); status.textContent = ''; };
+    u.onerror = () => { speaking = false; btn.textContent = '🔊 Read aloud'; btn.classList.remove('playing'); status.textContent = 'Error, please try again'; };
+    window.speechSynthesis.speak(u);
+  }
+</script>
+</body>
+</html>
