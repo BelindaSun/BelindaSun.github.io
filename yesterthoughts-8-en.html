@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jiangnan, the Way It Lives in My Dreams — Belinda Sun</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --cream: #FDFCFA; --warm: #F5F0E8;
+    --text: #3D2A5C; --text-muted: #7A5FA0; --text-light: #B09CC8;
+    --accent: #854F0B; --accent-light: #FAEEDA;
+    --border: rgba(26,26,24,0.12);
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  body { background: var(--cream); color: var(--text); font-family: var(--sans); min-height: 100vh; }
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 3rem; border-bottom: 0.5px solid var(--border); background: var(--cream); position: sticky; top: 0; z-index: 100; }
+  .nav-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--text); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; }
+  .nav-links a:hover { color: var(--text); }
+  article { max-width: 600px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+  .article-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .article-col { font-size: 0.75rem; color: var(--accent); background: var(--accent-light); padding: 3px 10px; border-radius: 20px; letter-spacing: 0.04em; }
+  .article-date { font-size: 0.8rem; color: var(--text-light); }
+  .lang-switch { margin-left: auto; display: flex; gap: 0.5rem; }
+  .lang-btn { font-size: 0.78rem; padding: 3px 10px; border-radius: 20px; border: 0.5px solid var(--border); background: none; color: var(--text-muted); text-decoration: none; }
+  .lang-btn.active { background: var(--text); color: var(--cream); border-color: var(--text); }
+  .article-title { font-family: var(--serif); font-size: 2rem; font-weight: normal; line-height: 1.4; margin-bottom: 0.4rem; color: var(--text); }
+  .article-divider { width: 40px; height: 0.5px; background: var(--text-light); margin-bottom: 1.5rem; }
+  .tts-bar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; }
+  .tts-btn { display: flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; color: var(--text-muted); background: var(--warm); border: 0.5px solid var(--border); border-radius: 20px; cursor: pointer; transition: all 0.2s; font-family: var(--sans); }
+  .tts-btn:hover { border-color: var(--text-muted); color: var(--text); }
+  .tts-btn.playing { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
+  .tts-status { font-size: 0.78rem; color: var(--text-light); }
+  .article-body { font-family: var(--serif); font-size: 1.05rem; line-height: 2.1; color: var(--text); }
+  .article-body p { margin-bottom: 1.4rem; }
+  .article-body blockquote {
+    margin: 1.2rem 0;
+    padding-left: 1.2rem;
+    border-left: 3px solid var(--accent-light);
+    color: var(--text-muted);
+    font-style: italic;
+  }
+  .article-nav { max-width: 600px; margin: 0 auto; padding: 2rem 2rem 4rem; display: flex; justify-content: space-between; border-top: 0.5px solid var(--border); }
+  .article-nav a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; }
+  .article-nav a:hover { color: var(--text); }
+  .article-nav span { font-size: 0.88rem; color: var(--text-light); }
+  footer { border-top: 0.5px solid var(--border); padding: 1.5rem 3rem; text-align: center; }
+  footer p { font-size: 0.8rem; color: var(--text-light); }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Belinda Sun</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="yesterthoughts-index.html">Yesterthoughts</a></li>
+  </ul>
+</nav>
+
+<article>
+  <div class="article-meta">
+    <span class="article-col">Yesterthoughts</span>
+    <span class="article-date">May 2006</span>
+    <div class="lang-switch">
+      <a href="yesterthoughts-8.html" class="lang-btn">中文</a>
+      <span class="lang-btn active">EN</span>
+    </div>
+  </div>
+
+  <h1 class="article-title">Jiangnan, the Way It Lives in My Dreams</h1>
+  <div class="article-divider"></div>
+
+  <div class="tts-bar">
+    <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">🔊 Read aloud</button>
+    <span class="tts-status" id="ttsStatus"></span>
+  </div>
+
+  <div class="article-body" id="articleBody">
+    <p>Yesterday’s rain felt somehow different from the rains before it.</p>
+
+    <p>At exactly 1:30, I left the Chang’an Grand Theatre and headed toward Lenovo in Shangdi.</p>
+
+    <p>The rain had been gathering itself for hours. Outside the window, the sky hung low with mist, the air thick with dampness.</p>
+
+    <p>Passing the Art Museum and Jingshan, I saw rows of green trees lining the streets. Their color, soaked in moisture, appeared impossibly lush — glistening, almost dripping with life. It seemed I had not seen such rich, saturated green in a very long time. And the Forbidden City’s moat, along with Beihai Lake — the water, the pavilions, the terraces beside it — all softened by the mist and veiled in drifting rain, suddenly looked indescribably poetic. And then, all at once, it struck me: Beijing, in this moment, looked uncannily like the Jiangnan of my dreams.</p>
+
+    <p>My sense of geography has always been terrible. Even now, I could not precisely define where Jiangnan truly begins or ends. In my mind it exists only vaguely somewhere around Jiangsu and Zhejiang — that legendary region of scholars, poets, beauties, and old romances. Yet my ignorance has never stopped me from imagining it with all my heart, nor from longing for every beauty I believe it holds.</p>
+
+    <p>I have never truly lived in Jiangnan. My impressions come only from fleeting stays — Suzhou, Hangzhou, Zhouzhuang… Even now I still have not visited Wuzhen. And yet, for reasons I cannot explain, I have stubbornly, irrationally fallen in love with Jiangnan. I love its little bridges and flowing water. Its shimmering rivers and drifting boats. Its pavilions and towers hidden within rain and mist. I love its whitewashed walls and dark tiled roofs, its ancient stone lanes polished smooth with rainwater, and the faint echoes of silk-and-bamboo melodies floating through old alleyways on rainy afternoons…</p>
+
+    <p>Most of all, I think, I love the rain of Jiangnan. In my imagination, rain there should never be described as falling. It should be called drifting. Thread by thread, strand by strand, brushing past one’s hair, settling quietly into the heart… The rain itself never truly soaks your clothes. Instead, the rooftops gather it in silence, then release it slowly from the eaves — drip by drip, unhurried, endless — onto moss-covered bluestone paths below.</p>
+
+    <p>And the alleyways in the rain… Deep. Narrow. Damp. Endless in their loneliness. Looking down those mist-veiled lanes, one almost expects to see her — the girl beneath the oil-paper umbrella, carrying her quiet sorrow, wandering and waiting still. And when she passes, she leaves behind the faint scent of lilac — or perhaps memory itself — something soft, bittersweet, and beautiful.</p>
+
+    <blockquote>
+      <p>“Drop after drop without cease, sound after sound carrying loneliness.”</p>
+    </blockquote>
+
+    <p>Surely those lines must have been written for rain like this in Jiangnan. Though tell me — does Jiangnan have banana trees too?</p>
+
+    <p>I love the leisure of rainy days there: sitting with two or three close friends beside a small table in a teahouse by the street, sipping fragrant tea and speaking lazily of ordinary things.</p>
+
+    <p>And I love the melancholy of it too: sitting alone by a window, listening to distant street vendors calling through the rain, hearing a soft Jiangnan ballad drifting somewhere far away, watching pale mist rise from quiet waters, reading tender old poems, remembering sorrows one thought had long ago dissolved.</p>
+
+    <p>I simply love this delicate moodiness of Jiangnan.</p>
+
+    <p>To sit there quietly. Listening. Watching. Thinking. Yearning. Waiting… Until at last, the mist and rain of Jiangnan drift softly into my dreams.</p>
+
+    <p>And the Jiangnan in my dreams is exactly as I have just described it.</p>
+
+    <p>— May, 2006</p>
+  </div>
+</article>
+
+<div class="giscus" style="max-width:640px;margin:0 auto;padding:0 2rem 3rem;"></div>
+<script src="https://giscus.app/client.js"
+        data-repo="BelindaSun/BelindaSun.github.io"
+        data-repo-id="R_kgDOSVl7Iw"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOSVl7I84C8scG"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+
+<div class="article-nav">
+  <a href="yesterthoughts-7-en.html">← Previous</a>
+  <span>To be continued</span>
+</div>
+<footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
+
+<script>
+  let speaking = false, paused = false;
+  const btn = document.getElementById('ttsBtn');
+  const status = document.getElementById('ttsStatus');
+  function toggleTTS() {
+    if (!speaking) { startTTS(); }
+    else if (paused) { window.speechSynthesis.resume(); paused = false; btn.textContent = '⏸ Pause'; btn.classList.add('playing'); status.textContent = 'Reading…'; }
+    else { window.speechSynthesis.pause(); paused = true; btn.textContent = '▶ Resume'; btn.classList.remove('playing'); status.textContent = 'Paused'; }
+  }
+  function startTTS() {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(document.getElementById('articleBody').innerText);
+    u.lang = 'en-US'; u.rate = 0.95;
+    u.onstart = () => { speaking = true; paused = false; btn.textContent = '⏸ Pause'; btn.classList.add('playing'); status.textContent = 'Reading…'; };
+    u.onend = () => { speaking = false; paused = false; btn.textContent = '🔊 Read aloud'; btn.classList.remove('playing'); status.textContent = ''; };
+    u.onerror = () => { speaking = false; btn.textContent = '🔊 Read aloud'; btn.classList.remove('playing'); status.textContent = 'Error, please try again'; };
+    window.speechSynthesis.speak(u);
+  }
+</script>
+</body>
+</html>
