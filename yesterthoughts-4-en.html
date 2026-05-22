@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pakistan, Unexpected — Belinda Sun</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --cream: #FDFCFA; --warm: #F5F0E8;
+    --text: #3D2A5C; --text-muted: #7A5FA0; --text-light: #B09CC8;
+    --accent: #854F0B; --accent-light: #FAEEDA;
+    --border: rgba(26,26,24,0.12);
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  body { background: var(--cream); color: var(--text); font-family: var(--sans); min-height: 100vh; }
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 3rem; border-bottom: 0.5px solid var(--border); background: var(--cream); position: sticky; top: 0; z-index: 100; }
+  .nav-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--text); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; }
+  .nav-links a:hover { color: var(--text); }
+  article { max-width: 600px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+  .article-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .article-col { font-size: 0.75rem; color: var(--accent); background: var(--accent-light); padding: 3px 10px; border-radius: 20px; letter-spacing: 0.04em; }
+  .article-date { font-size: 0.8rem; color: var(--text-light); }
+  .lang-switch { margin-left: auto; display: flex; gap: 0.5rem; }
+  .lang-btn { font-size: 0.78rem; padding: 3px 10px; border-radius: 20px; border: 0.5px solid var(--border); background: none; color: var(--text-muted); text-decoration: none; }
+  .lang-btn.active { background: var(--text); color: var(--cream); border-color: var(--text); }
+  .article-title { font-family: var(--serif); font-size: 2rem; font-weight: normal; line-height: 1.4; margin-bottom: 0.4rem; color: var(--text); }
+  .article-divider { width: 40px; height: 0.5px; background: var(--text-light); margin-bottom: 1.5rem; }
+  .tts-bar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; }
+  .tts-btn { display: flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; color: var(--text-muted); background: var(--warm); border: 0.5px solid var(--border); border-radius: 20px; padding: 5px 14px; cursor: pointer; transition: all 0.2s; font-family: var(--sans); }
+  .tts-btn:hover { border-color: var(--text-muted); color: var(--text); }
+  .tts-btn.playing { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
+  .tts-status { font-size: 0.78rem; color: var(--text-light); }
+  .article-body { font-family: var(--serif); font-size: 1.05rem; line-height: 2.1; color: var(--text); }
+  .article-body p { margin-bottom: 1.4rem; }
+  .section-break { text-align: center; color: var(--text-light); margin: 2.5rem 0; letter-spacing: 0.3em; font-size: 0.85rem; }
+  .article-nav { max-width: 600px; margin: 0 auto; padding: 2rem 2rem 4rem; display: flex; justify-content: space-between; border-top: 0.5px solid var(--border); }
+  .article-nav a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; }
+  .article-nav a:hover { color: var(--text); }
+  .article-nav span { font-size: 0.88rem; color: var(--text-light); }
+  footer { border-top: 0.5px solid var(--border); padding: 1.5rem 3rem; text-align: center; }
+  footer p { font-size: 0.8rem; color: var(--text-light); }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Belinda Sun</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="yesterthoughts-index.html">Yesterthoughts</a></li>
+  </ul>
+</nav>
+
+<article>
+  <div class="article-meta">
+    <span class="article-col">Yesterthoughts</span>
+    <span class="article-date">May 22nd 2026</span>
+    <div class="lang-switch">
+      <a href="yesterthoughts-4.html" class="lang-btn">中文</a>
+      <span class="lang-btn active">EN</span>
+    </div>
+  </div>
+
+  <h1 class="article-title">Pakistan, Unexpected</h1>
+  <div class="article-divider"></div>
+
+  <div class="tts-bar">
+    <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">🔊 Read aloud</button>
+    <span class="tts-status" id="ttsStatus"></span>
+  </div>
+
+  <div class="article-body" id="articleBody">
+    <p><strong>I. Why Pakistan?</strong></p>
+
+    <p>My trip to Pakistan happened entirely by accident.</p>
+
+    <p>The countries I was originally supposed to visit for the project were France and Switzerland. But earlier, I had given that opportunity to a colleague on my team. For her, it was a rare chance, a kind of motivation. I knew I would still have opportunities the following year.</p>
+
+    <p>Then one day, both my American boss and the head of our North Asia region spoke to me separately. Each conversation began almost identically:</p>
+
+    <p>“There’s something we’d like to discuss with you. But you can absolutely say no. Next year you can still choose whichever country you want. It’s just that… there’s been a last‑minute change. Our colleague can no longer go to Pakistan. Would you consider taking the assignment?”</p>
+
+    <p>I immediately raised three concerns. The third was that I needed to discuss it with my husband and see whether he was willing to let me disappear for two weeks.</p>
+
+    <p>And, as always, the engineer agreed far too readily—as long as it wasn’t a permanent family relocation, he was perfectly supportive. For the first time in my life, I found his support deeply annoying.</p>
+
+    <p>My imagination instantly spiraled.</p>
+
+    <p><em>So he really doesn’t care about me anymore? Otherwise how could he so calmly send me to a country full of religion, kidnappings, and soldiers carrying guns? Isn’t that exactly how the movies portray it?</em></p>
+
+    <p>I didn’t dare let my thoughts continue any further.</p>
+
+    <p>Since I failed to obtain the “No” I secretly wanted from him, and my other concerns also turned out not to be concerns at all, I emailed my boss two days later:</p>
+
+    <p>“I can go.”</p>
+
+    <p>Looking back, I suppose I was still capable of putting “the bigger picture” first when necessary. Childhood education has a long afterlife.</p>
+
+    <p>And yet, for reasons I couldn’t explain, the moment I thought of Pakistan, my heart began to race. My mind searched frantically for escape routes.</p>
+
+    <p>Eventually I found one:</p>
+
+    <p><em>Maybe the visa would be denied.</em></p>
+
+    <p><strong>II. The Visa I Didn’t Want</strong></p>
+
+    <p>I began passionately hoping the embassy would reject my application so I could decline the trip with honor and legitimacy.</p>
+
+    <p>The day I went for the interview, I experienced something unprecedented: absolute calm.</p>
+
+    <p>I secretly despised myself for it.</p>
+
+    <p>Whenever you apply for a visa to the United States, you behave like someone smuggling a terrified rabbit inside your chest. So why aren’t you nervous now? Why not simply imagine America is Pakistan?</p>
+
+    <p>Several applicants before me had been rejected or delayed due to incomplete paperwork. By the time my turn came, I suddenly became anxious.</p>
+
+    <p>Not because I feared rejection.</p>
+
+    <p>Because I feared <em>not</em> being rejected.</p>
+
+    <p>The visa officer glanced at my documents, looked up at me once, asked not a single question, and approved everything immediately.</p>
+
+    <p>Approved?</p>
+
+    <p>I almost panicked.</p>
+
+    <p>I wanted desperately to ask, “Are you sure?”</p>
+
+    <p>But before I had any chance to protest, he had already shouted:</p>
+
+    <p>“NEXT!”</p>
+
+    <p>As it turned out, the series of absurd and unforgettable experiences awaiting me in Pakistan would later make me profoundly grateful for that unwanted visa.</p>
+
+    <p><strong>III. Memories of Lahore</strong></p>
+
+    <p>While my colleagues continued joking over dinner about “France and Switzerland versus Pakistan,” I left Beijing and flew toward a country entirely unknown to me.</p>
+
+    <p>I stopped in Thailand for nearly two days first and spent my entire $500 travel allowance before arriving in Pakistan.</p>
+
+    <p>After all, who knew what might happen there?</p>
+
+    <p>My destination was Lahore, an ancient city with more than two thousand years of history. I’m embarrassingly shallow when it comes to history; I neither understand it nor feel particularly drawn to it. So before arriving, I had no excitement or expectations whatsoever.</p>
+
+    <p>And yet, when I saw those ancient buildings flickering past outside the car window, I was unexpectedly moved.</p>
+
+    <p>Only a little, though.</p>
+
+    <p>(You can’t force historical appreciation. Hear that, engineer?)</p>
+
+    <p>For the next two weeks, my life was essentially hotel–office–hotel–office. I avoided unnecessary outdoor activities altogether.</p>
+
+    <p>In retrospect, most of my fears were wildly exaggerated. Several things turned out completely different from what I had imagined.</p>
+
+    <p><strong>1. English Wasn’t the Official Language After All</strong></p>
+
+    <p>For some reason, I had assumed English was Pakistan’s official language.</p>
+
+    <p>So when I landed close to midnight and discovered the driver sent to pick me up spoke no English whatsoever, I nearly lost my composure. Fortunately, he was holding a sign with my company’s logo, which offered some reassurance.</p>
+
+    <p>Then I noticed several other men nearby also holding signs with <em>my</em> name on them.</p>
+
+    <p>My God. What was happening?</p>
+
+    <p>It turned out the hotel had sent a car too.</p>
+
+    <p>In the end, I chose based entirely on which driver looked kinder.</p>
+
+    <p>That night—and for the following two weeks—the company driver, despite understanding almost no English, became my temporary chauffeur simply because he had the gentler face.</p>
+
+    <p>Later I discovered that even among younger people, English proficiency varied enormously. One colleague explained that university graduates generally spoke it well, while others ranged from conversational to unable even to understand spoken English.</p>
+
+    <p><strong>2. So There <em>Were</em> Armed “Soldiers”</strong></p>
+
+    <p>A year or two earlier, I had gone through a period of terrible insomnia. I would wake up at three in the morning and lie awake for hours. During those sleepless nights, I often spun a globe searching for countries whose time zones matched my insomnia schedule.</p>
+
+    <p>After much searching, I ended up staring mostly at oceans.</p>
+
+    <p>And then, in Pakistan, I realized I had finally discovered the perfect place.</p>
+
+    <p>Pakistan was three hours behind Beijing. Since I’m naturally nocturnal, going to bed at 1 a.m. Beijing time meant it was only 10 p.m. locally. I could sleep a glorious nine hours before work.</p>
+
+    <p>One morning, after an unusually wonderful sleep, my driver arrived punctually and took me to the office.</p>
+
+    <p>It was springtime. Outside the building stretched green lawns indistinguishable from those back home. Near the entrance stood a simple security checkpoint—no actual gate, just guards.</p>
+
+    <p>And suddenly I froze.</p>
+
+    <p>Why did they all have guns tucked into their belts?</p>
+
+    <p>Every one of them had thick eyebrows, dark eyes, little mustaches—the exact image of the Pakistani or Yugoslav soldiers from old films I watched as a child.</p>
+
+    <p>Instantly, my nervousness returned.</p>
+
+    <p>The guards rose to their feet, holding white rods, and swept them beneath the vehicle through what looked like a shallow inspection trench before waving us through.</p>
+
+    <p>The moment our car pulled away, I let out a long breath of relief.</p>
+
+    <p>Inside my head, I shouted:</p>
+
+    <p><em>Salute!!!</em></p>
+
+    <p>To this day, I still have no idea what exactly they were checking under the car.</p>
+
+    <p><strong>3. Five Daily Prayers</strong></p>
+
+    <p>Pakistan is a deeply religious country.</p>
+
+    <p>Often, in hotels or office buildings, I would suddenly hear distant voices rising together in prayer—almost musical, almost haunting. Each time, a strange and inexplicable fear crept over me.</p>
+
+    <p>My coworkers belonged to various religious traditions, though at first I knew almost nothing about any of them.</p>
+
+    <p>Until one day.</p>
+
+    <p>I pushed open the CFO’s office door.</p>
+
+    <p>No one in the chair.</p>
+
+    <p>But I had clearly seen him walk inside moments earlier.</p>
+
+    <p>Then I looked down.</p>
+
+    <p>There he was, kneeling on the floor, murmuring prayers.</p>
+
+    <p>I nearly fled in terror.</p>
+
+    <p>Later, I entered another office and found a woman seated on the floor speaking softly to herself.</p>
+
+    <p>I retreated immediately.</p>
+
+    <p>“She’s praying,” my colleagues explained quickly, seeing the horror on my face.</p>
+
+    <p>I have always kept a respectful distance from religion, so I didn’t dare ask many questions.</p>
+
+    <p>That same afternoon, I went looking for the CFO again.</p>
+
+    <p>And once again, he was praying.</p>
+
+    <p><em>My God.</em></p>
+
+    <p>I backed out of the room at top speed.</p>
+
+    <p>A little while later, the CFO came to find me himself.</p>
+
+    <p>“Let me guess,” he said with a grin. “You must think every time you come to see me, I close my eyes and pretend not to notice you. Clients never want to deal with auditors, right?”</p>
+
+    <p>To ease the awkwardness, he shared a joke:</p>
+
+    <p>“There are two universal lies in auditing.</p>
+
+    <p>Auditor: <em>I am here to help you.</em></p>
+
+    <p>Client: <em>I am happy you are here.</em>”</p>
+
+    <p>I laughed so hard I nearly cried.</p>
+
+    <p>Then I replied:</p>
+
+    <p>“I know you’re not avoiding me. You’re genuinely praying. You’re praying I’ll give you a good audit report. You’re probably saying, ‘Lord, please let me pass. Please let me pass.’”</p>
+
+    <p>We both burst out laughing.</p>
+
+    <p>Later I learned that observant Muslims pray five times a day, each session lasting roughly ten or fifteen minutes.</p>
+
+    <p>Confronted with such sincere devotion, there was really only one possible response: respect.</p>
+
+    <p><strong>4. Concern From Colleagues</strong></p>
+
+    <p>Throughout my two weeks in Pakistan, colleagues from every corner of the company checked in on me with varying levels of dramatic concern.</p>
+
+    <p>The news spread so quickly that even former coworkers who had already left the company emailed to ask whether this was some elaborate April Fool’s joke (it was April. It was not a joke).</p>
+
+    <p>One message came from a colleague who would rather resign than travel to India:</p>
+
+    <p>“How is everything going in Pakistan? We have stopped our work since yesterday to pray for you.”</p>
+
+    <p>I replied: “Everything is great! Just can’t be better. The office is nice. People are friendly and the food is delicious. And you know what? I had a very good sleep last night.”</p>
+
+    <p>His answer arrived immediately: “Someone must be pointing a gun at you. I will call the embassy for help.”</p>
+
+    <p>So naturally I responded: “How did you know? I just called the embassy myself. They’re sending you here to rescue me.”</p>
+
+    <p>Another colleague sent me popular Chinese songs to ease my homesickness. For days my soundtrack alternated between <em>Lilac</em>, <em>Punishment of Impulse</em>, <em>Lover</em>, and <em>I Believe</em>. Those songs became small emotional bridges home.</p>
+
+    <p><strong>5. An Ordinary Pakistani Family</strong></p>
+
+    <p>I had loved Indian and Pakistani music since childhood, so aside from watching HBO films at the hotel, I spent most evenings glued to music channels. Even now, fragments of those melodies still drift through my memory.</p>
+
+    <p>The people there were extraordinarily beautiful too: enormous eyes, impossibly long eyelashes curling naturally upward. I would sometimes wander over to admire my coworkers’ profiles and then blink dramatically myself, pretending those magnificent eyes somehow belonged to me.</p>
+
+    <p>One Saturday morning, while I was happily immersed in music, the phone rang.</p>
+
+    <p>It was my colleague Asif.</p>
+
+    <p>“Any plans today?”<br>
+    “No.”<br>
+    “Then let me show you around.”<br>
+    “When will you arrive?”<br>
+    “I’m already in the lobby.”</p>
+
+    <p>I hurried downstairs—changing into closed‑toe shoes first, for reasons I can no longer explain.</p>
+
+    <p>After touring the old city and several historical sites, he invited me to his home before dinner.</p>
+
+    <p>I hesitated. Partly because I didn’t want to inconvenience his parents, but mostly because I knew absolutely nothing about local etiquette.</p>
+
+    <p>Still, he insisted. And so I found myself stepping into what I believed would be an ordinary Pakistani household.</p>
+
+    <p>It was not ordinary. At all.</p>
+
+    <p>We arrived after passing through one of Lahore’s busiest streets. Outside nearby shops sat elderly men in white robes, quietly observing us.</p>
+
+    <p>Inside the gate was a small patch of green lawn leading to the house. Asif called out, and a teenage boy appeared. Asif spoke to him briefly in Urdu, and the boy disappeared without introductions.</p>
+
+    <p>I felt slightly awkward. I had already prepared my cheerful “Hello.” Perhaps, I thought, the boy was too young to speak English.</p>
+
+    <p>The living room stunned me immediately. Elegant carpets. Beautiful furniture. Classical paintings. Everything radiated understated taste and wealth.</p>
+
+    <p>His parents were out attending a gathering, which instantly relaxed me.</p>
+
+    <p>We moved through the dining room—equally luxurious—past display cabinets filled with decorative objects I couldn’t identify, through another sitting room, and deeper into the house.</p>
+
+    <p>Then Asif summoned the teenage boy again, now carrying an enormous ring of keys. Interesting, I thought. Pakistani families clearly don’t spoil children.</p>
+
+    <p>The boy unlocked room after room: his parents’ bedroom, Asif’s room…</p>
+
+    <p>Wait.</p>
+
+    <p>Who said Pakistani families were poor? This house was enormous—nearly the size of my own apartment back home.</p>
+
+    <p>Then suddenly: stairs. Another floor. It wasn’t a duplex after all. It was three stories.</p>
+
+    <p>Upstairs, I found the “younger brother” ironing clothes.</p>
+
+    <p>And at last realization struck.</p>
+
+    <p>Oh. Ohhhhh. He wasn’t a younger brother. He was household staff.</p>
+
+    <p>Instantly, all those childhood films about little boys sold into servitude flashed through my mind.</p>
+
+    <p>I tried to remain composed while continuing my tour of this “ordinary” Pakistani home.</p>
+
+    <p>The second floor had once belonged to Asif’s sister before her marriage. Family photographs traced her life from beautiful child to athlete to university graduate to lecturer. So Pakistani women <em>did</em> study and work. Another stereotype shattered.</p>
+
+    <p>Then came the elder brother’s rooms, empty because his family lived abroad.</p>
+
+    <p>And then—another staircase. A third floor.</p>
+
+    <p>There I was introduced to the newlywed suite of another brother, though frankly I barely listened because I had become too distracted by the photographs on the walls.</p>
+
+    <p>The brother was devastatingly handsome. Imagine if a young Saddam Hussein and Vladimir Putin somehow combined all their best features and then improved upon them. That kind of handsome. Even the impossibly attractive Spanish matador I once encountered beside the Charging Bull on Wall Street might have struggled to compete.</p>
+
+    <p><em>What a charming young man.</em> I felt faint.</p>
+
+    <p>Back downstairs, Asif casually mentioned that three family cars normally occupied the garage. At that point, I fully understood why he had insisted so enthusiastically on inviting me over.</p>
+
+    <p>This was not hospitality. This was shameless showing off.</p>
+
+    <p>Still, it completely transformed my understanding of Pakistan. Though whether this truly counted as an “ordinary” family, I still cannot say. At work, after all, Asif had seemed utterly unremarkable—indistinguishable from everyone else.</p>
+
+    <p><strong>6. “We Are Good Friends”</strong></p>
+
+    <p>My first real encounter with Pakistani warmth had actually happened years earlier, during my very first solo trip to the United States.</p>
+
+    <p>I’m not naturally brave, especially after sunset in unfamiliar places. Homesickness and anxiety always arrive together.</p>
+
+    <p>That first trip to America terrified me. Worse still, my flight landed after ten at night, too late for the hotel shuttle, forcing me to take a taxi alone.</p>
+
+    <p>Once inside the cab, my fear intensified. I had no idea where the driver might take me.</p>
+
+    <p>Then he learned I was from China.</p>
+
+    <p>“Oh! We are good neighbors! Good friends! PM Zhou visited our country…”</p>
+
+    <p>For the next forty minutes, the Pakistani driver talked animatedly and passionately about Chinese‑Pakistani friendship.</p>
+
+    <p>By the end of the ride, my fear had completely vanished. It’s difficult to remain afraid of someone while they passionately praise your homeland.</p>
+
+    <p>Years later, I still remember that night with warmth.</p>
+
+    <p>And as my plane descended into Pakistan, I suddenly thought of that driver again. The same comforting feeling returned.</p>
+
+    <p>At immigration, every official who examined my passport smiled and said: “We are good friends.”</p>
+
+    <p>That sentence echoed everywhere in Pakistan during those days—newspapers, television, streets, conversations.</p>
+
+    <p>Not because I was somehow newsworthy. It just so happened that Wen Jiabao was visiting Pakistan at exactly the same time.</p>
+
+    <p>The entire country seemed decorated for friendship. Chinese banners appeared occasionally on the streets. Newspapers and television overflowed with celebrations of Sino‑Pakistani relations.</p>
+
+    <p>And everywhere I went, people stared. In my imagination, I could hear the solemn voice of Chinese state television announcers: “Premier Wen and his delegation received an extraordinarily warm welcome from the Pakistani people…” Only in my version, “Premier Wen and his delegation” had somehow become <em>me</em>.</p>
+
+    <p>At first I didn’t think I looked particularly different. We were all Asian, after all.</p>
+
+    <p>Yet everywhere I walked, people stopped and watched. I became increasingly uncomfortable and glanced helplessly at my colleague. He, however, looked perfectly calm—almost smug. Like a man proudly escorting an attractive girlfriend through a crowd. Except in our case, the attention had nothing to do with beauty and everything to do with difference.</p>
+
+    <p>The most surreal moment came when a beautiful woman spotted me from afar, waved enthusiastically, and walked straight toward me as if greeting an old friend. Did I know her? Absolutely not. Was she… a suicide bomber? (At that point my imagination still had not fully recovered.)</p>
+
+    <p>We shook hands warmly. And privately I thought: <em>She probably assumes I’m part of Premier Wen’s delegation.</em> Otherwise why was she being so charming?</p>
+
+    <p><strong>7. The Most Extraordinary Border Ceremony in the World</strong></p>
+
+    <p>The daily flag‑lowering ceremony at the India–Pakistan border is said to be one of the strangest spectacles on earth.</p>
+
+    <p>I had seen clips online before arriving and imagined two hostile armies glaring at one another on the verge of war.</p>
+
+    <p>My colleagues laughed and explained that it was mostly theatrical exaggeration—a performance. And a rare one worth witnessing.</p>
+
+    <p>They were right.</p>
+
+    <p>After two piercing bugle calls, five towering ceremonial soldiers from each side strode forward in brilliantly colored uniforms, executing exaggerated high kicks with astonishing speed. At a distance of roughly twenty meters from the border, both sides halted simultaneously.</p>
+
+    <p>Then came the performance: legs swung impossibly high overhead before boots slammed violently against the ground with jaw‑dropping force. Soldiers struck poses worthy of Peking Opera warriors, glaring at one another dramatically before charging toward the gates—only to halt abruptly inches from collision.</p>
+
+    <p>After several rounds of theatrical intimidation, the flags were finally lowered.</p>
+
+    <p>The live experience was far richer than any written description. I desperately regretted not bringing a video camera.</p>
+
+    <p>Every attempt to photograph the soldiers failed because they moved too quickly. In one picture, I captured only the opposite grandstand. In another, merely an arm frozen mid‑swing.</p>
+
+    <p>Oddly enough, that imperfect photograph became my favorite. The soldier himself was nearly invisible. But somehow you could still feel the wind of his movement. There was no better title for it than: <em>The Soldier Who Moved Like the Wind.</em></p>
+
+    <p><strong>IV. An Unusual Journey Home</strong></p>
+
+    <p>Only days earlier I had been counting down impatiently until departure.</p>
+
+    <p>And yet when the time finally came, I felt a faint reluctance to leave.</p>
+
+    <p>After packing my luggage and receiving warm farewells from the Shangri‑La Hotel Lahore staff, I headed toward the airport.</p>
+
+    <p>Outside the car window, Lahore shimmered with lights. Billboards glowed against the night sky. Parks remained lively with families and children laughing beneath the trees.</p>
+
+    <p>It was not Manhattan’s chaos and brilliance. It possessed instead a quieter, gentler beauty. A peaceful city. A warm city.</p>
+
+    <p>Why, then, had I feared it so deeply?</p>
+
+    <p>The airport appeared ahead. I had deliberately arrived several hours early, planning to relax in the VIP lounge.</p>
+
+    <p>Unfortunately, the lounge was under renovation. More unfortunately still, the flight was delayed.</p>
+
+    <p>So I waited. And waited.</p>
+
+    <p>Only after sitting down did I notice my legs covered in mosquito bites—dense clusters of them.</p>
+
+    <p>“Last part unfortunate,” one Pakistani colleague joked, “but this also represents Pakistani hospitality—by mosquitoes.”</p>
+
+    <p>Oddly enough, he was right. Memory softens everything. Even discomfort becomes strangely beautiful with time.</p>
+
+    <p>In the end, I spent ten entire hours at the airport.</p>
+
+    <p>By the time I finally arrived in Bangkok, my Beijing flight had long departed. I had to reroute through Hong Kong before eventually returning home.</p>
+
+    <p>The journey became more than twice as long as originally planned—a personal endurance record.</p>
+
+    <p>And somehow, it felt like the perfect ending to my unforgettable journey through Pakistan.</p>
+
+    <p>— April, 2005</p>
+  </div>
+</article>
+
+<div class="giscus" style="max-width:640px;margin:0 auto;padding:0 2rem 3rem;"></div>
+<script src="https://giscus.app/client.js"
+        data-repo="BelindaSun/BelindaSun.github.io"
+        data-repo-id="R_kgDOSVl7Iw"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOSVl7I84C8scG"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+
+<div class="article-nav">
+  <a href="yesterthoughts-3-en.html">← Previous</a>
+  <span>To be continued</span>
+</div>
+<footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
+
+<script>
+  let speaking = false, paused = false;
+  const btn = document.getElementById('ttsBtn');
+  const status = document.getElementById('ttsStatus');
+  function toggleTTS() {
+    if (!speaking) { startTTS(); }
+    else if (paused) { window.speechSynthesis.resume(); paused = false; btn.textContent = '⏸ Pause'; btn.classList.add('playing'); status.textContent = 'Reading…'; }
+    else { window.speechSynthesis.pause(); paused = true; btn.textContent = '▶ Resume'; btn.classList.remove('playing'); status.textContent = 'Paused'; }
+  }
+  function startTTS() {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(document.getElementById('articleBody').innerText);
+    u.lang = 'en-US'; u.rate = 0.95;
+    u.onstart = () => { speaking = true; paused = false; btn.textContent = '⏸ Pause'; btn.classList.add('playing'); status.textContent = 'Reading…'; };
+    u.onend = () => { speaking = false; paused = false; btn.textContent = '🔊 Read aloud'; btn.classList.remove('playing'); status.textContent = ''; };
+    u.onerror = () => { speaking = false; btn.textContent = '🔊 Read aloud'; btn.classList.remove('playing'); status.textContent = 'Error, please try again'; };
+    window.speechSynthesis.speak(u);
+  }
+</script>
+</body>
+</html>

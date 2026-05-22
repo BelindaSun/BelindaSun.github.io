@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>巴基斯坦，意料之外 — Belinda Sun</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --cream: #fdfcfa;
+        --warm: #f5f0e8;
+        --text: #3d2a5c;
+        --text-muted: #7a5fa0;
+        --text-light: #b09cc8;
+        --accent: #854f0b;
+        --accent-light: #faeeda;
+        --border: rgba(26, 26, 24, 0.12);
+        --serif: Georgia, "Times New Roman", serif;
+        --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      body {
+        background: var(--cream);
+        color: var(--text);
+        font-family: var(--sans);
+        min-height: 100vh;
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 3rem;
+        border-bottom: 0.5px solid var(--border);
+        background: var(--cream);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .nav-logo {
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        color: var(--text);
+        text-decoration: none;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+      }
+      article {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 4rem 2rem 6rem;
+      }
+      .article-meta {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+      .article-col {
+        font-size: 0.75rem;
+        color: var(--accent);
+        background: var(--accent-light);
+        padding: 3px 10px;
+        border-radius: 20px;
+        letter-spacing: 0.04em;
+      }
+      .article-date {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+      .lang-switch {
+        margin-left: auto;
+        display: flex;
+        gap: 0.5rem;
+      }
+      .lang-btn {
+        font-size: 0.78rem;
+        padding: 3px 10px;
+        border-radius: 20px;
+        border: 0.5px solid var(--border);
+        background: none;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .lang-btn.active {
+        background: var(--text);
+        color: var(--cream);
+        border-color: var(--text);
+      }
+      .article-title {
+        font-family: var(--serif);
+        font-size: 2rem;
+        font-weight: normal;
+        line-height: 1.4;
+        margin-bottom: 0.4rem;
+        color: var(--text);
+      }
+      .article-subtitle {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        margin-bottom: 2.5rem;
+        font-style: italic;
+      }
+      .article-divider {
+        width: 40px;
+        height: 0.5px;
+        background: var(--text-light);
+        margin-bottom: 1.5rem;
+      }
+      .tts-bar {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+      }
+      .tts-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        background: var(--warm);
+        border: 0.5px solid var(--border);
+        border-radius: 20px;
+        padding: 5px 14px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: var(--sans);
+      }
+      .tts-btn:hover {
+        border-color: var(--text-muted);
+        color: var(--text);
+      }
+      .tts-btn.playing {
+        background: var(--accent-light);
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+      .tts-status {
+        font-size: 0.78rem;
+        color: var(--text-light);
+      }
+      .article-body {
+        font-family: var(--serif);
+        font-size: 1.05rem;
+        line-height: 2.1;
+        color: var(--text);
+      }
+      .article-body p {
+        margin-bottom: 1.4rem;
+      }
+      .ai-section {
+        margin: 3rem 0;
+      }
+      .ai-label {
+        font-size: 0.72rem;
+        letter-spacing: 0.15em;
+        color: var(--text-light);
+        text-transform: uppercase;
+        margin-bottom: 1.2rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 0.5px solid var(--border);
+      }
+      .verse {
+        margin-bottom: 0.5rem;
+      }
+      .verse-group {
+        margin-bottom: 1.6rem;
+      }
+      .emphasis {
+        color: var(--accent);
+      }
+      .section-break {
+        text-align: center;
+        color: var(--text-light);
+        margin: 2.5rem 0;
+        letter-spacing: 0.3em;
+        font-size: 0.85rem;
+      }
+      .belinda-note {
+        background: var(--warm);
+        border-radius: 10px;
+        padding: 1rem 1.25rem;
+        margin: 1.5rem 0;
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        line-height: 1.8;
+        font-style: italic;
+      }
+      .belinda-note strong {
+        color: var(--accent);
+        font-style: normal;
+      }
+      .ranking {
+        background: #f2eef8;
+        border-radius: 10px;
+        padding: 1.25rem 1.5rem;
+        margin: 1.5rem 0;
+        font-size: 0.95rem;
+        line-height: 2.2;
+      }
+      .ranking p {
+        margin-bottom: 0;
+      }
+      .article-nav {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 2rem 2rem 4rem;
+        display: flex;
+        justify-content: space-between;
+        border-top: 0.5px solid var(--border);
+      }
+      .article-nav a {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .article-nav a:hover {
+        color: var(--text);
+      }
+      .article-nav span {
+        font-size: 0.88rem;
+        color: var(--text-light);
+      }
+      footer {
+        border-top: 0.5px solid var(--border);
+        padding: 1.5rem 3rem;
+        text-align: center;
+      }
+      footer p {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" class="nav-logo">Belinda Sun</a>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="yesterthoughts-index.html">Yesterthoughts</a></li>
+      </ul>
+    </nav>
+
+    <article>
+      <div class="article-meta">
+        <span class="article-col">Yesterthoughts</span>
+        <span class="article-date">2026年5月22日</span>
+        <div class="lang-switch">
+          <span class="lang-btn active">中文</span>
+          <a href="yesterthoughts-4-en.html" class="lang-btn">EN</a>
+        </div>
+      </div>
+      <h1 class="article-title">巴基斯坦，意料之外</h1>
+      <div class="article-divider"></div>
+
+      <div class="tts-bar">
+        <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">
+          🔊 朗读
+        </button>
+        <span class="tts-status" id="ttsStatus"></span>
+      </div>
+
+      <div class="article-body" id="articleBody">
+        <p><strong>之一，为什么要去？</strong></p>
+
+        <p>我去巴基斯坦纯粹是一个意外。</p>
+
+        <p>我本来要去做项目的国家是法国和瑞士，不过之前我把这个机会让给了我team里的一位同事，因为对她来讲这是一个好机会，是一种motivation，而我第二年还会有机会。</p>
+
+        <p>可后来的某一天，我的美国老板和北亚区老板轮流跟我谈，第一句话是：我有点事要跟你说，但definitely你可以拒绝，而且明年你仍然可以选择去你想去的国家，但现在，临时的一个安排，巴基斯坦的项目，美国的同事去不了了，你会考虑去吗？</p>
+
+        <p>我当时马上说了三点我的顾虑，第三点就是我要跟我先生商量一下，看他是否愿意我离开两个星期。</p>
+
+        <p>而理工男又像往常一样，只要不是举家搬迁，他都很痛快地答应。我平生第一次不喜欢他这么支持我的工作。我开始浮想联翩：他真是一点儿也不关心我了，要不怎么会这么放心地就让我去这样的一个国家呢？有宗教，有绑架，还有驾着枪的士兵，电影里不都这么演嘛……我都不敢再往下想了。</p>
+
+        <p>我没有从理工男那里得到我想要的NO，其它的两点顾虑也都经过确认后证明不是顾虑。于是两天后给我的老板发了Email：能去！事实证明，我在关键的时候还是能从大局出发的（从小的教育使然）。</p>
+
+        <p>不过，不知为什么，我一想到要去的是巴基斯坦，心里总是发慌。我脑子里就开始想还有没有别的法儿，后来发现我还有希望的——签证不是还有被拒签的可能嘛。</p>
+
+        <p><strong>之二，不想要的签证</strong></p>
+
+        <p>我热切盼望着使馆能将我拒签，这样我就可以名正言顺地不去了。想到这里，我的心里又有了一线希望。</p>
+
+        <p>去使馆面试的那天，我平生第一次一丝紧张都没有。我心里暗暗恨自己没出息：每次去美利坚合众国你都跟怀里揣个小兔子一样，有啥可紧张的，有啥可担心的，你把它当成巴基斯坦不就得了。</p>
+
+        <p>我前面的几个都不顺利，不是没签就是资料没全缓签。到了我了，我还真有点紧张了——生怕不被拒签。</p>
+
+        <p>面试官看了看材料，又看了我一眼，连一个问题都不问我，就OK了。</p>
+
+        <p>OK了？我急了，真想问一句：Are you sure？可是他根本就没给我一点机会和时间，已经在喊“NEXT...！”</p>
+
+        <p>后来在巴基斯坦发生的一系列的趣事让我很庆幸我顺利地得到了这个不想要的签证。</p>
+
+        <p><strong>之三，拉合尔的回忆</strong></p>
+
+        <p>在同事们将“法国/瑞士VS巴基斯坦”作为饭桌笑料谈论正浓的时候，我离开北京，飞往一个陌生的国度。</p>
+
+        <p>我先在泰国停留了近两日，将我的500美金旅游补贴先花了——要不，你说，等到了巴基斯坦还不定出什么事呢。</p>
+
+        <p>我要去的目的地是拉合尔，是一座有两千多年历史的古城。我这个人很肤浅，对历史的东西不懂也不太感兴趣，所以我来之前根本没有任何的兴奋或期待。然而，当我看到路边不断闪现的古老建筑时，我还是着实被震动了——不过也就一点点而已（不感兴趣是不能勉强的听见了吗理工男）。</p>
+
+        <p>接下来的两周几乎都是酒店-办公室，办公室-酒店，不敢有太多的户外活动。事实证明担心纯属多余，有几点跟我当初的想象很不一样。</p>
+
+        <p><strong>1. 原来英语不是官方语言</strong></p>
+
+        <p>之前我还以为英语是巴基斯坦的官方语言呢。没想到将近午夜时分下了飞机，来接我的司机竟然不会说英语。多亏他的手里举着一块带有公司Logo的牌子，才让我稍微踏实了一些。结果又发现那边还有一群人也举着有我名字的牌子。OMG怎么回事？一问原来是酒店也派了车来接。最后我是以司机的面相哪个更和善一些来决定了我跟谁走。所以虽不会英语、甚至听不懂英文但和善的公司司机那天晚上和之后的两周就成了我的临时司机。</p>
+
+        <p>后来才知道，不光是司机，就是一些年轻人他们的英文也没有想象的那么好。后来我的同事告诉我，一般受过高等教育的英文都不错，其他的则参差不齐，有的干脆连听都听不懂。</p>
+
+        <p><strong>2. 果然见到了驾枪的“士兵”</strong></p>
+
+        <p>一两年前，我有一段时间睡眠有问题，经常晚上3点钟醒了，就会有2-3个小时睡不着。我就在地球仪上找适合我睡眠时间的国家，找了半天，结果发现找到海里去了……</p>
+
+        <p>然而，到了巴基斯坦发现，这才是我苦苦寻找的地方。巴基斯坦与中国有三个小时的时差，我是个夜猫子，北京时间凌晨1点睡觉的话，白天上班是北京时间11:00，我还可以睡9个小时。我美美地睡了一大觉，早上司机准时来接，一会儿工夫就到了办公室。</p>
+
+        <p>当时去的时候是春天，办公室外面有绿地，绿油油的草跟家乡没有区别。边上有一个简易的大门，实际没有门，但是有门卫把守。要说的就是门卫，哎呀，他们怎么都在腰里别着枪啊，个个浓眉大眼，还装着小胡子，黑黑的，真是跟儿时电影里看到的巴基斯坦、南斯拉夫一带的士兵一模一样啊。我立马紧张了起来：他们起身，手里拿了一根白色的棍子，然后在车前的一个好像是沟槽里划了一下，然后挥手示意我们可以进了。</p>
+
+        <p>在车离开他们的那一瞬间，我长长地嘘了一口气，同时在心里喊了一句：“敬礼！！！”到现在我都不知道他们在车前划一下是什么意思。</p>
+
+        <p><strong>3. 每天5次的祈祷</strong></p>
+
+        <p>巴基斯坦是宗教信仰很浓的国家。我经常会去酒店或工作的地方，听到远处传来祈祷的声音，是一群人的声音，像唱歌，那时候总会突然感到强烈的一种恐惧感。办公室里的同事也有不同的宗教信仰，一开始我不知道，直到有一天……</p>
+
+        <p>我推门进了CFO的办公室，哎，怎么座位上没人，明明看到他进办公室了嘛！再仔细巡视一圈，哇，在地上发现了他，他就跪在那里，口中喃喃有词，吓得我转身就逃。</p>
+
+        <p>刚进我工作的办公室，发现地上又坐了一个人，这回是一女的，坐在地上喃喃自语，我我我，我赶紧又逃了出来。</p>
+
+        <p>“She is praying”，其它同事估计看我吓得够呛，赶紧向我解释，是在祈祷。</p>
+
+        <p>关于宗教的事情我一向敬而远之，所以，没敢多问。</p>
+
+        <p>同一天的下午，我又有事找CFO，一进门，又在祈祷。MY GOD，只好又以最快速度退出。</p>
+
+        <p>过了一会儿，CFO主动来找我：“让我猜一猜，你一定在想，我每次找你，他都在闭着眼睛，这家伙一定是故意不理我，客户总是不愿意理睬审计的对不对？”</p>
+
+        <p>为了缓和气氛，他给我讲了一个小笑话：你知道关于审计，世界上有两句谎言。他说，<br>
+        Auditor: I am here to help you. 审计说：我是来帮助你的<br>
+        Client: I am happy you are here. 客户说：我很高兴你来！</p>
+
+        <p>我笑得不行，太形象了。</p>
+
+        <p>我说：我知道你不是回避我，你确实在祈祷，只不过在祈祷我给你一份好的审计报告，所以你在不停地祷告：主啊，让我过了吧，让我过了吧！</p>
+
+        <p>我们俩哈哈大笑。后来才知道，他们一天要祈祷5次，每次要祈祷十分钟还是十五分钟的样子。面对如此虔诚的教徒，无它，唯有肃然起敬。</p>
+
+        <p><strong>4. 来自同事的关心</strong></p>
+
+        <p>我的同事们在我呆在巴基斯坦的两周里，都对我进行了程度不同的慰问，甚至这个消息不胫而走，连已经离开公司的同事也不断地发来电邮，问是不是April Fool？愚人节，虽当时确在四月，却非愚人。</p>
+
+        <p>现摘录其中一封，是来自我的一位死活都不愿去印度的同事：</p>
+
+        <p>“How is everything going in Pakistan? We have stopped our work since yesterday to pray for you. 你好吗，从昨天开始我们已经停下工作为你祈祷了。”</p>
+
+        <p>我回：“Everything is great! Just can't be better. The office is nice. People are friendly and food is delicious. And you know what, I had a very good sleep last night. 好极了，不能再好了；办公室漂亮，人好饭甜睡得香。”</p>
+
+        <p>他立刻回：“Someone must be pointing a gun at you. I will call the embassy for help. 一定有人在用枪顶着你脑袋，我打电话向使馆求救。”</p>
+
+        <p>我答：“How did you know? Just called the embassy and they'd send you here to help me. 你知道啦？我刚打啦，使馆马上会派你来救我。”</p>
+
+        <p>另外一位同事则发给了我当时很流行的丁香花，让我解闷。结果我每天听的中文歌不是唐磊的丁香花，就是刀郎的冲动的惩罚、情人，孙楠的I believe，使我在工作之余不至于太想家。</p>
+
+        <p><strong>5. 巴寻常百姓人家</strong></p>
+
+        <p>我从小就喜欢听印度巴基斯坦的歌曲，所以每天除了看HBO的电影外，基本上锁定音乐台。我的脑海里到现在还不时萦绕着那些优美的旋律。他们那一带人长得也特好看，眼睛大大的，睫毛长长的，还自然往上卷着，害得我老是有事没事跑到同事边上去欣赏人家侧面，同时眨巴眨巴自己的眼睛，就仿佛那双大眼睛和双眼皮是自己的。</p>
+
+        <p>周六的早上，我正陶醉在优美旋律中的时候，电话响了，我的同事ASIF打来的：“有安排吗？”“没有。”“那带你出去玩吧。”“什么时候到啊？”“已经在Lobby了。”</p>
+
+        <p>啊，赶紧收拾，特意换了双不露趾的鞋，就出发了。开车带我看过了老城区和几处名胜古迹，引来不少驻足的目光——这是后话。一路谈兴颇浓，傍晚时分邀我去家中小坐，之后准备外出共进晚餐。</p>
+
+        <p>我不太想去，一是怕给他父母添麻烦，二主要是不懂当地的礼节。然而同事一再坚持，我只好前往，就此了解一下当地普通百姓的生活也好——后来才知道他应是早有预谋的。</p>
+
+        <p>同事的家座落在拉合尔的哪个方位我至今也不太清楚，只记得过了一条最繁华的街道，向左还是向右拐了一会儿就到了。停了车，街边小店外坐着几位穿白长袍的老者，眼睛看着我们窃窃私语。进了大门，有一小块儿绿地，踏着绿地就进了家门。同事喊了一声，一个十几岁的弟弟跑来，他冲弟弟说了几句我听不懂的话，弟弟就退下了。我纳闷，怎么也不介绍我俩认识？准备多时的“你好”只好又咽了回去。噢，也许弟弟太小，不懂英文，不介绍就不介绍吧。</p>
+
+        <p>抬眼看同事的会客厅很impressive，地毯、家具和沙发都透着一种古典的美，连墙上的壁画都非常有品位。父母出去聚会了，我立时轻松了很多。随着同事走过客厅，进入旁边的饭厅，哇！餐桌餐椅也很上档次，旁边立着的整面墙的餐边柜百宝格里全是装饰品，没仔细看，仔细看了我也不懂是什么。过了餐厅是卫生间，然后又是一个厅，有电视书柜之类的。随后把弟弟唤了来，手里拿一大串钥匙（看来巴基斯坦对小孩不溺爱，从小就支使他们干活了），开了一个房门，是他父母的房间，再旁边是同事的房间。</p>
+
+        <p>嘿，谁说巴基斯坦人民贫穷，人家生活也不错嘛，房子也不小，比我的三室两厅小不了多少嘛。别急，哎，怎么还有个楼梯，啊，人家还是复式的！！拾级而上，到了2层，发现刚刚的那个弟弟在熨衣服。Oh，oh，oh，I see，原来他不是弟弟，是个小佣人。想起电影里从小卖给人家做奴隶的小男孩！我的同事家竟然买了个小奴隶！！！</p>
+
+        <p>我故作镇静，接着参观巴基斯坦“普通百姓”的复式小楼。二层是他姐姐出嫁前的房间，姐姐原来的东西仍旧保持着原样，墙上的相片记载了姐姐的成长，从漂亮的小姑娘到运动健将，再到戴学士帽、硕士帽，最后是大学的讲师。原来以为巴基斯坦的女孩子不上学不工作，看来又错了。边上是大哥哥的房间，大哥哥一家四口在国外，所以他们的房间也空着。出来一看，天哪，又是往上走的楼梯——三层！！！刚才想当然地以为是复式，竟然没注意到还有楼梯……</p>
+
+        <p>三层是二哥哥的新房，特意给我介绍了一下巴基斯地新房的特色，遗憾的是我基本上没听进去。不为别的，都是他哥哥的照片太惹眼，搞得我眼里容不下别的了。太英俊了吧，浓眉大眼，棱角分明，眼睛很深邃的样子，还带着一种迷人的微笑，是将年轻时的萨达姆和普京的优点融合在一起并加以发扬光大的那种，比我在纽约华尔街铜牛旁边遇到的我心目中世界上最英俊的西班牙斗牛士也不差了多少。What a charming young man! ……我有一点点儿晕。</p>
+
+        <p>下去，还看到了在门的旁边是他家的车库，据同事讲平时有三辆车停在那里。我这回是彻底晕了。</p>
+
+        <p>嗯，这回知道同事为什么极力邀请我去他们家参观了，这明明就是赤裸裸地显摆！不过确实让我对他们有了进一步的了解。只是，我也不知道这是不是巴寻常百姓人家，只知道这位同事平时上班时很不起眼的，与其他人并无二致。</p>
+
+        <p><strong>6. We are Good Friends</strong></p>
+
+        <p>我第一次亲身感受巴基斯坦人民的友好是N年前我第一次去独自去美国。</p>
+
+        <p>我是属于相对来讲比较胆小的那种，特别是每到黄昏时分以后，身处异地他乡心里总会莫名地想家和害怕。我第一次到美国的恐惧感自不待说，更糟的是到时已是夜里十点多，酒店已不派车，只好叫出租。上了车，恐惧感有增无减，不知车会驶向哪里。当司机得知了我来自中国，“oh，we are good neighbors，我们是好邻居，好朋友，PM zhou. 到过我们国家……”40分钟的车程他手舞足蹈，滔滔不绝，一路上谈论的全是中国人民对巴基斯坦的好。在异国他乡的土地上让我彻底消除了紧张和恐惧——是啊，热情的司机如此热烈地赞美你家乡的桩桩件件，你完全不必再去担心会被劫持或绑架。</p>
+
+        <p>多年后的今天，每每想起那个夜晚，我心里仍旧会有一种温暖和感动。飞机快要落地时的那一刻，我想起了这位远在美国的巴基斯坦司机，那种温温暖暖的感觉又回到了我的心里。</p>
+
+        <p>入境时每个看过我护照的官员都会送我一句：We are good friends.</p>
+
+        <p>“We are good friends”这恐怕是那几天巴基斯坦使用频率最高的一句话，报纸，新闻，大街小巷……我有这么newsworthy上了电视报纸？当然不是，那是PM wen他们一行。适逢那几日PM wen出访巴基斯坦，而我，也就跟着受到了非比寻常的待遇。</p>
+
+        <p>街上全部装饰一新，偶尔还会看到中文的字幅。翻开报纸，打开电视，全是千篇一律的巴中友谊颂歌。</p>
+
+        <p>而我，每逢走过一处，总会迎来很多很多的驻足和观望。我那时脑海中耳朵里总会听到李修平或罗京的播报：PM wen一行所到之处，受到了巴基斯坦民众的热烈欢迎！只不过在我脑海里，PM wen一行……换成了我的名字。</p>
+
+        <p>我起初并没有觉得我与他们之间从长相来看有多大的差异，毕竟同是亚洲人。可是，走过每个地方，都招来很多的目光。我觉得稍有一些不自在，扭头用求助的眼光看我的同事，可他非常镇定自若，还有一点点那样的表情——就跟注重外表的男士带着漂亮女朋友出游，引来众多羡慕目光似的那种表情。尽管我们的情况不是来自外表的漂亮，而仅仅是外表的差异。</p>
+
+        <p>最过分的一次是，一位很漂亮的女士远远看见我就与我打招呼，并迎着我走来。我认识她吗？不认识啊。可她怎么跟老朋友似的，显得那么亲热，而且这种亲近是极其自然的（不会是人体炸弹吧？）。</p>
+
+        <p>我（其实是尴尬，毕竟漂亮与我毫不相干）与这位真正漂亮的女士握了手，心里想：八成以为我跟PM wen是一起的吧，要不怎么嘴这么甜呢？</p>
+
+        <p><strong>7. 印巴边境的世界一奇</strong></p>
+
+        <p>印巴边界的降旗仪式据说在世界上都很unique。电视上演过，网上也有很多描写。去之前有一些担心，以为他们真是两军对垒，剑拔弩张。后来同事说，只是一种仪式，带有夸张成分。能够亲眼目睹，实属难得。</p>
+
+        <p>节选一段如下：印巴边境上的降旗仪式可为世界一奇。两道嘹亮的长啸声过后，双方各5名身高1.9米的高大仪仗兵，穿着民族特色的亮丽军服，迈着英国式的高抬腿步伐走了进来，动作快如“草上飞”。在边界20米远的地方，双方人马同时“刹车”，进入决战关头。每一名仪仗兵都将腿狠狠地甩过头顶，然后使足全身力气把靴子砸在地上，力量之大让人膛目结舌。然后，双方仪仗兵又开始面对面地叉腰叉脚，仿佛京剧中的武生亮相。突然，双方士兵依次怒吼，摆着齐肩直臂，冲向国门。就在几乎要相撞的时候，同在边界线旁急“刹车”。经过数轮比试，双方国旗才徐徐落下。</p>
+
+        <p>整个过程远比上面要丰富，后悔没带摄像机。拍了几次相片都没拍成：士兵们走得太快，拍完后一看只照到了对面的男观众席（男女观众分站或坐不同两边），根本没有疾步如飞的士兵。二次再照，乘士兵未进镜头时按下快门，心想这回应该没有问题，结果只照了一只后甩的手臂。锲而不舍，再试，稍微好了一些，士兵却还是不在相片中间。后来我还是觉得第二张最好，只有一只手臂，但却能看到仿佛有一阵风，所以名字非“疾步如飞的士兵”莫属。</p>
+
+        <p><strong>之四，不同寻常的归途</strong></p>
+
+        <p>前几天还在掰着指头数日子，马上就要回了，还真是有一点点的依依不舍。我收拾好行李，带着香格里拉工作人员的美好祝愿奔赴机场。</p>
+
+        <p>我坐在车上，车窗外已是灯火辉煌，眼睛望去全是美丽的广告牌和各式的灯，虽然不可与曼哈顿的繁华与喧闹相提并论，却也别有一番宁静与轻柔的美。晚上的公园里人群依旧，孩子们嘻笑着，追逐着……这是一个分明充满祥和与温馨的城市，为什么我对于他有那么大的恐惧（这句如果用英文应该是过去式did）？</p>
+
+        <p>机场已在眼前，我是特意提前了几个小时出发，准备在贵宾室里边休息边等候。可不巧贵宾室正在装修，不开放；更不幸的是被告知飞机晚点，我只好在候机厅等待。坐下来发现自己的腿不知什么时候被蚊子叮了不少的包，密密麻麻的。Last part was unfortunate but this also represents the environment of hospitality (by mosquitoes)——巴基斯坦同事这么安慰我。的确，一切的回忆，不管当时感受如何，今天想来都那么美好而且愈发难忘。</p>
+
+        <p>结果，我在机场整整停留了10个小时。而到了曼谷后，飞北京的航班早就离开，只能改飞香港再回北京。整个行程比原来多出了一倍还多，也打破了纪录成为我的历史之最，为我的巴基斯坦之行划上了一个难忘的句号。</p>
+
+        <p>—— 2005年4月</p>
+      </div>
+    </article>
+
+    <div class="giscus" style="max-width: 640px; margin: 0 auto; padding: 0 2rem 3rem"></div>
+    <script src="https://giscus.app/client.js"
+      data-repo="BelindaSun/BelindaSun.github.io"
+      data-repo-id="R_kgDOSVl7Iw"
+      data-category="Announcements"
+      data-category-id="DIC_kwDOSVl7I84C8scG"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="bottom"
+      data-theme="light"
+      data-lang="zh-CN"
+      crossorigin="anonymous"
+      async>
+    </script>
+
+    <div class="article-nav">
+      <a href="yesterthoughts-3.html">← 上一篇</a>
+      <span>To be continued</span>
+    </div>
+    <footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
+
+    <script>
+      let speaking = false, paused = false;
+      const btn = document.getElementById("ttsBtn");
+      const status = document.getElementById("ttsStatus");
+      function toggleTTS() {
+        if (!speaking) {
+          startTTS();
+        } else if (paused) {
+          window.speechSynthesis.resume();
+          paused = false;
+          btn.textContent = "⏸ 暂停";
+          btn.classList.add("playing");
+          status.textContent = "朗读中…";
+        } else {
+          window.speechSynthesis.pause();
+          paused = true;
+          btn.textContent = "▶ 继续";
+          btn.classList.remove("playing");
+          status.textContent = "已暂停";
+        }
+      }
+      function startTTS() {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(document.getElementById("articleBody").innerText);
+        u.lang = "zh-CN";
+        u.rate = 0.95;
+        u.onstart = () => {
+          speaking = true;
+          paused = false;
+          btn.textContent = "⏸ 暂停";
+          btn.classList.add("playing");
+          status.textContent = "朗读中…";
+        };
+        u.onend = () => {
+          speaking = false;
+          paused = false;
+          btn.textContent = "🔊 朗读";
+          btn.classList.remove("playing");
+          status.textContent = "";
+        };
+        u.onerror = () => {
+          speaking = false;
+          btn.textContent = "🔊 朗读";
+          btn.classList.remove("playing");
+          status.textContent = "出错了，请重试";
+        };
+        window.speechSynthesis.speak(u);
+      }
+    </script>
+  </body>
+</html>
