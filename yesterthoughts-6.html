@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>夏夜多美 — Belinda Sun</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --cream: #fdfcfa;
+        --warm: #f5f0e8;
+        --text: #3d2a5c;
+        --text-muted: #7a5fa0;
+        --text-light: #b09cc8;
+        --accent: #854f0b;
+        --accent-light: #faeeda;
+        --border: rgba(26, 26, 24, 0.12);
+        --serif: Georgia, "Times New Roman", serif;
+        --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      body {
+        background: var(--cream);
+        color: var(--text);
+        font-family: var(--sans);
+        min-height: 100vh;
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 3rem;
+        border-bottom: 0.5px solid var(--border);
+        background: var(--cream);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .nav-logo {
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        color: var(--text);
+        text-decoration: none;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+      }
+      article {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 4rem 2rem 6rem;
+      }
+      .article-meta {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+      .article-col {
+        font-size: 0.75rem;
+        color: var(--accent);
+        background: var(--accent-light);
+        padding: 3px 10px;
+        border-radius: 20px;
+        letter-spacing: 0.04em;
+      }
+      .article-date {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+      .lang-switch {
+        margin-left: auto;
+        display: flex;
+        gap: 0.5rem;
+      }
+      .lang-btn {
+        font-size: 0.78rem;
+        padding: 3px 10px;
+        border-radius: 20px;
+        border: 0.5px solid var(--border);
+        background: none;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .lang-btn.active {
+        background: var(--text);
+        color: var(--cream);
+        border-color: var(--text);
+      }
+      .article-title {
+        font-family: var(--serif);
+        font-size: 2rem;
+        font-weight: normal;
+        line-height: 1.4;
+        margin-bottom: 0.4rem;
+        color: var(--text);
+      }
+      .article-divider {
+        width: 40px;
+        height: 0.5px;
+        background: var(--text-light);
+        margin-bottom: 1.5rem;
+      }
+      .tts-bar {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+      }
+      .tts-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        background: var(--warm);
+        border: 0.5px solid var(--border);
+        border-radius: 20px;
+        padding: 5px 14px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: var(--sans);
+      }
+      .tts-btn:hover {
+        border-color: var(--text-muted);
+        color: var(--text);
+      }
+      .tts-btn.playing {
+        background: var(--accent-light);
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+      .tts-status {
+        font-size: 0.78rem;
+        color: var(--text-light);
+      }
+      .article-body {
+        font-family: var(--serif);
+        font-size: 1.05rem;
+        line-height: 2.1;
+        color: var(--text);
+      }
+      .article-body p {
+        margin-bottom: 1.4rem;
+      }
+      .article-body blockquote {
+        margin: 1.2rem 0;
+        padding-left: 1.2rem;
+        border-left: 3px solid var(--accent-light);
+        color: var(--text-muted);
+        font-style: italic;
+      }
+      .article-nav {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 2rem 2rem 4rem;
+        display: flex;
+        justify-content: space-between;
+        border-top: 0.5px solid var(--border);
+      }
+      .article-nav a {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .article-nav a:hover {
+        color: var(--text);
+      }
+      .article-nav span {
+        font-size: 0.88rem;
+        color: var(--text-light);
+      }
+      footer {
+        border-top: 0.5px solid var(--border);
+        padding: 1.5rem 3rem;
+        text-align: center;
+      }
+      footer p {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" class="nav-logo">Belinda Sun</a>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="yesterthoughts-index.html">Yesterthoughts</a></li>
+      </ul>
+    </nav>
+
+    <article>
+      <div class="article-meta">
+        <span class="article-col">Yesterthoughts</span>
+        <span class="article-date">2006年6月</span>
+        <div class="lang-switch">
+          <span class="lang-btn active">中文</span>
+          <a href="yesterthoughts-6-en.html" class="lang-btn">EN</a>
+        </div>
+      </div>
+      <h1 class="article-title">夏夜多美</h1>
+      <div class="article-divider"></div>
+
+      <div class="tts-bar">
+        <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">
+          🔊 朗读
+        </button>
+        <span class="tts-status" id="ttsStatus"></span>
+      </div>
+
+      <div class="article-body" id="articleBody">
+        <p>月亮真弯啊, 挂在西边的天上。</p>
+
+        <p>星星真… 少啊, 呵呵, 仰头仔细看, 才会看到疏疏落落的几颗, 孤独地挂在遥远的天空。城市的夜原本就是如此, 即便是夏天的晚上, 我已习惯, 不会再奢求一抬头望不到边的漫天星光, 几颗, 已经足够了。</p>
+
+        <p>尽管如此, 我知道，牛郎织女仍在互相对望, 那宽宽的银河依然横亘在他们之间…...几千年了, 他们依然还在相望,  依然还在思念, 依然还在爱恋, 这样的爱情, 在夏天的夜里, 显得格外美丽。 我抬头, 尽管城市的夜色阑珊阻挡了我的视线, 我却知道他们就在那里, 我的心能感受得到, 而且, 心所能感受和感知的, 远远比眼睛能看到的更悠远更绵长…...</p>
+
+        <p>小区里, 有人儿在漫步, 有狗儿在打滚儿, 有花儿在微笑, 还有阵阵的花香扑鼻而来。 早上推开窗户一眼望出去时, 竟发现了远处有一树梧桐花在静静绽放, 那株梧桐, 宛若一位云淡风清淡雅素净之女子, 在轻风中裙裾飘飘, 我仿佛立时闻到了一串串淡紫的清香。 而此时，夜色清风中，那花香, 必定有来自那迎风起舞的梧桐仙子的幽香…...</p>
+
+        <p>路灯亮了, 似繁星点点, 牵引我的思绪。风儿吹过面颊, 凉凉的, 难得的凉爽夏夜。夜色之中,点点树影, 淡淡草香, 一切都是那么美。只是, 为何不见萤火虫? 我低头在草丛和树影中找寻, 却一只不见。</p>
+
+        <p>记忆中见到萤火虫最多的一次是在马来西亚, 那夜, 月挂半空, 水在月下走,  船在水上飘, 人在船上坐, 萤火虫就在身边飞啊飞啊, 一抬手, 就抓到一只, 高兴地喊: 捉到了, 捉到了…...</p>
+
+        <p>可是今夜, 为何不见了萤火虫?</p>
+
+        <p>哦, 是不是路灯太亮, 是不是月光太美, 是不是夜色太撩人, 连萤火虫也醉了…...</p>
+
+        <p>小孩子们在那里背诵儿歌:</p>
+
+        <blockquote>
+          <p>“弯弯的月儿小小的船,<br>
+          小小的船儿两头尖，<br>
+          我在小小的船里坐，<br>
+          只看见闪闪的星星 蓝蓝的天......”</p>
+        </blockquote>
+
+        <p>我就坐在那里, 看着那群快乐的小孩儿, 抬头看看夜空, 侧耳听听花语, 低首闻闻草香, 不禁也象女儿课本中的那颗星星一般, 高兴地说: 啊, 夏夜多美呀!</p>
+
+        <p>2006年6月</p>
+      </div>
+    </article>
+
+    <div class="giscus" style="max-width: 640px; margin: 0 auto; padding: 0 2rem 3rem"></div>
+    <script src="https://giscus.app/client.js"
+      data-repo="BelindaSun/BelindaSun.github.io"
+      data-repo-id="R_kgDOSVl7Iw"
+      data-category="Announcements"
+      data-category-id="DIC_kwDOSVl7I84C8scG"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="bottom"
+      data-theme="light"
+      data-lang="zh-CN"
+      crossorigin="anonymous"
+      async>
+    </script>
+
+    <div class="article-nav">
+      <a href="yesterthoughts-5.html">← 上一篇</a>
+      <span>To be continued</span>
+    </div>
+    <footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
+
+    <script>
+      let speaking = false, paused = false;
+      const btn = document.getElementById("ttsBtn");
+      const status = document.getElementById("ttsStatus");
+      function toggleTTS() {
+        if (!speaking) {
+          startTTS();
+        } else if (paused) {
+          window.speechSynthesis.resume();
+          paused = false;
+          btn.textContent = "⏸ 暂停";
+          btn.classList.add("playing");
+          status.textContent = "朗读中…";
+        } else {
+          window.speechSynthesis.pause();
+          paused = true;
+          btn.textContent = "▶ 继续";
+          btn.classList.remove("playing");
+          status.textContent = "已暂停";
+        }
+      }
+      function startTTS() {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(document.getElementById("articleBody").innerText);
+        u.lang = "zh-CN";
+        u.rate = 0.95;
+        u.onstart = () => {
+          speaking = true;
+          paused = false;
+          btn.textContent = "⏸ 暂停";
+          btn.classList.add("playing");
+          status.textContent = "朗读中…";
+        };
+        u.onend = () => {
+          speaking = false;
+          paused = false;
+          btn.textContent = "🔊 朗读";
+          btn.classList.remove("playing");
+          status.textContent = "";
+        };
+        u.onerror = () => {
+          speaking = false;
+          btn.textContent = "🔊 朗读";
+          btn.classList.remove("playing");
+          status.textContent = "出错了，请重试";
+        };
+        window.speechSynthesis.speak(u);
+      }
+    </script>
+  </body>
+</html>
