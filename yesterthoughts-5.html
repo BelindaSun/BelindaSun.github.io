@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>荷兰之行：梵高的世界 — Belinda Sun</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --cream: #fdfcfa;
+        --warm: #f5f0e8;
+        --text: #3d2a5c;
+        --text-muted: #7a5fa0;
+        --text-light: #b09cc8;
+        --accent: #854f0b;
+        --accent-light: #faeeda;
+        --border: rgba(26, 26, 24, 0.12);
+        --serif: Georgia, "Times New Roman", serif;
+        --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      body {
+        background: var(--cream);
+        color: var(--text);
+        font-family: var(--sans);
+        min-height: 100vh;
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 3rem;
+        border-bottom: 0.5px solid var(--border);
+        background: var(--cream);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .nav-logo {
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        color: var(--text);
+        text-decoration: none;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+      }
+      article {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 4rem 2rem 6rem;
+      }
+      .article-meta {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+      .article-col {
+        font-size: 0.75rem;
+        color: var(--accent);
+        background: var(--accent-light);
+        padding: 3px 10px;
+        border-radius: 20px;
+        letter-spacing: 0.04em;
+      }
+      .article-date {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+      .lang-switch {
+        margin-left: auto;
+        display: flex;
+        gap: 0.5rem;
+      }
+      .lang-btn {
+        font-size: 0.78rem;
+        padding: 3px 10px;
+        border-radius: 20px;
+        border: 0.5px solid var(--border);
+        background: none;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .lang-btn.active {
+        background: var(--text);
+        color: var(--cream);
+        border-color: var(--text);
+      }
+      .article-title {
+        font-family: var(--serif);
+        font-size: 2rem;
+        font-weight: normal;
+        line-height: 1.4;
+        margin-bottom: 0.4rem;
+        color: var(--text);
+      }
+      .article-divider {
+        width: 40px;
+        height: 0.5px;
+        background: var(--text-light);
+        margin-bottom: 1.5rem;
+      }
+      .tts-bar {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+      }
+      .tts-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        background: var(--warm);
+        border: 0.5px solid var(--border);
+        border-radius: 20px;
+        padding: 5px 14px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: var(--sans);
+      }
+      .tts-btn:hover {
+        border-color: var(--text-muted);
+        color: var(--text);
+      }
+      .tts-btn.playing {
+        background: var(--accent-light);
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+      .tts-status {
+        font-size: 0.78rem;
+        color: var(--text-light);
+      }
+      .article-body {
+        font-family: var(--serif);
+        font-size: 1.05rem;
+        line-height: 2.1;
+        color: var(--text);
+      }
+      .article-body p {
+        margin-bottom: 1.4rem;
+      }
+      .article-body blockquote {
+        margin: 1.2rem 0;
+        padding-left: 1.2rem;
+        border-left: 3px solid var(--accent-light);
+        color: var(--text-muted);
+        font-style: italic;
+      }
+      .article-nav {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 2rem 2rem 4rem;
+        display: flex;
+        justify-content: space-between;
+        border-top: 0.5px solid var(--border);
+      }
+      .article-nav a {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .article-nav a:hover {
+        color: var(--text);
+      }
+      .article-nav span {
+        font-size: 0.88rem;
+        color: var(--text-light);
+      }
+      footer {
+        border-top: 0.5px solid var(--border);
+        padding: 1.5rem 3rem;
+        text-align: center;
+      }
+      footer p {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" class="nav-logo">Belinda Sun</a>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="yesterthoughts-index.html">Yesterthoughts</a></li>
+      </ul>
+    </nav>
+
+    <article>
+      <div class="article-meta">
+        <span class="article-col">Yesterthoughts</span>
+        <span class="article-date">2024年5月19日</span>
+        <div class="lang-switch">
+          <span class="lang-btn active">中文</span>
+          <a href="yesterthoughts-5-en.html" class="lang-btn">EN</a>
+        </div>
+      </div>
+      <h1 class="article-title">荷兰之行：梵高的世界</h1>
+      <div class="article-divider"></div>
+
+      <div class="tts-bar">
+        <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">
+          🔊 朗读
+        </button>
+        <span class="tts-status" id="ttsStatus"></span>
+      </div>
+
+      <div class="article-body" id="articleBody">
+        <p>这次荷兰之行的主题是梵高。</p>
+
+        <p>在纽约、旧金山、巴黎、东京等艺术博物馆也有梵高真迹，而我此行两天的第一天阿姆斯特丹的梵高博物馆和第二天梵高森林公园的库勒慕勒美术馆，是世界第一和第二大梵高作品收藏馆，真心向往。</p>
+
+        <p>去之前还打算去安妮之家看看，可惜需要提前四十多天订票，只能作罢（去年没参观成梵高也是不知道需要提前买票）；也好，留个念想下次再来，也可以有时间去参观伦勃朗故居。可惜，后来发现时间根本不够用。</p>
+
+        <p>因为梵高博物馆旁边就是荷兰国立博物馆，我发现国立博物馆甚至比梵高博物馆还值得看，当我在梵高博物馆戴着讲解耳机一幅幅地欣赏、并为梵高一生唏嘘不已甚至还找出Starry Night听得差点儿落泪🎧的时候，我根本没注意时间过得那么快。</p>
+
+        <blockquote>
+          <p>“他生下来。他画画。他死去。麦田里一片金黄。一群乌鸦惊叫着飞过天空。”</p>
+        </blockquote>
+
+        <p>短短一生的写照，着实让人心疼。</p>
+
+        <p>我其实没有太多时间听Starry Night，因为我所有的时间都在听他作品的介绍，有的听两遍。我想起小时候听收音机里所有有关欧洲绘画、音乐、雕塑等的节目、上大学时选修西方绘画史听老师讲每一幅名画背后的故事时我的着迷，让我对一直纠结的“明年底退休后到底想干嘛”的问题有了初解：或者去名校泡图书馆或者去逛博物馆，真的能一呆呆一天，以一周深入了解一本书或一幅画的节奏，何愁退休后会无所事事百无聊赖（理工男肯定高兴，这样不打扰他且不会去跳广场舞或者玩麻将之类的，这都是他觉得我不应该涉猎的兴趣爱好领域[坏笑]）。</p>
+
+        <p>于是当我去了国立博物馆买了audio tour后开始逛发现根本逛不完，我只能走马观花地看，但没有漏掉精彩的那些名画，但凡有讲解的画作我都认真听完了。《夜巡》的人最多，毕竟镇馆之作，他们甚至安排了一名安保人员在那里守护，当接近下午五点我被“赶出”时还意犹未尽，在最后几分钟要关门之际，有两位游客飞奔而来，就为了亲眼看一眼那幅画作。</p>
+
+        <p>依依不舍地走出博物馆，看外面的草地上那么多人在悠闲地过周末，还有大叔吹了一天的萨克斯，老大爷在下硕大的国际象棋，鸽子在水湾里扑腾，停路边很cute的红色袖珍小车车🚗……觉得他们真幸福，想看就可以随时来看😌</p>
+
+        <p>第二天去的梵高森林公园，这里也有二百多幅梵高画作，还有其它名家作品，入口的那个瘦高小人（图六第1张）让我想起北京办公室楼下的那些作品，许是受到了这幅的启发吧[偷笑] 图七是公园里的圣胡伯狩猎住宅，图八是当天傍晚时分去了海牙，虽然没看《戴珍珠耳环的少女》，但去了那里熙熙攘攘的海滩，还第一次坐tram游览了不一样的城市风光，最后逛了商场坐火车回代尔夫特。</p>
+
+        <p>从火车站回酒店的路上，正是夕阳西下之时（其实天还大亮，晚九点天还不黑呢），此时的Delft美极了，真正的小桥流水人家，周末整个小城的人都出来了，有阳光的日子就是假期，何况周一真是bank holiday。去年来时春寒料峭，郁金香正盛，今年则是稍不一样的景致，春夏之交的Delft，可真是既养眼又舒服。（图九）</p>
+
+        <p>出生于此的画家维米尔Vermeer的画作无一留在这里，然而我在国立博物馆看到了他的那幅《小街》（the little street，图五中第8张），画的正是代尔夫特，第一眼看到时我竟有一种莫名感动。（《戴珍珠耳环的少女》在海牙，《倒牛奶的女仆》也在国立博物馆）</p>
+
+        <blockquote>
+          <p>“在《小街》一画中，整个画面完全把时间凝固了，无论是在巷中洗衣的女人、坐在门前缝补的妇女，还是在路边游戏的小孩，她们原本正进行的动作，在维米尔的画笔下，完全停滞下来。在这幅画前，我们的心灵得以沉淀，发出清淡的忧伤，我们在其中感受到身旁的时间正悄然地划过脚趾。”</p>
+          <p>“三百六十多年过去了，斯人斯景早已飘散，但这幅《小街》仍在静静诉说着那时那刻的故事。”</p>
+        </blockquote>
+
+        <p>这也是此行荷兰和Delft带给我的感受，让我足以回味到下次再来时。</p>
+
+        <p>5/19/2024</p>
+      </div>
+    </article>
+
+    <div class="giscus" style="max-width: 640px; margin: 0 auto; padding: 0 2rem 3rem"></div>
+    <script src="https://giscus.app/client.js"
+      data-repo="BelindaSun/BelindaSun.github.io"
+      data-repo-id="R_kgDOSVl7Iw"
+      data-category="Announcements"
+      data-category-id="DIC_kwDOSVl7I84C8scG"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="bottom"
+      data-theme="light"
+      data-lang="zh-CN"
+      crossorigin="anonymous"
+      async>
+    </script>
+
+    <div class="article-nav">
+      <a href="yesterthoughts-4.html">← 上一篇</a>
+      <span>To be continued</span>
+    </div>
+    <footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
+
+    <script>
+      let speaking = false, paused = false;
+      const btn = document.getElementById("ttsBtn");
+      const status = document.getElementById("ttsStatus");
+      function toggleTTS() {
+        if (!speaking) {
+          startTTS();
+        } else if (paused) {
+          window.speechSynthesis.resume();
+          paused = false;
+          btn.textContent = "⏸ 暂停";
+          btn.classList.add("playing");
+          status.textContent = "朗读中…";
+        } else {
+          window.speechSynthesis.pause();
+          paused = true;
+          btn.textContent = "▶ 继续";
+          btn.classList.remove("playing");
+          status.textContent = "已暂停";
+        }
+      }
+      function startTTS() {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(document.getElementById("articleBody").innerText);
+        u.lang = "zh-CN";
+        u.rate = 0.95;
+        u.onstart = () => {
+          speaking = true;
+          paused = false;
+          btn.textContent = "⏸ 暂停";
+          btn.classList.add("playing");
+          status.textContent = "朗读中…";
+        };
+        u.onend = () => {
+          speaking = false;
+          paused = false;
+          btn.textContent = "🔊 朗读";
+          btn.classList.remove("playing");
+          status.textContent = "";
+        };
+        u.onerror = () => {
+          speaking = false;
+          btn.textContent = "🔊 朗读";
+          btn.classList.remove("playing");
+          status.textContent = "出错了，请重试";
+        };
+        window.speechSynthesis.speak(u);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Journey Through Van Gogh’s Netherlands — Belinda Sun</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --cream: #FDFCFA; --warm: #F5F0E8;
+    --text: #3D2A5C; --text-muted: #7A5FA0; --text-light: #B09CC8;
+    --accent: #854F0B; --accent-light: #FAEEDA;
+    --border: rgba(26,26,24,0.12);
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  body { background: var(--cream); color: var(--text); font-family: var(--sans); min-height: 100vh; }
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 3rem; border-bottom: 0.5px solid var(--border); background: var(--cream); position: sticky; top: 0; z-index: 100; }
+  .nav-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--text); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; }
+  .nav-links a:hover { color: var(--text); }
+  article { max-width: 600px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+  .article-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .article-col { font-size: 0.75rem; color: var(--accent); background: var(--accent-light); padding: 3px 10px; border-radius: 20px; letter-spacing: 0.04em; }
+  .article-date { font-size: 0.8rem; color: var(--text-light); }
+  .lang-switch { margin-left: auto; display: flex; gap: 0.5rem; }
+  .lang-btn { font-size: 0.78rem; padding: 3px 10px; border-radius: 20px; border: 0.5px solid var(--border); background: none; color: var(--text-muted); text-decoration: none; }
+  .lang-btn.active { background: var(--text); color: var(--cream); border-color: var(--text); }
+  .article-title { font-family: var(--serif); font-size: 2rem; font-weight: normal; line-height: 1.4; margin-bottom: 0.4rem; color: var(--text); }
+  .article-divider { width: 40px; height: 0.5px; background: var(--text-light); margin-bottom: 1.5rem; }
+  .tts-bar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; }
+  .tts-btn { display: flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; color: var(--text-muted); background: var(--warm); border: 0.5px solid var(--border); border-radius: 20px; padding: 5px 14px; cursor: pointer; transition: all 0.2s; font-family: var(--sans); }
+  .tts-btn:hover { border-color: var(--text-muted); color: var(--text); }
+  .tts-btn.playing { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
+  .tts-status { font-size: 0.78rem; color: var(--text-light); }
+  .article-body { font-family: var(--serif); font-size: 1.05rem; line-height: 2.1; color: var(--text); }
+  .article-body p { margin-bottom: 1.4rem; }
+  .article-body blockquote {
+    margin: 1.2rem 0;
+    padding-left: 1.2rem;
+    border-left: 3px solid var(--accent-light);
+    color: var(--text-muted);
+    font-style: italic;
+  }
+  .article-nav { max-width: 600px; margin: 0 auto; padding: 2rem 2rem 4rem; display: flex; justify-content: space-between; border-top: 0.5px solid var(--border); }
+  .article-nav a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; }
+  .article-nav a:hover { color: var(--text); }
+  .article-nav span { font-size: 0.88rem; color: var(--text-light); }
+  footer { border-top: 0.5px solid var(--border); padding: 1.5rem 3rem; text-align: center; }
+  footer p { font-size: 0.8rem; color: var(--text-light); }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Belinda Sun</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="yesterthoughts-index.html">Yesterthoughts</a></li>
+  </ul>
+</nav>
+
+<article>
+  <div class="article-meta">
+    <span class="article-col">Yesterthoughts</span>
+    <span class="article-date">May 19th 2024</span>
+    <div class="lang-switch">
+      <a href="yesterthoughts-5.html" class="lang-btn">中文</a>
+      <span class="lang-btn active">EN</span>
+    </div>
+  </div>
+
+  <h1 class="article-title">A Journey Through Van Gogh’s Netherlands</h1>
+  <div class="article-divider"></div>
+
+  <div class="tts-bar">
+    <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">🔊 Read aloud</button>
+    <span class="tts-status" id="ttsStatus"></span>
+  </div>
+
+  <div class="article-body" id="articleBody">
+    <p>The theme of this trip to the Netherlands was Van Gogh.</p>
+
+    <p>Although Van Gogh’s original works can be found in museums in New York, San Francisco, Paris, Tokyo, and other major cities, the two destinations I visited over these days — the Van Gogh Museum in Amsterdam and the Kröller-Müller Museum in De Hoge Veluwe National Park — together hold the world’s largest and second-largest collections of his works. It was something I had long looked forward to.</p>
+
+    <p>Before arriving, I had also planned to visit the Anne Frank House, but it required booking tickets more than forty days in advance. I missed it — just as I had missed the Van Gogh Museum the previous year due to the same lack of planning. Perhaps it is better this way; it leaves a reason to return. Next time, I can also visit Rembrandt’s house. In the end, however, time proved to be far too limited.</p>
+
+    <p>The Rijksmuseum sits right next to the Van Gogh Museum, and I found myself thinking that it might even be more rewarding in some ways. Still, I spent hours in Van Gogh’s world, wearing the audio guide, moving slowly from one painting to another, listening carefully, and feeling a deep ache of sympathy for his life.</p>
+
+    <p>At one point, I even searched for <em>Starry Night</em> on my headphones and nearly cried 🎧.</p>
+
+    <blockquote>
+      <p>“He was born. He painted. He died.<br>
+      A golden wheat field.<br>
+      A flock of crows crying across the sky.”</p>
+    </blockquote>
+
+    <p>A life so brief, yet so intensely luminous — and painfully heartbreaking.</p>
+
+    <p>In truth, I barely had time to listen to <em>Starry Night</em>. I was too absorbed in the explanations of his works, many of which I replayed twice. It reminded me of childhood days listening to radio programs about European painting, music, and sculpture, and of university courses in Western art history where I would sit completely absorbed in the stories behind each masterpiece.</p>
+
+    <p>Somewhere along that path, a quiet clarity emerged about a question I had long been circling — what I might want to do after retirement.</p>
+
+    <p>Perhaps I could spend time in university libraries, or wander through museums, lingering for hours in front of a single book or painting. A rhythm of one book or one artwork per week would hardly leave room for boredom or emptiness. (And the engineer in the family would probably approve — no disruption, no sudden interest in square dancing or mahjong, both of which he considers questionable hobbies [mischievous grin]).</p>
+
+    <p>At the Rijksmuseum, I purchased an audio tour and began exploring, quickly realizing that it was impossible to see everything. I had to move at a glance, but I did not miss the highlights. Every painting with a commentary, I listened to carefully.</p>
+
+    <p><em>The Night Watch</em> drew the largest crowd — naturally, as the museum’s crown jewel. A security guard stood nearby, quietly watching over it. As closing time approached, I was gently ushered out, still unwilling to leave. In the final minutes before the doors closed, two visitors even ran in just to catch a glimpse of the painting.</p>
+
+    <p>Outside, the contrast was striking. On the grass, people were enjoying their weekend with unhurried ease. A man played the saxophone as if time itself had no urgency. An elderly gentleman was deeply focused on a giant chessboard. Pigeons splashed in the canal. A small red car sat parked by the road, almost toy-like in its cuteness 🚗.</p>
+
+    <p>It all felt unbearably peaceful — the kind of life where one could simply decide to visit a museum at any moment, without urgency, without barriers 😌.</p>
+
+    <p>The next day I visited the Kröller-Müller Museum in the forest park, which also holds over two hundred Van Gogh works along with pieces by other masters. At the entrance, a tall, slender sculpture immediately reminded me of similar works outside office buildings in Beijing — perhaps inspired by the same modernist lineage [grin].</p>
+
+    <p>Later that evening, I traveled to The Hague. Although I did not manage to see <em>Girl with a Pearl Earring</em>, I did visit the lively beach, and took a tram for the first time to see the city from a different perspective. After wandering through a shopping district, I took the train back to Delft.</p>
+
+    <p>On the walk from the station to the hotel, the evening light was falling — though the sky remained bright, as it does in northern summers where darkness arrives only after nine.</p>
+
+    <p>Delft was breathtaking. True canals, true bridges, true quiet beauty. On weekends, the entire town seemed to come alive. When the weather is good, every day feels like a holiday — and this was a bank holiday Monday.</p>
+
+    <p>When I visited last year, it was early spring, still cold, but full of blooming tulips. This time, the scenery was different — late spring meeting early summer — equally gentle, equally comforting.</p>
+
+    <p>The painter Vermeer was born here, though none of his works remain in Delft today. Still, I saw <em>The Little Street</em> at the Rijksmuseum, depicting this very town. The moment I stood before it, I felt an unexpected wave of emotion.</p>
+
+    <blockquote>
+      <p>“In <em>The Little Street</em>, time is completely suspended. The women washing, sewing, and playing remain forever still. Within the painting, time quietly flows past our feet.”</p>
+      <p>“More than 360 years have passed. The people and the streets are long gone. Yet the painting still quietly tells their story.”</p>
+    </blockquote>
+
+    <p>That, too, was what this journey gave me — a sense of suspended time, and a feeling that lingers long after departure.</p>
+
+    <p>Something to return to. Something to continue.</p>
+
+    <p>— 19 May 2024</p>
+  </div>
+</article>
+
+<div class="giscus" style="max-width:640px;margin:0 auto;padding:0 2rem 3rem;"></div>
+<script src="https://giscus.app/client.js"
+        data-repo="BelindaSun/BelindaSun.github.io"
+        data-repo-id="R_kgDOSVl7Iw"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOSVl7I84C8scG"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+
+<div class="article-nav">
+  <a href="yesterthoughts-4-en.html">← Previous</a>
+  <span>To be continued</span>
+</div>
+<footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
+
+<script>
+  let speaking = false, paused = false;
+  const btn = document.getElementById('ttsBtn');
+  const status = document.getElementById('ttsStatus');
+  function toggleTTS() {
+    if (!speaking) { startTTS(); }
+    else if (paused) { window.speechSynthesis.resume(); paused = false; btn.textContent = '⏸ Pause'; btn.classList.add('playing'); status.textContent = 'Reading…'; }
+    else { window.speechSynthesis.pause(); paused = true; btn.textContent = '▶ Resume'; btn.classList.remove('playing'); status.textContent = 'Paused'; }
+  }
+  function startTTS() {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(document.getElementById('articleBody').innerText);
+    u.lang = 'en-US'; u.rate = 0.95;
+    u.onstart = () => { speaking = true; paused = false; btn.textContent = '⏸ Pause'; btn.classList.add('playing'); status.textContent = 'Reading…'; };
+    u.onend = () => { speaking = false; paused = false; btn.textContent = '🔊 Read aloud'; btn.classList.remove('playing'); status.textContent = ''; };
+    u.onerror = () => { speaking = false; btn.textContent = '🔊 Read aloud'; btn.classList.remove('playing'); status.textContent = 'Error, please try again'; };
+    window.speechSynthesis.speak(u);
+  }
+</script>
+</body>
+</html>
