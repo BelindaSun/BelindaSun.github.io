@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>家有老愤青 — Belinda Sun</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --cream: #fdfcfa;
+        --warm: #f5f0e8;
+        --text: #3d2a5c;
+        --text-muted: #7a5fa0;
+        --text-light: #b09cc8;
+        --accent: #854f0b;
+        --accent-light: #faeeda;
+        --border: rgba(26, 26, 24, 0.12);
+        --serif: Georgia, "Times New Roman", serif;
+        --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      body {
+        background: var(--cream);
+        color: var(--text);
+        font-family: var(--sans);
+        min-height: 100vh;
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 3rem;
+        border-bottom: 0.5px solid var(--border);
+        background: var(--cream);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .nav-logo {
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        color: var(--text);
+        text-decoration: none;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+      }
+      article {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 4rem 2rem 6rem;
+      }
+      .article-meta {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+      .article-col {
+        font-size: 0.75rem;
+        color: var(--accent);
+        background: var(--accent-light);
+        padding: 3px 10px;
+        border-radius: 20px;
+        letter-spacing: 0.04em;
+      }
+      .article-date {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+      .lang-switch {
+        margin-left: auto;
+        display: flex;
+        gap: 0.5rem;
+      }
+      .lang-btn {
+        font-size: 0.78rem;
+        padding: 3px 10px;
+        border-radius: 20px;
+        border: 0.5px solid var(--border);
+        background: none;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .lang-btn.active {
+        background: var(--text);
+        color: var(--cream);
+        border-color: var(--text);
+      }
+      .article-title {
+        font-family: var(--serif);
+        font-size: 2rem;
+        font-weight: normal;
+        line-height: 1.4;
+        margin-bottom: 0.4rem;
+        color: var(--text);
+      }
+      .article-divider {
+        width: 40px;
+        height: 0.5px;
+        background: var(--text-light);
+        margin-bottom: 1.5rem;
+      }
+      .tts-bar {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+      }
+      .tts-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        background: var(--warm);
+        border: 0.5px solid var(--border);
+        border-radius: 20px;
+        padding: 5px 14px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: var(--sans);
+      }
+      .tts-btn:hover {
+        border-color: var(--text-muted);
+        color: var(--text);
+      }
+      .tts-btn.playing {
+        background: var(--accent-light);
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+      .tts-status {
+        font-size: 0.78rem;
+        color: var(--text-light);
+      }
+      .article-body {
+        font-family: var(--serif);
+        font-size: 1.05rem;
+        line-height: 2.1;
+        color: var(--text);
+      }
+      .article-body p {
+        margin-bottom: 1.4rem;
+      }
+      .article-nav {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 2rem 2rem 4rem;
+        display: flex;
+        justify-content: space-between;
+        border-top: 0.5px solid var(--border);
+      }
+      .article-nav a {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .article-nav a:hover {
+        color: var(--text);
+      }
+      .article-nav span {
+        font-size: 0.88rem;
+        color: var(--text-light);
+      }
+      footer {
+        border-top: 0.5px solid var(--border);
+        padding: 1.5rem 3rem;
+        text-align: center;
+      }
+      footer p {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" class="nav-logo">Belinda Sun</a>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="yesterthoughts-index.html">Yesterthoughts</a></li>
+      </ul>
+    </nav>
+
+    <article>
+      <div class="article-meta">
+        <span class="article-col">Yesterthoughts</span>
+        <span class="article-date">2010年6月</span>
+        <div class="lang-switch">
+          <span class="lang-btn active">中文</span>
+          <a href="yesterthoughts-10-en.html" class="lang-btn">EN</a>
+        </div>
+      </div>
+      <h1 class="article-title">家有老愤青</h1>
+      <div class="article-divider"></div>
+
+      <div class="tts-bar">
+        <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">
+          🔊 朗读
+        </button>
+        <span class="tts-status" id="ttsStatus"></span>
+      </div>
+
+      <div class="article-body" id="articleBody">
+        <p>周五是GOOD FRIDAY, 公共假期一天。</p>
+
+        <p>LIUDODO这一周都在SPRING BREAK.</p>
+
+        <p>昨晚她说, 明天再熬一天终于可以上学喽。</p>
+
+        <p>我则相反。</p>
+
+        <p>不上班, 这可好了, 可以好好地睡大觉喽。</p>
+
+        <p>前两天锻炼身体到现在还觉得腰酸背痛。</p>
+
+        <p>“你们俩谁帮我捏捏腿。”<br>
+        LIUDODO爸爸: “严禁异性按摩。”<br>
+        “自己家里怕什么呀？！”<br>
+        LIUDODO爸爸坚决地: “任何场所都禁止异性按摩。”<br>
+        LIUDODO: “妈妈我帮你按摩。”</p>
+
+        <p>真是小棉袄啊。可惜手太小, 捏起来不舒服。</p>
+
+        <p>于是我决定去楼下, 那个SPA的泳池。</p>
+
+        <p>水流MASSAGE, 也很舒服啊。</p>
+
+        <p>“你们跟我一起去吧。”<br>
+        LIUDODO爸爸: “那哪行啊, 我还得看新闻联播呢, 学习三个代表可不能耽误。”</p>
+
+        <p>其实这里看不到新闻联播, sarcasm和cynicism是LIUDODO爸爸的特长, 总跟我党唱反调。他天天最乐衷的就是时事评论, 看新闻的时候, 电视上说一句, 他跟着来两句, 有时候他的声音压过了电视。原来我还象征性地哼哈两句以体现自己“夫唱妇随”的优良品德, 现在我基本不理他了, 否则他更来劲, 人家一句他能给碎碎念十句。</p>
+
+        <p>在家里我基本就是一个LISTENER。</p>
+
+        <p>不光是看新闻的时候, LIUDODO爸爸的长篇大论慷慨激昂义愤填膺是不分场合和时间的。有时我韩剧正起劲儿呢, 他在旁边高谈阔论劈里啪啦落花流水着近期的大新闻外加自己评论, 最后问一句, “你说是吧？”</p>
+
+        <p>“我说是吧？您都说了什么来着？”（您没见我正韩剧呢嘛！）</p>
+
+        <p>在我看来, 他就是一个忧国忧民的老愤青，忧得近两年头发都白了。</p>
+
+        <p>时不时地, 照着镜子, 拔几根鬓角白发, 自言自语: 哎呀, 还是毛主席时代好啊, 现在都什么呀, xxx时代培养了一批贪官污吏, xxx时代培养了社会的乌烟瘴气, xxx就是song蛋一个, 人家达赖也接见了, 对台也军售了, 他还要访美呢……你看毛主席他老人家在的时候, 哪用我这么操心啊, 头发没一根白的。</p>
+
+        <p>是啊, 您几岁的娃娃要有白头发, 那叫少白头。</p>
+
+        <p>啥时候我给他出一部评论集, 很有看头, 基本都是跟人家的论调对着干, 很cynical, 也很风趣（当然也很碎碎念）。</p>
+
+        <p>比如, 有天LIUDODO说: “爸爸爸爸, 今天我们UOI 老师说阿拉伯数字是印度人发明的。”</p>
+
+        <p>LIUDODO爸爸立马拍案而起, 义正言辞地”纠正”: 胡说！</p>
+
+        <p>“那是不是阿拉伯人发明的？”LIUDODO怯怯地问。</p>
+
+        <p>“明明是韩国人发明的！”</p>
+
+        <p>现在LIUDODO经过千锤百炼基本已经能够识别她爸爸的真话反话好话赖话了。</p>
+
+        <p>其实LIUDODO爸爸最大的特点还不是这个, 他最大的特点就是记忆力好, 应该说是SUPER MEMORY. 不管是小学还是研究生的知识, 你问吧, 数学公式也好,古文也好, 辩证唯物主义也好, 语法也好, 诗词歌赋, 他记得相当牢靠。大段的古文或者辩证唯物主义能一段一段地背给你听,  那些数学物理化学公式不管小学初中高中大学到现在都记得准确无误, 什么修辞语法时态, 他都讲得头头是道。每回都让我感觉似曾相识, 想当年其实自己也是这么学的, 可现在早忘得几乎一干二净了。感叹中国的基础教育的扎实, 在他身上体现得淋漓尽致。</p>
+
+        <p>这, 也给LIUDODO带来很大苦恼, 有时爸爸逼着她学学语文或数学（但愿她还记得语文数学是什么）, 她看不进去就让爸爸给讲。一般不一会儿LIUDODO就跑到我这边告状, “妈妈妈妈妈妈, 我爸爸又从小学讲到大学了。” 一个小学问题不管多大多小, 但凡你问个为什么, 他都会不厌其烦或者说乐此不疲地给你用中学或大学的理论证明, 有时则是讲概念触类旁通时不小心就给触通到了微积分,线性代数,概率统计,函数,数理方程,随机过程那里。</p>
+
+        <p>结果就把LIUDODO搞晕了。</p>
+
+        <p>我觉得他的信马由缰天马行空直接影响了lIUDODO学习的积极性。</p>
+
+        <p>“她现在不爱学国内的课程都是你造成的。”</p>
+
+        <p>可是我这么说的时候, 麻烦了, LIUDODO爸爸又转而要给我上课了。</p>
+
+        <p>他要给我讲内因外因的辩证关系了。</p>
+
+        <p>不光要阐明LIUDODO学不进去她自己是主因, 还要迂回地让我知道外因也很重要, 而我就是那个外因: “你带个头, 把每天看韩剧的时间用来学习。”</p>
+
+        <p>“学习？学什么呀？” 我这个年龄, 我想不出我可以学什么。</p>
+
+        <p>“比如说学学印度史诗<摩诃婆罗多>。”</p>
+
+        <p>“摩诃婆罗多？那是什么？”我皱皱眉头，“那天电视上倒是看了一段印度婆罗多舞。”</p>
+
+        <p>LIUDODO爸爸无奈。</p>
+
+        <p>“好吧, 好吧, 听你的啦, 我就去学学你说的那个, 那个什么来着, 菠萝菠萝蜜？”</p>
+
+        <p>无奈变绝望, LIUDODO爸爸怏怏地走了。</p>
+
+        <p>yeah, ✌️，接着韩剧。</p>
+
+        <p>2010年6月</p>
+      </div>
+    </article>
+
+    <div class="giscus" style="max-width: 640px; margin: 0 auto; padding: 0 2rem 3rem"></div>
+    <script src="https://giscus.app/client.js"
+      data-repo="BelindaSun/BelindaSun.github.io"
+      data-repo-id="R_kgDOSVl7Iw"
+      data-category="Announcements"
+      data-category-id="DIC_kwDOSVl7I84C8scG"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="bottom"
+      data-theme="light"
+      data-lang="zh-CN"
+      crossorigin="anonymous"
+      async>
+    </script>
+
+    <div class="article-nav">
+      <a href="yesterthoughts-9.html">← 上一篇</a>
+      <span>To be continued</span>
+    </div>
+    <footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
+
+    <script>
+      let speaking = false, paused = false;
+      const btn = document.getElementById("ttsBtn");
+      const status = document.getElementById("ttsStatus");
+      function toggleTTS() {
+        if (!speaking) {
+          startTTS();
+        } else if (paused) {
+          window.speechSynthesis.resume();
+          paused = false;
+          btn.textContent = "⏸ 暂停";
+          btn.classList.add("playing");
+          status.textContent = "朗读中…";
+        } else {
+          window.speechSynthesis.pause();
+          paused = true;
+          btn.textContent = "▶ 继续";
+          btn.classList.remove("playing");
+          status.textContent = "已暂停";
+        }
+      }
+      function startTTS() {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(document.getElementById("articleBody").innerText);
+        u.lang = "zh-CN";
+        u.rate = 0.95;
+        u.onstart = () => {
+          speaking = true;
+          paused = false;
+          btn.textContent = "⏸ 暂停";
+          btn.classList.add("playing");
+          status.textContent = "朗读中…";
+        };
+        u.onend = () => {
+          speaking = false;
+          paused = false;
+          btn.textContent = "🔊 朗读";
+          btn.classList.remove("playing");
+          status.textContent = "";
+        };
+        u.onerror = () => {
+          speaking = false;
+          btn.textContent = "🔊 朗读";
+          btn.classList.remove("playing");
+          status.textContent = "出错了，请重试";
+        };
+        window.speechSynthesis.speak(u);
+      }
+    </script>
+  </body>
+</html>

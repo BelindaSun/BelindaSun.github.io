@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Aging Idealist at Home — Belinda Sun</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --cream: #FDFCFA; --warm: #F5F0E8;
+    --text: #3D2A5C; --text-muted: #7A5FA0; --text-light: #B09CC8;
+    --accent: #854F0B; --accent-light: #FAEEDA;
+    --border: rgba(26,26,24,0.12);
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  body { background: var(--cream); color: var(--text); font-family: var(--sans); min-height: 100vh; }
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 3rem; border-bottom: 0.5px solid var(--border); background: var(--cream); position: sticky; top: 0; z-index: 100; }
+  .nav-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--text); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; }
+  .nav-links a:hover { color: var(--text); }
+  article { max-width: 600px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+  .article-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .article-col { font-size: 0.75rem; color: var(--accent); background: var(--accent-light); padding: 3px 10px; border-radius: 20px; letter-spacing: 0.04em; }
+  .article-date { font-size: 0.8rem; color: var(--text-light); }
+  .lang-switch { margin-left: auto; display: flex; gap: 0.5rem; }
+  .lang-btn { font-size: 0.78rem; padding: 3px 10px; border-radius: 20px; border: 0.5px solid var(--border); background: none; color: var(--text-muted); text-decoration: none; }
+  .lang-btn.active { background: var(--text); color: var(--cream); border-color: var(--text); }
+  .article-title { font-family: var(--serif); font-size: 2rem; font-weight: normal; line-height: 1.4; margin-bottom: 0.4rem; color: var(--text); }
+  .article-divider { width: 40px; height: 0.5px; background: var(--text-light); margin-bottom: 1.5rem; }
+  .tts-bar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; }
+  .tts-btn { display: flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; color: var(--text-muted); background: var(--warm); border: 0.5px solid var(--border); border-radius: 20px; cursor: pointer; transition: all 0.2s; font-family: var(--sans); }
+  .tts-btn:hover { border-color: var(--text-muted); color: var(--text); }
+  .tts-btn.playing { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
+  .tts-status { font-size: 0.78rem; color: var(--text-light); }
+  .article-body { font-family: var(--serif); font-size: 1.05rem; line-height: 2.1; color: var(--text); }
+  .article-body p { margin-bottom: 1.4rem; }
+  .article-nav { max-width: 600px; margin: 0 auto; padding: 2rem 2rem 4rem; display: flex; justify-content: space-between; border-top: 0.5px solid var(--border); }
+  .article-nav a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; }
+  .article-nav a:hover { color: var(--text); }
+  .article-nav span { font-size: 0.88rem; color: var(--text-light); }
+  footer { border-top: 0.5px solid var(--border); padding: 1.5rem 3rem; text-align: center; }
+  footer p { font-size: 0.8rem; color: var(--text-light); }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Belinda Sun</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="yesterthoughts-index.html">Yesterthoughts</a></li>
+  </ul>
+</nav>
+
+<article>
+  <div class="article-meta">
+    <span class="article-col">Yesterthoughts</span>
+    <span class="article-date">June 2010</span>
+    <div class="lang-switch">
+      <a href="yesterthoughts-10.html" class="lang-btn">中文</a>
+      <span class="lang-btn active">EN</span>
+    </div>
+  </div>
+
+  <h1 class="article-title">The Aging Idealist at Home</h1>
+  <div class="article-divider"></div>
+
+  <div class="tts-bar">
+    <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">🔊 Read aloud</button>
+    <span class="tts-status" id="ttsStatus"></span>
+  </div>
+
+  <div class="article-body" id="articleBody">
+    <p>Friday was Good Friday — a public holiday.</p>
+
+    <p>LIUDODO had been on Spring Break all week.</p>
+
+    <p>Last night she sighed dramatically and said, “Just one more day of suffering and I can finally go back to school.”</p>
+
+    <p>I, on the other hand, felt the exact opposite.</p>
+
+    <p>No work? Wonderful. Time to sleep like the dead.</p>
+
+    <p>I was still sore from exercising two days ago.</p>
+
+    <p>“Can one of you massage my legs for me?”<br>
+    LIUDODO’s father replied immediately: “Strictly forbidden between members of the opposite sex.”<br>
+    “Oh please, we’re family!”<br>
+    He remained firm. “Cross-gender massage is prohibited in all circumstances.”<br>
+    LIUDODO piped up sweetly, “Mommy, I’ll do it for you.”</p>
+
+    <p>Truly my little padded jacket of warmth and devotion. Unfortunately, her hands were too tiny to be effective.</p>
+
+    <p>So I decided to go downstairs to the spa pool instead. The water jets gave surprisingly good massages.</p>
+
+    <p>“Come with me,” I suggested.<br>
+    LIUDODO’s father waved me off. “Impossible. I still need to watch the evening state news. One mustn’t neglect studying the Three Represents.”</p>
+
+    <p>Of course, there’s no actual CCTV News Broadcast here. Sarcasm and cynicism are simply his native languages. He has an almost athletic dedication to arguing with anything remotely aligned with official narratives.</p>
+
+    <p>Watching the news with him is exhausting. The television says one sentence; he responds with two. Sometimes his commentary is louder than the TV itself. In the early years, I used to contribute the occasional polite “mm-hmm” out of marital solidarity and traditional feminine virtue. Now I mostly ignore him. Otherwise he becomes encouraged. The anchor says one line and he’ll produce a ten-minute monologue.</p>
+
+    <p>At home, my primary role is Listener.</p>
+
+    <p>And it’s not limited to the news. LIUDODO’s father is capable of launching into passionate, indignant political speeches regardless of time, location, or social appropriateness. Sometimes I’ll be deeply immersed in a Korean drama while he sits beside me delivering thunderous commentary on geopolitics, economic policy, and world affairs with the emotional intensity of a revolutionary leader addressing the masses.</p>
+
+    <p>Then, after twenty uninterrupted minutes, he’ll suddenly ask: “Don’t you agree?”</p>
+
+    <p>“Agree with what exactly? What did you even say?” (Do you not see me emotionally invested in my K-drama over here?)</p>
+
+    <p>In my view, he is essentially an aging idealist perpetually worried about the fate of the nation and humanity. He worries so much that his hair has visibly turned white over the past two years.</p>
+
+    <p>Every now and then he stands before the mirror plucking gray hairs from his temples while muttering:</p>
+
+    <p>“Ah… Chairman Mao’s era was better. Look at society now. This era produced corrupt officials. That era produced moral decay. And so-and-so is completely spineless — they met with the Dalai Lama, sold weapons to Taiwan, and he still wants to visit America… Back when Chairman Mao was alive, I never had to worry this much. Not a single white hair.”</p>
+
+    <p>Yes, dear. Because children don’t normally have gray hair. If they do, it’s called premature graying.</p>
+
+    <p>One day I really should publish a collection of his political commentaries. They’re wonderfully contrarian, deeply cynical, and — admittedly — extremely entertaining. Also extremely repetitive.</p>
+
+    <p>For example, one day LIUDODO came home from school and announced: “Daddy, today my UOI teacher said Arabic numerals were invented by Indians.”</p>
+
+    <p>Her father slammed the table dramatically. “Nonsense!”</p>
+
+    <p>“So… were they invented by Arabs?” LIUDODO asked cautiously.</p>
+
+    <p>“Obviously they were invented by Koreans!”</p>
+
+    <p>By now, after years of rigorous exposure therapy, LIUDODO has developed an almost scientific ability to distinguish her father’s serious statements from sarcasm, nonsense, reverse psychology, and performance art.</p>
+
+    <p>But honestly, his most terrifying quality isn’t the political commentary. It’s his memory.</p>
+
+    <p>The man possesses what can only be described as superhuman recall. Elementary school material, graduate school material — ask him anything. Mathematical formulas, classical Chinese prose, dialectical materialism, grammar, poetry — he remembers all of it with absurd precision.</p>
+
+    <p>He can recite long passages of ancient texts or Marxist philosophy paragraph by paragraph. Every math, physics, and chemistry formula from primary school through university remains perfectly intact in his brain. Grammar rules, rhetoric, tenses — he explains everything methodically and confidently.</p>
+
+    <p>Every time he talks, I feel a strange sense of déjà vu. Once upon a time, I learned all those things too. Now I remember almost none of it. And yet in him, the rigor of Chinese foundational education survives in full glorious detail.</p>
+
+    <p>Unfortunately, this creates enormous suffering for LIUDODO. Sometimes he tries to tutor her in Chinese or math (assuming she still remembers those subjects exist). If she doesn’t understand something and asks him “why,” disaster begins.</p>
+
+    <p>Within minutes she inevitably runs to me complaining: “Mommmmm, Daddy started from elementary school again and somehow ended up at university!”</p>
+
+    <p>A simple primary-school question — no matter how small — becomes an excuse for him to launch into high-school and university-level theoretical frameworks. One innocent “why” can somehow spiral into calculus, linear algebra, probability theory, differential equations, or stochastic processes.</p>
+
+    <p>Naturally, LIUDODO becomes completely confused.</p>
+
+    <p>Personally, I think his free-range, galaxy-brain teaching style has directly damaged her enthusiasm for learning.</p>
+
+    <p>“The reason she hates studying Chinese curriculum now is entirely because of you.”</p>
+
+    <p>But the moment I say that, I’ve made a fatal mistake. Now he turns around and begins lecturing me.</p>
+
+    <p>He launches into a full analysis of the dialectical relationship between internal and external causes.</p>
+
+    <p>Not only must he establish that LIUDODO herself is the primary internal factor in her academic struggles, he must also subtly inform me that external influences matter greatly too — and apparently I am the external influence.</p>
+
+    <p>“You should lead by example,” he says solemnly. “Use the time you spend watching Korean dramas to study instead.”</p>
+
+    <p>“Study what?” I ask. “At my age, what exactly am I supposed to learn?”</p>
+
+    <p>“For example,” he says seriously, “you could study the Indian epic Mahabharata.”</p>
+
+    <p>“Mahabharata?” I frown. “The other day I did see some Indian Bharatanatyam dancing on TV…”</p>
+
+    <p>A look of deep exhaustion appears on his face.</p>
+
+    <p>“Fine, fine,” I say generously. “I’ll learn that thing you mentioned. What was it again? Bolo bolo mi?”</p>
+
+    <p>His exhaustion turns into despair.</p>
+
+    <p>Defeated, LIUDODO’s father quietly walks away.</p>
+
+    <p>Yeah. ✌️ Back to my K-drama.</p>
+
+    <p>June 2010</p>
+  </div>
+</article>
+
+<div class="giscus" style="max-width:640px;margin:0 auto;padding:0 2rem 3rem;"></div>
+<script src="https://giscus.app/client.js"
+        data-repo="BelindaSun/BelindaSun.github.io"
+        data-repo-id="R_kgDOSVl7Iw"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOSVl7I84C8scG"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+
+<div class="article-nav">
+  <a href="yesterthoughts-9-en.html">← Previous</a>
+  <span>To be continued</span>
+</div>
+<footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
+
+<script>
+  let speaking = false, paused = false;
+  const btn = document.getElementById('ttsBtn');
+  const status = document.getElementById('ttsStatus');
+  function toggleTTS() {
+    if (!speaking) { startTTS(); }
+    else if (paused) { window.speechSynthesis.resume(); paused = false; btn.textContent = '⏸ Pause'; btn.classList.add('playing'); status.textContent = 'Reading…'; }
+    else { window.speechSynthesis.pause(); paused = true; btn.textContent = '▶ Resume'; btn.classList.remove('playing'); status.textContent = 'Paused'; }
+  }
+  function startTTS() {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(document.getElementById('articleBody').innerText);
+    u.lang = 'en-US'; u.rate = 0.95;
+    u.onstart = () => { speaking = true; paused = false; btn.textContent = '⏸ Pause'; btn.classList.add('playing'); status.textContent = 'Reading…'; };
+    u.onend = () => { speaking = false; paused = false; btn.textContent = '🔊 Read aloud'; btn.classList.remove('playing'); status.textContent = ''; };
+    u.onerror = () => { speaking = false; btn.textContent = '🔊 Read aloud'; btn.classList.remove('playing'); status.textContent = 'Error, please try again'; };
+    window.speechSynthesis.speak(u);
+  }
+</script>
+</body>
+</html>
