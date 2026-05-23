@@ -4,59 +4,152 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Linux 命令行 — Belinda Sun</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Serif+SC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --serif:Georgia,'Times New Roman',serif;
+  --serif:'Noto Serif SC',Georgia,serif;
+  --mono:'IBM Plex Mono',monospace;
   --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-  --cream:#FDFCFA;--warm:#F5F0E8;
+  --cream:#FDFCFA;--warm:#F5F0E8;--warm2:#EDE6D8;
   --text:#3D2A5C;--text-muted:#7A5FA0;--text-light:#B09CC8;
   --accent:#854F0B;--accent-light:#FAEEDA;
-  --border:rgba(26,26,24,0.12);
+  --green:#1D6A4A;--green-bg:#EBF7F1;
+  --red:#A32D2D;--red-bg:#FBF0F0;
+  --border:rgba(61,42,92,0.12);
+  --card-shadow:0 2px 16px rgba(61,42,92,0.07);
 }
 body{font-family:var(--sans);background:var(--cream);min-height:100vh;color:var(--text);}
-.page-nav{display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;border-bottom:0.5px solid var(--border);background:var(--cream);position:sticky;top:0;z-index:100;}
+
+/* NAV */
+.page-nav{display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;border-bottom:0.5px solid var(--border);background:var(--cream);position:sticky;top:0;z-index:200;}
 .page-nav a{font-family:var(--serif);font-size:0.95rem;color:var(--text);text-decoration:none;}
 .page-nav a:hover{color:var(--text-muted);}
-.page-nav .nav-right{display:flex;gap:1.5rem;}
-.page-nav .nav-right a{font-family:var(--sans);font-size:0.85rem;color:var(--text-muted);}
+.nav-right{display:flex;gap:1.5rem;}
+.nav-right a{font-family:var(--sans);font-size:0.85rem;color:var(--text-muted);}
 
-.container{max-width:780px;margin:0 auto;padding:2rem 1.5rem;display:grid;gap:1.5rem;}
+/* SIDEBAR LAYOUT */
+.app-body{display:flex;min-height:calc(100vh - 53px);}
+.sidebar{width:196px;flex-shrink:0;border-right:0.5px solid var(--border);background:#fff;position:sticky;top:53px;height:calc(100vh - 53px);overflow-y:auto;padding:1rem 0;}
+.tab-bar{display:flex;flex-direction:column;gap:0.2rem;padding:0 0.75rem;}
+.tab{display:flex;align-items:center;gap:0.6rem;padding:0.6rem 0.85rem;font-size:0.88rem;color:var(--text-muted);cursor:pointer;border-radius:8px;transition:all 0.15s;font-family:var(--sans);border:none;background:none;width:100%;text-align:left;}
+.tab:hover{color:var(--text);background:var(--warm);}
+.tab.active{color:var(--text);background:var(--warm2);font-weight:500;}
+.sidebar-label{font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-light);padding:1.1rem 1.6rem 0.35rem;}
+.cat-sidebar{display:flex;flex-direction:column;gap:0.2rem;padding:0 0.75rem;}
+.cat-sidebar-btn{display:flex;align-items:center;gap:0.5rem;width:100%;padding:0.5rem 0.85rem;font-size:0.83rem;color:var(--text-muted);cursor:pointer;border-radius:7px;border:none;background:none;font-family:var(--sans);text-align:left;transition:all 0.15s;}
+.cat-sidebar-btn:hover{color:var(--text);background:var(--warm);}
+.cat-sidebar-btn.active{color:var(--text);background:var(--warm2);font-weight:500;}
+.main-area{flex:1;min-width:0;}
+.container{max-width:800px;margin:0 auto;padding:2rem 1.75rem;}
+.page{display:none;}
+.page.active{display:block;}
+@media(max-width:680px){
+  .sidebar{display:none;}
+  .mobile-tab-bar{display:flex!important;}
+}
+.mobile-tab-bar{display:none;overflow-x:auto;border-bottom:1px solid var(--border);background:#fff;padding:0 0.75rem;}
+.mobile-tab-bar .tab{flex-direction:column;gap:0.2rem;border-radius:0;border-bottom:2px solid transparent;padding:0.6rem 0.75rem;font-size:0.78rem;white-space:nowrap;background:none;}
+.mobile-tab-bar .tab.active{border-bottom-color:var(--text);background:none;}
 
-h1{font-family:var(--serif);font-size:2rem;font-weight:normal;color:var(--text);margin-bottom:0.5rem;}
-h2{font-family:var(--serif);font-size:1.2rem;font-weight:normal;color:var(--text);margin-bottom:1rem;}
+h1{font-family:var(--serif);font-size:1.9rem;font-weight:400;color:var(--text);margin-bottom:0.4rem;}
+h2{font-family:var(--serif);font-size:1.15rem;font-weight:400;color:var(--text);margin-bottom:1rem;}
+h3{font-family:var(--mono);font-size:1rem;font-weight:600;color:var(--accent);}
 
-.card{background:#fff;border-radius:16px;padding:1.5rem;border:0.5px solid var(--border);box-shadow:0 2px 12px rgba(0,0,0,0.04);}
+.card{background:#fff;border-radius:14px;padding:1.5rem;border:0.5px solid var(--border);box-shadow:var(--card-shadow);margin-bottom:1.25rem;}
 
-.command-item{border:0.5px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:0.75rem;background:var(--warm);}
-.cmd{font-family:monospace;font-size:1.2rem;font-weight:bold;color:var(--accent);margin-bottom:0.3rem;}
-.cmd-meaning{font-size:0.95rem;color:var(--text);margin-bottom:0.2rem;}
-.cmd-example{font-size:0.85rem;color:var(--text-muted);font-family:monospace;}
-.cmd-tip{font-size:0.82rem;color:var(--text-light);margin-top:0.3rem;}
+/* SEARCH */
+.search-wrap{position:relative;margin-bottom:1.5rem;}
+.search-wrap input{width:100%;padding:0.85rem 1rem 0.85rem 2.8rem;font-size:0.95rem;border-radius:10px;border:1px solid var(--border);background:#fff;color:var(--text);font-family:var(--sans);outline:none;box-shadow:var(--card-shadow);}
+.search-wrap input:focus{border-color:var(--text-muted);}
+.search-icon{position:absolute;left:0.9rem;top:50%;transform:translateY(-50%);color:var(--text-light);font-size:1rem;}
+.search-hint{font-size:0.82rem;color:var(--text-light);margin-top:0.5rem;}
 
+/* SEARCH RESULTS */
+.search-results{display:none;}
+.search-results.visible{display:block;}
+.search-result-item{background:#fff;border:0.5px solid var(--border);border-radius:10px;padding:1rem 1.25rem;margin-bottom:0.75rem;cursor:pointer;transition:all 0.15s;}
+.search-result-item:hover{border-color:var(--text-muted);box-shadow:0 2px 10px rgba(61,42,92,0.1);}
+.sri-cmd{font-family:var(--mono);font-size:1.1rem;font-weight:600;color:var(--accent);}
+.sri-meaning{font-size:0.9rem;color:var(--text-muted);margin-top:0.2rem;}
+.search-empty{color:var(--text-light);font-size:0.9rem;padding:1rem 0;}
+
+
+
+/* COMMAND LIST */
+.cmd-list-item{border:0.5px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:0.9rem;background:var(--warm);cursor:pointer;transition:all 0.15s;}
+.cmd-list-item:hover{box-shadow:0 2px 12px rgba(61,42,92,0.1);}
+.cmd-list-header{display:flex;align-items:center;justify-content:space-between;}
+.cmd-name{font-family:var(--mono);font-size:1.15rem;font-weight:600;color:var(--accent);}
+.cmd-short{font-size:0.9rem;color:var(--text-muted);}
+.cmd-expand-icon{color:var(--text-light);font-size:0.8rem;transition:transform 0.2s;}
+.cmd-list-item.open .cmd-expand-icon{transform:rotate(180deg);}
+
+/* COMMAND DETAIL */
+.cmd-detail{display:none;margin-top:1rem;border-top:0.5px solid var(--border);padding-top:1rem;}
+.cmd-list-item.open .cmd-detail{display:block;}
+
+.detail-section{margin-bottom:1rem;}
+.detail-label{font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-light);margin-bottom:0.4rem;}
+.detail-text{font-size:0.92rem;color:var(--text);line-height:1.7;}
+
+.variants-grid{display:grid;gap:0.5rem;}
+.variant-item{background:#fff;border-radius:8px;padding:0.75rem 1rem;border:0.5px solid var(--border);}
+.variant-cmd{font-family:var(--mono);font-size:0.9rem;color:var(--accent);font-weight:500;}
+.variant-desc{font-size:0.85rem;color:var(--text-muted);margin-top:0.15rem;}
+
+.example-block{background:#1E1629;border-radius:10px;padding:1rem 1.25rem;margin-top:0.5rem;}
+.example-block pre{font-family:var(--mono);font-size:0.82rem;line-height:1.8;white-space:pre-wrap;word-break:break-all;}
+.ex-input{color:#C3B2E0;}
+.ex-comment{color:#7A6A90;font-style:italic;}
+.ex-output{color:#9EDAAB;}
+
+.related-tags{display:flex;flex-wrap:wrap;gap:0.5rem;}
+.related-tag{font-family:var(--mono);font-size:0.8rem;padding:0.25rem 0.6rem;background:var(--accent-light);color:var(--accent);border-radius:5px;cursor:pointer;}
+.related-tag:hover{background:var(--accent);color:#fff;}
+
+/* DETAIL PAGE */
+.back-btn{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.85rem;color:var(--text-muted);cursor:pointer;margin-bottom:1.5rem;font-family:var(--sans);}
+.back-btn:hover{color:var(--text);}
+
+.detail-card{background:#fff;border:0.5px solid var(--border);border-radius:14px;padding:1.75rem;box-shadow:var(--card-shadow);margin-bottom:1.25rem;}
+.detail-card h3{font-family:var(--mono);font-size:1.5rem;color:var(--accent);margin-bottom:0.4rem;}
+.detail-card .tagline{font-size:1rem;color:var(--text-muted);margin-bottom:1.5rem;}
+
+.section-head{font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-light);margin:1.5rem 0 0.75rem;}
+
+.param-table{width:100%;border-collapse:collapse;}
+.param-table th{font-size:0.78rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-light);padding:0.4rem 0.75rem;text-align:left;border-bottom:1px solid var(--border);}
+.param-table td{font-size:0.88rem;padding:0.6rem 0.75rem;border-bottom:0.5px solid var(--border);vertical-align:top;}
+.param-table tr:last-child td{border-bottom:none;}
+.param-table .p-flag{font-family:var(--mono);color:var(--accent);font-weight:500;}
+.param-table .p-desc{color:var(--text);}
+.param-table .p-note{color:var(--text-muted);font-size:0.82rem;}
+
+.warning-box{background:#FBF5E6;border:0.5px solid #E8C97A;border-radius:8px;padding:0.75rem 1rem;font-size:0.88rem;color:#7A5500;margin-top:0.75rem;}
+
+/* QUIZ */
 .quiz-question{font-size:1rem;color:var(--text-muted);margin-bottom:0.75rem;line-height:1.7;}
 .quiz-question b{color:var(--text);}
-
-input{width:100%;padding:0.75rem 1rem;font-size:0.95rem;border-radius:8px;border:0.5px solid var(--border);background:var(--cream);color:var(--text);font-family:monospace;margin-bottom:0.75rem;outline:none;}
-input:focus{border-color:var(--text-muted);}
-
+input.answer-input{width:100%;padding:0.75rem 1rem;font-size:0.95rem;border-radius:8px;border:0.5px solid var(--border);background:var(--cream);color:var(--text);font-family:var(--mono);margin-bottom:0.75rem;outline:none;}
+input.answer-input:focus{border-color:var(--text-muted);}
 .btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;}
 .btn-primary{padding:8px 20px;border:none;border-radius:20px;font-size:0.88rem;cursor:pointer;background:var(--text);color:var(--cream);font-family:var(--sans);}
 .btn-primary:hover{opacity:0.85;}
 .btn-secondary{padding:8px 20px;border:0.5px solid var(--border);border-radius:20px;font-size:0.88rem;cursor:pointer;background:none;color:var(--text-muted);font-family:var(--sans);}
 .btn-secondary:hover{background:var(--warm);}
-
 .result{margin-top:0.75rem;font-size:0.95rem;font-weight:500;min-height:1.4rem;}
-.result.ok{color:#1D6A4A;}
-.result.err{color:#A32D2D;}
-
-.progress-bar{width:100%;height:8px;background:var(--warm);border-radius:999px;overflow:hidden;margin-top:1rem;}
+.result.ok{color:var(--green);}
+.result.err{color:var(--red);}
+.hint-text{font-size:0.85rem;color:var(--accent);margin-top:0.4rem;}
+.progress-bar{width:100%;height:6px;background:var(--warm);border-radius:999px;overflow:hidden;margin-top:1rem;}
 .progress-fill{height:100%;width:0%;background:var(--text);transition:width 0.3s ease;border-radius:999px;}
 .score-text{font-size:0.82rem;color:var(--text-light);margin-top:0.5rem;}
-
+.group-nav{display:flex;gap:0.75rem;align-items:center;margin-top:1rem;flex-wrap:wrap;}
 .tips ul{padding-left:1.25rem;}
 .tips li{font-size:0.9rem;color:var(--text-muted);line-height:2;}
-.group-nav{display:flex;gap:0.75rem;align-items:center;margin-top:1rem;flex-wrap:wrap;}
+
+@media(max-width:600px){h1{font-size:1.5rem;}}
 </style>
 </head>
 <body>
@@ -68,261 +161,1277 @@ input:focus{border-color:var(--text-muted);}
   </div>
 </nav>
 
-<div class="container">
-  <div>
-    <h1>💻 Linux 命令行</h1>
-    <p style="color:var(--text-muted);font-size:0.95rem;">别怕终端，它没看起来那么凶 — 支持上下组切换，每日一组5个命令</p>
-  </div>
+<!-- Mobile tabs -->
+<div class="mobile-tab-bar">
+  <div class="tab active" data-tab="search">🔍 搜索</div>
+  <div class="tab" data-tab="browse">📚 按类</div>
+  <div class="tab" data-tab="learn">📖 学习</div>
+  <div class="tab" data-tab="quiz">✏️ 测验</div>
+</div>
 
+<div class="app-body">
+<!-- ========== SIDEBAR ========== -->
+<div class="sidebar">
+  <div class="tab-bar">
+    <div class="tab active" data-tab="search">🔍 搜索命令</div>
+    <div class="tab" data-tab="learn">📖 今日学习</div>
+    <div class="tab" data-tab="quiz">✏️ 测验</div>
+  </div>
+  <div class="sidebar-label">按类浏览</div>
+  <div class="cat-sidebar" id="catSidebar"></div>
+</div>
+
+<!-- ========== MAIN AREA ========== -->
+<div class="main-area">
+
+<!-- ========== PAGE: SEARCH ========== -->
+<div class="container page active" id="tab-search">
+  <div style="margin-bottom:1.5rem;">
+    <h1>🔍 命令搜索</h1>
+    <p style="color:var(--text-muted);font-size:0.95rem;margin-top:0.3rem;">用中文描述你想做的事，或者直接输入命令名</p>
+  </div>
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input type="text" id="searchInput" placeholder="例如：拷贝文件、看进程、查看内存、rm …" autocomplete="off"/>
+  </div>
+  <p class="search-hint">💡 试试：「删除」「压缩」「网络」「找文件」「用户权限」「查日志」…</p>
+  <div class="search-results" id="searchResults"></div>
+  <div id="searchHome">
+    <div class="card" style="background:var(--accent-light);border-color:rgba(133,79,11,0.2);">
+      <h2 style="font-family:var(--sans);font-size:0.9rem;font-weight:600;margin-bottom:0.75rem;color:var(--accent);">常用命令快查</h2>
+      <div style="display:flex;flex-wrap:wrap;gap:0.5rem;" id="hotTags"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== PAGE: BROWSE ========== -->
+<div class="container page" id="tab-browse">
+  <div style="margin-bottom:1.5rem;">
+    <h1 id="browseTitle">📚 按类浏览</h1>
+    <p style="color:var(--text-muted);font-size:0.95rem;margin-top:0.3rem;">从左侧选择类别查看命令</p>
+  </div>
+  <div id="catCommandList"></div>
+</div>
+
+<!-- ========== PAGE: LEARN ========== -->
+<div class="container page" id="tab-learn">
+  <div style="margin-bottom:1.5rem;">
+    <h1>📖 今日学习</h1>
+    <p style="color:var(--text-muted);font-size:0.95rem;margin-top:0.3rem;">每组5个命令，每天不同，点击命令卡片展开详细讲解</p>
+  </div>
   <div class="card">
-    <h2>今日学习（每组5个命令）</h2>
+    <h2>当前组命令</h2>
     <div id="commandList"></div>
     <div class="group-nav">
       <button class="btn-secondary" id="prevGroupBtn">◀ 上一组</button>
       <button class="btn-secondary" id="nextGroupBtn">下一组 ▶</button>
-      <button class="btn-secondary" id="resetTodayBtn">📅 重置今日基准组</button>
+      <button class="btn-secondary" id="resetTodayBtn">📅 今日基准组</button>
     </div>
   </div>
+  <div class="card tips">
+    <h2>学习建议</h2>
+    <ul>
+      <li>每天只学一组（5个命令），别贪多。</li>
+      <li>展开每个命令，把例子里的命令自己敲一遍，确认看到相同输出。</li>
+      <li>重点先掌握：文件操作、权限、进程、网络这四类。</li>
+      <li>一周后尝试不查手册完成日常文件操作。</li>
+    </ul>
+  </div>
+</div>
 
+<!-- ========== PAGE: QUIZ ========== -->
+<div class="container page" id="tab-quiz">
+  <div style="margin-bottom:1.5rem;">
+    <h1>✏️ 命令测验</h1>
+    <p style="color:var(--text-muted);font-size:0.95rem;margin-top:0.3rem;">基于今日学习组，答错有提示，不会直接告诉你答案</p>
+  </div>
   <div class="card">
-    <h2>今日测验</h2>
+    <h2 id="quizGroupLabel">今日测验</h2>
     <p class="quiz-question" id="quizQuestion"></p>
-    <input id="answerInput" placeholder="输入命令，例如 ls" />
+    <input class="answer-input" id="answerInput" placeholder="输入命令，按 Enter 提交" />
+    <div id="hintArea"></div>
     <div class="btn-row">
       <button class="btn-primary" id="checkBtn">检查答案</button>
-      <button class="btn-secondary" id="nextBtn">下一题</button>
+      <button class="btn-secondary" id="nextBtn">下一题 →</button>
     </div>
     <div class="result" id="result"></div>
     <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
     <p class="score-text" id="scoreText"></p>
   </div>
+</div>
 
-  <div class="card tips">
-    <h2>复习建议</h2>
-    <ul>
-      <li>每天只学一组（5个命令），别贪多。</li>
-      <li>每个命令自己敲 10 次，比看 100 次更有用。</li>
-      <li>重点掌握：文件操作、权限、进程、网络。</li>
-      <li>一周后尝试不用搜索完成简单文件操作。</li>
-    </ul>
-    <div style="margin-top:1rem;">
-      <button class="btn-secondary" id="legacyResetBtn">🔄 刷新今日训练</button>
-    </div>
+</div><!-- /main-area -->
+</div><!-- /app-body -->
+
+<!-- ========== COMMAND DETAIL OVERLAY ========== -->
+<div id="detailOverlay" style="display:none;position:fixed;inset:0;background:var(--cream);z-index:300;overflow-y:auto;">
+  <div style="max-width:800px;margin:0 auto;padding:1.5rem;">
+    <div class="back-btn" id="backBtn">← 返回</div>
+    <div id="detailContent"></div>
   </div>
 </div>
 
 <script>
-// ======================= 80+ 常用 Linux 命令库 ========================
+// ============================================================
+//  COMMAND DATABASE — 详细版
+// ============================================================
 const commandBank = [
-  {cmd:"ls", meaning:"列出目录内容", example:"ls -la", tip:"最常用的看文件命令"},
-  {cmd:"cd", meaning:"切换目录", example:"cd /etc", tip:"change directory"},
-  {cmd:"pwd", meaning:"显示当前目录路径", example:"pwd", tip:"print working directory"},
-  {cmd:"mkdir", meaning:"创建目录", example:"mkdir new_folder", tip:"make directory"},
-  {cmd:"rmdir", meaning:"删除空目录", example:"rmdir empty_folder", tip:"remove empty directory"},
-  {cmd:"rm", meaning:"删除文件或目录", example:"rm -rf folder", tip:"危险命令，慎用"},
-  {cmd:"cp", meaning:"复制文件或目录", example:"cp a.txt b.txt", tip:"copy"},
-  {cmd:"mv", meaning:"移动或重命名文件", example:"mv old.txt new.txt", tip:"move"},
-  {cmd:"touch", meaning:"创建空文件或更新时间戳", example:"touch file.txt", tip:"常用于快速创建文件"},
-  {cmd:"cat", meaning:"查看文件内容", example:"cat file.txt", tip:"concatenate"},
-  {cmd:"less", meaning:"分页查看文件内容", example:"less large.log", tip:"比cat更适合大文件"},
-  {cmd:"head", meaning:"查看文件前十行", example:"head -n 20 file.txt", tip:"默认10行"},
-  {cmd:"tail", meaning:"查看文件后十行", example:"tail -f log.txt", tip:"-f 实时跟踪"},
-  {cmd:"grep", meaning:"搜索文本内容", example:"grep error log.txt", tip:"强大的文本搜索"},
-  {cmd:"find", meaning:"查找文件", example:"find . -name '*.txt'", tip:"按名称/类型查找"},
-  {cmd:"chmod", meaning:"修改文件权限", example:"chmod 755 script.sh", tip:"数字或符号模式"},
-  {cmd:"chown", meaning:"修改文件所有者", example:"chown user:group file", tip:"需root权限"},
-  {cmd:"ps", meaning:"查看进程", example:"ps aux | grep nginx", tip:"process status"},
-  {cmd:"top", meaning:"动态查看系统进程", example:"top", tip:"按q退出"},
-  {cmd:"kill", meaning:"终止进程", example:"kill -9 1234", tip:"-9强制杀"},
-  {cmd:"df", meaning:"查看磁盘空间", example:"df -h", tip:"disk free"},
-  {cmd:"du", meaning:"查看目录大小", example:"du -sh folder", tip:"disk usage"},
-  {cmd:"free", meaning:"查看内存使用", example:"free -h", tip:"内存和swap"},
-  {cmd:"uname", meaning:"查看系统信息", example:"uname -a", tip:"kernel版本"},
-  {cmd:"whoami", meaning:"查看当前用户名", example:"whoami", tip:"简单实用"},
-  {cmd:"id", meaning:"显示用户及组ID", example:"id", tip:"用户权限信息"},
-  {cmd:"echo", meaning:"输出文本或变量", example:"echo $PATH", tip:"常用脚本"},
-  {cmd:"export", meaning:"设置环境变量", example:"export PATH=$PATH:/newpath", tip:"临时生效"},
-  {cmd:"alias", meaning:"创建命令别名", example:"alias ll='ls -al'", tip:"简化命令"},
-  {cmd:"history", meaning:"显示历史命令", example:"history 10", tip:"!!重复上一条"},
-  {cmd:"man", meaning:"查看命令手册", example:"man ls", tip:"救命文档"},
-  {cmd:"which", meaning:"定位命令路径", example:"which python", tip:"查找可执行文件"},
-  {cmd:"whereis", meaning:"查找命令源码/手册", example:"whereis ls", tip:"更全路径"},
-  {cmd:"type", meaning:"判断命令类型", example:"type cd", tip:"内置/外部命令"},
-  {cmd:"tar", meaning:"打包/解包", example:"tar -czf archive.tar.gz folder/", tip:"常用压缩"},
-  {cmd:"gzip", meaning:"压缩文件", example:"gzip file.txt", tip:"生成.gz"},
-  {cmd:"gunzip", meaning:"解压.gz文件", example:"gunzip file.gz", tip:"或者gzip -d"},
-  {cmd:"zip", meaning:"打包为zip", example:"zip -r archive.zip folder/", tip:"Windows兼容"},
-  {cmd:"unzip", meaning:"解压zip", example:"unzip archive.zip", tip:"常用"},
-  {cmd:"ssh", meaning:"远程连接", example:"ssh user@192.168.1.1", tip:"secure shell"},
-  {cmd:"scp", meaning:"远程复制文件", example:"scp file.txt user@host:/path", tip:"基于ssh"},
-  {cmd:"rsync", meaning:"高效同步文件", example:"rsync -av source/ dest/", tip:"增量备份"},
-  {cmd:"wget", meaning:"下载文件", example:"wget https://example.com/file.zip", tip:"非交互下载"},
-  {cmd:"curl", meaning:"传输数据", example:"curl -O http://example.com/file", tip:"API调试利器"},
-  {cmd:"ping", meaning:"测试网络连通", example:"ping google.com", tip:"按Ctrl+C停止"},
-  {cmd:"traceroute", meaning:"路由追踪", example:"traceroute google.com", tip:"诊断网络"},
-  {cmd:"netstat", meaning:"查看网络状态", example:"netstat -tulnp", tip:"端口监听"},
-  {cmd:"ss", meaning:"更快的socket统计", example:"ss -tulnp", tip:"替代netstat"},
-  {cmd:"ifconfig", meaning:"查看网卡配置", example:"ifconfig", tip:"较老命令，推荐ip"},
-  {cmd:"ip", meaning:"更现代的网卡管理", example:"ip addr show", tip:"替代ifconfig"},
-  {cmd:"route", meaning:"路由表", example:"route -n", tip:"查看网关"},
-  {cmd:"hostname", meaning:"显示/设置主机名", example:"hostname", tip:"系统标识"},
-  {cmd:"date", meaning:"显示/设置日期时间", example:"date +%Y-%m-%d", tip:"格式化输出"},
-  {cmd:"cal", meaning:"显示日历", example:"cal 2025", tip:"calendar"},
-  {cmd:"uptime", meaning:"系统运行时间", example:"uptime", tip:"负载情况"},
-  {cmd:"dmesg", meaning:"内核日志", example:"dmesg | tail", tip:"硬件诊断"},
-  {cmd:"lscpu", meaning:"查看CPU信息", example:"lscpu", tip:"架构/核心数"},
-  {cmd:"lsblk", meaning:"查看块设备", example:"lsblk", tip:"磁盘分区"},
-  {cmd:"fdisk", meaning:"磁盘分区工具", example:"sudo fdisk -l", tip:"小心操作"},
-  {cmd:"mount", meaning:"挂载文件系统", example:"mount /dev/sdb1 /mnt", tip:"需root"},
-  {cmd:"umount", meaning:"卸载文件系统", example:"umount /mnt", tip:"卸载"},
-  {cmd:"ln", meaning:"创建链接", example:"ln -s target link", tip:"软链接"},
-  {cmd:"stat", meaning:"查看文件详细状态", example:"stat file.txt", tip:"inode信息"},
-  {cmd:"wc", meaning:"统计行/字/字符", example:"wc -l file.txt", tip:"word count"},
-  {cmd:"sort", meaning:"排序", example:"sort -n numbers.txt", tip:"数字排序"},
-  {cmd:"uniq", meaning:"去重", example:"sort file | uniq -c", tip:"常与sort配合"},
-  {cmd:"cut", meaning:"切分文本列", example:"cut -d: -f1 /etc/passwd", tip:"提取字段"},
-  {cmd:"awk", meaning:"文本处理语言", example:"awk '{print $1}' file", tip:"强大数据处理"},
-  {cmd:"sed", meaning:"流编辑器", example:"sed 's/old/new/g' file", tip:"替换文本"},
-  {cmd:"tr", meaning:"字符替换/删除", example:"echo hello | tr 'a-z' 'A-Z'", tip:"大小写转换"},
-  {cmd:"tee", meaning:"同时输出到屏幕和文件", example:"echo text | tee file.txt", tip:"双重重定向"},
-  {cmd:"xargs", meaning:"将标准输入转为命令行参数", example:"find . -name '*.txt' | xargs rm", tip:"批量操作"},
-  {cmd:"watch", meaning:"定期执行命令", example:"watch -n 1 'date'", tip:"监控输出变化"},
-  {cmd:"screen", meaning:"多窗口终端", example:"screen -S mysession", tip:"断开重连"},
-  {cmd:"tmux", meaning:"终端复用器", example:"tmux new -s session", tip:"更现代"},
-  {cmd:"crontab", meaning:"定时任务", example:"crontab -e", tip:"计划任务"},
-  {cmd:"systemctl", meaning:"系统服务管理", example:"systemctl status sshd", tip:"systemd"},
-  {cmd:"journalctl", meaning:"查看日志", example:"journalctl -u sshd", tip:"systemd日志"},
-  {cmd:"useradd", meaning:"添加用户", example:"sudo useradd -m newuser", tip:"需root"},
-  {cmd:"passwd", meaning:"修改密码", example:"passwd username", tip:"owner可改自己的"},
-  {cmd:"su", meaning:"切换用户", example:"su - root", tip:"switch user"},
-  {cmd:"sudo", meaning:"提权执行", example:"sudo apt update", tip:"需要配置"},
-  {cmd:"shutdown", meaning:"关机/重启", example:"shutdown -h now", tip:"谨慎使用"},
-  {cmd:"reboot", meaning:"重启系统", example:"reboot", tip:"需要root"}
+  // ——— 文件操作 ———
+  {
+    cmd:"ls", cat:"文件操作",
+    meaning:"列出目录内容",
+    detail:"查看一个目录里有什么文件和子目录。就像在图形界面里点开文件夹看内容一样，是用得最多的命令之一。",
+    variants:[
+      {flag:"ls",          desc:"列出当前目录的文件（不含隐藏文件）"},
+      {flag:"ls -l",       desc:"长格式显示，包含权限、大小、修改时间"},
+      {flag:"ls -a",       desc:"显示所有文件，包含以 . 开头的隐藏文件"},
+      {flag:"ls -la",      desc:"长格式 + 显示隐藏文件，最常用组合"},
+      {flag:"ls -lh",      desc:"长格式 + 文件大小用人类可读格式（KB/MB）"},
+      {flag:"ls -lt",      desc:"按修改时间排序，最新的在最上面"},
+      {flag:"ls /etc",     desc:"查看指定目录 /etc 的内容，而不是当前目录"},
+    ],
+    example:`$ ls -la
+total 48
+drwxr-xr-x  5 belinda staff  160 May 20 10:22 .
+drwxr-xr-x 18 belinda staff  576 May 19 09:00 ..
+-rw-r--r--  1 belinda staff  220 May 18 08:30 .bashrc
+drwxr-xr-x  3 belinda staff   96 May 20 10:22 Documents
+-rw-r--r--  1 belinda staff 4096 May 20 09:55 notes.txt
+# 第一列：权限  第三列：所有者  第五列：文件大小（字节）  最后：文件名`,
+    example2:`$ ls -lh Documents/
+total 12K
+-rw-r--r-- 1 belinda staff 3.2K May 20 notes.md
+-rw-r--r-- 1 belinda staff 8.5K May 19 report.pdf`,
+    related:["cd","pwd","find","tree"],
+    warning:null,
+    tags:["列出文件","查看目录","看文件","目录内容","文件列表"]
+  },
+  {
+    cmd:"cd", cat:"文件操作",
+    meaning:"切换当前目录",
+    detail:"Change Directory，在目录之间移动。相当于在图形界面里双击进入文件夹。",
+    variants:[
+      {flag:"cd /etc",      desc:"进入绝对路径 /etc"},
+      {flag:"cd Documents", desc:"进入当前目录下的 Documents 子目录（相对路径）"},
+      {flag:"cd ..",        desc:"回到上一级目录（父目录）"},
+      {flag:"cd ~",         desc:"回到自己的主目录（/home/用户名）"},
+      {flag:"cd -",         desc:"回到上一次所在的目录，适合在两个目录间来回切换"},
+    ],
+    example:`$ pwd
+/home/belinda
+$ cd Documents
+$ pwd
+/home/belinda/Documents
+$ cd ..
+$ pwd
+/home/belinda
+$ cd -
+/home/belinda/Documents    # 回到刚才那个目录`,
+    related:["pwd","ls","mkdir"],
+    warning:null,
+    tags:["切换目录","进入目录","去哪里","目录跳转","进文件夹"]
+  },
+  {
+    cmd:"pwd", cat:"文件操作",
+    meaning:"显示当前所在目录的完整路径",
+    detail:"Print Working Directory，你在文件系统里的当前位置。当你不确定自己在哪里时，第一个反应就应该是 pwd。",
+    variants:[
+      {flag:"pwd",          desc:"打印当前目录的绝对路径"},
+    ],
+    example:`$ pwd
+/home/belinda/projects/myapp
+# 这告诉你当前在 /home/belinda/projects/myapp 这个路径下`,
+    related:["cd","ls"],
+    warning:null,
+    tags:["当前目录","在哪","路径","我在哪","当前位置"]
+  },
+  {
+    cmd:"mkdir", cat:"文件操作",
+    meaning:"创建目录（文件夹）",
+    detail:"Make Directory，新建一个或多个目录。",
+    variants:[
+      {flag:"mkdir mydir",        desc:"在当前目录下创建名为 mydir 的目录"},
+      {flag:"mkdir -p a/b/c",     desc:"递归创建多级目录，中间的目录不存在也会自动创建"},
+      {flag:"mkdir dir1 dir2",    desc:"同时创建多个目录"},
+    ],
+    example:`$ mkdir projects
+$ ls
+Documents  projects
+$ mkdir -p work/2025/reports
+$ ls work/2025/
+reports    # 三级目录一次创建完成`,
+    related:["rmdir","rm","cd"],
+    warning:null,
+    tags:["创建目录","新建文件夹","新建目录","建目录"]
+  },
+  {
+    cmd:"rm", cat:"文件操作",
+    meaning:"删除文件或目录",
+    detail:"Remove，删除文件。Linux 没有回收站，rm 删除的东西默认无法找回，操作前请三思。",
+    variants:[
+      {flag:"rm file.txt",         desc:"删除单个文件"},
+      {flag:"rm -i file.txt",      desc:"删除前确认（推荐初学者使用）"},
+      {flag:"rm -r folder/",       desc:"递归删除目录及其所有内容"},
+      {flag:"rm -rf folder/",      desc:"强制递归删除，不提示确认（危险！）"},
+      {flag:"rm *.log",            desc:"删除当前目录下所有 .log 文件"},
+    ],
+    example:`$ rm -i old_file.txt
+rm: remove regular file 'old_file.txt'? y    # 输入 y 确认
+$ rm -rf temp_folder/
+# 整个 temp_folder 及其内容都被删除了，没有任何提示`,
+    related:["rmdir","mv","cp"],
+    warning:"⚠️ 永远不要对 / 或 ~ 使用 rm -rf，那会删除整个系统或主目录！建议初学者先加 -i 参数养成确认习惯。",
+    tags:["删除","删文件","删目录","移除","清除文件"]
+  },
+  {
+    cmd:"cp", cat:"文件操作",
+    meaning:"复制文件或目录",
+    detail:"Copy，把文件或目录复制一份到另一个位置。原文件保留不变。",
+    variants:[
+      {flag:"cp a.txt b.txt",        desc:"把 a.txt 复制为 b.txt（同目录下）"},
+      {flag:"cp a.txt /tmp/",        desc:"把 a.txt 复制到 /tmp/ 目录"},
+      {flag:"cp -r folder/ /tmp/",   desc:"递归复制整个目录"},
+      {flag:"cp -p a.txt b.txt",     desc:"复制时保留原文件的时间戳和权限"},
+      {flag:"cp -n a.txt b.txt",     desc:"目标文件已存在时不覆盖"},
+    ],
+    example:`$ ls
+notes.txt  photos/
+$ cp notes.txt notes_backup.txt
+$ ls
+notes.txt  notes_backup.txt  photos/
+$ cp -r photos/ photos_backup/
+$ ls
+notes.txt  notes_backup.txt  photos/  photos_backup/`,
+    related:["mv","rm","rsync"],
+    warning:null,
+    tags:["复制","拷贝","备份文件","复制文件","拷贝文件","copy","复制粘贴"]
+  },
+  {
+    cmd:"mv", cat:"文件操作",
+    meaning:"移动文件或重命名文件",
+    detail:"Move，把文件移动到另一个位置。如果目标是同目录下的新名字，效果就是重命名。",
+    variants:[
+      {flag:"mv old.txt new.txt",      desc:"在同目录下重命名文件"},
+      {flag:"mv file.txt /tmp/",       desc:"把文件移动到 /tmp/"},
+      {flag:"mv *.txt /tmp/",          desc:"把所有 .txt 文件移到 /tmp/"},
+      {flag:"mv -i src.txt dest.txt",  desc:"目标存在时提示确认，防误操作"},
+    ],
+    example:`$ ls
+report.txt  old_notes.txt
+$ mv old_notes.txt notes_2024.txt    # 重命名
+$ ls
+report.txt  notes_2024.txt
+$ mv notes_2024.txt /tmp/            # 移动到其他目录
+$ ls
+report.txt`,
+    related:["cp","rm","rename"],
+    warning:null,
+    tags:["移动","重命名","rename","改名","移动文件","搬文件"]
+  },
+  {
+    cmd:"cat", cat:"文件操作",
+    meaning:"查看文件内容（输出到屏幕）",
+    detail:"Concatenate，把文件内容打印到终端。适合查看小文件；对于几十行以上的文件，建议用 less。",
+    variants:[
+      {flag:"cat file.txt",         desc:"显示文件全部内容"},
+      {flag:"cat -n file.txt",      desc:"显示内容并加行号"},
+      {flag:"cat a.txt b.txt",      desc:"把两个文件内容依次显示"},
+      {flag:"cat a.txt >> b.txt",   desc:"把 a.txt 内容追加到 b.txt 末尾"},
+    ],
+    example:`$ cat /etc/hostname
+belinda-server
+
+$ cat -n notes.txt
+     1  第一行内容
+     2  第二行内容
+     3  第三行内容`,
+    related:["less","head","tail","grep"],
+    warning:null,
+    tags:["查看文件","读文件","显示内容","看文件内容","打开文件"]
+  },
+  {
+    cmd:"less", cat:"文件操作",
+    meaning:"分页查看文件内容",
+    detail:"比 cat 更适合大文件。less 允许你上下滚动，不会一次把所有内容冲到屏幕上。",
+    variants:[
+      {flag:"less file.txt",        desc:"进入分页查看模式"},
+      {flag:"less +G file.txt",     desc:"打开后直接跳到最后一行"},
+      {flag:"less +/error log.txt", desc:"打开并高亮搜索 error"},
+    ],
+    example:`$ less /var/log/syslog
+# 进入后的操作键：
+# 空格 / PgDn  ——  向下翻页
+# b / PgUp     ——  向上翻页
+# /关键词       ——  向下搜索
+# n             ——  跳到下一个搜索结果
+# q             ——  退出`,
+    related:["cat","head","tail","grep"],
+    warning:null,
+    tags:["查看大文件","分页看","滚动查看","浏览文件"]
+  },
+  {
+    cmd:"head", cat:"文件操作",
+    meaning:"查看文件的前 N 行",
+    detail:"只看文件开头，默认显示前10行。常用来快速确认文件格式或内容是否正确。",
+    variants:[
+      {flag:"head file.txt",      desc:"显示前10行"},
+      {flag:"head -n 20 file.txt",desc:"显示前20行"},
+      {flag:"head -5 file.txt",   desc:"显示前5行（简写）"},
+    ],
+    example:`$ head -n 3 /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin`,
+    related:["tail","cat","less"],
+    warning:null,
+    tags:["前几行","文件开头","看开头","head"]
+  },
+  {
+    cmd:"tail", cat:"文件操作",
+    meaning:"查看文件的最后 N 行",
+    detail:"常用于查看日志文件的最新内容。-f 参数可以实时跟踪文件变化，是调试时的利器。",
+    variants:[
+      {flag:"tail file.txt",         desc:"显示最后10行"},
+      {flag:"tail -n 50 file.txt",   desc:"显示最后50行"},
+      {flag:"tail -f /var/log/syslog",desc:"实时跟踪文件末尾新增内容，按 Ctrl+C 退出"},
+    ],
+    example:`$ tail -f /var/log/nginx/access.log
+192.168.1.10 - - [20/May/2025:10:22:01] "GET / HTTP/1.1" 200
+192.168.1.10 - - [20/May/2025:10:22:05] "GET /api HTTP/1.1" 404
+# 每当有新日志写入，屏幕上会自动追加显示`,
+    related:["head","cat","grep","less"],
+    warning:null,
+    tags:["最后几行","实时日志","跟踪日志","看日志","文件末尾"]
+  },
+  {
+    cmd:"touch", cat:"文件操作",
+    meaning:"创建空文件，或更新文件的修改时间",
+    detail:"touch 最常用于快速创建一个空文件。如果文件已存在，它只会更新时间戳，不会修改内容。",
+    variants:[
+      {flag:"touch newfile.txt",    desc:"创建空文件（若已存在则更新时间戳）"},
+      {flag:"touch a.txt b.txt",    desc:"同时创建多个文件"},
+    ],
+    example:`$ ls
+notes.txt
+$ touch todo.txt temp.log
+$ ls
+notes.txt  temp.log  todo.txt`,
+    related:["rm","mkdir","echo"],
+    warning:null,
+    tags:["新建文件","创建文件","空文件"]
+  },
+  {
+    cmd:"find", cat:"文件操作",
+    meaning:"在目录树中查找文件",
+    detail:"按名称、类型、大小、时间等条件搜索文件。find 非常强大，但也有一些学习成本。",
+    variants:[
+      {flag:"find . -name 'file.txt'",       desc:"在当前目录下按名称精确查找"},
+      {flag:"find . -name '*.log'",          desc:"查找所有 .log 文件"},
+      {flag:"find /home -type d",            desc:"查找所有目录（d=directory，f=file）"},
+      {flag:"find . -size +10M",             desc:"查找大于10MB的文件"},
+      {flag:"find . -mtime -7",              desc:"查找7天内修改过的文件"},
+      {flag:"find . -name '*.tmp' -delete",  desc:"查找并直接删除所有 .tmp 文件"},
+    ],
+    example:`$ find /var/log -name '*.log' -mtime -3
+/var/log/syslog
+/var/log/auth.log
+/var/log/nginx/access.log
+# 在 /var/log 里找到所有3天内修改过的 .log 文件`,
+    related:["grep","ls","locate"],
+    warning:null,
+    tags:["查找文件","搜索文件","找文件","按名称找","找哪里"]
+  },
+  {
+    cmd:"grep", cat:"文件操作",
+    meaning:"在文件中搜索匹配的文本行",
+    detail:"Global Regular Expression Print，从文件或命令输出中找含有特定关键词的行。调试和排查问题时极为常用。",
+    variants:[
+      {flag:"grep 'error' log.txt",        desc:"找 log.txt 里包含 error 的行"},
+      {flag:"grep -i 'error' log.txt",     desc:"忽略大小写"},
+      {flag:"grep -n 'error' log.txt",     desc:"显示匹配行的行号"},
+      {flag:"grep -r 'TODO' ./src/",       desc:"递归搜索目录下所有文件"},
+      {flag:"grep -v 'debug' log.txt",     desc:"显示不包含 debug 的行（反向过滤）"},
+      {flag:"grep -c 'error' log.txt",     desc:"只统计匹配行数"},
+      {flag:"ps aux | grep nginx",         desc:"结合管道，从命令输出中搜索"},
+    ],
+    example:`$ grep -n 'ERROR' /var/log/app.log
+42:2025-05-20 10:22:01 ERROR database connection failed
+87:2025-05-20 11:05:33 ERROR timeout after 30s
+# 找到含 ERROR 的行，并显示行号`,
+    related:["find","sed","awk","less"],
+    warning:null,
+    tags:["搜索文本","查找内容","关键词搜索","过滤输出","找字符串","搜索"]
+  },
+  // ——— 权限 ———
+  {
+    cmd:"chmod", cat:"权限",
+    meaning:"修改文件或目录的访问权限",
+    detail:"Change Mode，控制谁可以读、写、执行这个文件。权限分三组：文件所有者（u）、同组用户（g）、其他人（o）。",
+    variants:[
+      {flag:"chmod 755 script.sh",   desc:"rwxr-xr-x：所有者全权，其他人可读可执行"},
+      {flag:"chmod 644 file.txt",    desc:"rw-r--r--：所有者读写，其他人只读（文本文件常用）"},
+      {flag:"chmod 600 secret.key",  desc:"rw-------：只有所有者能读写（私钥文件必须）"},
+      {flag:"chmod +x script.sh",    desc:"给所有人添加执行权限（不改读写）"},
+      {flag:"chmod -x script.sh",    desc:"去掉所有人的执行权限"},
+      {flag:"chmod -R 755 folder/",  desc:"递归修改目录及其下所有文件的权限"},
+    ],
+    example:`$ ls -l script.sh
+-rw-r--r-- 1 belinda staff 128 May 20 script.sh
+# 权限是 rw-r--r--，没有执行权限
+
+$ chmod +x script.sh
+$ ls -l script.sh
+-rwxr-xr-x 1 belinda staff 128 May 20 script.sh
+# 现在三组用户都有了执行权限（x）
+
+# 数字理解：r=4, w=2, x=1
+# 7 = 4+2+1 = rwx  5 = 4+0+1 = r-x  4 = 4+0+0 = r--`,
+    related:["chown","ls","sudo"],
+    warning:null,
+    tags:["权限","修改权限","文件权限","执行权限","755","644","chmod"]
+  },
+  {
+    cmd:"chown", cat:"权限",
+    meaning:"修改文件的所有者和所属组",
+    detail:"Change Owner，把文件的归属从一个用户改到另一个用户。通常需要 root 权限。",
+    variants:[
+      {flag:"chown alice file.txt",       desc:"把文件所有者改为 alice"},
+      {flag:"chown alice:staff file.txt", desc:"同时改所有者和所属组"},
+      {flag:"chown -R alice:staff dir/",  desc:"递归修改目录及所有子文件"},
+      {flag:"sudo chown root file.txt",   desc:"改为 root 所有（需要 sudo）"},
+    ],
+    example:`$ ls -l file.txt
+-rw-r--r-- 1 root root 1024 May 20 file.txt
+# 所有者是 root
+
+$ sudo chown belinda:staff file.txt
+$ ls -l file.txt
+-rw-r--r-- 1 belinda staff 1024 May 20 file.txt`,
+    related:["chmod","sudo","ls"],
+    warning:null,
+    tags:["所有者","文件归属","修改所有者","chown","用户"]
+  },
+  {
+    cmd:"sudo", cat:"权限",
+    meaning:"以超级管理员（root）权限执行命令",
+    detail:"Superuser Do，允许普通用户临时获得 root 权限执行某条命令。比直接切换到 root 用户更安全。",
+    variants:[
+      {flag:"sudo apt update",       desc:"以 root 权限更新软件包列表"},
+      {flag:"sudo -i",               desc:"切换到 root 用户的完整 shell 环境"},
+      {flag:"sudo -u alice cmd",     desc:"以 alice 用户身份执行命令"},
+      {flag:"sudo !!",               desc:"用 sudo 重新执行上一条命令（忘了加 sudo 时很好用）"},
+    ],
+    example:`$ apt update
+E: Could not open lock file ... Permission denied
+# 权限不够，加 sudo
+
+$ sudo apt update
+[sudo] password for belinda: ****
+Hit:1 http://archive.ubuntu.com ...
+Reading package lists... Done`,
+    related:["su","chmod","chown"],
+    warning:"⚠️ sudo 权力很大，执行前确认命令正确，尤其是 rm、chmod 等破坏性操作。",
+    tags:["管理员","root权限","超级用户","sudo","提权"]
+  },
+  {
+    cmd:"su", cat:"权限",
+    meaning:"切换到另一个用户",
+    detail:"Switch User，从当前用户切换到另一个用户的 shell 环境。",
+    variants:[
+      {flag:"su alice",     desc:"切换到 alice（保留当前目录和环境变量）"},
+      {flag:"su - alice",   desc:"完整切换（加载目标用户的环境配置，推荐）"},
+      {flag:"su -",         desc:"切换到 root（需要 root 密码）"},
+    ],
+    example:`$ whoami
+belinda
+$ su - alice
+Password: ****
+$ whoami
+alice
+$ exit    # 退出 alice，回到 belinda`,
+    related:["sudo","whoami","id"],
+    warning:null,
+    tags:["切换用户","switch user","su","登录其他用户"]
+  },
+  // ——— 进程 ———
+  {
+    cmd:"ps", cat:"进程",
+    meaning:"查看当前运行的进程",
+    detail:"Process Status，显示系统里正在运行的进程快照（不是实时的）。最常与 grep 配合使用。",
+    variants:[
+      {flag:"ps",              desc:"只显示当前终端会话的进程"},
+      {flag:"ps aux",          desc:"显示所有用户的所有进程（最常用）"},
+      {flag:"ps aux | grep nginx", desc:"找出 nginx 相关进程及其 PID"},
+      {flag:"ps -ef",          desc:"另一种常用格式，更清晰地显示父子进程关系"},
+    ],
+    example:`$ ps aux | grep nginx
+root     1234  0.0  0.1  12345  2048 ?  Ss  10:00  0:00 nginx: master
+www-data 1235  0.0  0.1  12345  1024 ?  S   10:00  0:00 nginx: worker
+# PID=1234（进程ID），后续 kill 命令会用到`,
+    related:["top","kill","pgrep"],
+    warning:null,
+    tags:["进程","查看进程","PID","process","找进程","ps"]
+  },
+  {
+    cmd:"top", cat:"进程",
+    meaning:"实时动态查看系统进程和资源占用",
+    detail:"打开一个实时刷新的系统监视界面，显示CPU、内存占用和进程列表，默认3秒刷新一次。",
+    variants:[
+      {flag:"top",               desc:"打开实时监视界面"},
+      {flag:"top -u alice",      desc:"只显示 alice 用户的进程"},
+      {flag:"htop",              desc:"更友好的第三方替代品（需安装）"},
+    ],
+    example:`$ top
+top - 10:22:01 up 5 days, 2:10,  2 users,  load average: 0.12, 0.08, 0.05
+Tasks: 120 total,   1 running, 119 sleeping
+%Cpu(s):  2.1 us,  0.5 sy,  0.0 ni, 97.2 id
+MiB Mem :   7950.5 total,   3201.0 free,   2180.1 used
+  PID USER      PR  NI    VIRT    RES  %CPU %MEM  COMMAND
+ 1234 root      20   0  512m    64m   1.5  0.8  nginx
+# 常用键：q 退出  k 杀进程  数字1 看每个CPU核`,
+    related:["ps","kill","free","htop"],
+    warning:null,
+    tags:["系统监控","CPU","内存占用","实时进程","资源使用","top"]
+  },
+  {
+    cmd:"kill", cat:"进程",
+    meaning:"向进程发送信号（通常用于终止进程）",
+    detail:"给进程发送信号。最常用的是终止信号。必须先用 ps 或 pgrep 找到进程的 PID。",
+    variants:[
+      {flag:"kill 1234",        desc:"向 PID=1234 的进程发送 SIGTERM（请它礼貌退出）"},
+      {flag:"kill -9 1234",     desc:"发送 SIGKILL（强制立刻终止，无法被忽略）"},
+      {flag:"kill -15 1234",    desc:"发送 SIGTERM（与 kill 1234 相同，是默认值）"},
+      {flag:"killall nginx",    desc:"按名称终止所有 nginx 进程"},
+      {flag:"pkill -f 'python app.py'", desc:"按命令行内容匹配进程并终止"},
+    ],
+    example:`$ ps aux | grep frozen_app
+belinda  5678  99.0  2.0  ...  frozen_app
+$ kill 5678
+# 等2秒，如果进程还在：
+$ kill -9 5678
+# 强制终止`,
+    related:["ps","top","pgrep"],
+    warning:"⚠️ kill -9 是强制终止，进程没有机会保存数据或清理资源，作为最后手段。",
+    tags:["杀进程","终止进程","kill","停止程序","强制退出"]
+  },
+  {
+    cmd:"systemctl", cat:"进程",
+    meaning:"管理 systemd 系统服务",
+    detail:"控制系统里以服务（daemon）方式运行的程序，如 nginx、sshd、mysql 等。",
+    variants:[
+      {flag:"systemctl status nginx",   desc:"查看 nginx 服务的运行状态"},
+      {flag:"systemctl start nginx",    desc:"启动 nginx 服务"},
+      {flag:"systemctl stop nginx",     desc:"停止 nginx 服务"},
+      {flag:"systemctl restart nginx",  desc:"重启服务（修改配置后常用）"},
+      {flag:"systemctl reload nginx",   desc:"重新加载配置而不重启"},
+      {flag:"systemctl enable nginx",   desc:"设置开机自动启动"},
+      {flag:"systemctl disable nginx",  desc:"取消开机自动启动"},
+    ],
+    example:`$ sudo systemctl status nginx
+● nginx.service - A high performance web server
+     Loaded: loaded (/lib/systemd/system/nginx.service; enabled)
+     Active: active (running) since Mon 2025-05-20 09:00:00
+# "active (running)" 表示服务正在运行`,
+    related:["journalctl","ps","kill"],
+    warning:null,
+    tags:["服务","启动服务","停止服务","nginx","systemd","开机自启","服务管理"]
+  },
+  // ——— 磁盘与内存 ———
+  {
+    cmd:"df", cat:"磁盘与内存",
+    meaning:"查看磁盘分区的剩余空间",
+    detail:"Disk Free，显示各个文件系统挂载点的磁盘使用情况。-h 参数让数字变人类可读。",
+    variants:[
+      {flag:"df -h",       desc:"以 GB/MB 等人类可读格式显示所有磁盘"},
+      {flag:"df -h /",     desc:"只看根目录所在磁盘的使用情况"},
+      {flag:"df -T",       desc:"同时显示文件系统类型（ext4、tmpfs 等）"},
+    ],
+    example:`$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda1        50G   18G   30G  38% /
+tmpfs           3.9G  1.2M  3.9G   1% /dev/shm
+/dev/sdb1       200G   82G  118G  41% /data
+# Use% 是使用率，超过90%就该清理了`,
+    related:["du","lsblk","free"],
+    warning:null,
+    tags:["磁盘空间","硬盘空间","剩余空间","磁盘使用","df","存储"]
+  },
+  {
+    cmd:"du", cat:"磁盘与内存",
+    meaning:"查看目录或文件占用的磁盘空间",
+    detail:"Disk Usage，查看某个目录到底用了多少空间，帮你找到占用磁盘最多的元凶。",
+    variants:[
+      {flag:"du -sh folder/",          desc:"查看整个目录总大小（-s汇总 -h可读）"},
+      {flag:"du -h --max-depth=1 .",   desc:"查看当前目录下每个子目录的大小"},
+      {flag:"du -sh * | sort -hr",     desc:"按大小排序，最大的排最前面"},
+    ],
+    example:`$ du -sh * | sort -hr
+4.2G  videos
+820M  Documents
+ 12M  Downloads
+156K  notes.txt
+# 可以看到 videos 目录最大`,
+    related:["df","ls","find"],
+    warning:null,
+    tags:["目录大小","文件大小","占用空间","哪个文件夹最大","磁盘占用"]
+  },
+  {
+    cmd:"free", cat:"磁盘与内存",
+    meaning:"查看内存和交换分区的使用情况",
+    detail:"显示物理内存（RAM）和虚拟内存（swap）的总量、已用量和剩余量。",
+    variants:[
+      {flag:"free -h",    desc:"以人类可读格式（GB/MB）显示内存"},
+      {flag:"free -s 3",  desc:"每3秒刷新一次"},
+    ],
+    example:`$ free -h
+               total        used        free      shared     cache   available
+Mem:           7.7Gi       2.1Gi       3.2Gi       128Mi     2.4Gi       5.2Gi
+Swap:          2.0Gi          0B       2.0Gi
+# available 是实际可用内存（含可回收的缓存）
+# Swap 为 0 说明内存还充裕`,
+    related:["top","vmstat","htop"],
+    warning:null,
+    tags:["内存","RAM","内存使用","查看内存","free","swap","内存剩余"]
+  },
+  // ——— 网络 ———
+  {
+    cmd:"ping", cat:"网络",
+    meaning:"测试与目标主机的网络连通性",
+    detail:"向目标发送 ICMP 包并等待回应，测试网络是否通，以及延迟是多少。",
+    variants:[
+      {flag:"ping google.com",          desc:"持续 ping，按 Ctrl+C 停止"},
+      {flag:"ping -c 4 google.com",     desc:"只 ping 4次后自动停止"},
+      {flag:"ping -i 2 192.168.1.1",    desc:"每2秒发一次（默认每秒一次）"},
+    ],
+    example:`$ ping -c 4 google.com
+PING google.com (142.250.74.46): 56 data bytes
+64 bytes from 142.250.74.46: icmp_seq=0 ttl=115 time=12.3 ms
+64 bytes from 142.250.74.46: icmp_seq=1 ttl=115 time=11.8 ms
+--- google.com ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss
+round-trip min/avg/max = 11.8/12.0/12.3 ms
+# time=12ms 是延迟，0% packet loss 说明网络畅通`,
+    related:["traceroute","curl","ifconfig","ip"],
+    warning:null,
+    tags:["网络连通","ping","测试网络","延迟","网络是否通","通不通"]
+  },
+  {
+    cmd:"curl", cat:"网络",
+    meaning:"发送 HTTP 请求或下载文件",
+    detail:"Client URL，功能极为强大：测试API、下载文件、模拟表单提交、调试接口等。",
+    variants:[
+      {flag:"curl https://example.com",            desc:"获取网页内容"},
+      {flag:"curl -O https://example.com/file.zip",desc:"下载文件（文件名同远程）"},
+      {flag:"curl -o save.html https://...",        desc:"下载并保存为指定文件名"},
+      {flag:"curl -I https://example.com",          desc:"只获取响应头（不下载内容）"},
+      {flag:"curl -X POST -d 'key=val' https://api",desc:"发送 POST 请求"},
+      {flag:"curl -H 'Authorization: Bearer token' https://api", desc:"带请求头（API 认证）"},
+    ],
+    example:`$ curl -I https://google.com
+HTTP/2 301
+location: https://www.google.com/
+content-type: text/html
+# 301 表示重定向
+
+$ curl https://api.ipify.org
+203.0.113.42    # 返回你的公网 IP`,
+    related:["wget","ping","ssh"],
+    warning:null,
+    tags:["下载","HTTP请求","API测试","curl","接口调试","get post","发请求"]
+  },
+  {
+    cmd:"wget", cat:"网络",
+    meaning:"从网络下载文件",
+    detail:"非交互式下载工具，可在后台运行、断点续传，适合下载大文件。",
+    variants:[
+      {flag:"wget https://example.com/file.zip",   desc:"下载文件"},
+      {flag:"wget -c https://example.com/big.iso", desc:"断点续传（继续未完成的下载）"},
+      {flag:"wget -O newname.zip https://...",      desc:"下载并指定保存文件名"},
+      {flag:"wget -b https://...",                  desc:"后台下载"},
+    ],
+    example:`$ wget https://releases.ubuntu.com/ubuntu-24.04.iso
+--2025-05-20 10:22:01--  https://...
+Saving to: 'ubuntu-24.04.iso'
+ubuntu-24.04.iso    100%[===================>]   1.2G  5.43MB/s in 3m 45s`,
+    related:["curl","scp","rsync"],
+    warning:null,
+    tags:["下载文件","下载","wget","从网络下载"]
+  },
+  {
+    cmd:"ssh", cat:"网络",
+    meaning:"通过加密连接远程登录另一台服务器",
+    detail:"Secure Shell，远程管理服务器的标准方式，所有通信都是加密的。",
+    variants:[
+      {flag:"ssh user@192.168.1.10",         desc:"用密码登录远程服务器"},
+      {flag:"ssh -i ~/.ssh/id_rsa user@host",desc:"用私钥文件登录（更安全）"},
+      {flag:"ssh -p 2222 user@host",         desc:"连接非默认端口（默认22）"},
+      {flag:"ssh user@host 'ls /var/log'",   desc:"登录后立即执行命令再退出"},
+    ],
+    example:`$ ssh belinda@192.168.1.100
+The authenticity of host '192.168.1.100' can't be established.
+RSA key fingerprint is SHA256:xxxxx
+Are you sure you want to continue? yes    # 首次连接输入 yes
+belinda@192.168.1.100's password: ****
+Last login: Mon May 20 09:00:00 2025
+belinda@server:~$    # 成功登录，现在你在远程服务器上操作`,
+    related:["scp","rsync","sftp"],
+    warning:null,
+    tags:["远程登录","SSH","连接服务器","远程服务器","登录"]
+  },
+  {
+    cmd:"scp", cat:"网络",
+    meaning:"通过 SSH 在本地和远程服务器之间复制文件",
+    detail:"Secure Copy，基于 SSH 协议传输文件，加密安全。语法是 scp 来源 目的地。",
+    variants:[
+      {flag:"scp file.txt user@host:/path/", desc:"从本地上传文件到远程"},
+      {flag:"scp user@host:/path/file.txt .",desc:"从远程下载文件到本地当前目录"},
+      {flag:"scp -r folder/ user@host:/path",desc:"递归传输整个目录"},
+      {flag:"scp -P 2222 file user@host:/.", desc:"指定端口（注意是大写 P）"},
+    ],
+    example:`$ scp report.pdf belinda@192.168.1.100:/home/belinda/
+report.pdf                     100%  820KB   2.1MB/s   00:00
+
+$ scp belinda@192.168.1.100:/var/log/app.log .
+app.log                        100%  4.2MB   3.8MB/s   00:01`,
+    related:["ssh","rsync","wget"],
+    warning:null,
+    tags:["传文件","上传文件","下载文件","文件传输","scp","远程复制"]
+  },
+  {
+    cmd:"ip", cat:"网络",
+    meaning:"查看和管理网卡、IP地址、路由等网络配置",
+    detail:"现代 Linux 的网络管理工具，取代了老旧的 ifconfig。",
+    variants:[
+      {flag:"ip addr show",       desc:"显示所有网卡及其 IP 地址"},
+      {flag:"ip addr show eth0",  desc:"只看 eth0 网卡"},
+      {flag:"ip route show",      desc:"查看路由表（网关信息）"},
+      {flag:"ip link show",       desc:"查看网络接口状态（up/down）"},
+    ],
+    example:`$ ip addr show
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP>
+    inet 192.168.1.50/24 brd 192.168.1.255 scope global eth0
+    inet6 fe80::abc:def/64 scope link
+# inet 后面的是 IPv4 地址：192.168.1.50`,
+    related:["ifconfig","ping","netstat","ss"],
+    warning:null,
+    tags:["IP地址","网卡","网络配置","查看IP","查看网络","ifconfig"]
+  },
+  // ——— 文本处理 ———
+  {
+    cmd:"sed", cat:"文本处理",
+    meaning:"流编辑器：对文本进行查找替换、删除等操作",
+    detail:"Stream Editor，逐行处理文本。最常用的是 s/查找/替换/g 语法，类似文本编辑器的全文替换。",
+    variants:[
+      {flag:"sed 's/old/new/g' file",     desc:"把 file 里所有 old 替换为 new，输出到屏幕"},
+      {flag:"sed -i 's/old/new/g' file",  desc:"直接修改文件（-i 是 in-place，谨慎使用）"},
+      {flag:"sed -i.bak 's/old/new/g' file", desc:"修改文件并自动备份为 file.bak（更安全）"},
+      {flag:"sed '3d' file",              desc:"删除第3行"},
+      {flag:"sed '/^#/d' file",           desc:"删除所有以 # 开头的注释行"},
+    ],
+    example:`$ cat config.txt
+host=localhost
+port=3000
+
+$ sed 's/localhost/192.168.1.10/g' config.txt
+host=192.168.1.10
+port=3000
+# 原文件不变，替换结果输出到屏幕`,
+    related:["awk","grep","tr","vim"],
+    warning:null,
+    tags:["替换文本","批量替换","修改文件","sed","文本替换","查找替换"]
+  },
+  {
+    cmd:"awk", cat:"文本处理",
+    meaning:"按列处理文本，提取字段、统计、格式化",
+    detail:"功能强大的文本处理工具，尤其擅长处理有规律分隔的列式数据。$1 表示第一列，$2 第二列，以此类推。",
+    variants:[
+      {flag:"awk '{print $1}' file",          desc:"打印每行的第一列（默认空格分隔）"},
+      {flag:"awk -F: '{print $1}' /etc/passwd",desc:"以 : 分隔，打印第一列（用户名）"},
+      {flag:"awk '{sum+=$3} END{print sum}' f",desc:"对第三列数字求和"},
+      {flag:"awk '$3 > 100' file",             desc:"只打印第三列大于100的行"},
+    ],
+    example:`$ df -h | awk '{print $1, $5}'
+Filesystem Use%
+/dev/sda1  38%
+tmpfs      1%
+# 从 df 输出中只提取文件系统名和使用率`,
+    related:["sed","grep","cut","sort"],
+    warning:null,
+    tags:["提取列","处理列","文本处理","awk","格式化","列操作"]
+  },
+  {
+    cmd:"sort", cat:"文本处理",
+    meaning:"对文本行进行排序",
+    detail:"按字母或数字顺序对文件或命令输出的每行进行排序。常与 uniq 配合使用。",
+    variants:[
+      {flag:"sort file.txt",          desc:"按字母顺序升序排列"},
+      {flag:"sort -r file.txt",       desc:"降序排列"},
+      {flag:"sort -n numbers.txt",    desc:"按数字大小排序（不加 -n 会按字符串排）"},
+      {flag:"sort -k2 file.txt",      desc:"按第二列排序"},
+      {flag:"sort -u file.txt",       desc:"排序并去除重复行"},
+    ],
+    example:`$ cat scores.txt
+Bob 85
+Alice 92
+Carol 78
+
+$ sort -k2 -n scores.txt
+Carol 78
+Bob 85
+Alice 92    # 按第二列（分数）升序`,
+    related:["uniq","awk","head"],
+    warning:null,
+    tags:["排序","sort","按字母排序","按数字排序"]
+  },
+  {
+    cmd:"tar", cat:"压缩与归档",
+    meaning:"打包和解包归档文件（.tar/.tar.gz/.tgz）",
+    detail:"Tape Archive，将多个文件或目录打包成一个归档文件，常与 gzip 结合压缩。",
+    variants:[
+      {flag:"tar -czf archive.tar.gz folder/",  desc:"压缩打包：-c创建 -z用gzip -f指定文件名"},
+      {flag:"tar -xzf archive.tar.gz",          desc:"解压：-x解包 -z解gzip"},
+      {flag:"tar -xzf archive.tar.gz -C /tmp/", desc:"解压到指定目录 /tmp/"},
+      {flag:"tar -tzf archive.tar.gz",          desc:"查看压缩包内容（不解压）"},
+      {flag:"tar -czf backup.tar.gz --exclude='*.log' folder/", desc:"打包时排除 .log 文件"},
+    ],
+    example:`$ tar -czf project_backup.tar.gz ./myproject/
+$ ls -lh project_backup.tar.gz
+-rw-r--r-- 1 belinda staff 4.2M May 20 project_backup.tar.gz
+
+$ tar -xzf project_backup.tar.gz
+$ ls
+myproject/  project_backup.tar.gz`,
+    related:["gzip","zip","unzip"],
+    warning:null,
+    tags:["压缩","打包","解压","tar","归档","tar.gz","tgz","备份"]
+  },
+  {
+    cmd:"zip", cat:"压缩与归档",
+    meaning:"压缩为 ZIP 格式",
+    detail:"创建跨平台兼容的 .zip 文件，Windows/Mac/Linux 都能直接打开。",
+    variants:[
+      {flag:"zip archive.zip file1 file2",   desc:"把多个文件压缩为 zip"},
+      {flag:"zip -r archive.zip folder/",    desc:"递归压缩整个目录"},
+      {flag:"unzip archive.zip",             desc:"解压 zip 文件到当前目录"},
+      {flag:"unzip archive.zip -d /tmp/",    desc:"解压到指定目录"},
+      {flag:"unzip -l archive.zip",          desc:"查看 zip 内容（不解压）"},
+    ],
+    example:`$ zip -r photos.zip ./photos/
+  adding: photos/ (stored 0%)
+  adding: photos/pic1.jpg (deflated 12%)
+$ ls -lh photos.zip
+-rw-r--r-- 1 belinda staff 28M May 20 photos.zip`,
+    related:["tar","gzip","unzip"],
+    warning:null,
+    tags:["zip","压缩","解压","打包","归档"]
+  },
+  // ——— 系统信息 ———
+  {
+    cmd:"uname", cat:"系统信息",
+    meaning:"查看系统和内核信息",
+    detail:"显示操作系统、内核版本、硬件架构等基本信息。",
+    variants:[
+      {flag:"uname -a",  desc:"显示所有信息（内核名/版本/主机名/架构等）"},
+      {flag:"uname -r",  desc:"只显示内核版本号"},
+      {flag:"uname -m",  desc:"显示硬件架构（x86_64 或 arm64）"},
+    ],
+    example:`$ uname -a
+Linux belinda-server 5.15.0-91-generic #101-Ubuntu SMP x86_64 GNU/Linux
+# 内核 5.15.0，x86_64 架构，Ubuntu 系统`,
+    related:["lscpu","hostname","cat /etc/os-release"],
+    warning:null,
+    tags:["系统信息","内核版本","linux版本","操作系统","架构","uname"]
+  },
+  {
+    cmd:"whoami", cat:"系统信息",
+    meaning:"显示当前登录的用户名",
+    detail:"最简单的身份确认命令。当你不确定自己是普通用户还是 root 时，先 whoami。",
+    variants:[
+      {flag:"whoami",    desc:"显示当前用户名"},
+      {flag:"id",        desc:"显示用户名、UID、所属组（更详细）"},
+    ],
+    example:`$ whoami
+belinda
+$ sudo whoami
+root    # 用 sudo 执行时，当前用户是 root`,
+    related:["id","su","sudo"],
+    warning:null,
+    tags:["当前用户","我是谁","用户名","whoami","身份"]
+  },
+  {
+    cmd:"history", cat:"系统信息",
+    meaning:"显示命令历史记录",
+    detail:"显示你之前输入过的命令，默认保存500-1000条。有几个实用的快捷方式。",
+    variants:[
+      {flag:"history",        desc:"显示所有历史命令"},
+      {flag:"history 20",     desc:"显示最近20条"},
+      {flag:"history | grep docker", desc:"在历史中搜索含 docker 的命令"},
+      {flag:"!!",             desc:"重复执行上一条命令"},
+      {flag:"!123",           desc:"执行历史中第123号命令"},
+      {flag:"Ctrl+R",         desc:"交互式搜索历史（在终端里直接按键）"},
+    ],
+    example:`$ history 5
+  496  ls -la
+  497  cd Documents
+  498  grep error app.log
+  499  sudo systemctl restart nginx
+  500  history 5
+$ !499
+sudo systemctl restart nginx    # 重新执行第499条命令`,
+    related:["alias","echo","bash"],
+    warning:null,
+    tags:["历史命令","命令历史","上一条","history","搜索历史"]
+  },
+  // ——— 用户管理 ———
+  {
+    cmd:"useradd", cat:"用户管理",
+    meaning:"创建新用户",
+    detail:"添加一个新的系统用户。需要 root/sudo 权限。创建后记得用 passwd 设置密码。",
+    variants:[
+      {flag:"sudo useradd alice",          desc:"创建用户（不创建主目录）"},
+      {flag:"sudo useradd -m alice",       desc:"创建用户并自动创建主目录 /home/alice"},
+      {flag:"sudo useradd -m -s /bin/bash alice", desc:"指定 shell 为 bash"},
+      {flag:"sudo passwd alice",           desc:"为新用户设置密码"},
+    ],
+    example:`$ sudo useradd -m -s /bin/bash alice
+$ sudo passwd alice
+New password: ****
+Retype new password: ****
+passwd: password updated successfully
+$ su - alice
+alice@server:~$    # 成功切换到新用户`,
+    related:["passwd","userdel","su","id"],
+    warning:null,
+    tags:["创建用户","新用户","添加用户","useradd","用户管理"]
+  },
+  {
+    cmd:"crontab", cat:"进程",
+    meaning:"设置定时任务（计划任务）",
+    detail:"让系统在指定时间自动执行某个命令或脚本，比如每天凌晨备份、每小时清理日志。",
+    variants:[
+      {flag:"crontab -e",    desc:"编辑当前用户的定时任务（首次运行会选择编辑器）"},
+      {flag:"crontab -l",    desc:"查看当前的定时任务列表"},
+      {flag:"crontab -r",    desc:"删除所有定时任务（谨慎！）"},
+    ],
+    example:`# crontab -e 打开后，每行格式：
+# 分 时 日 月 星期  命令
+  0  2  *  *   *   /home/belinda/backup.sh
+# 每天凌晨2点执行备份脚本
+
+  */10  *  *  *  *  curl -s https://api/heartbeat
+# 每10分钟发一次心跳请求`,
+    related:["systemctl","bash","at"],
+    warning:null,
+    tags:["定时任务","计划任务","crontab","自动执行","每天","定时"]
+  },
 ];
 
-// ---------- 配置 ----------
-const GROUP_SIZE = 5;      // 每组5个命令
-const TOTAL_CMDS = commandBank.length;
-let currentOffset = 0;     // 偏移组数，0 = 今日基准组
-let currentCommands = [];
-let quizIndex = 0, score = 0;
-let lastScoredIndex = null;
+// ============================================================
+//  分类 + 搜索索引
+// ============================================================
+const categories = [
+  {name:"文件操作", icon:"📁"},
+  {name:"权限",     icon:"🔐"},
+  {name:"进程",     icon:"⚙️"},
+  {name:"磁盘与内存",icon:"💾"},
+  {name:"网络",     icon:"🌐"},
+  {name:"文本处理", icon:"📝"},
+  {name:"压缩与归档",icon:"📦"},
+  {name:"系统信息", icon:"🖥️"},
+  {name:"用户管理", icon:"👤"},
+];
 
-// 获取今日基准起始索引（基于日期，每天不同）
-function getBaseStartIndex() {
-  const today = new Date();
-  const seed = today.getFullYear() * 365 + today.getMonth() * 31 + today.getDate();
-  return (seed * 5) % TOTAL_CMDS;
+// 关键词映射（中文描述 → 命令名）
+const keywordMap = {};
+commandBank.forEach(item => {
+  // 从 meaning、tags、detail 建立索引
+  const tokens = [
+    item.cmd, item.meaning, item.cat,
+    ...(item.tags || []),
+    item.detail,
+    ...(item.variants || []).map(v => v.desc)
+  ].join(' ').toLowerCase();
+  keywordMap[item.cmd] = tokens;
+});
+
+function searchCommands(query) {
+  if (!query.trim()) return [];
+  const q = query.toLowerCase().trim();
+  const scored = commandBank.map(item => {
+    const tokens = keywordMap[item.cmd];
+    let score = 0;
+    if (item.cmd === q) score += 100;
+    else if (item.cmd.startsWith(q)) score += 60;
+    if (item.meaning.includes(q)) score += 40;
+    if ((item.tags||[]).some(t => t.includes(q))) score += 35;
+    if (tokens.includes(q)) score += 20;
+    // partial match
+    const words = q.split(/\s+/);
+    words.forEach(w => { if (w && tokens.includes(w)) score += 10; });
+    return {item, score};
+  }).filter(x => x.score > 0).sort((a,b) => b.score - a.score);
+  return scored.map(x => x.item);
 }
 
-// 根据偏移组数获取命令列表（一组5个）
-function getCommandsByOffset(offset) {
-  const baseStart = getBaseStartIndex();
-  let start = (baseStart + offset * GROUP_SIZE) % TOTAL_CMDS;
-  const result = [];
-  for (let i = 0; i < GROUP_SIZE; i++) {
-    const idx = (start + i) % TOTAL_CMDS;
-    result.push({ ...commandBank[idx] });
+// ============================================================
+//  RENDER FUNCTIONS
+// ============================================================
+function renderHotTags() {
+  const hot = ["ls","cd","grep","chmod","ps","ssh","curl","tar","find","kill","df","top"];
+  const el = document.getElementById('hotTags');
+  if (!el) return;
+  el.innerHTML = hot.map(cmd => `<span class="related-tag" onclick="showDetail('${cmd}')">${cmd}</span>`).join('');
+}
+
+function renderCatSidebar() {
+  const el = document.getElementById('catSidebar');
+  if (!el) return;
+  el.innerHTML = categories.map(c =>
+    `<button class="cat-sidebar-btn" data-cat="${c.name}" onclick="selectCat('${c.name}',this)">
+      <span>${c.icon}</span>${c.name}
+    </button>`
+  ).join('');
+}
+
+let currentCat = null;
+function selectCat(name, btn) {
+  // activate all matching buttons (sidebar + mobile)
+  document.querySelectorAll('.cat-sidebar-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentCat = name;
+  // switch to browse tab
+  switchTab('browse');
+  const cmds = commandBank.filter(c => c.cat === name);
+  const titleEl = document.getElementById('browseTitle');
+  if (titleEl) {
+    const cat = categories.find(c => c.name === name);
+    titleEl.textContent = (cat ? cat.icon + ' ' : '') + name;
   }
-  return result;
+  renderCmdList(cmds, 'catCommandList');
 }
 
-// 刷新整个页面
-function refresh() {
-  currentCommands = getCommandsByOffset(currentOffset);
-  if (!currentCommands.length) return;
-  quizIndex = 0;
-  score = 0;
-  lastScoredIndex = null;
-  renderCommands();
-  renderQuiz();
-  updateProgress();
-}
-
-// 渲染命令列表
-function renderCommands() {
-  const container = document.getElementById('commandList');
-  if (!container) return;
-  container.innerHTML = '';
-  currentCommands.forEach(item => {
-    const div = document.createElement('div');
-    div.className = 'command-item';
-    div.innerHTML = `
-      <div class="cmd">${item.cmd}</div>
-      <div class="cmd-meaning">${item.meaning}</div>
-      <div class="cmd-example">$ ${item.example}</div>
-      <div class="cmd-tip">💡 ${item.tip}</div>
-    `;
-    container.appendChild(div);
+function renderCmdList(cmds, containerId) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  if (!cmds.length) { el.innerHTML = '<p style="color:var(--text-light);padding:1rem 0;">该类别暂无命令</p>'; return; }
+  el.innerHTML = cmds.map(item => cmdListHTML(item)).join('');
+  el.querySelectorAll('.cmd-list-item').forEach(div => {
+    div.addEventListener('click', () => showDetail(div.dataset.cmd));
   });
 }
 
-// 渲染当前测验题目
-function renderQuiz() {
-  if (!currentCommands.length) return;
-  const current = currentCommands[quizIndex];
-  document.getElementById('quizQuestion').innerHTML = `哪个命令的功能是：<b>${current.meaning}</b>？`;
-  document.getElementById('answerInput').value = '';
-  const resultDiv = document.getElementById('result');
-  resultDiv.innerHTML = '';
-  resultDiv.className = 'result';
+function cmdListHTML(item) {
+  return `<div class="cmd-list-item" data-cmd="${item.cmd}">
+    <div class="cmd-list-header">
+      <div>
+        <div class="cmd-name">${item.cmd}</div>
+        <div class="cmd-short">${item.meaning}</div>
+      </div>
+      <span style="color:var(--text-light);font-size:0.75rem;">查看详解 →</span>
+    </div>
+  </div>`;
 }
 
-// 更新进度条和得分
+// ============================================================
+//  DETAIL OVERLAY
+// ============================================================
+function showDetail(cmdName) {
+  const item = commandBank.find(c => c.cmd === cmdName);
+  if (!item) return;
+  const overlay = document.getElementById('detailOverlay');
+  document.getElementById('detailContent').innerHTML = buildDetailHTML(item);
+  overlay.style.display = 'block';
+  overlay.scrollTop = 0;
+}
+
+function buildDetailHTML(item) {
+  const variantRows = (item.variants || []).map(v =>
+    `<div class="variant-item">
+      <div class="variant-cmd">$ ${v.flag}</div>
+      <div class="variant-desc">${v.desc}</div>
+    </div>`
+  ).join('');
+
+  const ex2 = item.example2 ? `
+    <div class="section-head">更多示例</div>
+    <div class="example-block"><pre class="ex-output">${item.example2}</pre></div>` : '';
+
+  const warn = item.warning ? `<div class="warning-box">${item.warning}</div>` : '';
+
+  const relatedTags = (item.related || []).map(r =>
+    `<span class="related-tag" onclick="showDetail('${r}')">${r}</span>`
+  ).join('');
+
+  return `
+    <div class="detail-card">
+      <h3>${item.cmd}</h3>
+      <div class="tagline">${item.meaning}</div>
+      <div class="section-head">什么时候用</div>
+      <p style="font-size:0.93rem;line-height:1.8;color:var(--text);">${item.detail}</p>
+      ${warn}
+      <div class="section-head">常用参数和用法</div>
+      <div class="variants-grid">${variantRows}</div>
+      <div class="section-head">真实示例与输出</div>
+      <div class="example-block"><pre><span class="ex-output">${item.example}</span></pre></div>
+      ${ex2}
+      ${relatedTags ? `<div class="section-head">相关命令</div><div class="related-tags">${relatedTags}</div>` : ''}
+    </div>`;
+}
+
+document.getElementById('backBtn').onclick = () => {
+  document.getElementById('detailOverlay').style.display = 'none';
+};
+
+// ============================================================
+//  SEARCH
+// ============================================================
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+const searchHome = document.getElementById('searchHome');
+
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.trim();
+  if (!q) {
+    searchResults.classList.remove('visible');
+    searchHome.style.display = 'block';
+    return;
+  }
+  searchHome.style.display = 'none';
+  const results = searchCommands(q);
+  if (!results.length) {
+    searchResults.innerHTML = '<div class="search-empty">没有找到匹配的命令，试试其他描述词？</div>';
+  } else {
+    searchResults.innerHTML = results.map(item =>
+      `<div class="search-result-item" onclick="showDetail('${item.cmd}')">
+        <div class="sri-cmd">${item.cmd}</div>
+        <div class="sri-meaning">${item.meaning} · <span style="color:var(--text-light);font-size:0.82rem;">${item.cat}</span></div>
+      </div>`
+    ).join('');
+  }
+  searchResults.classList.add('visible');
+});
+
+// ============================================================
+//  TODAY'S LEARN GROUP
+// ============================================================
+const GROUP_SIZE = 5;
+let currentOffset = 0;
+
+function getBaseStartIndex() {
+  const today = new Date();
+  const seed = today.getFullYear() * 365 + today.getMonth() * 31 + today.getDate();
+  return (seed * 5) % commandBank.length;
+}
+
+function getCommandsByOffset(offset) {
+  const baseStart = getBaseStartIndex();
+  let start = (baseStart + offset * GROUP_SIZE) % commandBank.length;
+  const result = [];
+  for (let i = 0; i < GROUP_SIZE; i++) result.push(commandBank[(start + i) % commandBank.length]);
+  return result;
+}
+
+function renderLearnGroup() {
+  const cmds = getCommandsByOffset(currentOffset);
+  const el = document.getElementById('commandList');
+  if (!el) return;
+  el.innerHTML = cmds.map(item => cmdListHTML(item)).join('');
+  el.querySelectorAll('.cmd-list-item').forEach(div => {
+    div.addEventListener('click', () => showDetail(div.dataset.cmd));
+  });
+}
+
+document.getElementById('prevGroupBtn').onclick = () => { currentOffset--; renderLearnGroup(); resetQuiz(); };
+document.getElementById('nextGroupBtn').onclick = () => { currentOffset++; renderLearnGroup(); resetQuiz(); };
+document.getElementById('resetTodayBtn').onclick = () => { currentOffset = 0; renderLearnGroup(); resetQuiz(); };
+
+// ============================================================
+//  QUIZ
+// ============================================================
+let quizCmds = [], quizIndex = 0, score = 0, hintShown = false, lastScoredIndex = null;
+const answerInput = document.getElementById('answerInput');
+
+function resetQuiz() {
+  quizCmds = getCommandsByOffset(currentOffset);
+  quizIndex = 0; score = 0; hintShown = false; lastScoredIndex = null;
+  renderQuizQ(); updateProgress();
+}
+
+function renderQuizQ() {
+  if (!quizCmds.length) return;
+  const cur = quizCmds[quizIndex];
+  document.getElementById('quizQuestion').innerHTML =
+    `第 ${quizIndex+1}/${GROUP_SIZE} 题 &nbsp;·&nbsp; 哪个命令可以：<b>${cur.meaning}</b>？`;
+  answerInput.value = '';
+  document.getElementById('result').innerHTML = '';
+  document.getElementById('result').className = 'result';
+  document.getElementById('hintArea').innerHTML = '';
+  hintShown = false;
+}
+
+function checkAnswer() {
+  const answer = answerInput.value.trim();
+  if (!answer) return;
+  const cur = quizCmds[quizIndex];
+  const resultDiv = document.getElementById('result');
+  if (answer === cur.cmd) {
+    resultDiv.innerHTML = '✅ 正确！';
+    resultDiv.className = 'result ok';
+    if (lastScoredIndex !== quizIndex) { score++; lastScoredIndex = quizIndex; updateProgress(); }
+  } else {
+    if (!hintShown) {
+      document.getElementById('hintArea').innerHTML =
+        `<div class="hint-text">💡 提示：命令以 <b>${cur.cmd[0]}</b> 开头，共 ${cur.cmd.length} 个字符</div>`;
+      hintShown = true;
+      resultDiv.innerHTML = '❌ 再想想，提示在上面';
+      resultDiv.className = 'result err';
+    } else {
+      resultDiv.innerHTML = `❌ 正确答案是：<code style="font-family:var(--mono);background:var(--accent-light);padding:2px 6px;border-radius:4px;">${cur.cmd}</code>`;
+      resultDiv.className = 'result err';
+    }
+  }
+}
+
+function nextQuestion() {
+  quizIndex = (quizIndex + 1) % GROUP_SIZE;
+  lastScoredIndex = null;
+  renderQuizQ();
+}
+
 function updateProgress() {
   const fill = document.getElementById('progressFill');
   const text = document.getElementById('scoreText');
   if (fill) fill.style.width = `${(score / GROUP_SIZE) * 100}%`;
-  if (text) text.textContent = `当前组掌握：${score}/${GROUP_SIZE}`;
+  if (text) text.textContent = `当前组掌握：${score} / ${GROUP_SIZE}`;
 }
 
-// 检查答案
-function checkAnswer() {
-  if (!currentCommands.length) return;
-  const answer = document.getElementById('answerInput').value.trim();
-  const current = currentCommands[quizIndex];
-  const resultDiv = document.getElementById('result');
-  if (answer === current.cmd) {
-    resultDiv.innerHTML = '✅ 答对了，漂亮！继续下一题。';
-    resultDiv.className = 'result ok';
-    if (lastScoredIndex !== quizIndex) {
-      score++;
-      lastScoredIndex = quizIndex;
-      updateProgress();
-    }
-  } else {
-    resultDiv.innerHTML = `❌ 不对，正确答案是：<code>${current.cmd}</code>`;
-    resultDiv.className = 'result err';
-  }
+document.getElementById('checkBtn').onclick = checkAnswer;
+document.getElementById('nextBtn').onclick = nextQuestion;
+answerInput.addEventListener('keydown', e => { if (e.key === 'Enter') checkAnswer(); });
+
+// ============================================================
+//  TABS
+// ============================================================
+function switchTab(target) {
+  document.querySelectorAll('.tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.tab === target);
+  });
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const pg = document.getElementById('tab-' + target);
+  if (pg) pg.classList.add('active');
 }
 
-// 下一题
-function nextQuestion() {
-  if (!currentCommands.length) return;
-  quizIndex = (quizIndex + 1) % GROUP_SIZE;
-  lastScoredIndex = null;
-  renderQuiz();
-  updateProgress();
-}
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => switchTab(tab.dataset.tab));
+});
 
-// 上下组切换
-function nextGroup() { currentOffset++; refresh(); }
-function prevGroup() { currentOffset--; refresh(); }
-function resetToToday() { currentOffset = 0; refresh(); }
-
-// 绑定事件
-function bindEvents() {
-  document.getElementById('checkBtn').onclick = checkAnswer;
-  document.getElementById('nextBtn').onclick = nextQuestion;
-  document.getElementById('prevGroupBtn').onclick = prevGroup;
-  document.getElementById('nextGroupBtn').onclick = nextGroup;
-  document.getElementById('resetTodayBtn').onclick = resetToToday;
-  document.getElementById('legacyResetBtn').onclick = resetToToday;
-}
-
-// 初始化
-refresh();
-bindEvents();
+// ============================================================
+//  INIT
+// ============================================================
+renderHotTags();
+renderCatSidebar();
+renderLearnGroup();
+resetQuiz();
 </script>
 </body>
 </html>
