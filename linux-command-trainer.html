@@ -35,9 +35,9 @@ body{font-family:var(--sans);background:var(--cream);min-height:100vh;color:var(
 .tab{display:flex;align-items:center;gap:0.6rem;padding:0.6rem 0.85rem;font-size:0.88rem;color:var(--text-muted);cursor:pointer;border-radius:8px;transition:all 0.15s;font-family:var(--sans);border:none;background:none;width:100%;text-align:left;}
 .tab:hover{color:var(--text);background:var(--warm);}
 .tab.active{color:var(--text);background:var(--warm2);font-weight:500;}
-.sidebar-label{font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-light);padding:1.1rem 1.6rem 0.35rem;}
+
 .cat-sidebar{display:flex;flex-direction:column;gap:0.2rem;padding:0 0.75rem;}
-.cat-sidebar-btn{display:flex;align-items:center;gap:0.5rem;width:100%;padding:0.5rem 0.85rem;font-size:0.83rem;color:var(--text-muted);cursor:pointer;border-radius:7px;border:none;background:none;font-family:var(--sans);text-align:left;transition:all 0.15s;}
+.cat-sidebar-btn{display:flex;align-items:center;gap:0.4rem;width:100%;padding:0.38rem 0.85rem 0.38rem 1.8rem;font-size:0.78rem;color:var(--text-muted);cursor:pointer;border-radius:7px;border:none;background:none;font-family:var(--sans);text-align:left;transition:all 0.15s;}
 .cat-sidebar-btn:hover{color:var(--text);background:var(--warm);}
 .cat-sidebar-btn.active{color:var(--text);background:var(--warm2);font-weight:500;}
 .main-area{flex:1;min-width:0;}
@@ -163,7 +163,7 @@ input.answer-input:focus{border-color:var(--text-muted);}
 
 <!-- Mobile tabs -->
 <div class="mobile-tab-bar">
-  <div class="tab active" data-tab="search">🔍 搜索</div>
+  <div class="tab" data-tab="search">🔍 搜索</div>
   <div class="tab" data-tab="browse">📚 按类</div>
   <div class="tab" data-tab="learn">📖 学习</div>
   <div class="tab" data-tab="quiz">✏️ 测验</div>
@@ -173,11 +173,11 @@ input.answer-input:focus{border-color:var(--text-muted);}
 <!-- ========== SIDEBAR ========== -->
 <div class="sidebar">
   <div class="tab-bar">
-    <div class="tab active" data-tab="search">🔍 搜索命令</div>
     <div class="tab" data-tab="learn">📖 今日学习</div>
     <div class="tab" data-tab="quiz">✏️ 测验</div>
+    <div class="tab" data-tab="search">🔍 搜索命令</div>
+    <div class="tab" data-tab="browse">📚 常用命令</div>
   </div>
-  <div class="sidebar-label">按类浏览</div>
   <div class="cat-sidebar" id="catSidebar"></div>
 </div>
 
@@ -185,7 +185,7 @@ input.answer-input:focus{border-color:var(--text-muted);}
 <div class="main-area">
 
 <!-- ========== PAGE: SEARCH ========== -->
-<div class="container page active" id="tab-search">
+<div class="container page" id="tab-search">
   <div style="margin-bottom:1.5rem;">
     <h1>🔍 命令搜索</h1>
     <p style="color:var(--text-muted);font-size:0.95rem;margin-top:0.3rem;">用中文描述你想做的事，或者直接输入命令名</p>
@@ -214,7 +214,7 @@ input.answer-input:focus{border-color:var(--text-muted);}
 </div>
 
 <!-- ========== PAGE: LEARN ========== -->
-<div class="container page" id="tab-learn">
+<div class="container page active" id="tab-learn">
   <div style="margin-bottom:1.5rem;">
     <h1>📖 今日学习</h1>
     <p style="color:var(--text-muted);font-size:0.95rem;margin-top:0.3rem;">每组5个命令，每天不同，点击命令卡片展开详细讲解</p>
@@ -1188,7 +1188,7 @@ function renderCatSidebar() {
   if (!el) return;
   el.innerHTML = categories.map(c =>
     `<button class="cat-sidebar-btn" data-cat="${c.name}" onclick="selectCat('${c.name}',this)">
-      <span>${c.icon}</span>${c.name}
+      ${c.icon} ${c.name}
     </button>`
   ).join('');
 }
@@ -1201,6 +1201,8 @@ function selectCat(name, btn) {
   currentCat = name;
   // switch to browse tab
   switchTab('browse');
+  // keep cat buttons highlighted independent of tab switching
+
   const cmds = commandBank.filter(c => c.cat === name);
   const titleEl = document.getElementById('browseTitle');
   if (titleEl) {
