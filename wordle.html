@@ -211,6 +211,27 @@ body{
 .dist-bar{height:100%;background:var(--border2);border-radius:2px;min-width:4px;transition:width .5s ease;display:flex;align-items:center;padding-left:5px;font-size:10px;color:var(--text2);}
 .dist-bar.cur{background:var(--correct-bg);color:var(--correct);}
 
+
+/* HOW TO PLAY */
+.howto{width:100%;}
+.howto h3{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--text);margin-bottom:.75rem;}
+.howto p{font-size:12px;color:var(--text2);margin-bottom:.75rem;line-height:1.6;}
+.howto strong{color:var(--text);}
+.howto-examples{display:flex;flex-direction:column;gap:.75rem;}
+.howto-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.howto-row p{font-size:12px;color:var(--text2);margin:0;line-height:1.5;}
+.ex-tile{
+  width:34px;height:34px;
+  border:0.5px solid var(--border2);
+  border-radius:var(--radius);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'DM Mono',monospace;font-size:14px;font-weight:500;
+  color:var(--text);background:var(--bg);
+}
+.ex-tile.correct{background:var(--correct-bg);border-color:var(--correct-border);color:var(--correct);}
+.ex-tile.present{background:var(--present-bg);border-color:var(--present-border);color:var(--present);}
+.ex-tile.absent{background:var(--absent-bg);border-color:var(--absent-border);color:var(--absent);}
+
 /* DIVIDER */
 .divider{width:100%;height:0.5px;background:var(--border);}
 
@@ -259,6 +280,40 @@ body{
     </div>
     <div class="dist" id="dist"></div>
   </div>
+
+  <div class="divider"></div>
+
+  <div class="howto">
+    <h3>怎么玩</h3>
+    <p>猜一个 <strong>5个字母</strong> 的英文单词，共 <strong>6次</strong> 机会。</p>
+    <div class="howto-examples">
+      <div class="howto-row">
+        <div class="ex-tile correct">W</div>
+        <div class="ex-tile">E</div>
+        <div class="ex-tile">A</div>
+        <div class="ex-tile">R</div>
+        <div class="ex-tile">Y</div>
+        <p><strong>W</strong> 在正确位置 🟩</p>
+      </div>
+      <div class="howto-row">
+        <div class="ex-tile">P</div>
+        <div class="ex-tile">I</div>
+        <div class="ex-tile present">L</div>
+        <div class="ex-tile">L</div>
+        <div class="ex-tile">S</div>
+        <p><strong>L</strong> 在单词里，但位置不对 🟨</p>
+      </div>
+      <div class="howto-row">
+        <div class="ex-tile">V</div>
+        <div class="ex-tile">A</div>
+        <div class="ex-tile">G</div>
+        <div class="ex-tile">U</div>
+        <div class="ex-tile absent">E</div>
+        <p><strong>E</strong> 不在这个单词里 ⬜</p>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <script>
