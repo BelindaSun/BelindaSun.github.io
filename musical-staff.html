@@ -146,6 +146,23 @@ body{font-family:var(--font-sans);background:#FDFCFA;min-height:100vh;}
 const AudioCtx=window.AudioContext||window.webkitAudioContext;
 let ctx=null;
 function getCtx(){if(!ctx)ctx=new AudioCtx();return ctx;}
+// 手机解锁：首次用户触摸时 resume AudioContext（iOS Safari 必须）
+function unlockAudio(){
+  const ac=getCtx();
+  if(ac.state==='suspended')ac.resume();
+  // 播放一个无声的短音，解锁 iOS 的音频限制
+  const buf=ac.createBuffer(1,1,22050);
+  const src=ac.createBufferSource();
+  src.buffer=buf;
+  src.connect(ac.destination);
+  src.start(0);
+  document.removeEventListener('touchstart',unlockAudio,true);
+  document.removeEventListener('touchend',unlockAudio,true);
+  document.removeEventListener('click',unlockAudio,true);
+}
+document.addEventListener('touchstart',unlockAudio,true);
+document.addEventListener('touchend',unlockAudio,true);
+document.addEventListener('click',unlockAudio,true);
 const NOTES=[
   {name:'C',solfege:'Do / 1',freq:261.63,cy:160,ledger:true,pos:'第一加线下'},
   {name:'D',solfege:'Re / 2',freq:293.66,cy:150,ledger:false,pos:'第一间下方'},
@@ -165,7 +182,7 @@ const INTERVALS=[
   {label:'纯五度',notes:['C','G'],desc:'最和谐之一，空旷辽远'},
   {label:'纯八度',notes:['C','C5'],desc:'同音高低，完全谐和'},
 ];
-function playTone(freq,dur=0.6,delay=0){const ac=getCtx();const osc=ac.createOscillator();const gain=ac.createGain();osc.type='sine';osc.frequency.value=freq;gain.gain.setValueAtTime(0,ac.currentTime+delay);gain.gain.linearRampToValueAtTime(0.35,ac.currentTime+delay+0.02);gain.gain.exponentialRampToValueAtTime(0.001,ac.currentTime+delay+dur);osc.connect(gain);gain.connect(ac.destination);osc.start(ac.currentTime+delay);osc.stop(ac.currentTime+delay+dur+0.05);}
+function playTone(freq,dur=0.6,delay=0){const ac=getCtx();const doPlay=()=>{const osc=ac.createOscillator();const gain=ac.createGain();osc.type='sine';osc.frequency.value=freq;gain.gain.setValueAtTime(0,ac.currentTime+delay);gain.gain.linearRampToValueAtTime(0.35,ac.currentTime+delay+0.02);gain.gain.exponentialRampToValueAtTime(0.001,ac.currentTime+delay+dur);osc.connect(gain);gain.connect(ac.destination);osc.start(ac.currentTime+delay);osc.stop(ac.currentTime+delay+dur+0.05);};if(ac.state==='suspended'){ac.resume().then(doPlay);}else{doPlay();}}
 function playNote(n,delay=0){playTone(n.freq,0.7,delay);}
 let lastBtn=null;
 function highlightNote(n,btn){if(lastBtn){lastBtn.classList.remove('playing');}if(btn){btn.classList.add('playing');lastBtn=btn;setTimeout(()=>btn.classList.remove('playing'),750);}const hl=document.getElementById('hl-dot');hl.setAttribute('cx',noteX(n));hl.setAttribute('cy',n.cy);hl.setAttribute('opacity','1');const led=document.getElementById('hl-led');if(n.ledger){led.setAttribute('x1',noteX(n)-18);led.setAttribute('y1',n.cy);led.setAttribute('x2',noteX(n)+18);led.setAttribute('y2',n.cy);led.setAttribute('opacity','0.8');}else{led.setAttribute('opacity','0');}const lbl=document.getElementById('hl-label');lbl.textContent=n.name+'（'+n.solfege+'）— '+n.pos;lbl.setAttribute('opacity','1');playNote(n);setTimeout(()=>{hl.setAttribute('opacity','0');led.setAttribute('opacity','0');lbl.setAttribute('opacity','0');},900);}
