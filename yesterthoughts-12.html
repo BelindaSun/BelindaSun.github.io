@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>你是我永远的天使 （上） — Belinda Sun</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --cream: #fdfcfa;
+        --warm: #f5f0e8;
+        --text: #3d2a5c;
+        --text-muted: #7a5fa0;
+        --text-light: #b09cc8;
+        --accent: #854f0b;
+        --accent-light: #faeeda;
+        --border: rgba(26, 26, 24, 0.12);
+        --serif: Georgia, "Times New Roman", serif;
+        --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      body {
+        background: var(--cream);
+        color: var(--text);
+        font-family: var(--sans);
+        min-height: 100vh;
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 3rem;
+        border-bottom: 0.5px solid var(--border);
+        background: var(--cream);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .nav-logo {
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        color: var(--text);
+        text-decoration: none;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+      }
+      article {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 4rem 2rem 6rem;
+      }
+      .article-meta {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+      .article-col {
+        font-size: 0.75rem;
+        color: var(--accent);
+        background: var(--accent-light);
+        padding: 3px 10px;
+        border-radius: 20px;
+        letter-spacing: 0.04em;
+      }
+      .article-date {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+      .lang-switch {
+        margin-left: auto;
+        display: flex;
+        gap: 0.5rem;
+      }
+      .lang-btn {
+        font-size: 0.78rem;
+        padding: 3px 10px;
+        border-radius: 20px;
+        border: 0.5px solid var(--border);
+        background: none;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .lang-btn.active {
+        background: var(--text);
+        color: var(--cream);
+        border-color: var(--text);
+      }
+      .article-title {
+        font-family: var(--serif);
+        font-size: 2rem;
+        font-weight: normal;
+        line-height: 1.4;
+        margin-bottom: 0.4rem;
+        color: var(--text);
+      }
+      .article-divider {
+        width: 40px;
+        height: 0.5px;
+        background: var(--text-light);
+        margin-bottom: 1.5rem;
+      }
+      .tts-bar {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+      }
+      .tts-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        background: var(--warm);
+        border: 0.5px solid var(--border);
+        border-radius: 20px;
+        padding: 5px 14px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: var(--sans);
+      }
+      .tts-btn:hover {
+        border-color: var(--text-muted);
+        color: var(--text);
+      }
+      .tts-btn.playing {
+        background: var(--accent-light);
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+      .tts-status {
+        font-size: 0.78rem;
+        color: var(--text-light);
+      }
+      .article-body {
+        font-family: var(--serif);
+        font-size: 1.05rem;
+        line-height: 2.1;
+        color: var(--text);
+      }
+      .article-body p {
+        margin-bottom: 1.4rem;
+      }
+      .article-nav {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 2rem 2rem 4rem;
+        display: flex;
+        justify-content: space-between;
+        border-top: 0.5px solid var(--border);
+      }
+      .article-nav a {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .article-nav a:hover {
+        color: var(--text);
+      }
+      .article-nav span {
+        font-size: 0.88rem;
+        color: var(--text-light);
+      }
+      footer {
+        border-top: 0.5px solid var(--border);
+        padding: 1.5rem 3rem;
+        text-align: center;
+      }
+      footer p {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" class="nav-logo">Belinda Sun</a>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="yesterthoughts-index.html">Yesterthoughts</a></li>
+      </ul>
+    </nav>
+
+    <article>
+      <div class="article-meta">
+        <span class="article-col">Yesterthoughts</span>
+        <span class="article-date">2006年</span>
+        <div class="lang-switch">
+          <span class="lang-btn active">中文</span>
+          <a href="yesterthoughts-12-en.html" class="lang-btn">EN</a>
+        </div>
+      </div>
+      <h1 class="article-title">你是我永远的天使 （上）</h1>
+      <div class="article-divider"></div>
+
+      <div class="tts-bar">
+        <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">
+          🔊 朗读
+        </button>
+        <span class="tts-status" id="ttsStatus"></span>
+      </div>
+
+      <div class="article-body" id="articleBody">
+        <p><strong>前言:</strong></p>
+
+        <p>
+          女儿这几天非常之乖, 我有些不解, 她告诉我说：<br />
+          “因为妈妈答应我表现好就给我买圣诞礼物啊!”<br />
+          “那圣诞完后就不乖啦?”<br />
+          “接着乖啊!”<br />
+          我还没来得及表扬, 她又接着说:“因为还有新年嘛!”
+        </p>
+
+        <p>
+          这样的有趣的事情太多, 而我从未曾记录过, 主要是自己从来都拙于言辞,
+          更不要谈写作, 然而这两天却总有一种冲动, 想要写点儿什么送给她,
+          所以就有了以下的文字, 想到哪儿, 写到哪儿, 有时也许会语无伦次,
+          有时也许又前言不搭后语, 不过, 我想, 不管写成什么样儿, 女儿都会喜欢的,
+          你们说呢?
+        </p>
+
+        <p><strong>之一 天使到我家</strong></p>
+
+        <p>
+          我起初希望自己能生个男孩,不为别的,只是想,如果家里以后有俩男子汉,那我岂不是时时处处受照顾,一旦有任何危险，他俩一定会不约而同地说:我来保护你!
+          那种美美的感觉想一想都觉陶醉啊… …
+        </p>
+
+        <p>
+          后来发现上帝真是明察秋毫, 没让我的阴谋得逞, 怀孕8个月做B超时,
+          就知道这种幸福只有在梦里才能寻到了:
+          那天斗胆问了一下大夫,开始以为协和医院的大夫不会说, 可大夫痛快地告诉我,
+          女孩儿!
+        </p>
+
+        <p>
+          有一点点的失望, 怀孕以来还第一次情绪低落.拨了个电话给老LG，
+          电话那边的他安慰我说, 没关系, 女孩儿不也挺好的嘛. 哼, 不好有什么办法,
+          反正看看老许专家的理论分析, 我们家本就该生女孩, 老许也真是的,
+          要早几年研究出来, 让我踏踏实实地别有那么多的幻想,
+          也不至于现在这样失望吧!
+        </p>
+
+        <p>
+          知道了答案心里倒踏实了,不再有性别悬念我就开始制造另外一种悬念:女儿会长什么样呢?后来想着想着就伤心了,
+          长得象谁都不会好看哪! LG很自信地说, 女儿长得象爸爸,
+          别担心,咱闺女肯定漂亮; 我抬眼看看他, 更伤心了.
+        </p>
+
+        <p>
+          生女儿不是很顺利, 还有一个星期才到预产期, 我却不得不先住进了医院,
+          而且家属还不允许探望, LG和我从此靠写小纸条沟通,
+          文笔颇佳的他写小纸条也文绉绉的, 读起来很是一种享受,
+          只是当时完全被恐惧和寂寞包围着,
+          以至于当时到底写了些什么到现在一点儿也不记得了.
+        </p>
+
+        <p>
+          最令我生气的是, 我女儿出生那天, 他竟然不在医院, 说来倒也不能完全怪他,
+          还未到预产期,医生决定用催产素, 结果护士未传达给他.
+          当我在产床上疼得死去活来时, 我都能想象他又坐在电脑前,
+          很投入地或者忙什么反汇编, 或者又在研究Windows的内核, 越想越生气,
+          越生气越疼……
+        </p>
+
+        <p>
+          女儿在1998年10月 19日 22点15分出世, 54厘米, 3950克; 我精疲力尽,
+          迷迷糊糊, 我心里反反复复地重复一句话: 谢天谢地, 终于生了,
+          管他儿子女儿, 总算解放了! 那会儿真应该安排记者采访,
+          我想我当时肯定会由衷而充满深情地说:“共产党就是英明, 一对夫妻只生一个,
+          我绝对拥护, 打死我也不会再要第二个了.”
+        </p>
+
+        <p>
+          女儿只哭了几声就睁开眼睛,因为我听到有人在说, 看, 看, 她眼睛真大,
+          眼珠已经会转! 真漂亮, 简直是天使啊! LG闻讯赶来, 看着自己的漂亮天使,
+          欣喜不已.
+        </p>
+
+        <p>
+          我却在第一天晚上根本就没见到天使长得什么样, 整晚都没睡着, 又累又疼,
+          小孩子们一晚上哭声此起彼伏, 从没停过, 护士进进出出, 灯光忽明忽暗,
+          搞得我一夜未眠.
+        </p>
+
+        <p>
+          而我的女儿, 一晚上却乖乖躺在那里, 不哭不闹, 安安静静, 丝毫没有打搅我,
+          她似乎从出生的第一天起, 就已经是一个善解人意, 心疼妈妈的小小天使了……
+        </p>
+
+        <p><strong>之二 终于见到了天使的模样</strong></p>
+
+        <p>
+          我的一位男性同学曾这么跟我描述他第一次见到他刚出世儿子的情景:
+          我在外面焦急地等啊等啊, 终于护士将他抱了出来, 要递给我, 只看了一眼,
+          我就傻了, 是我儿子吗, 整个一小老头儿啊, 脸上全是褶儿, 我愣是没接…
+        </p>
+
+        <p>
+          的确, 刚出生的小孩儿, 什么样儿的都有, 我早有了思想准备; 第二天,
+          在LG小心翼翼象抱颗定时炸弹似的将她放到我床上的时候,
+          我第一次见到了我的女儿: 各种样子都曾设想过, 唯独没把她想成如此美丽,
+          说她是天使一点儿都不过分, 由于刚刚洗过澡, 头发黑黑的, 稍稍还有点儿卷,
+          眼睛大大的, 有一点儿陷, 眼珠黑亮亮的, 小脸粉嘟嘟的, 真的是‘白里透红,
+          与众不同’, 小嘴唇也是粉红粉红的, 我惊喜万分: 真好啊,
+          以后不必给她买口红了!
+        </p>
+
+        <p>
+          接下来赶紧将女儿从头到脚仔细检查了一遍, 连手指缝都没放过,
+          洋娃娃’完好无缺’, 我的心里被幸福和惊喜填得满满的,
+          昨天的痛苦完全模糊了, 想要儿子的初衷亦早忘得一干二净:
+          只要是自己的孩子, 不管性别, 不管容貌, 聪明健康足矣!
+          更别说她还是那么可人的一个小洋娃娃.
+        </p>
+
+        <p>
+          女儿出生时天使一般的小模样, LG到现在提起都感叹不已; 而我的妈妈,
+          唠唠叨叨也总说是我们几辈子修来的福气:
+          妈妈曾在我怀孕后担心地偷偷跟姐姐说, 他们要是生了孩子, 那得多难看啊.
+          哼, 我妈可真是, 太夸张了吧, 要说我LG丑我还承认（哈哈）, 我虽说不漂亮,
+          但也不至于那么丑吧（有点儿心虚）; 她还说我姐小时候太丑,
+          以至于她都不愿抱出去, 可我姐姐在学校明明是校花儿嘛.
+        </p>
+
+        <p>
+          这回, 我可以理直气壮地质问她: 怎么样, 杞人忧天了吧,
+          我女儿比你女儿漂亮吧? 在这个问题上我永远属于赢家,
+          因为是和否都对我有利:).
+        </p>
+
+        <p>
+          女儿漂亮肯定不全是爸爸的遗传, 当然我也有自知之明,
+          优点也不都揽在自己身上. 她是集中了全家的优点并使之发扬: 皮肤白象奶奶,
+          眼睛有点儿深陷象爷爷,大眼睛和双眼皮象爸爸, 而我颇费了一番功夫,
+          终于发现她眼睛的形状, 再还有就是神态都象我, 心里总算是安慰了一些;
+          女儿只有一个缺点就是额头有点儿大, 就是所谓的’ben儿头’, 这一点,
+          到现在也没有明确遗传自谁, 其实一看就知道, 可这个人死活不愿意承认……
+        </p>
+
+        <p>
+          然而, 沉浸在幸福中的妈妈没出一天就发现,
+          原来天使也不永远都是美丽和善解人意的化身, 第一天刚过,
+          她就发现烦恼已经在敲门了.
+        </p>
+
+        <p><strong>之三 幸福之后的烦恼</strong></p>
+
+        <p>
+          结婚前看到孕妇, 只一眼便觉无趣并会示以同情.
+          而当自己不幸成为孕妇后猛然发现, 原来它竟是那么充实的一种幸福:
+          你会莫名其妙很开心, 甚至时不时地笑出声来, 家务不必做了,
+          工作可以放松要求了, 甚至什么事情都可以为所欲为了,
+          你会得到陌生人友好的关怀和照顾,
+          几乎全世界的人都让着你了…这种感觉憧憬了好多年没想到还终有成真的那一天啊.
+        </p>
+
+        <p>
+          我的一位女朋友就曾经很幸福但却也无比遗憾地短暂地享受过这样的待遇,
+          以为怀孕了, 兴奋的LG承担了所有家务, 并对她百般疼爱,
+          后来发现原来只是虚惊一场, ‘好啊你,’ LG气愤不已, ‘ 骗吃骗喝还骗不干活,
+          太过分了, 哼, 赶快做饭去……’
+        </p>
+
+        <p>
+          呵呵, 的确, 我也是, 在女儿出生之前, 一切是那么的幸福而满足, 现在看来,
+          那几个月也算得上一生中迄今为止最幸福的几个月了,
+          而幸福的感觉虽是莫名其妙但却发自内心的 - 一定是荷尔蒙的功劳吧;
+          幸福对我可能更加青睐一些, 我没有特别的反应, 从来不吐,
+          只是前期不想吃东西, 时不时晚上被饿醒, 有时饿极了心里害怕, 把LG推醒:
+          亲爱的, 对不起, 可能宝贝儿让我给饿死了, 怎么办啊……
+        </p>
+
+        <p>
+          太罗嗦了? 好, 不唠叨了, 你们自己去体会或回忆吧,
+          我接着说幸福之后的无尽’烦恼’吧.
+        </p>
+
+        <p>
+          烦恼大部分的家庭都是从孩子降临开始的, 而我的烦恼则始于第二天的晚上:
+          天使一改前一日的乖巧文静, 啊啊哭个不停; 我不明所以, 赶快抱起她,
+          不哭了, 放下, 又哭了; 再抱起, 不哭, 放下, 又哭, 谁给安了个自动开关啊,
+          我奇怪. 可怜极度虚弱的我, 就抱着她坐了整整一个晚上, 只是奇怪,
+          为什么别人家的妈妈都能心安理得地躺着睡觉, 任凭自己的宝贝儿啊啊哭呢?
+          我是无论如何也做不到啊.
+        </p>
+
+        <p>
+          后来才知道, 这才只是万里长征的第一步, 意想不到的烦恼, 痛苦,
+          艰辛都相继接踵而至了.
+        </p>
+
+        <p>
+          医院尚有护士帮忙, 回家后可麻烦了, 还好, 跟护士学了几招,
+          于是乎手忙脚乱地就开始实践了, 换尿片是最可笑的一个环节,
+          首先过分地相信了护士, 以为尿不湿对婴儿不好, 没敢用,
+          而是使用她们推荐的一种尿片, 可怜我LG转遍了半个北京城才买到;
+          可尿片太小, 总得换, 我刚刚换完,
+          还未完成护士教授的’如何给婴儿打包’四步中的第二步, 她已经又尿了,
+          然后又得从头开始, … 哎呀呀, 工作上的事情从未难倒过我,
+          这个小东西我还真让我有点儿不知所措了.
+        </p>
+
+        <p>
+          好在有家人的帮忙, 我几乎不需做什么, 只是给她吃, 给她喝, 给她盖被,
+          我LG最值得一提, 一米八多的个子, 愣是抱不了八斤重的小东西, 太软了,
+          无从下手, 后来, 他自己想了个主意, 先把她放在我们家的大枕头上,
+          然后连枕头带她一起抱着:).
+        </p>
+
+        <p>
+          几个月的时候小天使很是兴奋, 每天早上五点钟就准时醒了,
+          大约是看到我刚睡着, 没人陪她, 她就开始用自己的语言, 说话或唱歌,
+          声音很大, 真的很大 - 我都担心邻居来敲门, 而且躺在那儿她是自问自答,
+          非常ENJOY, 我觉得特好笑, 所以印象很深, 虽然每天早上睡意才来,
+          就被她吵醒很痛苦, 可的确感觉非常可乐.
+        </p>
+
+        <p>
+          再后来更过分的事情发生在她身上, 一岁多的时候, 是夏天,
+          每天两三点或三四点钟, 她醒了, 重复一句让我心惊胆颤的话: ‘上外外,
+          上外外’, 意思就是不愿在家里呆着, 要出去遛个弯儿; 好家伙, 比遛小狗还早,
+          真是痛苦啊, 我公公婆婆, 我LG加我, 一个推车, 一个扇扇子, 一个拿水,
+          一个断后, 我看黑社会老大也就这待遇, 她这个女老大可好,
+          躺在那里很舒服的样子, 时不时眼睛睁一睁, 翻一翻,
+          还不放心监督我们一下好像, 我心说, 你赶紧睡,眼睛别翻了,
+          我还得上班呢白天, 你倒好, 白天睡够了, 晚上遛我们, 象话吗?!
+        </p>
+
+        <p>
+          再大些时, 带她去木兰围场骑马, 她害怕不骑, 同事出主意说我俩合骑一匹,
+          她先是紧张, 后来慢慢放松, 再后来竟上瘾了, 结果就不愿意要我了 -
+          的确两人合骑一匹都不舒服. 于是可怜的我就只有跟着走的份了,
+          我跟在马屁股后面, 在炎炎烈日下, 行走在一望无际的草地/沙漠中,
+          忍受着蚊虫叮咬, 还得伴着她的速度和节奏, 走了漫长的好几公里啊, 呵呵,
+          一提起木兰围场, 我实在是不愿回首:(.
+        </p>
+
+        <p>
+          这些也就罢了, 过去就过去了, 可睡眠不好却成了一辈子的问题: 你想啊,
+          每天晚上都要醒十几次, 给她吃喝, 给她盖被, 她一翻身, 一蹬腿, 一抬胳膊,
+          一伸懒腰, 我都会醒, 而有时醒了,
+          就睡不着了.这几年我自己的英语听力没见有多大长进,
+          另外一种听力倒是突飞猛进, 达到登峰造极的程度了, 那就是,
+          哪怕一根绣花针掉地上, 我都听得清清楚楚! 试图改变, 让自己别太在乎她,
+          可母性使然, 谈何容易.
+        </p>
+
+        <p>
+          除了睡眠, 社交活动也几乎断绝.
+          我留在北京的大学及研究生同学加一起超过50人, 然而,
+          女儿出生后的四五年里, 几乎没有参加过一次同学聚会, 外面的世界精彩也好,
+          无奈也罢, 我全也不晓得了,到现在也想不明白,
+          为什么多了这么一个小东西少了那么多的时间和自由.
+        </p>
+
+        <p>
+          还有啊, 完全没有自己的生活和空间啦, 原来的我, 看电影, 书, 电视, 话剧,
+          打牌(拖拉机), 聚会, 聊天, 旅游, 样样热衷, 然而,
+          好像好几年没有机会享受自己的生活了, 二人世界, 自由, 都成了奢望,
+          生活中, 除了她, 没有别人,
+          我这个上学时永远是’一缺三’的牌迷几年也不曾摸牌…
+          倒是跟着她培养了不少新的’爱好’ – 不喜欢运动的我要陪她跑步, 跳绳, 打球,
+          做游戏, 逛公园, 看表演…而且看样子得一直这样了.
+        </p>
+
+        <p>
+          但是女儿, 一天天在长大, 时时带来惊喜， 还有感动，而自己,
+          仿佛童话里的小王子, 深情凝视玫瑰, 静静等待花开.这种感觉和期盼,
+          真的美而温馨。而当有天，花儿开了，心里满是喜悦，有谁还会记得当初的那些辛苦烦恼忧伤呢?
+        </p>
+
+        <p>（未完待续）</p>
+      </div>
+    </article>
+
+    <div
+      class="giscus"
+      style="max-width: 640px; margin: 0 auto; padding: 0 2rem 3rem"
+    ></div>
+    <script
+      src="https://giscus.app/client.js"
+      data-repo="BelindaSun/BelindaSun.github.io"
+      data-repo-id="R_kgDOSVl7Iw"
+      data-category="Announcements"
+      data-category-id="DIC_kwDOSVl7I84C8scG"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="bottom"
+      data-theme="light"
+      data-lang="zh-CN"
+      crossorigin="anonymous"
+      async
+    ></script>
+
+    <div class="article-nav">
+      <a href="yesterthoughts-11.html">← 上一篇</a>
+      <a href="yesterthoughts-13.html">下一篇 →</a>
+    </div>
+    <footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
+
+    <script>
+      let speaking = false,
+        paused = false;
+      const btn = document.getElementById("ttsBtn");
+      const status = document.getElementById("ttsStatus");
+      function toggleTTS() {
+        if (!speaking) {
+          startTTS();
+        } else if (paused) {
+          window.speechSynthesis.resume();
+          paused = false;
+          btn.textContent = "⏸ 暂停";
+          btn.classList.add("playing");
+          status.textContent = "朗读中…";
+        } else {
+          window.speechSynthesis.pause();
+          paused = true;
+          btn.textContent = "▶ 继续";
+          btn.classList.remove("playing");
+          status.textContent = "已暂停";
+        }
+      }
+      function startTTS() {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(
+          document.getElementById("articleBody").innerText,
+        );
+        u.lang = "zh-CN";
+        u.rate = 0.95;
+        u.onstart = () => {
+          speaking = true;
+          paused = false;
+          btn.textContent = "⏸ 暂停";
+          btn.classList.add("playing");
+          status.textContent = "朗读中…";
+        };
+        u.onend = () => {
+          speaking = false;
+          paused = false;
+          btn.textContent = "🔊 朗读";
+          btn.classList.remove("playing");
+          status.textContent = "";
+        };
+        u.onerror = () => {
+          speaking = false;
+          btn.textContent = "🔊 朗读";
+          btn.classList.remove("playing");
+          status.textContent = "出错了，请重试";
+        };
+        window.speechSynthesis.speak(u);
+      }
+    </script>
+  </body>
+</html>

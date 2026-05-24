@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>你是我永远的天使 （下） — Belinda Sun</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --cream: #fdfcfa;
+        --warm: #f5f0e8;
+        --text: #3d2a5c;
+        --text-muted: #7a5fa0;
+        --text-light: #b09cc8;
+        --accent: #854f0b;
+        --accent-light: #faeeda;
+        --border: rgba(26, 26, 24, 0.12);
+        --serif: Georgia, "Times New Roman", serif;
+        --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      body {
+        background: var(--cream);
+        color: var(--text);
+        font-family: var(--sans);
+        min-height: 100vh;
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 3rem;
+        border-bottom: 0.5px solid var(--border);
+        background: var(--cream);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .nav-logo {
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        color: var(--text);
+        text-decoration: none;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+      }
+      article {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 4rem 2rem 6rem;
+      }
+      .article-meta {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+      .article-col {
+        font-size: 0.75rem;
+        color: var(--accent);
+        background: var(--accent-light);
+        padding: 3px 10px;
+        border-radius: 20px;
+        letter-spacing: 0.04em;
+      }
+      .article-date {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+      .lang-switch {
+        margin-left: auto;
+        display: flex;
+        gap: 0.5rem;
+      }
+      .lang-btn {
+        font-size: 0.78rem;
+        padding: 3px 10px;
+        border-radius: 20px;
+        border: 0.5px solid var(--border);
+        background: none;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .lang-btn.active {
+        background: var(--text);
+        color: var(--cream);
+        border-color: var(--text);
+      }
+      .article-title {
+        font-family: var(--serif);
+        font-size: 2rem;
+        font-weight: normal;
+        line-height: 1.4;
+        margin-bottom: 0.4rem;
+        color: var(--text);
+      }
+      .article-divider {
+        width: 40px;
+        height: 0.5px;
+        background: var(--text-light);
+        margin-bottom: 1.5rem;
+      }
+      .tts-bar {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+      }
+      .tts-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        background: var(--warm);
+        border: 0.5px solid var(--border);
+        border-radius: 20px;
+        padding: 5px 14px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: var(--sans);
+      }
+      .tts-btn:hover {
+        border-color: var(--text-muted);
+        color: var(--text);
+      }
+      .tts-btn.playing {
+        background: var(--accent-light);
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+      .tts-status {
+        font-size: 0.78rem;
+        color: var(--text-light);
+      }
+      .article-body {
+        font-family: var(--serif);
+        font-size: 1.05rem;
+        line-height: 2.1;
+        color: var(--text);
+      }
+      .article-body p {
+        margin-bottom: 1.4rem;
+      }
+      .article-nav {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 2rem 2rem 4rem;
+        display: flex;
+        justify-content: space-between;
+        border-top: 0.5px solid var(--border);
+      }
+      .article-nav a {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .article-nav a:hover {
+        color: var(--text);
+      }
+      .article-nav span {
+        font-size: 0.88rem;
+        color: var(--text-light);
+      }
+      footer {
+        border-top: 0.5px solid var(--border);
+        padding: 1.5rem 3rem;
+        text-align: center;
+      }
+      footer p {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" class="nav-logo">Belinda Sun</a>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="yesterthoughts-index.html">Yesterthoughts</a></li>
+      </ul>
+    </nav>
+
+    <article>
+      <div class="article-meta">
+        <span class="article-col">Yesterthoughts</span>
+        <span class="article-date">2006年</span>
+        <div class="lang-switch">
+          <span class="lang-btn active">中文</span>
+          <a href="yesterthoughts-13-en.html" class="lang-btn">EN</a>
+        </div>
+      </div>
+      <h1 class="article-title">你是我永远的天使 （下）</h1>
+      <div class="article-divider"></div>
+
+      <div class="tts-bar">
+        <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">
+          🔊 朗读
+        </button>
+        <span class="tts-status" id="ttsStatus"></span>
+      </div>
+
+      <div class="article-body" id="articleBody">
+        <p><strong>之四 快乐天使语录</strong></p>
+
+        <p>
+          一， 女儿跟我一样, 对数字极其敏感和喜欢,
+          她很小的时候在街上看到有人打牌, 非吵吵要玩,
+          对她百依百顺的爷爷居然真买回了牌, 结果小家伙一会儿就学会了所有数字,
+          还欲罢不能, 看到数字就念, 看到什么就数什么; 而我, 喜欢恶作剧,
+          故意给了她一个珍珠手链, 然后就在旁边看热闹。她会数数,
+          却不知从哪一个开始数起的, 结果十几个珠珠她数到了一百多还欲罢不能,
+          我乐得不行, 对学计算机的LG说: 麻烦了, 进死循环了,
+          赶紧写个语句让她出来吧; LG很心疼, 抱起她, 说你妈太坏, 咱不数了,
+          结果女儿大哭, 用小拳头打爸爸, ‘不嘛, 不嘛, 我还要数, 我还没数完哪。’
+        </p>
+
+        <p>
+          二，记不清多大的时候, 我给她讲故事, 我说,
+          猫妈妈给猫嘟嘟买了一辆自行车, 结果猫嘟嘟一骑上, 车就嗖地一声出去了,
+          找不到妈妈了, 可怎么办呢？对了, 她那时刚会说话, 还说不了整句子呢,
+          她结果反应特快, 回答: ‘倒, 倒, 倒….’, 可不是嘛, 倒车不就倒回来了嘛。
+        </p>
+
+        <p>
+          三， 稍微大一些了, 她会看电视了, 跟着电视学了不少与年龄不相称的词汇,
+          比如说, 女人, 男人, 我从来都不说的词她倒是时不时挂在嘴边,
+          举一例如下:<br />
+          我经常出差, 每次走她都很伤心。<br />
+          “妈妈, 你走了, 我晚上跟谁睡啊?”<br />
+          “当然跟你爸爸啊!”<br />
+          “可我从来不跟男人睡觉的。”<br />
+          呵呵呵, 少儿不宜啊。<br />
+          出差回来后, 她会说：<br />
+          “妈妈, 我不想跟你睡了。”<br />
+          “为什么?”<br />
+          “因为我发现我现在已经习惯跟男人睡觉了。”<br />
+          啊, 我晕, 晕, 晕…
+        </p>
+
+        <p>
+          四，公司组织活动, 可带一名家属, 饭桌上我宣布这一消息,
+          爸爸、奶奶那会儿都在, 女儿很紧张地扫了一遍桌子, 小声怯生生地问: “妈妈,
+          那你会带谁啊?” 我神情凝重地说:“嗯, 那得看谁表现好, 谁表现好我带谁去!”
+          她紧张地又用更慢的速度看了饭桌上的每个人, 很担心并带着哭音儿说 :”妈妈,
+          你不会带奶奶去吧?”
+        </p>
+
+        <p>
+          五，有时候觉得现在的小孩除了玩没有别的, 所以我就会批评她说 :
+          “我看你天天只知道玩, 别的什么都不想!” ‘不对呀, 妈妈，’ 她很认真地说,
+          “我还知道别的呢!” “你会知道什么?” 我倒有些好奇了。”吃啊, 喝啊,
+          乐啊，不是吃喝玩乐嘛。” 我哭笑不得。
+        </p>
+
+        <p>
+          六，有一次, 她与我同事聊天, 听到人家说话带口音, 她就说,
+          “你肯定不是北京人, 我妈妈也不是, 你们都不是生在北京,
+          我们三个只有我是北京人!”
+          哦，原来是按出生地算的，又也许是按说话带不带口音算的。同事乐，说：“那你们幼儿园小朋友都是北京人吗?”
+          “ 才不是呢, 我们班也有不少外地人呢。” “哦，那他们都是哪里人啊？”
+          “他们有的是美国的, 有的是澳大利亚的, 还有…...” 我同事已经晕了,
+          原来是这样的外地人…
+        </p>
+
+        <p>
+          七，她时不时问我一个我也无法回答的问题：<br />
+          “ 妈妈, 我是什么时候变成女孩的?”<br />
+          “变?!” 我不解。<br />
+          “是啊, 我一生下来, 头发那么短, 肯定是男孩,
+          你知道我什么时候变成女孩了吗?”<br />
+          “不, 你生下来就是女孩儿!”<br />
+          “啊, 妈妈, 你真棒, 我头发那么短, 你就知道我是女孩儿？”
+          她对我的崇拜又增加了几毫米, “你怎么知道的?”
+        </p>
+
+        <p>
+          八， 女儿在书房看书,
+          我因为什么事情LG不让我如愿我就故意夸张地大声说：“不行, 你欺负人!”
+          还特意带了哭腔喊的。 女儿三步并作两步跑过来, 神情严肃而紧张, “ 妈妈,
+          怎么了？” 二话不说, 小拳头已经砸到了爸爸腰上, 还用讨好的语气问我:
+          “妈妈, 出气了吗?” 我说, “没有。” 她就厉声质问:“爸爸,
+          (两个字都是四声降调), 你为什么欺负我妈妈(两个字都是一声)?” LG委屈地说,
+          “是她打我。”“是吗, 妈妈?” 我说“是”, 她马上露出笑脸,
+          没事儿似地一句话不说就走了。LG叹息: 为什么啊？
+        </p>
+
+        <p>
+          九, 女儿不愿意吃菜, 每天吃饭都得好说歹说地劝, 那天,
+          趁她没留意我就夹了菜到她碗里, 她很生气, 把筷子往桌上一放,
+          两只胳膊一抱, 眼睛一翻问: “谁夹的?!” 我说:“我!” 她马上把手放下来,
+          换了个人似的, 温柔地说 : “ 妈妈, 我不知道是你夹的, 谢谢妈妈!”
+          我当然马上批评了她, 可是, 心里却暗暗地感动她给予我的与众不同的待遇。
+        </p>
+
+        <p>
+          仿佛真是天生的, 我不是跟她在一起时间最长的,也不是对她最有耐心的,
+          更不是照顾她最多的, 可她偏偏就是最喜欢我, 最听我的话,
+          甚至时不时地让我感觉愧疚, 我对她的好竟是不及她对我的好啊！
+        </p>
+
+        <p><strong>之五 天使的感动</strong></p>
+
+        <p>
+          短短几年的时间,
+          快乐、烦恼、担心伴着女儿一路成长，还有一样，感动和惊喜，是跟随她的每一次进步跌跌撞撞却又无法阻挡地来到你面前的。
+        </p>
+
+        <p>
+          女儿很可爱, 长得也算漂亮, 聪明更不必说, 唯一的不足就是胆小,
+          长这么大从未离开家人一步。有年公司邀请瑞典一合唱组合表演,
+          那是我第一次带她参加公司活动,
+          同事们见到她甚是喜欢：眼睛大大的（现在怎么变小了呢:( ), 由于有些怕生,
+          还雾蒙蒙的, 大家笑说琼瑶小说的女主人公来到现场了。她虽只有两岁,
+          却已经会在键盘上敲26个英文字母了, 让大家很是惊讶。我一直认为她太内向,
+          可那天晚上她竟然成了最疯的一个, 有几位同事忍不住对我说:
+          你“儿子”真淘气啊:)。最让我惊喜的是,
+          她竟然克服胆怯主动上台献花…...那天我的感动和惊喜真多啊,
+          可能女儿还有一些hidden talents等着我进一步发掘呢。
+        </p>
+
+        <p>
+          女儿最喜欢的是过生日, 喜欢吃生日蛋糕, 吹蜡烛。 她三岁生日时,
+          我在外出差, 本回不了家,不过为了女儿, 还是排除万难赶回家中,
+          却已是晚上十点半。她本来困了,
+          可见到我时眼睛放光兴奋激动的表情至今犹在眼前, 最感动的是,
+          LG说她一直馋得撅着小屁股凑近蛋糕用鼻子闻,
+          却坚决拒绝爸爸于心不忍想要给她切一小块蛋糕解馋的提议：不行,
+          谁都不许动, 一定要等妈妈回来看一眼才切,
+          而且还只能是妈妈亲手切…...所以她就是在这种期盼中等啊等啊等我到晚上10点半啊,
+          到现在想起, 我的眼睛还忍不住湿润呢。
+        </p>
+
+        <p>
+          她欢迎爸爸妈妈回家的仪式也很特别, 听爸爸说, 门铃响, 她一开门,
+          爸爸通常会看到的是一张充满期待的笑脸, 可一般一秒钟不到就换成了撅嘴,
+          ‘怎么是你?” 爸爸很是伤心, 精神物质, 无所不用, 却怎么都收买不到她的心;
+          而我的待遇则是这个样子滴: 她通常会像只轻盈的蝴蝶似地飞奔而来, 抱住我,
+          把脸贴在我身上, 用温柔的不能再温柔的语调叫一声’妈妈’,
+          然后赶紧把拖鞋拿到我脚下，并飞快地从我肩上帮我把小包拿下来,
+          很费力地帮我往屋里拎电脑包, 嘴里还大声命令, 爸爸, 倒杯水,
+          快点儿：）而爸爸, 只有无可奈何地苦笑和摇头…
+        </p>
+
+        <p>
+          她总是把我的生日记得清清楚楚, 每逢我过生日她最忙活, 最开心, 什么都管,
+          什么都操心,
+          俨然成了我们家第一把手。我有两次生日不在国内无法回家，她很失望,
+          有了第一次错过后, 第二次时她自做主张让我过了一次阴历生日, 而且啊,
+          自己生日没有买的冰淇淋蛋糕, 在我生日当天她逼着家里人转了几个店买到了,
+          只因我曾向她提起喜欢, 她就从此铭记在心…...可她也喜欢冰淇淋味道的啊,
+          我怎么就没在她生日的时候给她买呢...
+        </p>
+
+        <p>
+          去年的圣诞节, 我给她买了圣诞树, 今年的圣诞节, 她在圣诞树点亮的时候,
+          牵手让我到房间里看样东西, 桌上是一张很简陋的纸片, 上面是这样写的:
+        </p>
+
+        <p>
+          “XXX, (直呼我的大名啊)<br />
+          我是 sheng dan 老人, 你wei 我 fu 出了hen多, 我 song gei 你两块tang .”
+          而两块大白兔奶糖静静地躺在纸片上...
+        </p>
+
+        <p>
+          这是她的原话, 汉字+拼音, 后来她自己也意识到第二句中不应是’为我’,
+          因为是以圣诞老人的身份写的, 所以应是'为你女儿'。可是,
+          就是因为她由衷的发自肺腑的’为我’, 让我感动了很久很久… ...我的女儿,
+          我几年的付出在这一瞬间, 在你尚显幼稚的字里行间, 显得是那么微不足道,
+          而你给予我的发自心底深深的爱, 却使我永远无法忘怀啊。
+        </p>
+
+        <p>
+          我真的是受之有愧,
+          我曾经在我工作繁忙的时候责备她不断打电话打扰我......我曾答应带她去科技馆/剧院/公园,
+          却由于工作忙无法成行而丝毫没有愧疚感...
+          ...我还曾经在接她时光顾了购物而迟到五分钟让她在门口无助地等候......我还在很多时候都应该花更多的时间陪她一起玩…
+        </p>
+
+        <p>
+          而她,
+          却会在我跟LG闹别扭后帮我擦掉泪水并轻声安慰我'别往心里去’......还会时不时送我一张简陋的卡片,
+          她的名字在上, 前面写个’FROM’, 我的名字在下, 写个’TO’, 中间是一颗心…
+          ...还会在车上, 当我累了时, 让我靠一靠她的弱小肩膀,
+          而当我心疼地说她太小无法靠时, 她会坐得直直的特意增加自己的高度…
+        </p>
+
+        <p>写到这里, 我的眼泪又来了......</p>
+
+        <p>
+          同事常问我, 对女儿的期望是什么, 希望把女儿培养成什么样子的人,
+          我想对我的天使说, 我对你没有任何要求, 我只希望你做一个健康快乐的天使,
+          真的, 健康快乐足矣,无他!!!
+        </p>
+
+        <p>
+          我想起姚明的话: 麦迪是红花, 不要说绿叶, 让我做泥土也愿意;
+          而我想让我宝贝女儿知道的是, 如池莉所言，如果玫瑰的盛开需要肥沃的土壤,
+          那么我情愿’不朽’在玫瑰的根下。
+        </p>
+
+        <p>全文完</p>
+
+        <p>2006年</p>
+      </div>
+    </article>
+
+    <div
+      class="giscus"
+      style="max-width: 640px; margin: 0 auto; padding: 0 2rem 3rem"
+    ></div>
+    <script
+      src="https://giscus.app/client.js"
+      data-repo="BelindaSun/BelindaSun.github.io"
+      data-repo-id="R_kgDOSVl7Iw"
+      data-category="Announcements"
+      data-category-id="DIC_kwDOSVl7I84C8scG"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="bottom"
+      data-theme="light"
+      data-lang="zh-CN"
+      crossorigin="anonymous"
+      async
+    ></script>
+
+    <div class="article-nav">
+      <a href="yesterthoughts-12.html">← 上一篇</a>
+      <span>To be continued</span>
+    </div>
+    <footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
+
+    <script>
+      let speaking = false,
+        paused = false;
+      const btn = document.getElementById("ttsBtn");
+      const status = document.getElementById("ttsStatus");
+      function toggleTTS() {
+        if (!speaking) {
+          startTTS();
+        } else if (paused) {
+          window.speechSynthesis.resume();
+          paused = false;
+          btn.textContent = "⏸ 暂停";
+          btn.classList.add("playing");
+          status.textContent = "朗读中…";
+        } else {
+          window.speechSynthesis.pause();
+          paused = true;
+          btn.textContent = "▶ 继续";
+          btn.classList.remove("playing");
+          status.textContent = "已暂停";
+        }
+      }
+      function startTTS() {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(
+          document.getElementById("articleBody").innerText,
+        );
+        u.lang = "zh-CN";
+        u.rate = 0.95;
+        u.onstart = () => {
+          speaking = true;
+          paused = false;
+          btn.textContent = "⏸ 暂停";
+          btn.classList.add("playing");
+          status.textContent = "朗读中…";
+        };
+        u.onend = () => {
+          speaking = false;
+          paused = false;
+          btn.textContent = "🔊 朗读";
+          btn.classList.remove("playing");
+          status.textContent = "";
+        };
+        u.onerror = () => {
+          speaking = false;
+          btn.textContent = "🔊 朗读";
+          btn.classList.remove("playing");
+          status.textContent = "出错了，请重试";
+        };
+        window.speechSynthesis.speak(u);
+      }
+    </script>
+  </body>
+</html>

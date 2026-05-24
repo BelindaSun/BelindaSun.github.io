@@ -1,0 +1,730 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>You Are My Angel Forever (Part 1) — Belinda Sun</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --cream: #fdfcfa;
+        --warm: #f5f0e8;
+        --text: #3d2a5c;
+        --text-muted: #7a5fa0;
+        --text-light: #b09cc8;
+        --accent: #854f0b;
+        --accent-light: #faeeda;
+        --border: rgba(26, 26, 24, 0.12);
+        --serif: Georgia, "Times New Roman", serif;
+        --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      body {
+        background: var(--cream);
+        color: var(--text);
+        font-family: var(--sans);
+        min-height: 100vh;
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 3rem;
+        border-bottom: 0.5px solid var(--border);
+        background: var(--cream);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .nav-logo {
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        color: var(--text);
+        text-decoration: none;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+      }
+      article {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 4rem 2rem 6rem;
+      }
+      .article-meta {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+      .article-col {
+        font-size: 0.75rem;
+        color: var(--accent);
+        background: var(--accent-light);
+        padding: 3px 10px;
+        border-radius: 20px;
+        letter-spacing: 0.04em;
+      }
+      .article-date {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+      .lang-switch {
+        margin-left: auto;
+        display: flex;
+        gap: 0.5rem;
+      }
+      .lang-btn {
+        font-size: 0.78rem;
+        padding: 3px 10px;
+        border-radius: 20px;
+        border: 0.5px solid var(--border);
+        background: none;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .lang-btn.active {
+        background: var(--text);
+        color: var(--cream);
+        border-color: var(--text);
+      }
+      .article-title {
+        font-family: var(--serif);
+        font-size: 2rem;
+        font-weight: normal;
+        line-height: 1.4;
+        margin-bottom: 0.4rem;
+        color: var(--text);
+      }
+      .article-divider {
+        width: 40px;
+        height: 0.5px;
+        background: var(--text-light);
+        margin-bottom: 1.5rem;
+      }
+      .tts-bar {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+      }
+      .tts-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        background: var(--warm);
+        border: 0.5px solid var(--border);
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: var(--sans);
+      }
+      .tts-btn:hover {
+        border-color: var(--text-muted);
+        color: var(--text);
+      }
+      .tts-btn.playing {
+        background: var(--accent-light);
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+      .tts-status {
+        font-size: 0.78rem;
+        color: var(--text-light);
+      }
+      .article-body {
+        font-family: var(--serif);
+        font-size: 1.05rem;
+        line-height: 2.1;
+        color: var(--text);
+      }
+      .article-body p {
+        margin-bottom: 1.4rem;
+      }
+      .article-nav {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 2rem 2rem 4rem;
+        display: flex;
+        justify-content: space-between;
+        border-top: 0.5px solid var(--border);
+      }
+      .article-nav a {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .article-nav a:hover {
+        color: var(--text);
+      }
+      .article-nav span {
+        font-size: 0.88rem;
+        color: var(--text-light);
+      }
+      footer {
+        border-top: 0.5px solid var(--border);
+        padding: 1.5rem 3rem;
+        text-align: center;
+      }
+      footer p {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" class="nav-logo">Belinda Sun</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="yesterthoughts-index.html">Yesterthoughts</a></li>
+      </ul>
+    </nav>
+
+    <article>
+      <div class="article-meta">
+        <span class="article-col">Yesterthoughts</span>
+        <span class="article-date">2006</span>
+        <div class="lang-switch">
+          <a href="yesterthoughts-12.html" class="lang-btn">中文</a>
+          <span class="lang-btn active">EN</span>
+        </div>
+      </div>
+
+      <h1 class="article-title">You Are My Angel Forever (Part 1)</h1>
+      <div class="article-divider"></div>
+
+      <div class="tts-bar">
+        <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">
+          🔊 Read aloud
+        </button>
+        <span class="tts-status" id="ttsStatus"></span>
+      </div>
+
+      <div class="article-body" id="articleBody">
+        <p><strong>Preface</strong></p>
+
+        <p>
+          My daughter had been unusually well-behaved these past few days, and I
+          couldn’t quite figure out why. Finally, she explained:<br />
+          “Because Mommy promised to buy me a Christmas present if I behave!”<br />
+          “So after Christmas, you won’t behave anymore?”<br />
+          “I will!”<br />
+          I had barely opened my mouth to praise her when she added
+          thoughtfully:<br />
+          “Because then it’ll be New Year’s.”
+        </p>
+
+        <p>
+          Moments like these were endless, yet I had never written them down.
+          Mostly because words had never been my strength, much less writing.
+          And yet, over the past few days, I felt an inexplicable urge to leave
+          her something in words.<br />
+          So these pages came into being.<br />
+          I wrote whatever came to mind, wherever my thoughts wandered. At times
+          the memories may tumble out chaotically; at times the stories may
+          refuse to connect neatly. But I think no matter how imperfect these
+          words are, my daughter will love them anyway.<br />
+          Don’t you think so?
+        </p>
+
+        <p><strong>I. An Angel Arrives</strong></p>
+
+        <p>
+          At first, I had hoped for a son.<br />
+          Not for any grand reason. I simply imagined that if our family had two
+          men in the house, I would surely be spoiled and protected forever.
+          Whenever danger appeared, the two of them would leap forward in unison
+          and declare:<br />
+          “I’ll protect you!”<br />
+          Even imagining it felt intoxicatingly wonderful.
+        </p>
+
+        <p>
+          But later I realized God sees through everything. He never allowed my
+          little conspiracy to succeed.<br />
+          When I was eight months pregnant, an ultrasound revealed the truth.
+          That day, I nervously asked the doctor the baby’s gender. I had
+          assumed doctors at Peking Union Medical College Hospital would refuse
+          to tell me, but the doctor answered cheerfully and directly:<br />
+          “A girl!”
+        </p>
+
+        <p>
+          I was a little disappointed — the first genuine disappointment I’d
+          felt throughout the entire pregnancy.<br />
+          I called my husband immediately. Over the phone, he comforted me
+          gently:<br />
+          “It’s fine. Girls are wonderful too.”<br />
+          Well, what choice did I have? Besides, according to Old Xu’s so-called
+          “expert theories,” our family was destined to have a daughter anyway.
+          Honestly, if he had conducted his research a few years earlier, I
+          could have spared myself all those unrealistic fantasies and avoided
+          this crushing disappointment now.
+        </p>
+
+        <p>
+          Still, once the mystery was solved, my heart settled down. Since there
+          was no longer suspense about the baby’s gender, I created a new
+          suspense for myself:<br />
+          What would she look like?<br />
+          But the more I imagined, the sadder I became. Whoever she resembled,
+          how could she possibly turn out beautiful?<br />
+          My husband, however, was full of confidence.<br />
+          “If she looks like her father, don’t worry — our daughter will
+          definitely be pretty.”<br />
+          I looked up at him.<br />
+          And felt even more distressed.
+        </p>
+
+        <p>
+          My daughter’s birth was anything but smooth.<br />
+          There was still a week before my due date, yet I was unexpectedly
+          admitted to the hospital early. Family visits weren’t allowed, so from
+          then on my husband and I communicated through handwritten notes.<br />
+          Being naturally gifted with words, he even managed to make little
+          scraps of paper sound literary and elegant. Reading them should have
+          been delightful. But at the time, I was drowning in fear and
+          loneliness, so completely consumed by them that I remember nothing he
+          actually wrote.
+        </p>
+
+        <p>
+          What irritated me most was this:<br />
+          On the very day our daughter was born, he wasn’t even at the
+          hospital.<br />
+          To be fair, it wasn’t entirely his fault. I hadn’t yet reached my due
+          date, and the doctor had suddenly decided to induce labor. The nurse
+          simply forgot to notify him.<br />
+          So while I lay on the delivery bed in agony, I could vividly picture
+          him somewhere in front of his computer, fully absorbed — either
+          reverse-engineering something or studying the Windows kernel yet
+          again.<br />
+          The more I imagined it, the angrier I became.<br />
+          And the angrier I became, the more it hurt.
+        </p>
+
+        <p>
+          Our daughter was born at 10:15 p.m. on October 19, 1998.<br />
+          Fifty-four centimeters long. Three thousand nine hundred and fifty
+          grams.<br />
+          I was utterly exhausted, drifting in and out of consciousness. One
+          thought looped endlessly in my head:<br />
+          Thank God. It’s finally over. Boy or girl, who cares? I’m free at
+          last.<br />
+          Honestly, journalists should have interviewed me right then. I would
+          probably have declared tearfully and sincerely:<br />
+          “The government is absolutely right — one child per family is more
+          than enough. Beat me to death and I still won’t have a second one.”
+        </p>
+
+        <p>
+          My daughter cried only a few times before opening her eyes.<br />
+          I heard voices around me exclaiming:<br />
+          “Look! Look at her eyes — they’re huge! Her pupils are already
+          moving!”<br />
+          “She’s beautiful. She looks exactly like an angel.”<br />
+          My husband rushed to the hospital as soon as he heard the news,
+          utterly enchanted by his beautiful little angel.
+        </p>
+
+        <p>
+          As for me, I didn’t even get a proper look at her that first night.<br />
+          I never slept.<br />
+          I was exhausted and in pain. Babies cried one after another throughout
+          the ward without pause. Nurses rushed in and out. Lights flickered on
+          and off all night long.<br />
+          And yet my daughter lay there quietly the entire night.<br />
+          No crying. No fussing. No disturbance at all.<br />
+          It was as though from the very first day of her life, she already
+          understood how to love her mother — a tiny angel who knew
+          instinctively how to spare me even a little suffering.
+        </p>
+
+        <p><strong>II. At Last, I Saw My Angel’s Face</strong></p>
+
+        <p>
+          One of my male classmates once described seeing his newborn son for
+          the first time:<br />
+          “I waited outside anxiously forever. Finally the nurse carried him out
+          and handed him toward me. I took one look and froze. Was that really
+          my son? He looked exactly like a tiny old man — wrinkled all over. I
+          was so shocked I didn’t even take him.”
+        </p>
+
+        <p>
+          Honestly, newborn babies can look like almost anything, so I had
+          prepared myself mentally.<br />
+          The next day, my husband carefully carried our daughter over to my bed
+          as though he were transporting a live bomb. And for the first time, I
+          truly saw her.<br />
+          I had imagined every possible version of her.<br />
+          Except this one.<br />
+          Never had I imagined she could be so beautiful.<br />
+          Calling her an angel was not an exaggeration at all.<br />
+          Fresh from her bath, her hair was jet black with the slightest natural
+          curl. Her eyes were enormous, deeply set, with gleaming dark pupils.
+          Her tiny face glowed rosy pink, fair and luminous in a way that seemed
+          almost unreal. Even her lips were soft pink.<br />
+          I was overjoyed.<br />
+          Wonderful, I thought. In the future I won’t even need to buy her
+          lipstick.
+        </p>
+
+        <p>
+          Then I hurriedly inspected her from head to toe, carefully checking
+          every finger and every toe. The little “doll” was perfectly intact.<br />
+          My heart overflowed with happiness and astonishment.<br />
+          The pain of the previous day faded instantly into the background. My
+          old desire for a son disappeared completely.<br />
+          Because when it is your own child, none of those things truly matter —
+          not gender, not appearance. Health and happiness are enough.<br />
+          And ours just happened to be an unbearably adorable little doll
+          besides.
+        </p>
+
+        <p>
+          Even now, my husband still marvels at how angelic she looked at
+          birth.<br />
+          My mother, meanwhile, never stops saying that our daughter must be the
+          blessing accumulated through generations of good fortune.<br />
+          Later my mother confessed that while I was pregnant, she had secretly
+          worried to my older sister:<br />
+          “With those two as parents, imagine how unfortunate-looking the baby
+          might turn out…”<br />
+          Honestly! My mother was ridiculous.<br />
+          Fine, I admit my husband isn’t exactly handsome. But me? I may not be
+          beautiful, but surely I’m not that bad-looking… right? (Though
+          admittedly, not with overwhelming confidence.)<br />
+          She even claimed my sister had been so ugly as a child that she felt
+          embarrassed taking her outside — despite the fact my sister later
+          became the school beauty.<br />
+          Now, finally, I could confront her triumphantly:<br />
+          “Well? Weren’t you worrying for nothing? Isn’t my daughter prettier
+          than yours?”<br />
+          On this issue, I am forever the winner.<br />
+          Because either answer benefits me.
+        </p>
+
+        <p>
+          Of course, our daughter’s beauty didn’t come entirely from her father.
+          I’m self-aware enough not to claim all the credit for myself.<br />
+          She simply inherited the best features from everyone and improved upon
+          them.<br />
+          Her fair skin came from her grandmother. Her slightly deep-set eyes
+          from her grandfather. Her large eyes and double eyelids from her
+          father.<br />
+          As for me, after much careful study, I finally discovered that the
+          shape of her eyes — and especially her expressions — resembled mine.
+          That comforted me greatly.<br />
+          Her only flaw was a slightly prominent forehead — what we call a “big
+          brow bone.” To this day, no one has officially admitted where she
+          inherited it from.<br />
+          Though honestly, the answer is obvious.<br />
+          That particular person simply refuses to confess.
+        </p>
+
+        <p>
+          Yet less than a day into motherhood, I discovered something
+          important:<br />
+          Even angels are not always beautiful, serene, and understanding.<br />
+          By the second night, trouble had already come knocking at my door.
+        </p>
+
+        <p><strong>III. The Troubles That Follow Happiness</strong></p>
+
+        <p>
+          Before marriage, whenever I saw pregnant women, I instinctively pitied
+          them.<br />
+          Then I became one myself and suddenly discovered pregnancy was
+          actually a strangely fulfilling happiness.<br />
+          You become inexplicably cheerful. Sometimes you even burst into
+          laughter for no reason at all. Housework becomes optional. Work
+          expectations soften. You are suddenly allowed to indulge yourself in
+          ways the world normally forbids.<br />
+          Strangers treat you kindly. People yield to you everywhere.<br />
+          It feels as though the entire world has become gentler toward you.<br />
+          I had spent years longing for that feeling without realizing it might
+          someday truly arrive.
+        </p>
+
+        <p>
+          One of my girlfriends once enjoyed — and tragically lost — this
+          privilege briefly.<br />
+          Thinking she was pregnant, her husband happily took over all the
+          housework and showered her with affection. Later they discovered it
+          had merely been a false alarm.<br />
+          Her husband exploded:<br />
+          “So that’s what this was? You tricked me into feeding you, serving
+          you, and doing all the chores? Enough already — go cook dinner!”
+        </p>
+
+        <p>
+          Honestly, before my daughter was born, life felt extraordinarily happy
+          and complete. Looking back now, those few months may well have been
+          the happiest period of my life so far.<br />
+          Perhaps hormones deserve all the credit.<br />
+          Pregnancy was kind to me too. I never suffered morning sickness. I
+          simply lost my appetite at first and occasionally woke in the middle
+          of the night starving.<br />
+          Sometimes I would panic from hunger and shake my husband awake:<br />
+          “Darling… I’m sorry… I think the baby might have starved to death…”
+        </p>
+
+        <p>
+          But enough rambling.<br />
+          Let me continue with the endless “troubles” that followed
+          happiness.<br />
+          Most families’ troubles begin once the child arrives.<br />
+          Mine began on the second night.<br />
+          My little angel transformed completely from the calm, quiet newborn of
+          the first day. Suddenly she cried nonstop.<br />
+          I had no idea what was wrong.<br />
+          The moment I picked her up, she stopped crying.<br />
+          The moment I put her down, she wailed again.<br />
+          Pick up: silence.<br />
+          Put down: crying.<br />
+          Who installed this automatic switch?<br />
+          In the end, weak and exhausted beyond words, I sat there holding her
+          the entire night.<br />
+          What puzzled me most was this: how could other mothers lie there
+          peacefully sleeping while their own babies cried endlessly nearby?<br />
+          I simply couldn’t do it.
+        </p>
+
+        <p>
+          Later I realized this was only the first step of a very, very long
+          march.<br />
+          Unexpected exhaustion, anxiety, hardship, and chaos followed one after
+          another.<br />
+          At the hospital, nurses helped.<br />
+          At home, reality struck.<br />
+          We had learned a few techniques from the nurses and immediately began
+          practicing them in total panic and confusion.<br />
+          Changing diapers was especially ridiculous.<br />
+          Trusting the nurses far too much, we became convinced disposable
+          diapers were bad for babies, so we used old-fashioned cloth inserts
+          instead. My poor husband searched half of Beijing to buy them.<br />
+          But they were tiny and constantly needed changing.<br />
+          I would barely finish replacing one before the baby peed again — often
+          before I even completed step two of the nurse’s elaborate four-step
+          “baby wrapping procedure.”<br />
+          Everything had to start over from the beginning.<br />
+          Work had never defeated me before.<br />
+          Yet this tiny little creature left me utterly helpless.
+        </p>
+
+        <p>
+          Thankfully, our family helped tremendously. I barely needed to do
+          anything except feed her, give her water, and tuck her in.<br />
+          My husband deserves special mention.<br />
+          Over six feet tall, he somehow couldn’t figure out how to hold an
+          eight-pound baby. She was too soft, too fragile.<br />
+          Eventually he invented his own method:<br />
+          First place the baby on a large pillow.<br />
+          Then carry both the pillow and the baby together.
+        </p>
+
+        <p>
+          A few months later, our little angel developed another fascinating
+          habit.<br />
+          Every morning at exactly five o’clock, she woke up full of energy.<br />
+          Seeing that I had only just fallen asleep, she decided to entertain
+          herself by “talking” or singing loudly in her own mysterious baby
+          language.<br />
+          Very loudly.<br />
+          So loudly that I genuinely worried neighbors might come knock on the
+          door.<br />
+          She would lie there chatting away to herself, asking and answering her
+          own questions, thoroughly enjoying herself.<br />
+          Even now I remember it vividly.<br />
+          Painful as it was to be awakened just as sleep finally arrived, it was
+          also unbelievably funny.
+        </p>
+
+        <p>
+          Later things escalated further.<br />
+          When she was around one year old, she developed a terrifying summer
+          habit: waking at two or three in the morning demanding,<br />
+          “Go outside! Go outside!”<br />
+          Meaning she refused to stay indoors and wanted a stroll.<br />
+          Imagine that — needing walks earlier than a puppy.<br />
+          So there we were in the middle of the night:<br />
+          One person pushing the stroller.<br />
+          One person fanning her.<br />
+          One person carrying water.<br />
+          One person trailing behind.<br />
+          Honestly, even mafia bosses don’t travel with that level of
+          entourage.<br />
+          Meanwhile the little female boss reclined comfortably in the stroller,
+          occasionally opening one eye to supervise us.<br />
+          I would silently beg:<br />
+          Please go back to sleep. I still have to work tomorrow.<br />
+          You slept all day long and now you’re walking us at night. Is this
+          remotely reasonable?
+        </p>
+
+        <p>
+          Later, when she was a bit older, we took her horse riding at Mulan
+          Paddock. She was too scared to ride alone, so a colleague suggested
+          the two of us share a horse. At first she was tense, then slowly
+          relaxed, and then became so addicted that she didn’t even want me with
+          her anymore — to be fair, sharing a horse wasn’t comfortable for
+          either of us.<br />
+          So there I was, walking miserably behind the horse through the
+          scorching sun, across endless grasslands and sand dunes, bitten by
+          mosquitoes, forced to match the horse’s pace and her endless
+          demands.<br />
+          We walked for several kilometers.<br />
+          Honestly, whenever Mulan Paddock is mentioned, I still flinch.
+        </p>
+
+        <p>
+          Those things I could eventually laugh about. But the lost sleep became
+          a lifelong problem.<br />
+          Just imagine: I woke up more than ten times every single night — to
+          feed her, give her water, tuck her in. Every time she turned over,
+          kicked her legs, raised an arm, stretched lazily — I would wake up.
+          And sometimes, once I woke up, I couldn’t fall back asleep.<br />
+          Over the years, my English listening didn’t improve much, but another
+          kind of listening advanced to an almost supernatural level. Even the
+          faintest sound — a single dropped needle — I could hear clearly.<br />
+          I tried to stop being so hyper‑aware of her. But motherhood isn’t
+          something you can turn off so easily.
+        </p>
+
+        <p>
+          Beyond sleep, social life nearly disappeared.<br />
+          I had more than fifty university and graduate school classmates living
+          in Beijing. Yet in the first four or five years after my daughter was
+          born, I attended practically no gatherings at all. Whether the outside
+          world was wonderful or unbearable, I simply didn’t know anymore. Even
+          now I still don’t fully understand how one tiny creature could consume
+          so much time and freedom.
+        </p>
+
+        <p>
+          And then there was the loss of life and space.<br />
+          I used to love so many things: movies, books, television, plays, card
+          games, parties, chatting, traveling. But for years, I had almost no
+          chance to enjoy any of them. Two‑person worlds and freedom became
+          distant luxuries. There was no one else but her. Even my card‑game
+          addiction — I used to be the “always needing three more” player —
+          completely disappeared.<br />
+          Instead, I developed a whole new set of “hobbies” just to keep up with
+          her. I, who had never enjoyed exercise, found myself running, jumping
+          rope, playing ball, making up games, going to parks, watching
+          performances… and it looked like this might go on forever.
+        </p>
+
+        <p>
+          Yet somehow, despite all the exhaustion, all the chaos, all the
+          sacrifices, she continued growing day by day, bringing endless
+          surprises and moments of tenderness.<br />
+          And I, like the Little Prince watching over his rose, found myself
+          quietly waiting for her to bloom.<br />
+          That anticipation itself was beautiful.<br />
+          And when one day the flower finally blossoms, who still remembers all
+          the hardship and sorrow that came before?
+        </p>
+
+        <p>（To be continued）</p>
+      </div>
+    </article>
+
+    <div
+      class="giscus"
+      style="max-width: 640px; margin: 0 auto; padding: 0 2rem 3rem"
+    ></div>
+    <script
+      src="https://giscus.app/client.js"
+      data-repo="BelindaSun/BelindaSun.github.io"
+      data-repo-id="R_kgDOSVl7Iw"
+      data-category="Announcements"
+      data-category-id="DIC_kwDOSVl7I84C8scG"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="bottom"
+      data-theme="light"
+      data-lang="en"
+      crossorigin="anonymous"
+      async
+    ></script>
+
+    <div class="article-nav">
+      <a href="yesterthoughts-11-en.html">← Previous</a>
+      <a href="yesterthoughts-13-en.html">Next →</a>
+    </div>
+    <footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
+
+    <script>
+      let speaking = false,
+        paused = false;
+      const btn = document.getElementById("ttsBtn");
+      const status = document.getElementById("ttsStatus");
+      function toggleTTS() {
+        if (!speaking) {
+          startTTS();
+        } else if (paused) {
+          window.speechSynthesis.resume();
+          paused = false;
+          btn.textContent = "⏸ Pause";
+          btn.classList.add("playing");
+          status.textContent = "Reading…";
+        } else {
+          window.speechSynthesis.pause();
+          paused = true;
+          btn.textContent = "▶ Resume";
+          btn.classList.remove("playing");
+          status.textContent = "Paused";
+        }
+      }
+      function startTTS() {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(
+          document.getElementById("articleBody").innerText,
+        );
+        u.lang = "en-US";
+        u.rate = 0.95;
+        u.onstart = () => {
+          speaking = true;
+          paused = false;
+          btn.textContent = "⏸ Pause";
+          btn.classList.add("playing");
+          status.textContent = "Reading…";
+        };
+        u.onend = () => {
+          speaking = false;
+          paused = false;
+          btn.textContent = "🔊 Read aloud";
+          btn.classList.remove("playing");
+          status.textContent = "";
+        };
+        u.onerror = () => {
+          speaking = false;
+          btn.textContent = "🔊 Read aloud";
+          btn.classList.remove("playing");
+          status.textContent = "Error, please try again";
+        };
+        window.speechSynthesis.speak(u);
+      }
+    </script>
+  </body>
+</html>
