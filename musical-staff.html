@@ -143,26 +143,47 @@ body{font-family:var(--font-sans);background:#FDFCFA;min-height:100vh;}
 </div>
 
 <script>
-const AudioCtx=window.AudioContext||window.webkitAudioContext;
-let ctx=null;
-function getCtx(){if(!ctx)ctx=new AudioCtx();return ctx;}
-// 手机解锁：首次用户触摸时 resume AudioContext（iOS Safari 必须）
-function unlockAudio(){
-  const ac=getCtx();
-  if(ac.state==='suspended')ac.resume();
-  // 播放一个无声的短音，解锁 iOS 的音频限制
-  const buf=ac.createBuffer(1,1,22050);
-  const src=ac.createBufferSource();
-  src.buffer=buf;
-  src.connect(ac.destination);
-  src.start(0);
-  document.removeEventListener('touchstart',unlockAudio,true);
-  document.removeEventListener('touchend',unlockAudio,true);
-  document.removeEventListener('click',unlockAudio,true);
+// ─── 音频引擎（手机兼容版）─────────────────────────────────────────────────
+// 核心原则：AudioContext 必须在用户手势的同步调用栈里创建和使用
+// 不能提前创建好再 resume —— iOS Safari 会忽略这种做法
+
+let _ctx = null;
+
+function getCtx() {
+  // 每次在手势事件里同步调用：若没有则新建，若挂起则 resume
+  if (!_ctx) {
+    _ctx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  if (_ctx.state === 'suspended') {
+    _ctx.resume();
+  }
+  return _ctx;
 }
-document.addEventListener('touchstart',unlockAudio,true);
-document.addEventListener('touchend',unlockAudio,true);
-document.addEventListener('click',unlockAudio,true);
+
+function playTone(freq, dur, delay) {
+  dur = dur || 0.6;
+  delay = delay || 0;
+  // 直接在当前调用栈里拿 ctx（此时一定在用户手势里）
+  var ac = getCtx();
+  var t = ac.currentTime;
+  var osc = ac.createOscillator();
+  var gain = ac.createGain();
+  osc.type = 'sine';
+  osc.frequency.value = freq;
+  gain.gain.setValueAtTime(0.001, t + delay);
+  gain.gain.linearRampToValueAtTime(0.35, t + delay + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.001, t + delay + dur);
+  osc.connect(gain);
+  gain.connect(ac.destination);
+  osc.start(t + delay);
+  osc.stop(t + delay + dur + 0.05);
+}
+
+function playNote(n, delay) {
+  playTone(n.freq, 0.7, delay || 0);
+}
+
+// ─── 数据 ───────────────────────────────────────────────────────────────────
 const NOTES=[
   {name:'C',solfege:'Do / 1',freq:261.63,cy:160,ledger:true,pos:'第一加线下'},
   {name:'D',solfege:'Re / 2',freq:293.66,cy:150,ledger:false,pos:'第一间下方'},
@@ -182,26 +203,85 @@ const INTERVALS=[
   {label:'纯五度',notes:['C','G'],desc:'最和谐之一，空旷辽远'},
   {label:'纯八度',notes:['C','C5'],desc:'同音高低，完全谐和'},
 ];
-function playTone(freq,dur=0.6,delay=0){const ac=getCtx();const doPlay=()=>{const osc=ac.createOscillator();const gain=ac.createGain();osc.type='sine';osc.frequency.value=freq;gain.gain.setValueAtTime(0,ac.currentTime+delay);gain.gain.linearRampToValueAtTime(0.35,ac.currentTime+delay+0.02);gain.gain.exponentialRampToValueAtTime(0.001,ac.currentTime+delay+dur);osc.connect(gain);gain.connect(ac.destination);osc.start(ac.currentTime+delay);osc.stop(ac.currentTime+delay+dur+0.05);};if(ac.state==='suspended'){ac.resume().then(doPlay);}else{doPlay();}}
-function playNote(n,delay=0){playTone(n.freq,0.7,delay);}
+
+// ─── 音符面板 ────────────────────────────────────────────────────────────────
 let lastBtn=null;
-function highlightNote(n,btn){if(lastBtn){lastBtn.classList.remove('playing');}if(btn){btn.classList.add('playing');lastBtn=btn;setTimeout(()=>btn.classList.remove('playing'),750);}const hl=document.getElementById('hl-dot');hl.setAttribute('cx',noteX(n));hl.setAttribute('cy',n.cy);hl.setAttribute('opacity','1');const led=document.getElementById('hl-led');if(n.ledger){led.setAttribute('x1',noteX(n)-18);led.setAttribute('y1',n.cy);led.setAttribute('x2',noteX(n)+18);led.setAttribute('y2',n.cy);led.setAttribute('opacity','0.8');}else{led.setAttribute('opacity','0');}const lbl=document.getElementById('hl-label');lbl.textContent=n.name+'（'+n.solfege+'）— '+n.pos;lbl.setAttribute('opacity','1');playNote(n);setTimeout(()=>{hl.setAttribute('opacity','0');led.setAttribute('opacity','0');lbl.setAttribute('opacity','0');},900);}
+function highlightNote(n,btn){
+  if(lastBtn){lastBtn.classList.remove('playing');}
+  if(btn){btn.classList.add('playing');lastBtn=btn;setTimeout(function(){btn.classList.remove('playing');},750);}
+  var hl=document.getElementById('hl-dot');
+  hl.setAttribute('cx',noteX(n));hl.setAttribute('cy',n.cy);hl.setAttribute('opacity','1');
+  var led=document.getElementById('hl-led');
+  if(n.ledger){led.setAttribute('x1',noteX(n)-18);led.setAttribute('y1',n.cy);led.setAttribute('x2',noteX(n)+18);led.setAttribute('y2',n.cy);led.setAttribute('opacity','0.8');}
+  else{led.setAttribute('opacity','0');}
+  var lbl=document.getElementById('hl-label');
+  lbl.textContent=n.name+'（'+n.solfege+'）— '+n.pos;lbl.setAttribute('opacity','1');
+  playNote(n);  // 在按钮 onclick 的同步栈里，直接调用
+  setTimeout(function(){hl.setAttribute('opacity','0');led.setAttribute('opacity','0');lbl.setAttribute('opacity','0');},900);
+}
 function noteX(n){return 130+NOTES.indexOf(n)*46;}
-function buildNoteStaff(){const g=document.getElementById('staff-notes');NOTES.forEach((n,i)=>{const x=noteX(n);const el=document.createElementNS('http://www.w3.org/2000/svg','ellipse');el.setAttribute('cx',x);el.setAttribute('cy',n.cy);el.setAttribute('rx','11');el.setAttribute('ry','8');el.setAttribute('fill','#6B6860');el.setAttribute('opacity','0.2');g.appendChild(el);if(n.ledger){const ll=document.createElementNS('http://www.w3.org/2000/svg','line');ll.setAttribute('x1',x-15);ll.setAttribute('y1',n.cy);ll.setAttribute('x2',x+15);ll.setAttribute('y2',n.cy);ll.setAttribute('stroke','#6B6860');ll.setAttribute('stroke-width','1');ll.setAttribute('opacity','0.3');g.appendChild(ll);}const t=document.createElementNS('http://www.w3.org/2000/svg','text');t.setAttribute('x',x);t.setAttribute('y','182');t.setAttribute('text-anchor','middle');t.setAttribute('font-size','11');t.setAttribute('fill','#A8A59C');t.setAttribute('font-family','-apple-system,sans-serif');t.textContent=n.name;g.appendChild(t);});}
-function buildNoteBtns(){const c=document.getElementById('note-btns');NOTES.forEach(n=>{const b=document.createElement('button');b.className='note-btn';b.id='nbtn-'+n.name;b.innerHTML=`<div class="nn">${n.name}</div><div class="ns">${n.solfege}</div>`;b.onclick=()=>highlightNote(n,b);c.appendChild(b);});}
-function buildScaleKeys(){const c=document.getElementById('scale-keys');NOTES.forEach(n=>{const b=document.createElement('button');b.className='scale-key';b.id='skey-'+n.name;b.innerHTML=`<div style="font-weight:500">${n.name}</div><div style="font-size:11px;color:#6B6860">${n.solfege.split('/')[0].trim()}</div>`;b.onclick=()=>{playNote(n);litKey(n.name);};c.appendChild(b);});}
-function litKey(name){document.querySelectorAll('.scale-key').forEach(k=>k.classList.remove('lit'));const k=document.getElementById('skey-'+name);if(k){k.classList.add('lit');setTimeout(()=>k.classList.remove('lit'),750);}}
-let scaleTimer=null;
-function playScale(shuffle=false){if(scaleTimer)clearTimeout(scaleTimer);const list=shuffle?[...NOTES].sort(()=>Math.random()-.5):NOTES;list.forEach((n,i)=>{playTone(n.freq,0.55,i*0.55);setTimeout(()=>litKey(n.name),i*550);});}
-function buildIntervalBtns(){const c=document.getElementById('interval-btns');INTERVALS.forEach((iv)=>{const b=document.createElement('button');b.className='int-btn';b.textContent=iv.label;b.onclick=()=>{document.querySelectorAll('.int-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById('interval-desc').textContent=iv.desc;const n0=NOTES.find(n=>n.name===iv.notes[0]);const n1=NOTES.find(n=>n.name===iv.notes[1]);playNote(n0,0);playNote(n1,0.65);};c.appendChild(b);});}
-let qScore=0,qTotal=0,qHistory=[],qCurrent=null,qAnswered=false,qMode='listen';
-const QUIZ_CY=[144,134,124,114,104,94,84,74,64,54];
+function buildNoteStaff(){var g=document.getElementById('staff-notes');NOTES.forEach(function(n,i){var x=noteX(n);var el=document.createElementNS('http://www.w3.org/2000/svg','ellipse');el.setAttribute('cx',x);el.setAttribute('cy',n.cy);el.setAttribute('rx','11');el.setAttribute('ry','8');el.setAttribute('fill','#6B6860');el.setAttribute('opacity','0.2');g.appendChild(el);if(n.ledger){var ll=document.createElementNS('http://www.w3.org/2000/svg','line');ll.setAttribute('x1',x-15);ll.setAttribute('y1',n.cy);ll.setAttribute('x2',x+15);ll.setAttribute('y2',n.cy);ll.setAttribute('stroke','#6B6860');ll.setAttribute('stroke-width','1');ll.setAttribute('opacity','0.3');g.appendChild(ll);}var t=document.createElementNS('http://www.w3.org/2000/svg','text');t.setAttribute('x',x);t.setAttribute('y','182');t.setAttribute('text-anchor','middle');t.setAttribute('font-size','11');t.setAttribute('fill','#A8A59C');t.setAttribute('font-family','-apple-system,sans-serif');t.textContent=n.name;g.appendChild(t);});}
+function buildNoteBtns(){var c=document.getElementById('note-btns');NOTES.forEach(function(n){var b=document.createElement('button');b.className='note-btn';b.id='nbtn-'+n.name;b.innerHTML='<div class="nn">'+n.name+'</div><div class="ns">'+n.solfege+'</div>';b.onclick=function(){highlightNote(n,b);};c.appendChild(b);});}
+
+// ─── 音阶面板 ────────────────────────────────────────────────────────────────
+function buildScaleKeys(){var c=document.getElementById('scale-keys');NOTES.forEach(function(n){var b=document.createElement('button');b.className='scale-key';b.id='skey-'+n.name;b.innerHTML='<div style="font-weight:500">'+n.name+'</div><div style="font-size:11px;color:#6B6860">'+n.solfege.split('/')[0].trim()+'</div>';b.onclick=function(){playNote(n);litKey(n.name);};c.appendChild(b);});}
+function litKey(name){document.querySelectorAll('.scale-key').forEach(function(k){k.classList.remove('lit');});var k=document.getElementById('skey-'+name);if(k){k.classList.add('lit');setTimeout(function(){k.classList.remove('lit');},750);}}
+var scaleTimer=null;
+// 顺序/随机播放音阶：delay > 0 的音用 playTone 里的 delay 参数实现
+// 但每个 playTone 都是在同一个按钮 onclick 的调用栈里发起的，所以有效
+function playScale(shuffle){
+  if(scaleTimer)clearTimeout(scaleTimer);
+  var list=shuffle?[].concat(NOTES).sort(function(){return Math.random()-.5;}):NOTES;
+  list.forEach(function(n,i){
+    playTone(n.freq,0.55,i*0.55);
+    setTimeout(function(){litKey(n.name);},i*550);
+  });
+}
+function buildIntervalBtns(){var c=document.getElementById('interval-btns');INTERVALS.forEach(function(iv){var b=document.createElement('button');b.className='int-btn';b.textContent=iv.label;b.onclick=function(){document.querySelectorAll('.int-btn').forEach(function(x){x.classList.remove('active');});b.classList.add('active');document.getElementById('interval-desc').textContent=iv.desc;var n0=NOTES.find(function(n){return n.name===iv.notes[0];});var n1=NOTES.find(function(n){return n.name===iv.notes[1];});playNote(n0,0);playNote(n1,0.65);};c.appendChild(b);});}
+
+// ─── 测验面板 ────────────────────────────────────────────────────────────────
+var qScore=0,qTotal=0,qHistory=[],qCurrent=null,qAnswered=false,qMode='listen';
+var QUIZ_CY=[144,134,124,114,104,94,84,74,64,54];
 function toggleQuizMode(){qMode=qMode==='listen'?'read':'listen';document.getElementById('quiz-mode-label').textContent=qMode==='listen'?'听音辨位：点击播放，选出对应音名':'看谱辨音：根据音符位置选出音名';document.getElementById('mode-toggle-btn').textContent=qMode==='listen'?'切换：看谱选音':'切换：听音辨位';nextQuestion();}
-function buildQuizVisual(n){const c=document.getElementById('quiz-visual');if(qMode==='listen'){c.innerHTML=`<div style="text-align:center;margin:8px 0"><button onclick="playNote(qCurrent)" style="padding:10px 24px;border:0.5px solid rgba(44,44,42,0.2);border-radius:8px;background:transparent;cursor:pointer;font-size:14px;font-family:-apple-system,sans-serif">▶ 播放声音</button><p style="font-size:12px;color:#A8A59C;margin:6px 0 0">可多次点击</p></div>`;}else{const ledX=200,cy=n.cy;const lines=[44,64,84,104,124].map(y=>`<line x1="40" y1="${y}" x2="360" y2="${y}" stroke="#1A1A18" stroke-width="1.2" opacity=".7"/>`).join('');const ledger=n.ledger?`<line x1="${ledX-18}" y1="${cy}" x2="${ledX+18}" y2="${cy}" stroke="#1A1A18" stroke-width="1.2"/>`:'';c.innerHTML=`<svg width="100%" viewBox="0 0 400 160" style="margin:4px 0">${lines}<text x="44" y="122" font-size="80" fill="#1A1A18" opacity=".8" style="font-family:serif">𝄞</text>${ledger}<ellipse cx="${ledX}" cy="${cy}" rx="14" ry="10" fill="#1A1A18"/></svg>`;}}
-function nextQuestion(){qAnswered=false;document.getElementById('next-btn').style.display='none';document.getElementById('quiz-fb').textContent='';document.querySelectorAll('.opt').forEach(b=>b.classList.remove('correct','wrong'));const idx=Math.floor(Math.random()*NOTES.length);qCurrent={...NOTES[idx],cy:QUIZ_CY[idx]};buildQuizVisual(qCurrent);const pool=NOTES.map(n=>n.name).filter(n=>n!==qCurrent.name).sort(()=>Math.random()-.5).slice(0,3);const opts=[...pool,qCurrent.name].sort(()=>Math.random()-.5);const c=document.getElementById('quiz-opts');c.innerHTML='';opts.forEach(o=>{const b=document.createElement('button');b.className='opt';b.textContent=o;b.onclick=()=>checkAnswer(o,b);c.appendChild(b);});if(qMode==='listen')setTimeout(()=>playNote(qCurrent),200);}
-function checkAnswer(chosen,btn){if(qAnswered)return;qAnswered=true;qTotal++;const correct=qCurrent.name;const ok=chosen===correct;if(ok){qScore++;btn.classList.add('correct');document.getElementById('quiz-fb').textContent='✓ 正确！';}else{btn.classList.add('wrong');document.querySelectorAll('.opt').forEach(b=>{if(b.textContent===correct)b.classList.add('correct');});const nd=NOTES.find(n=>n.name===correct);document.getElementById('quiz-fb').textContent='✗ 是 '+correct+'（'+(nd?nd.solfege:'')+'）';}qHistory.push(ok);document.getElementById('score-txt').textContent='得分：'+qScore+' / '+qTotal;const pills=document.getElementById('pills');pills.innerHTML=qHistory.slice(-10).map(r=>`<div class="pill ${r?'ok':'err'}"></div>`).join('');document.getElementById('next-btn').style.display='inline-block';}
+function buildQuizVisual(n){
+  var c=document.getElementById('quiz-visual');
+  if(qMode==='listen'){
+    // 播放按钮：onclick 直接调 playNote，在手势同步栈里
+    c.innerHTML='<div style="text-align:center;margin:8px 0"><button id="quiz-play-btn" style="padding:10px 24px;border:0.5px solid rgba(44,44,42,0.2);border-radius:8px;background:transparent;cursor:pointer;font-size:14px;font-family:-apple-system,sans-serif">▶ 播放声音</button><p style="font-size:12px;color:#A8A59C;margin:6px 0 0">可多次点击</p></div>';
+    document.getElementById('quiz-play-btn').onclick=function(){playNote(qCurrent);};
+  }else{
+    var ledX=200,cy=n.cy;
+    var lines=[44,64,84,104,124].map(function(y){return '<line x1="40" y1="'+y+'" x2="360" y2="'+y+'" stroke="#1A1A18" stroke-width="1.2" opacity=".7"/>';}).join('');
+    var ledger=n.ledger?'<line x1="'+(ledX-18)+'" y1="'+cy+'" x2="'+(ledX+18)+'" y2="'+cy+'" stroke="#1A1A18" stroke-width="1.2"/>':'';
+    c.innerHTML='<svg width="100%" viewBox="0 0 400 160" style="margin:4px 0">'+lines+'<text x="44" y="122" font-size="80" fill="#1A1A18" opacity=".8" style="font-family:serif">𝄞</text>'+ledger+'<ellipse cx="'+ledX+'" cy="'+cy+'" rx="14" ry="10" fill="#1A1A18"/></svg>';
+  }
+}
+function nextQuestion(){
+  qAnswered=false;
+  document.getElementById('next-btn').style.display='none';
+  document.getElementById('quiz-fb').textContent='';
+  document.querySelectorAll('.opt').forEach(function(b){b.classList.remove('correct','wrong');});
+  var idx=Math.floor(Math.random()*NOTES.length);
+  qCurrent=Object.assign({},NOTES[idx],{cy:QUIZ_CY[idx]});
+  buildQuizVisual(qCurrent);
+  var pool=NOTES.map(function(n){return n.name;}).filter(function(n){return n!==qCurrent.name;}).sort(function(){return Math.random()-.5;}).slice(0,3);
+  var opts=[].concat(pool,[qCurrent.name]).sort(function(){return Math.random()-.5;});
+  var c=document.getElementById('quiz-opts');c.innerHTML='';
+  opts.forEach(function(o){var b=document.createElement('button');b.className='opt';b.textContent=o;b.onclick=function(){checkAnswer(o,b);};c.appendChild(b);});
+  if(qMode==='listen')setTimeout(function(){playNote(qCurrent);},200);
+}
+function checkAnswer(chosen,btn){
+  if(qAnswered)return;qAnswered=true;qTotal++;
+  var correct=qCurrent.name;var ok=chosen===correct;
+  if(ok){qScore++;btn.classList.add('correct');document.getElementById('quiz-fb').textContent='✓ 正确！';}
+  else{btn.classList.add('wrong');document.querySelectorAll('.opt').forEach(function(b){if(b.textContent===correct)b.classList.add('correct');});var nd=NOTES.find(function(n){return n.name===correct;});document.getElementById('quiz-fb').textContent='✗ 是 '+correct+'（'+(nd?nd.solfege:'')+'）';}
+  qHistory.push(ok);
+  document.getElementById('score-txt').textContent='得分：'+qScore+' / '+qTotal;
+  var pills=document.getElementById('pills');pills.innerHTML=qHistory.slice(-10).map(function(r){return '<div class="pill '+(r?'ok':'err')+'"></div>';}).join('');
+  document.getElementById('next-btn').style.display='inline-block';
+}
 function resetQuiz(){qScore=0;qTotal=0;qHistory=[];qAnswered=false;qCurrent=null;document.getElementById('score-txt').textContent='得分：0 / 0';document.getElementById('pills').innerHTML='';document.getElementById('quiz-fb').textContent='';document.getElementById('next-btn').style.display='none';nextQuestion();}
-function switchTab(t){['notes','scale','quiz'].forEach((id,i)=>{document.querySelectorAll('.tab')[i].classList.toggle('active',id===t);document.getElementById('panel-'+id).classList.toggle('active',id===t);});if(t==='quiz'&&!qCurrent)nextQuestion();}
+function switchTab(t){['notes','scale','quiz'].forEach(function(id,i){document.querySelectorAll('.tab')[i].classList.toggle('active',id===t);document.getElementById('panel-'+id).classList.toggle('active',id===t);});if(t==='quiz'&&!qCurrent)nextQuestion();}
 buildNoteStaff();buildNoteBtns();buildScaleKeys();buildIntervalBtns();
 </script>
 </body>
