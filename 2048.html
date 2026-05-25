@@ -331,7 +331,8 @@ function undo(){
 function onKey(e){var map={ArrowLeft:'left',ArrowRight:'right',ArrowUp:'up',ArrowDown:'down'};if(map[e.key]){e.preventDefault();doMove(map[e.key]);}}
 function initSwipe(){
   var wrap=document.getElementById('board-wrap'),sx,sy;
-  wrap.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;sy=e.touches[0].clientY;},{passive:true});
+  wrap.addEventListener('touchstart',function(e){e.preventDefault();sx=e.touches[0].clientX;sy=e.touches[0].clientY;},{passive:false});
+  wrap.addEventListener('touchmove',function(e){e.preventDefault();},{passive:false});
   wrap.addEventListener('touchend',function(e){
     if(sx==null)return;
     var dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;
@@ -339,7 +340,7 @@ function initSwipe(){
     if(Math.max(ax,ay)<20)return;
     doMove(ax>ay?(dx>0?'right':'left'):(dy>0?'down':'up'));
     sx=sy=null;
-  },{passive:true});
+  },{passive:false});
 }
 
 function setMsg(txt,cls){var el=document.getElementById('message');el.textContent=txt;el.className='message'+(cls?' '+cls:'');}
