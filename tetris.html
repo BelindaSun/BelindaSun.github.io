@@ -201,7 +201,8 @@ function drawNext(){
 
 // ── 게임 로직 ──────────────────────────────────────────────────────────────
 function startGame(){
-  board=emptyBoard();score=0;lines=0;level=1;
+  board.length=0;
+  for(var i=0;i<ROWS;i++)board.push(Array(COLS).fill(0));score=0;lines=0;level=1;
   gameOver=false;paused=false;gameRunning=true;
   document.getElementById('score').textContent='0';
   document.getElementById('lines').textContent='0';
@@ -246,8 +247,9 @@ function clearLines(){
   var cleared=ROWS-newBoard.length;
   if(!cleared)return;
   while(newBoard.length<ROWS)newBoard.unshift(Array(COLS).fill(0));
-  // 原地修改，不替换引用
-  for(var i=0;i<ROWS;i++)board[i]=newBoard[i];
+  // 原地修改：清空再填入，保持数组引用不变
+  board.splice(0,board.length);
+  for(var i=0;i<ROWS;i++)board.push(newBoard[i]);
   // flash
   var wrap=document.getElementById('canvas-wrap');
   wrap.classList.add('flash');
