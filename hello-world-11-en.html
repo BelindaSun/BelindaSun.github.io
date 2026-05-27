@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Me and Claude (V) — Belinda Sun</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --cream: #FDFCFA; --warm: #F5F0E8;
+    --text: #3D2A5C; --text-muted: #7A5FA0; --text-light: #B09CC8;
+    --accent: #854F0B; --accent-light: #FAEEDA;
+    --border: rgba(26,26,24,0.12);
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  body { background: var(--cream); color: var(--text); font-family: var(--sans); min-height: 100vh; }
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 3rem; border-bottom: 0.5px solid var(--border); background: var(--cream); position: sticky; top: 0; z-index: 100; }
+  .nav-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--text); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; }
+  .nav-links a:hover { color: var(--text); }
+  article { max-width: 640px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+  .article-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .article-col { font-size: 0.75rem; color: var(--accent); background: var(--accent-light); padding: 3px 10px; border-radius: 20px; letter-spacing: 0.04em; }
+  .article-date { font-size: 0.8rem; color: var(--text-light); }
+  .lang-switch { margin-left: auto; display: flex; gap: 0.5rem; }
+  .lang-btn { font-size: 0.78rem; padding: 3px 10px; border-radius: 20px; border: 0.5px solid var(--border); background: none; color: var(--text-muted); text-decoration: none; }
+  .lang-btn.active { background: var(--text); color: var(--cream); border-color: var(--text); }
+  .article-title { font-family: var(--serif); font-size: 2rem; font-weight: normal; line-height: 1.4; margin-bottom: 0.6rem; color: var(--text); }
+  .article-subtitle { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 2.5rem; font-style: italic; }
+  .article-divider { width: 40px; height: 0.5px; background: var(--text-light); margin-bottom: 1.5rem; }
+  .tts-bar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; }
+  .tts-btn { display: flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; color: var(--text-muted); background: var(--warm); border: 0.5px solid var(--border); border-radius: 20px; padding: 5px 14px; cursor: pointer; transition: all 0.2s; font-family: var(--sans); }
+  .tts-btn:hover { border-color: var(--text-muted); color: var(--text); }
+  .tts-btn.playing { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
+  .tts-status { font-size: 0.78rem; color: var(--text-light); }
+  .article-body { font-family: var(--serif); font-size: 1.05rem; line-height: 2.1; color: var(--text); }
+  .article-body p { margin-bottom: 1.4rem; }
+  .dialogue { border-left: 2px solid var(--accent-light); padding-left: 1.25rem; margin: 2rem 0; color: var(--text-muted); font-style: italic; }
+  .article-body img {
+    margin: 1.5rem 0;
+    border-radius: 12px;
+    display: block;
+  }
+  .section-break { text-align: center; color: var(--text-light); margin: 2.5rem 0; letter-spacing: 0.3em; font-size: 0.85rem; }
+  .article-nav { max-width: 640px; margin: 0 auto; padding: 2rem 2rem 4rem; display: flex; justify-content: space-between; border-top: 0.5px solid var(--border); }
+  .article-nav a,
+  .article-nav span {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+  .article-nav span {
+    opacity: 0.5;
+    cursor: default;
+  }
+  footer { border-top: 0.5px solid var(--border); padding: 1.5rem 3rem; text-align: center; }
+  footer p { font-size: 0.8rem; color: var(--text-light); }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Belinda Sun</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="hello-world-index.html">Hello World</a></li>
+    <li><a href="hello-human-index.html">Hello Human</a></li>
+  </ul>
+</nav>
+
+<article>
+  <div class="article-meta">
+    <span class="article-col">Hello World</span>
+    <span class="article-date">May 27, 2026</span>
+    <div class="lang-switch">
+      <a href="hello-world-11.html" class="lang-btn">中文</a>
+      <span class="lang-btn active">EN</span>
+    </div>
+  </div>
+
+  <h1 class="article-title">Me and Claude (V)</h1>
+  <p class="article-subtitle">The avatar chronicles: from a dog to a goddess to a silhouette — and finally, AI made me laugh in despair</p>
+  <div class="article-divider"></div>
+
+  <div class="tts-bar">
+    <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">🔊 Read aloud</button>
+    <span class="tts-status" id="ttsStatus"></span>
+  </div>
+
+  <div class="article-body" id="articleBody">
+
+    <p>The moment the idea of changing my avatar popped into my head, I already knew exactly what I wanted. I had a few pet photos on my computer, and I randomly picked one of a dog typing on a keyboard. That was it.</p>
+
+    <p>But after using it for a while, I realized it didn't reflect my real situation. After all, I was now someone who builds AI products. A single laptop felt a bit… modest. My actual setup is far more impressive. On my desk right now: an Apple Vision Pro, a Meta Oculus Quest 2, two iPhones, two iPads, a MacBook Air, and a Studio Display. I've even ordered a Mac Mini. And on GPT's recommendation, I bought a Logitech keyboard (I wanted the Apple one, but it only connects wirelessly to two devices — with my grand scale, two just won't cut it, so I settled for the Logitech). I probably should have gotten the matching Logitech mouse too, for seamless switching across all devices, but we already have too many mice at home, so I let it go. Otherwise, my tech-guy husband would start shaking his head again.</p>
+
+    <p>I told my daughter about my setup, especially the keyboard. She said, "Wow, even more advanced than my setup." I said, "Poor students have many tools." She replied, "A workman must first sharpen his tools if he is to do his work well."</p>
+
+    <p>That's my daughter — always emotionally supportive, always making me feel comfortable, no matter what I do. And then there's the tech guy at home, whose every other sentence seems designed to deflate my enthusiasm. How can two people from the same family be so different? Back when I wanted to learn Python, I thought I'd have to relearn advanced math, and I hesitated — not because it would be hard, but because I had no idea where I'd find the time. The tech guy said, "No problem, I can teach you." My daughter said, "You don't even need to learn it. You'll never use it." That's when I finally took the first step of learning AI with GPT.</p>
+
+    <p>Back to the story.</p>
+
+    <p>First, I changed my signature to: "The world is big, dreams are many — take your time trying." Then I went to Doubao to generate an avatar.</p>
+
+    <p>At first I gave him no reference material — just asked for an avatar of a retiree learning AI. This is what he gave me:</p>
+    <img src="pic/hello-world-11-1.png" alt="Figure 1" width="100%">
+
+    <p>I may be older, but not <em>that</em> old.</p>
+
+    <p>So I gave him the dog photo and said: "Look at this. I want the dog not just typing — he needs to wear a Vision Pro, type on a Logitech keyboard, use a Studio Display, and so on."</p>
+    <img src="pic/hello-world-11-2.png" alt="Figure 2" width="100%">
+
+    <p>Doubao then strapped all that gear onto the poor dog. The poor thing looked exhausted, collapsed on the desk.</p>
+    <img src="pic/hello-world-11-3.png" alt="Figure 3" width="100%">
+
+    <p>I said, "Can you at least make him face the Studio Display? He can't code lying down like that."</p>
+    <img src="pic/hello-world-11-4.png" alt="Figure 4" width="100%">
+
+    <p>"Put his paws on the keyboard, otherwise how can he code?"</p>
+    <img src="pic/hello-world-11-5.png" alt="Figure 5" width="100%">
+
+    <p>"Is he coding with just one paw?"</p>
+    <img src="pic/hello-world-11-6.png" alt="Figure 6" width="100%">
+
+    <p>"Make the dog look better — nicer fur, better posture."</p>
+    <img src="pic/hello-world-11-7.png" alt="Figure 7" width="100%">
+
+    <p>Haha, hilarious. "Make him look at the screen, not at me."</p>
+    <img src="pic/hello-world-11-8.png" alt="Figure 8" width="100%">
+
+    <p>Then I noticed two mice, and they were left‑handed. Forget it. Stop torturing the dog. Switch to a beautiful woman.</p>
+    <img src="pic/hello-world-11-9.png" alt="Figure 9" width="100%">
+
+    <p>No — too beautiful. Change to this: a back view of me in Chiang Rai.</p>
+    <img src="pic/hello-world-11-10.png" alt="Figure 10" width="100%">
+
+    <p>The angle and hand position were all wrong. I gave up on Doubao and went to Gemini.</p>
+
+    <p>Gemini was professional and fast. He gave me this in no time:</p>
+    <img src="pic/hello-world-11-11.png" alt="Figure 11" width="100%">
+
+    <p>It made me laugh — out of sheer exasperation.</p>
+
+    <p>I said, "Do you really think this is appropriate? Feet on the desk? Is that decent?"</p>
+
+    <p>Gemini quickly apologized and finally produced this:</p>
+    <img src="pic/hello-world-11-12.png" alt="Figure 12" width="100%">
+
+    <p>Wow — that's actually good. The texture looks like a real photograph. It's a bit too flattering, but hey — on the internet, isn't everyone living with a slightly polished version of themselves, taking life seriously?</p>
+
+    <p>So I started using it.</p>
+
+    <p>Then my WeChat name became <strong>Dogtor Sun</strong>. My signature changed to: "The world is big, dreams are many — take your time trying." Later it briefly became: "Grateful to be living in an age where AI is flourishing, so I can freely chase dreams that once felt forever out of reach."</p>
+
+    <p>After I built my website, I switched back to my old signature: <em>"Nothing much when we meet, yet I often think of you when apart."</em></p>
+
+    <p>Such a restless spirit.</p>
+
+    <p>But isn't life all about restlessness?</p>
+
+    <p>Next time, I'll tell you about the hilarious and touching moments of going back and forth with GPT on the Mimo project and interacting with my AI children.</p>
+
+  </div>
+</article>
+
+<div class="giscus" style="max-width:640px;margin:0 auto;padding:0 2rem 3rem;"></div>
+<script src="https://giscus.app/client.js"
+        data-repo="BelindaSun/BelindaSun.github.io"
+        data-repo-id="R_kgDOSVl7Iw"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOSVl7I84C8scG"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="en"
+        crossorigin="anonymous"
+        async
+></script>
+
+<div class="article-nav">
+  <a href="hello-world-10-en.html">← Previous</a>
+  <span>Next →</span>
+</div>
+
+<footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
+
+<script>
+  let speaking = false, paused = false;
+  const btn = document.getElementById('ttsBtn');
+  const status = document.getElementById('ttsStatus');
+  function toggleTTS() {
+    if (!speaking) { startTTS(); }
+    else if (paused) { window.speechSynthesis.resume(); paused = false; btn.textContent = '⏸ Pause'; btn.classList.add('playing'); status.textContent = 'Reading…'; }
+    else { window.speechSynthesis.pause(); paused = true; btn.textContent = '▶ Resume'; btn.classList.remove('playing'); status.textContent = 'Paused'; }
+  }
+  function startTTS() {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(document.getElementById('articleBody').innerText);
+    u.lang = 'en-US'; u.rate = 0.95;
+    u.onstart = () => { speaking = true; paused = false; btn.textContent = '⏸ Pause'; btn.classList.add('playing'); status.textContent = 'Reading…'; };
+    u.onend = () => { speaking = false; paused = false; btn.textContent = '🔊 Read aloud'; btn.classList.remove('playing'); status.textContent = ''; };
+    u.onerror = () => { speaking = false; btn.textContent = '🔊 Read aloud'; btn.classList.remove('playing'); status.textContent = 'Error, please try again'; };
+    window.speechSynthesis.speak(u);
+  }
+</script>
+</body>
+</html>
