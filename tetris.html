@@ -6,7 +6,7 @@
 <title>俄罗斯方块 — Belinda Sun</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500;600&display=swap');
-*{box-sizing:border-box;margin:0;padding:0;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;}
 html,body{height:100%;overflow:hidden;}
 body{
   font-family:'DM Mono',monospace;
@@ -455,9 +455,10 @@ bindBtn('btn-rotate',function(){rotate();},function(){});
 bindBtn('btn-drop',dropPress,dropRelease);
 document.getElementById('restart-btn').addEventListener('click',startGame);
 document.getElementById('pause-btn').addEventListener('click',togglePause);
-document.getElementById('ov-btn').addEventListener('click',function(){
-  if(paused){togglePause();}else{startGame();}
-});
+function ovBtnTap(){if(paused){togglePause();}else{startGame();}}
+var ovBtn=document.getElementById('ov-btn');
+ovBtn.addEventListener('click',ovBtnTap);
+ovBtn.addEventListener('touchend',function(e){e.preventDefault();ovBtnTap();});
 
 // ─── 键盘 ─────────────────────────────────────────────────────────────────────
 document.addEventListener('keydown',function(e){
@@ -525,6 +526,7 @@ function loop(){drawAll();requestAnimationFrame(loop);}
 // ─── 启动 ─────────────────────────────────────────────────────────────────────
 resizeCanvas();
 loop();
+document.addEventListener('contextmenu',function(e){e.preventDefault();});
 </script>
 </body>
 </html>
