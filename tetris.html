@@ -325,7 +325,7 @@ function spawn(){
     dead=true;running=false;
     clearTimeout(dropTid);
     drawAll();
-    showOverlay('游戏结束','得分 '+score,'再来一局',startGame);
+    showOverlay('游戏结束','得分 '+score,'再来一局');
     return;
   }
   scheduleDrop();
@@ -410,7 +410,7 @@ function togglePause(){
   if(!running&&!paused)return;
   paused=!paused;
   document.getElementById('pause-btn').textContent=paused?'▶ 继续':'⏸ 暂停';
-  if(paused){clearTimeout(dropTid);showOverlay('已暂停','','继续',togglePause);}
+  if(paused){clearTimeout(dropTid);showOverlay('已暂停','','继续');}
   else{hideOverlay();scheduleDrop();}
 }
 
@@ -456,8 +456,7 @@ bindBtn('btn-drop',dropPress,dropRelease);
 document.getElementById('restart-btn').addEventListener('click',startGame);
 document.getElementById('pause-btn').addEventListener('click',togglePause);
 document.getElementById('ov-btn').addEventListener('click',function(){
-  var fn=document.getElementById('ov-btn')._fn;
-  if(fn)fn();
+  if(paused){togglePause();}else{startGame();}
 });
 
 // ─── 键盘 ─────────────────────────────────────────────────────────────────────
@@ -498,12 +497,11 @@ function setUI(){
   document.getElementById('lines').textContent=linesCleared;
   document.getElementById('level').textContent=level;
 }
-function showOverlay(title,sub,btnText,fn){
+function showOverlay(title,sub,btnText){
   document.getElementById('ov-title').textContent=title;
   document.getElementById('ov-sub').textContent=sub;
   document.getElementById('ov-btn').textContent=btnText;
-  document.getElementById('ov-btn')._fn=fn;
-  document.getElementById('overlay').classList.add('on');
+    document.getElementById('overlay').classList.add('on');
 }
 function hideOverlay(){document.getElementById('overlay').classList.remove('on');}
 var msgTid;
@@ -527,7 +525,6 @@ function loop(){drawAll();requestAnimationFrame(loop);}
 // ─── 启动 ─────────────────────────────────────────────────────────────────────
 resizeCanvas();
 loop();
-document.getElementById('ov-btn')._fn=startGame;
 </script>
 </body>
 </html>
