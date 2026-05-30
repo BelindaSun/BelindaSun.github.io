@@ -2,8 +2,8 @@
 <html lang="zh">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>数独 — Belinda Sun</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>数独 — Belinda Sun | 优雅笔记与清晰填数</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -43,21 +43,68 @@ body{font-family:var(--font-sans);background:#FDFCFA;min-height:100vh;}
 .tb-btn:hover{background:var(--color-background-secondary)}
 .tb-btn.active{background:var(--color-background-info);border-color:var(--color-border-info);color:var(--color-text-info)}
 #difficulty{font-size:13px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:6px 10px;color:var(--color-text-primary);background:var(--color-background-primary);cursor:pointer}
-#board{display:grid;grid-template-columns:repeat(9,1fr);border:2px solid var(--color-border-primary);border-radius:var(--border-radius-md);overflow:hidden;width:100%;aspect-ratio:1;margin-bottom:12px}
-.cell{position:relative;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:clamp(14px,4vw,22px);font-weight:500;border-right:0.5px solid var(--color-border-tertiary);border-bottom:0.5px solid var(--color-border-tertiary);background:var(--color-background-primary);transition:background 0.1s;color:var(--color-text-primary)}
+#board{display:grid;grid-template-columns:repeat(9,1fr);border:2px solid var(--color-border-primary);border-radius:var(--border-radius-md);overflow:hidden;width:100%;aspect-ratio:1;margin-bottom:12px;background:var(--color-background-primary);}
+.cell{position:relative;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:clamp(16px,5vw,24px);font-weight:500;border-right:0.5px solid var(--color-border-tertiary);border-bottom:0.5px solid var(--color-border-tertiary);background:var(--color-background-primary);transition:background 0.1s;color:var(--color-text-primary);overflow:visible;}
+/* 粗体宫线 */
 .cell:nth-child(3n){border-right:2px solid var(--color-border-primary)}
 .cell:nth-child(9n){border-right:none}
-.cell:nth-child(n+19):nth-child(-n+27),.cell:nth-child(n+46):nth-child(-n+54),.cell:nth-child(n+73):nth-child(-n+81){border-bottom:2px solid var(--color-border-primary)}
+.cell:nth-child(n+19):nth-child(-n+27),
+.cell:nth-child(n+46):nth-child(-n+54),
+.cell:nth-child(n+73):nth-child(-n+81){border-bottom:2px solid var(--color-border-primary)}
+/* 给定数字（初始）保持深色 */
 .cell.given{color:var(--color-text-primary);font-weight:600}
-.cell.user{color:#185FA5}
+/* 用户填入的数字 — 现在统一为黑色（与给定数字相同但稍细一点，清爽）*/
+.cell.user{color:var(--color-text-primary);font-weight:500}
 .cell.selected{background:#E6F1FB}
 .cell.highlight{background:var(--color-background-secondary)}
 .cell.same-num{background:#B5D4F4}
-.cell.error{color:#A32D2D}
+.cell.error{color:#A32D2D !important; font-weight:600;}
 .cell.lit{background:#FAEEDA}
-.notes-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);width:100%;height:100%;padding:1px;overflow:hidden}
-.note-num{font-size:clamp(11px,2.4vw,16px);color:var(--color-text-secondary);display:flex;align-items:center;justify-content:center;font-weight:600;line-height:1;overflow:hidden}
-.note-num.set{color:#185FA5}
+/* ========= 笔记网格 — 完美3x3，永不溢出，所有数字清晰可见 ========= */
+.notes-grid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  grid-template-rows:repeat(3, minmax(0, 1fr));
+  width:100%;
+  height:100%;
+  gap:0px;
+  padding:2px;
+  box-sizing:border-box;
+  background:transparent;
+  align-items:stretch;
+  justify-items:stretch;
+}
+.note-num{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:clamp(9px, 2.8vw, 14px);
+  font-weight:500;
+  line-height:1;
+  color:var(--color-text-secondary);
+  white-space:nowrap;
+  overflow:visible;
+  transition:color 0.05s;
+  letter-spacing:0;
+}
+/* 笔记中的数字（激活的笔记项）使用经典蓝色，清晰易读 */
+.note-num.set{
+  color:#185FA5;
+  font-weight:600;
+  text-shadow:0 0 0.2px rgba(24,95,165,0.2);
+}
+/* 确保单元格内部没有任何溢出裁剪，笔记全显示 */
+.cell .notes-grid{
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  margin:0;
+  padding:4px 2px;
+}
+.cell{position:relative; overflow:visible;}
+/* 保证笔记网格永远完整覆盖单元格区域，所有笔记数字都在3x3网格内合理展示 */
 #numpad{display:grid;grid-template-columns:repeat(9,1fr);gap:4px;margin-bottom:12px}
 .num-btn{background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);aspect-ratio:1;font-size:clamp(14px,3vw,20px);font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--color-text-primary);transition:background 0.1s}
 .num-btn:hover{background:var(--color-background-secondary)}
@@ -69,10 +116,18 @@ body{font-family:var(--font-sans);background:#FDFCFA;min-height:100vh;}
 #win-banner{display:none;background:var(--color-background-success);border:0.5px solid var(--color-border-success);border-radius:var(--border-radius-lg);padding:1rem;text-align:center;margin-top:8px}
 #win-banner p{font-size:16px;font-weight:500;color:var(--color-text-success)}
 #win-banner small{font-size:13px;color:var(--color-text-success);opacity:0.8}
+/* 响应式小屏幕笔记字体进一步优化，确保三行完全可见 */
+@media (max-width: 480px) {
+  .note-num { font-size: clamp(8px, 2.4vw, 12px); }
+  .notes-grid { padding: 2px 1px; }
+}
+@media (max-width: 380px) {
+  .note-num { font-size: 10px; }
+  .notes-grid { padding: 1px; }
+}
 </style>
 </head>
 <body>
-
 
 <nav class="page-nav">
   <a href="index.html">Belinda Sun</a>
@@ -112,124 +167,461 @@ body{font-family:var(--font-sans);background:#FDFCFA;min-height:100vh;}
 </div>
 
 <script>
-const PUZZLES={easy:["530070000600195000098000060800060003400803001700020006060000280000419005000080079","010020300004005060070000054090700800600000007003008020530000040040900200008030010"],medium:["800000000003600000070090200060005030004803001030200060020007005000600073000000801","000006000059000008200008000045000000003000600006003054000325000600000000000000000"],hard:["000000000000003085001020000000507000004000100090000000500000073002010000000040009","800000000003600000070090200060005030004803001030200060020007005000600073000000800"]};
-let grid=[],given=[],notes=[],solution=[],selected=-1,noteMode=false,lightMode=false,errors=0,hintsLeft=3,history=[],timerInterval=null,seconds=0,gameOver=false;
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
-function isValidPlacement(g,pos,num){
-const r=Math.floor(pos/9),c=pos%9;
-for(let i=0;i<9;i++){
-if(g[r*9+i]===num)return false;
-if(g[i*9+c]===num)return false;
-}
-const br=Math.floor(r/3)*3;
-const bc=Math.floor(c/3)*3;
-for(let rr=0;rr<3;rr++){
-for(let cc=0;cc<3;cc++){
-if(g[(br+rr)*9+(bc+cc)]===num)return false;
-}
-}
-return true;
+// ---------- 核心数独逻辑 ----------
+const PUZZLES={
+  easy:["530070000600195000098000060800060003400803001700020006060000280000419005000080079","010020300004005060070000054090700800600000007003008020530000040040900200008030010"],
+  medium:["800000000003600000070090200060005030004803001030200060020007005000600073000000801","000006000059000008200008000045000000003000600006003054000325000600000000000000000"],
+  hard:["000000000000003085001020000000507000004000100090000000500000073002010000000040009","800000000003600000070090200060005030004803001030200060020007005000600073000000800"]
+};
+
+let grid = [];           // 当前盘面值 (0为空)
+let given = [];         // 是否为初始固定格子
+let notes = [];         // 每个格子的笔记Set
+let solution = [];      // 正确答案
+let selected = -1;      // 当前选中索引
+let noteMode = false;   // 笔记模式开关
+let lightMode = false;  // 相同数字高亮
+let errors = 0;         
+let hintsLeft = 3;
+let history = [];       // 撤销栈
+let timerInterval = null;
+let seconds = 0;
+let gameOver = false;
+
+// 辅助函数: 随机打乱数组
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
 }
 
-function solveSudoku(g){
-for(let pos=0;pos<81;pos++){
-if(g[pos]===0){
-const nums=shuffle([1,2,3,4,5,6,7,8,9]);
-for(const n of nums){
-if(isValidPlacement(g,pos,n)){
-g[pos]=n;
-if(solveSudoku(g)) return g;
-g[pos]=0;
-}
-}
-return false;
-}
-}
-return g;
-}
-function validateBoard(g){
-for(let r=0;r<9;r++){
-const row=new Set();
-const col=new Set();
-
-for(let c=0;c<9;c++){
-const rv=g[r*9+c];
-const cv=g[c*9+r];
-
-if(rv!==0){
-if(row.has(rv)) return false;
-row.add(rv);
+// 检查某个数字是否可放置
+function isValidPlacement(g, pos, num) {
+  const r = Math.floor(pos / 9);
+  const c = pos % 9;
+  for (let i = 0; i < 9; i++) {
+    if (g[r * 9 + i] === num) return false;
+    if (g[i * 9 + c] === num) return false;
+  }
+  const br = Math.floor(r / 3) * 3;
+  const bc = Math.floor(c / 3) * 3;
+  for (let rr = 0; rr < 3; rr++) {
+    for (let cc = 0; cc < 3; cc++) {
+      if (g[(br + rr) * 9 + (bc + cc)] === num) return false;
+    }
+  }
+  return true;
 }
 
-if(cv!==0){
-if(col.has(cv)) return false;
-col.add(cv);
-}
-}
-}
-
-for(let br=0;br<3;br++){
-for(let bc=0;bc<3;bc++){
-const box=new Set();
-
-for(let r=0;r<3;r++){
-for(let c=0;c<3;c++){
-const v=g[(br*3+r)*9+(bc*3+c)];
-
-if(v!==0){
-if(box.has(v)) return false;
-box.add(v);
-}
-}
-}
-}
+// 回溯求解（随机顺序增强变化性）
+function solveSudoku(g) {
+  for (let pos = 0; pos < 81; pos++) {
+    if (g[pos] === 0) {
+      const nums = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+      for (const n of nums) {
+        if (isValidPlacement(g, pos, n)) {
+          g[pos] = n;
+          if (solveSudoku(g)) return g;
+          g[pos] = 0;
+        }
+      }
+      return false;
+    }
+  }
+  return g;
 }
 
-return true;
+// 校验终局是否合法（附加保障）
+function validateBoard(g) {
+  for (let r = 0; r < 9; r++) {
+    const rowSet = new Set(), colSet = new Set();
+    for (let c = 0; c < 9; c++) {
+      const rv = g[r * 9 + c];
+      const cv = g[c * 9 + r];
+      if (rv !== 0) { if (rowSet.has(rv)) return false; rowSet.add(rv); }
+      if (cv !== 0) { if (colSet.has(cv)) return false; colSet.add(cv); }
+    }
+  }
+  for (let br = 0; br < 3; br++) {
+    for (let bc = 0; bc < 3; bc++) {
+      const boxSet = new Set();
+      for (let r = 0; r < 3; r++) {
+        for (let c = 0; c < 3; c++) {
+          const v = g[(br * 3 + r) * 9 + (bc * 3 + c)];
+          if (v !== 0) { if (boxSet.has(v)) return false; boxSet.add(v); }
+        }
+      }
+    }
+  }
+  return true;
 }
 
-function generatePuzzle(diff){
-let base;
-
-do{
-base=Array(81).fill(0);
-solveSudoku(base);
-}while(!validateBoard(base));
-
-solution=[...base];
-
-const remove={easy:40,medium:52,hard:58}[diff]||52;
-const positions=shuffle([...Array(81).keys()]);
-const puzzle=[...base];
-
-for(let i=0;i<remove;i++){
-puzzle[positions[i]]=0;
+// 生成全盘并挖空形成新谜题
+function generatePuzzle(diff) {
+  let base;
+  do {
+    base = Array(81).fill(0);
+    solveSudoku(base);
+  } while (!validateBoard(base));
+  solution = [...base];
+  const removeCount = { easy: 40, medium: 52, hard: 58 }[diff] || 52;
+  const positions = shuffle([...Array(81).keys()]);
+  const puzzle = [...base];
+  for (let i = 0; i < removeCount; i++) puzzle[positions[i]] = 0;
+  return puzzle;
 }
 
-return puzzle;
+// 清除与填入数字相关的同行/列/宫笔记（智能辅助）
+function clearRelatedNotes(idx, num) {
+  const r = Math.floor(idx / 9);
+  const c = idx % 9;
+  const br = Math.floor(r / 3) * 3;
+  const bc = Math.floor(c / 3) * 3;
+  for (let i = 0; i < 81; i++) {
+    const ir = Math.floor(i / 9);
+    const ic = i % 9;
+    const ibr = Math.floor(ir / 3) * 3;
+    const ibc = Math.floor(ic / 3) * 3;
+    if (i !== idx && (ir === r || ic === c || (ibr === br && ibc === bc))) {
+      notes[i].delete(num);
+    }
+  }
 }
-function startGame(){const diff=document.getElementById('difficulty').value;const puzzleArr=PUZZLES[diff];let raw;if(Math.random()<0.5&&puzzleArr){raw=puzzleArr[Math.floor(Math.random()*puzzleArr.length)].split('').map(Number);const tmp=[...raw];solveSudoku(tmp);solution=[...tmp];grid=[...raw];}else{grid=generatePuzzle(diff);}given=grid.map(v=>v!==0);notes=Array(81).fill(null).map(()=>new Set());errors=0;hintsLeft=3;history=[];selected=-1;gameOver=false;document.getElementById('err-count').textContent='0';document.getElementById('hint-left').textContent='3';document.getElementById('win-banner').style.display='none';document.getElementById('msg').textContent='';clearInterval(timerInterval);seconds=0;document.getElementById('timer').textContent='00:00';timerInterval=setInterval(()=>{if(gameOver)return;seconds++;const m=String(Math.floor(seconds/60)).padStart(2,'0');const s=String(seconds%60).padStart(2,'0');document.getElementById('timer').textContent=m+':'+s;},1000);if(!validateBoard(solution)){
-document.getElementById('msg').textContent='棋盘校验失败，已自动重生成';
-setTimeout(startGame,100);
-return;
+
+// 渲染整个棋盘（包含笔记网格修复 + 用户数字黑色样式）
+function renderBoard() {
+  const boardEl = document.getElementById('board');
+  boardEl.innerHTML = '';
+  for (let i = 0; i < 81; i++) {
+    const cell = document.createElement('div');
+    let className = 'cell';
+    if (given[i]) className += ' given';
+    else if (grid[i] !== 0) className += ' user';
+    if (i === selected) className += ' selected';
+    if (lightMode && selected !== -1 && grid[selected] > 0 && grid[i] === grid[selected] && i !== selected) {
+      className += ' lit';
+    }
+    // 高亮行列宫
+    if (selected !== -1) {
+      const sr = Math.floor(selected / 9), sc = selected % 9;
+      const sbr = Math.floor(sr / 3), sbc = Math.floor(sc / 3);
+      const cr = Math.floor(i / 9), cc = i % 9;
+      const cbr = Math.floor(cr / 3), cbc = Math.floor(cc / 3);
+      if (i !== selected && (cr === sr || cc === sc || (cbr === sbr && cbc === sbc))) {
+        className += ' highlight';
+      }
+      if (grid[selected] > 0 && grid[i] === grid[selected] && grid[i] !== 0 && i !== selected) {
+        className += ' same-num';
+      }
+    }
+    // 错误标记（仅当非given且填入值与答案不符）
+    if (!given[i] && grid[i] !== 0 && solution[i] && grid[i] !== solution[i]) {
+      className += ' error';
+    }
+    cell.className = className;
+    
+    // 填充内容：数字 或 笔记网格
+    if (grid[i] !== 0) {
+      cell.textContent = grid[i];
+    } else if (notes[i].size > 0) {
+      const notesGrid = document.createElement('div');
+      notesGrid.className = 'notes-grid';
+      // 完美3x3展示笔记，确保每个数字位置固定
+      for (let n = 1; n <= 9; n++) {
+        const noteCell = document.createElement('div');
+        noteCell.className = 'note-num';
+        if (notes[i].has(n)) {
+          noteCell.textContent = n;
+          noteCell.classList.add('set');
+        } else {
+          noteCell.textContent = '';
+        }
+        notesGrid.appendChild(noteCell);
+      }
+      cell.appendChild(notesGrid);
+    }
+    cell.addEventListener('click', (e) => {
+      e.stopPropagation();
+      selectCell(i);
+    });
+    boardEl.appendChild(cell);
+  }
 }
-renderBoard();
-updateNumpad();
+
+// 选中格子
+function selectCell(i) {
+  if (gameOver) return;
+  selected = i;
+  renderBoard();
 }
-function renderBoard(){const board=document.getElementById('board');board.innerHTML='';for(let i=0;i<81;i++){const cell=document.createElement('div');cell.className='cell'+(given[i]?' given':'')+(i===selected?' selected':'');if(selected!==-1){const sr=Math.floor(selected/9),sc=selected%9,sbr=Math.floor(sr/3),sbc=Math.floor(sc/3);const cr=Math.floor(i/9),cc=i%9,cbr=Math.floor(cr/3),cbc=Math.floor(cc/3);if(i!==selected&&(cr===sr||cc===sc||cbr===sbr&&cbc===sbc))cell.classList.add('highlight');if(grid[selected]>0&&grid[i]===grid[selected]&&i!==selected)cell.classList.add('same-num');}if(lightMode&&selected!==-1&&grid[i]===grid[selected]&&grid[i]>0)cell.classList.add('lit');if(!given[i]&&grid[i]>0&&solution[i]&&grid[i]!==solution[i])cell.classList.add('error');if(grid[i]>0){cell.textContent=grid[i];}else if(notes[i].size>0){const ng=document.createElement('div');ng.className='notes-grid';for(let n=1;n<=9;n++){const nd=document.createElement('div');nd.className='note-num'+(notes[i].has(n)?' set':'');nd.textContent=notes[i].has(n)?n:'';ng.appendChild(nd);}cell.appendChild(ng);}cell.addEventListener('click',()=>selectCell(i));board.appendChild(cell);}}
-function selectCell(i){if(gameOver)return;selected=i;renderBoard();}
-function inputNumber(n){if(selected===-1||gameOver)return;if(given[selected])return;if(noteMode){const prev=notes[selected].has(n);history.push({type:'note',idx:selected,num:n,had:prev,val:grid[selected]});if(notes[selected].has(n))notes[selected].delete(n);else notes[selected].add(n);}else{history.push({type:'val',idx:selected,old:grid[selected],oldNotes:new Set(notes[selected])});grid[selected]=n;notes[selected]=new Set();clearRelatedNotes(selected,n);if(solution[selected]&&n!==solution[selected]){errors++;document.getElementById('err-count').textContent=errors;if(errors>=3){document.getElementById('msg').textContent='错误次数过多，游戏结束！';gameOver=true;clearInterval(timerInterval);}}checkWin();}renderBoard();updateNumpad();}
-function clearRelatedNotes(idx,n){const r=Math.floor(idx/9),c=idx%9,br=Math.floor(r/3)*3,bc=Math.floor(c/3)*3;for(let i=0;i<81;i++){const ir=Math.floor(i/9),ic=i%9,ibr=Math.floor(ir/3)*3,ibc=Math.floor(ic/3)*3;if(i!==idx&&(ir===r||ic===c||ibr===br&&ibc===bc))notes[i].delete(n);}}
-function checkWin(){if(grid.every((v,i)=>v>0&&v===solution[i])){gameOver=true;clearInterval(timerInterval);const m=String(Math.floor(seconds/60)).padStart(2,'0');const s=String(seconds%60).padStart(2,'0');document.getElementById('win-banner').style.display='block';document.getElementById('win-time').textContent='用时 '+m+':'+s;}}
-function updateNumpad(){const counts=Array(10).fill(0);grid.forEach(v=>{if(v>0)counts[v]++;});const pad=document.getElementById('numpad');pad.innerHTML='';for(let n=1;n<=9;n++){const btn=document.createElement('button');btn.className='num-btn'+(counts[n]>=9?' depleted':'');btn.textContent=n;btn.addEventListener('click',()=>inputNumber(n));pad.appendChild(btn);}}
-document.getElementById('new-btn').addEventListener('click',startGame);
-document.getElementById('note-btn').addEventListener('click',()=>{noteMode=!noteMode;document.getElementById('note-btn').classList.toggle('active',noteMode);document.getElementById('msg').textContent=noteMode?'笔记模式开启':'笔记模式关闭';setTimeout(()=>{if(document.getElementById('msg').textContent.includes('笔记'))document.getElementById('msg').textContent=''},1500);});
-document.getElementById('light-btn').addEventListener('click',()=>{lightMode=!lightMode;document.getElementById('light-btn').classList.toggle('active',lightMode);renderBoard();});
-document.getElementById('hint-btn').addEventListener('click',()=>{if(hintsLeft<=0){document.getElementById('msg').textContent='提示已用完';return;}if(selected===-1){document.getElementById('msg').textContent='请先选择一个格子';return;}if(given[selected]||grid[selected]===solution[selected]){document.getElementById('msg').textContent='这格已经正确';return;}history.push({type:'val',idx:selected,old:grid[selected],oldNotes:new Set(notes[selected])});grid[selected]=solution[selected];notes[selected]=new Set();clearRelatedNotes(selected,solution[selected]);hintsLeft--;document.getElementById('hint-left').textContent=hintsLeft;renderBoard();updateNumpad();checkWin();});
-document.getElementById('erase-btn').addEventListener('click',()=>{if(selected===-1||given[selected])return;history.push({type:'val',idx:selected,old:grid[selected],oldNotes:new Set(notes[selected])});grid[selected]=0;notes[selected]=new Set();renderBoard();updateNumpad();});
-document.getElementById('undo-btn').addEventListener('click',()=>{if(!history.length)return;const h=history.pop();if(h.type==='val'){grid[h.idx]=h.old;notes[h.idx]=h.oldNotes;}else{if(h.had)notes[h.idx].add(h.num);else notes[h.idx].delete(h.num);}renderBoard();updateNumpad();});
-document.getElementById('check-btn').addEventListener('click',()=>{let wrong=0;for(let i=0;i<81;i++){if(!given[i]&&grid[i]>0&&grid[i]!==solution[i])wrong++;}if(wrong===0)document.getElementById('msg').textContent='目前填入的数字全部正确 ✓';else document.getElementById('msg').textContent=`发现 ${wrong} 个错误`;renderBoard();setTimeout(()=>document.getElementById('msg').textContent='',3000);});
-document.addEventListener('keydown',e=>{if(e.key>='1'&&e.key<='9')inputNumber(parseInt(e.key));if(e.key==='Backspace'||e.key==='Delete')document.getElementById('erase-btn').click();if(e.key==='n'||e.key==='N')document.getElementById('note-btn').click();const dirs={ArrowUp:-9,ArrowDown:9,ArrowLeft:-1,ArrowRight:1};if(dirs[e.key]!==undefined&&selected!==-1){e.preventDefault();const ns=selected+dirs[e.key];if(ns>=0&&ns<81)selectCell(ns);}});
+
+// 核心输入逻辑 (数字输入，兼容笔记模式和普通模式)
+function inputNumber(n) {
+  if (selected === -1 || gameOver) return;
+  if (given[selected]) return;
+  
+  if (noteMode) {
+    // 笔记模式：切换笔记，加入撤销栈
+    const had = notes[selected].has(n);
+    history.push({
+      type: 'note',
+      idx: selected,
+      num: n,
+      had: had,
+      snapshotNotes: new Set(notes[selected])
+    });
+    if (had) {
+      notes[selected].delete(n);
+    } else {
+      notes[selected].add(n);
+    }
+    renderBoard();
+    updateNumpad();
+    return;
+  }
+  
+  // 普通填数模式
+  if (grid[selected] === n) return; // 相同数字忽略
+  // 记录撤销快照
+  history.push({
+    type: 'val',
+    idx: selected,
+    old: grid[selected],
+    oldNotes: new Set(notes[selected])
+  });
+  const newValue = n;
+  grid[selected] = newValue;
+  notes[selected].clear();      // 填入数字时清空当前格子笔记
+  if (newValue !== 0) {
+    clearRelatedNotes(selected, newValue);
+  }
+  // 错误检测
+  if (solution[selected] && newValue !== 0 && newValue !== solution[selected]) {
+    errors++;
+    document.getElementById('err-count').textContent = errors;
+    if (errors >= 3) {
+      document.getElementById('msg').textContent = '错误次数过多，游戏结束！';
+      gameOver = true;
+      clearInterval(timerInterval);
+    }
+  }
+  renderBoard();
+  updateNumpad();
+  checkWin();
+}
+
+// 获胜检测
+function checkWin() {
+  if (gameOver) return;
+  const allCorrect = grid.every((val, idx) => val !== 0 && val === solution[idx]);
+  if (allCorrect && validateBoard(grid)) {
+    gameOver = true;
+    clearInterval(timerInterval);
+    const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+    const s = String(seconds % 60).padStart(2, '0');
+    document.getElementById('win-banner').style.display = 'block';
+    document.getElementById('win-time').textContent = `用时 ${m}:${s}`;
+    document.getElementById('msg').textContent = '完美！新纪录 ✨';
+  }
+}
+
+// 更新底部数字键盘（显示已用计数，视觉优化）
+function updateNumpad() {
+  const counts = Array(10).fill(0);
+  grid.forEach(v => { if (v > 0) counts[v]++; });
+  const pad = document.getElementById('numpad');
+  pad.innerHTML = '';
+  for (let n = 1; n <= 9; n++) {
+    const btn = document.createElement('button');
+    btn.className = 'num-btn' + (counts[n] >= 9 ? ' depleted' : '');
+    btn.textContent = n;
+    btn.addEventListener('click', () => inputNumber(n));
+    pad.appendChild(btn);
+  }
+}
+
+// 重置游戏主函数
+function startGame() {
+  const diff = document.getElementById('difficulty').value;
+  const puzzlesArr = PUZZLES[diff];
+  let raw;
+  // 随机使用预置题库或动态生成，增加趣味
+  if (Math.random() < 0.5 && puzzlesArr && puzzlesArr.length) {
+    raw = puzzlesArr[Math.floor(Math.random() * puzzlesArr.length)].split('').map(Number);
+    const tmpSol = [...raw];
+    solveSudoku(tmpSol);
+    solution = [...tmpSol];
+    grid = [...raw];
+  } else {
+    grid = generatePuzzle(diff);
+  }
+  given = grid.map(v => v !== 0);
+  notes = Array(81).fill(null).map(() => new Set());
+  errors = 0;
+  hintsLeft = 3;
+  history = [];
+  selected = -1;
+  gameOver = false;
+  noteMode = false;
+  lightMode = false;
+  document.getElementById('note-btn').classList.remove('active');
+  document.getElementById('light-btn').classList.remove('active');
+  document.getElementById('err-count').textContent = '0';
+  document.getElementById('hint-left').textContent = '3';
+  document.getElementById('win-banner').style.display = 'none';
+  document.getElementById('msg').textContent = '';
+  if (timerInterval) clearInterval(timerInterval);
+  seconds = 0;
+  document.getElementById('timer').textContent = '00:00';
+  timerInterval = setInterval(() => {
+    if (gameOver) return;
+    seconds++;
+    const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+    const s = String(seconds % 60).padStart(2, '0');
+    document.getElementById('timer').textContent = `${m}:${s}`;
+  }, 1000);
+  if (!validateBoard(solution)) {
+    document.getElementById('msg').textContent = '棋盘自检失败，重新生成...';
+    setTimeout(startGame, 30);
+    return;
+  }
+  renderBoard();
+  updateNumpad();
+}
+
+// ---------- 事件绑定 ----------
+document.getElementById('new-btn').addEventListener('click', startGame);
+document.getElementById('note-btn').addEventListener('click', () => {
+  if (gameOver) return;
+  noteMode = !noteMode;
+  document.getElementById('note-btn').classList.toggle('active', noteMode);
+  document.getElementById('msg').textContent = noteMode ? '笔记模式 (轻点数字添加/移除笔记)' : '填数模式 (直接填入数字)';
+  setTimeout(() => {
+    if (document.getElementById('msg').textContent.includes('笔记') || document.getElementById('msg').textContent.includes('填数'))
+      document.getElementById('msg').textContent = '';
+  }, 1500);
+});
+document.getElementById('light-btn').addEventListener('click', () => {
+  if (gameOver) return;
+  lightMode = !lightMode;
+  document.getElementById('light-btn').classList.toggle('active', lightMode);
+  renderBoard();
+});
+document.getElementById('hint-btn').addEventListener('click', () => {
+  if (gameOver) return;
+  if (hintsLeft <= 0) {
+    document.getElementById('msg').textContent = '提示次数已用完！';
+    return;
+  }
+  if (selected === -1) {
+    document.getElementById('msg').textContent = '请先点选一个格子';
+    return;
+  }
+  if (given[selected] || grid[selected] === solution[selected]) {
+    document.getElementById('msg').textContent = '这一格已经正确，无需提示';
+    return;
+  }
+  history.push({
+    type: 'val',
+    idx: selected,
+    old: grid[selected],
+    oldNotes: new Set(notes[selected])
+  });
+  grid[selected] = solution[selected];
+  notes[selected].clear();
+  clearRelatedNotes(selected, solution[selected]);
+  hintsLeft--;
+  document.getElementById('hint-left').textContent = hintsLeft;
+  renderBoard();
+  updateNumpad();
+  checkWin();
+});
+document.getElementById('erase-btn').addEventListener('click', () => {
+  if (gameOver || selected === -1) return;
+  if (given[selected]) return;
+  history.push({
+    type: 'val',
+    idx: selected,
+    old: grid[selected],
+    oldNotes: new Set(notes[selected])
+  });
+  grid[selected] = 0;
+  notes[selected].clear();
+  renderBoard();
+  updateNumpad();
+});
+document.getElementById('undo-btn').addEventListener('click', () => {
+  if (gameOver || history.length === 0) return;
+  const h = history.pop();
+  if (h.type === 'val') {
+    grid[h.idx] = h.old;
+    notes[h.idx] = h.oldNotes;
+  } else if (h.type === 'note') {
+    // 精确还原笔记状态
+    notes[h.idx] = h.snapshotNotes;
+  }
+  renderBoard();
+  updateNumpad();
+  // 如果撤销后错误计数需要同步（错误计数不会自动回滚但保持用户体验，简单重新统计一下错误次数）
+  let newErrCount = 0;
+  for (let i = 0; i < 81; i++) {
+    if (!given[i] && grid[i] !== 0 && grid[i] !== solution[i]) newErrCount++;
+  }
+  errors = newErrCount;
+  document.getElementById('err-count').textContent = errors;
+  if (errors >= 3 && !gameOver) {
+    gameOver = true;
+    clearInterval(timerInterval);
+    document.getElementById('msg').textContent = '错误过多游戏结束';
+  } else if (errors < 3 && gameOver && errors < 3) {
+    gameOver = false;
+    if (!timerInterval) {
+      timerInterval = setInterval(() => {
+        if (gameOver) return;
+        seconds++;
+        const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+        const s = String(seconds % 60).padStart(2, '0');
+        document.getElementById('timer').textContent = `${m}:${s}`;
+      }, 1000);
+    }
+  }
+});
+document.getElementById('check-btn').addEventListener('click', () => {
+  let wrong = 0;
+  for (let i = 0; i < 81; i++) {
+    if (!given[i] && grid[i] !== 0 && grid[i] !== solution[i]) wrong++;
+  }
+  if (wrong === 0) document.getElementById('msg').textContent = '✓ 当前填入的数字全部正确！';
+  else document.getElementById('msg').textContent = `⚠️ 发现 ${wrong} 个错误格子，请检查红色数字`;
+  renderBoard();
+  setTimeout(() => {
+    if (document.getElementById('msg').textContent.includes('正确') || document.getElementById('msg').textContent.includes('错误'))
+      document.getElementById('msg').textContent = '';
+  }, 2800);
+});
+// 键盘支持
+document.addEventListener('keydown', (e) => {
+  if (gameOver) return;
+  if (e.key >= '1' && e.key <= '9') {
+    inputNumber(parseInt(e.key));
+  }
+  if (e.key === 'Backspace' || e.key === 'Delete') {
+    document.getElementById('erase-btn').click();
+  }
+  if (e.key === 'n' || e.key === 'N') {
+    document.getElementById('note-btn').click();
+  }
+  const dirs = { ArrowUp: -9, ArrowDown: 9, ArrowLeft: -1, ArrowRight: 1 };
+  if (dirs[e.key] !== undefined && selected !== -1) {
+    e.preventDefault();
+    const ns = selected + dirs[e.key];
+    if (ns >= 0 && ns < 81) selectCell(ns);
+  }
+});
+
+// 启动游戏
 startGame();
 </script>
 </body>
