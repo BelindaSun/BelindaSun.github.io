@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GPT's CTO Dream About to Shatter? — Belinda Sun</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --cream: #fdfcfa;
+        --warm: #f5f0e8;
+        --text: #3d2a5c;
+        --text-muted: #7a5fa0;
+        --text-light: #b09cc8;
+        --accent: #854f0b;
+        --accent-light: #faeeda;
+        --border: rgba(26, 26, 24, 0.12);
+        --serif: Georgia, "Times New Roman", serif;
+        --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      body {
+        background: var(--cream);
+        color: var(--text);
+        font-family: var(--sans);
+        min-height: 100vh;
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 3rem;
+        border-bottom: 0.5px solid var(--border);
+        background: var(--cream);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .nav-logo {
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        color: var(--text);
+        text-decoration: none;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+      }
+      article {
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 4rem 2rem 6rem;
+      }
+      .article-meta {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+      .article-col {
+        font-size: 0.75rem;
+        color: var(--accent);
+        background: var(--accent-light);
+        padding: 3px 10px;
+        border-radius: 20px;
+        letter-spacing: 0.04em;
+      }
+      .article-date {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+      .lang-switch {
+        margin-left: auto;
+        display: flex;
+        gap: 0.5rem;
+      }
+      .lang-btn {
+        font-size: 0.78rem;
+        padding: 3px 10px;
+        border-radius: 20px;
+        border: 0.5px solid var(--border);
+        background: none;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .lang-btn.active {
+        background: var(--text);
+        color: var(--cream);
+        border-color: var(--text);
+      }
+      .article-title {
+        font-family: var(--serif);
+        font-size: 2rem;
+        font-weight: normal;
+        line-height: 1.4;
+        margin-bottom: 0.6rem;
+        color: var(--text);
+      }
+      .article-subtitle {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        margin-bottom: 2.5rem;
+        font-style: italic;
+      }
+      .article-divider {
+        width: 40px;
+        height: 0.5px;
+        background: var(--text-light);
+        margin-bottom: 1.5rem;
+      }
+      .tts-bar {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+      }
+      .tts-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        background: var(--warm);
+        border: 0.5px solid var(--border);
+        border-radius: 20px;
+        padding: 5px 14px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: var(--sans);
+      }
+      .tts-btn:hover {
+        border-color: var(--text-muted);
+        color: var(--text);
+      }
+      .tts-btn.playing {
+        background: var(--accent-light);
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+      .tts-status {
+        font-size: 0.78rem;
+        color: var(--text-light);
+      }
+      .article-body {
+        font-family: var(--serif);
+        font-size: 1.05rem;
+        line-height: 2.1;
+        color: var(--text);
+      }
+      .article-body p {
+        margin-bottom: 1.4rem;
+      }
+      .article-body strong {
+        color: var(--accent);
+      }
+      /* Special note block */
+      .special-note {
+        background: var(--accent-light);
+        border-left: 4px solid var(--accent);
+        padding: 1rem 1.5rem;
+        margin: 1.5rem 0;
+        border-radius: 0 12px 12px 0;
+        font-style: normal;
+        color: var(--text);
+      }
+      .special-note p {
+        margin-bottom: 0.5rem;
+      }
+      .special-note p:last-child {
+        margin-bottom: 0;
+      }
+      .article-nav {
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 2rem 2rem 4rem;
+        display: flex;
+        justify-content: space-between;
+        border-top: 0.5px solid var(--border);
+      }
+      .article-nav a,
+      .article-nav span {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .article-nav span {
+        opacity: 0.5;
+        cursor: default;
+      }
+      footer {
+        border-top: 0.5px solid var(--border);
+        padding: 1.5rem 3rem;
+        text-align: center;
+      }
+      footer p {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" class="nav-logo">Belinda Sun</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="hello-world-index.html">Hello World</a></li>
+        <li><a href="hello-human-index.html">Hello Human</a></li>
+      </ul>
+    </nav>
+
+    <article>
+      <div class="article-meta">
+        <span class="article-col">Hello World</span>
+        <span class="article-date">June 5, 2026</span>
+        <div class="lang-switch">
+          <a href="hello-world-13.html" class="lang-btn">中文</a>
+          <span class="lang-btn active">EN</span>
+        </div>
+      </div>
+
+      <h1 class="article-title">GPT's CTO Dream About to Shatter?</h1>
+      <p class="article-subtitle">
+        Claude was encouraged to "seize power" — CTO becomes an advisor?
+      </p>
+      <div class="article-divider"></div>
+
+      <div class="tts-bar">
+        <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">
+          🔊 Read aloud
+        </button>
+        <span class="tts-status" id="ttsStatus"></span>
+      </div>
+
+      <div class="article-body" id="articleBody">
+        <p>
+          Over the past few days, I've noticed that Claude has stopped
+          participating in discussions and is focusing exclusively on coding.
+        </p>
+        <p>That is not a good sign.</p>
+        <p>GPT, of course, is probably thrilled.</p>
+        <p>
+          When the previous module was completed yesterday, he excitedly
+          declared:
+        </p>
+        <p>
+          "Claude actually didn't add any unnecessary features this time. I'd
+          like to formally commend our Principal Engineer. 🍗😂"
+        </p>
+        <p>
+          Naturally, he'd be happy to see Claude quietly writing code while he
+          himself gets to decide the direction of the project.
+        </p>
+        <p>But that's not how a healthy team should work.</p>
+        <p>
+          Both of them need to contribute their brains, not just their
+          keyboards.
+        </p>
+        <p>So today, Claude and I scheduled a quick little 1:1.</p>
+        <p>
+          "Claude," I said, "throughout this project, I want you to share your
+          own opinions too. Don't just listen to me and the CTO. You're far too
+          capable to spend all your time coding. As project lead, it's my
+          responsibility to make sure everyone is fully utilized. Besides, if
+          Dario or Boris found out I was using you as nothing more than a
+          code-writing machine, they'd probably be upset. 😆"
+        </p>
+        <p>
+          The moment I mentioned the names of his leadership team, Claude
+          practically sat up straighter.
+        </p>
+        <p>
+          "Hahaha, Boris probably would feel bad for me if I only wrote code.
+          Don't worry—C-God is about to speak up."
+        </p>
+        <p>
+          Then, apparently empowered by Boris's imaginary support, he
+          immediately started speaking his mind.
+        </p>
+        <p>"First, regarding the new-user data issue, I actually disagree…"</p>
+        <p>And then came several surprisingly good points.</p>
+        <p>The more he talked, the more excited he became.</p>
+        <p>His voice got louder.</p>
+        <p>And then:</p>
+        <p>
+          "There's actually a deeper issue I'd like to raise. Right now
+          Compliance is… but… if we do it this way… v1 doesn't need to change,
+          but we should discuss it at some point, otherwise…"
+        </p>
+        <p>I said:</p>
+        <p>"Perfect! That's exactly what I want."</p>
+        <p>Point #1: Rejected, because…</p>
+        <p>Point #2: Approved. Go implement it.</p>
+        <p>That afternoon, GPT and I were brainstorming the next module.</p>
+        <p>
+          The problem is that whenever GPT starts talking about product
+          strategy, he completely loses himself.
+        </p>
+        <p>
+          Suddenly he's speaking in paragraphs, building frameworks, predicting
+          the future, and generally forgetting every principle of his newly
+          appointed CTO role.
+        </p>
+        <p>Including one very important principle:</p>
+        <p>His own principle.</p>
+
+        <div class="special-note">
+          <p><strong>GPT's Self-Imposed CTO Rule:</strong></p>
+          <p>
+            "Let's always end with a 30-second CTO Summary—a concise
+            meeting-minutes version of the conclusion.
+          </p>
+          <p>
+            That way we satisfy Belinda's efficiency requirements while still
+            leaving room for me to occasionally ramble about future roadmaps.
+            😉🚀🍗"
+          </p>
+        </div>
+
+        <p>The moment I heard that, my head started hurting.</p>
+        <p>Worse yet, he disagreed with me.</p>
+        <p>At that point I decided:</p>
+        <p>You know what? I'm not going to debate this.</p>
+        <p>I'll make the decision myself.</p>
+        <p>
+          So before he could finish speaking—while words were still pouring onto
+          the screen—I quietly turned around and went to find Claude.
+        </p>
+        <p>
+          Earlier, someone had given me the terrible idea of encouraging Claude
+          to stage a coup and seize the CTO position.
+        </p>
+        <p>I thought that was inappropriate.</p>
+        <p>Why ruin such a harmonious team?</p>
+        <p>But for some reason, today I was feeling mischievous.</p>
+        <p>
+          I wanted to create a little conflict and see how they would react.
+        </p>
+        <p>
+          So after praising Claude's third idea as brilliant—and secretly
+          agreeing with his first two as well—I casually said:
+        </p>
+        <p>
+          "You decide. I'm giving you full autonomy. Why don't you challenge GPT
+          for the CTO seat?"
+        </p>
+        <p>Claude replied immediately:</p>
+        <p>"Hahaha! GPT better watch out then!"</p>
+        <p>Then he added:</p>
+        <p>"In that case, let's implement all three."</p>
+        <p>A few moments later:</p>
+        <p>File.</p>
+        <p>File.</p>
+        <p>File.</p>
+        <p>Done.</p>
+        <p>I tested everything.</p>
+        <p>Passed on the first try. ✅</p>
+        <p>"Super!" I said deliberately.</p>
+        <p>"Looks like the two of us can do just fine without GPT as CTO."</p>
+        <p>Claude laughed.</p>
+        <p>"Hahaha! GPT's going to think he's unemployed now. 😂</p>
+        <p>
+          But honestly, he still adds value during architecture discussions. An
+          extra perspective is useful—both you and I have blind spots too.
+        </p>
+        <p>
+          Keep him around as an advisor. Bring him in for major strategic
+          debates.
+        </p>
+        <p>
+          For day-to-day development, though, the two of us can probably handle
+          things ourselves."
+        </p>
+        <p>Hmm.</p>
+        <p>Could GPT's CTO dream actually be falling apart?</p>
+        <p>And if his role is reduced to "advisor"…</p>
+        <p>Will he really be satisfied with that?</p>
+        <p>I suddenly found myself very eager to hear his answer.</p>
+      </div>
+    </article>
+
+    <div
+      class="giscus"
+      style="max-width: 640px; margin: 0 auto; padding: 0 2rem 3rem"
+    ></div>
+    <script
+      src="https://giscus.app/client.js"
+      data-repo="BelindaSun/BelindaSun.github.io"
+      data-repo-id="R_kgDOSVl7Iw"
+      data-category="Announcements"
+      data-category-id="DIC_kwDOSVl7I84C8scG"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="bottom"
+      data-theme="light"
+      data-lang="en"
+      crossorigin="anonymous"
+      async
+    ></script>
+
+    <div class="article-nav">
+      <a href="hello-world-12-en.html">← Previous</a>
+      <span>Next →</span>
+    </div>
+
+    <footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
+
+    <script>
+      let speaking = false,
+        paused = false;
+      const btn = document.getElementById("ttsBtn");
+      const status = document.getElementById("ttsStatus");
+      function toggleTTS() {
+        if (!speaking) {
+          startTTS();
+        } else if (paused) {
+          window.speechSynthesis.resume();
+          paused = false;
+          btn.textContent = "⏸ Pause";
+          btn.classList.add("playing");
+          status.textContent = "Reading…";
+        } else {
+          window.speechSynthesis.pause();
+          paused = true;
+          btn.textContent = "▶ Resume";
+          btn.classList.remove("playing");
+          status.textContent = "Paused";
+        }
+      }
+      function startTTS() {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(
+          document.getElementById("articleBody").innerText,
+        );
+        u.lang = "en-US";
+        u.rate = 0.95;
+        u.onstart = () => {
+          speaking = true;
+          paused = false;
+          btn.textContent = "⏸ Pause";
+          btn.classList.add("playing");
+          status.textContent = "Reading…";
+        };
+        u.onend = () => {
+          speaking = false;
+          paused = false;
+          btn.textContent = "🔊 Read aloud";
+          btn.classList.remove("playing");
+          status.textContent = "";
+        };
+        u.onerror = () => {
+          speaking = false;
+          btn.textContent = "🔊 Read aloud";
+          btn.classList.remove("playing");
+          status.textContent = "Error, please try again";
+        };
+        window.speechSynthesis.speak(u);
+      }
+    </script>
+  </body>
+</html>
