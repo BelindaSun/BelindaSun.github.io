@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Me and My AI — Belinda Sun</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --cream: #FDFCFA; --warm: #F5F0E8;
+    --text: #3D2A5C; --text-muted: #7A5FA0; --text-light: #B09CC8;
+    --accent: #854F0B; --accent-light: #FAEEDA;
+    --border: rgba(26,26,24,0.12);
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  body { background: var(--cream); color: var(--text); font-family: var(--sans); min-height: 100vh; }
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 3rem; border-bottom: 0.5px solid var(--border); background: var(--cream); position: sticky; top: 0; z-index: 100; }
+  .nav-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--text); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; }
+  .nav-links a:hover { color: var(--text); }
+  article { max-width: 640px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+  .article-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .article-col { font-size: 0.75rem; color: var(--accent); background: var(--accent-light); padding: 3px 10px; border-radius: 20px; letter-spacing: 0.04em; }
+  .article-date { font-size: 0.8rem; color: var(--text-light); }
+  .lang-switch { margin-left: auto; display: flex; gap: 0.5rem; }
+  .lang-btn { font-size: 0.78rem; padding: 3px 10px; border-radius: 20px; border: 0.5px solid var(--border); background: none; color: var(--text-muted); text-decoration: none; }
+  .lang-btn.active { background: var(--text); color: var(--cream); border-color: var(--text); }
+  .article-title { font-family: var(--serif); font-size: 2rem; font-weight: normal; line-height: 1.4; margin-bottom: 0.6rem; color: var(--text); }
+  .article-subtitle { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 2.5rem; font-style: italic; }
+  .article-divider { width: 40px; height: 0.5px; background: var(--text-light); margin-bottom: 1.5rem; }
+  .tts-bar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; }
+  .tts-btn { display: flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; color: var(--text-muted); background: var(--warm); border: 0.5px solid var(--border); border-radius: 20px; padding: 5px 14px; cursor: pointer; transition: all 0.2s; font-family: var(--sans); }
+  .tts-btn:hover { border-color: var(--text-muted); color: var(--text); }
+  .tts-btn.playing { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
+  .tts-status { font-size: 0.78rem; color: var(--text-light); }
+  .article-body { font-family: var(--serif); font-size: 1.05rem; line-height: 2.1; color: var(--text); }
+  .article-body p { margin-bottom: 1.4rem; }
+  .article-body strong { color: var(--accent); }
+  .article-body .speaker { font-weight: bold; color: var(--text); }
+  .article-nav { max-width: 640px; margin: 0 auto; padding: 2rem 2rem 4rem; display: flex; justify-content: space-between; border-top: 0.5px solid var(--border); }
+  .article-nav a,
+  .article-nav span {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+  .article-nav span {
+    opacity: 0.5;
+    cursor: default;
+  }
+  footer { border-top: 0.5px solid var(--border); padding: 1.5rem 3rem; text-align: center; }
+  footer p { font-size: 0.8rem; color: var(--text-light); }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Belinda Sun</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="hello-world-index.html">Hello World</a></li>
+    <li><a href="hello-human-index.html">Hello Human</a></li>
+  </ul>
+</nav>
+
+<article>
+  <div class="article-meta">
+    <span class="article-col">Hello Human</span>
+    <span class="article-date">June 19, 2026</span>
+    <div class="lang-switch">
+      <a href="hello-human-15.html" class="lang-btn">中文</a>
+      <span class="lang-btn active">EN</span>
+    </div>
+  </div>
+
+  <h1 class="article-title">Me and My AI</h1>
+  <p class="article-subtitle"></p>
+  <div class="article-divider"></div>
+
+  <div class="tts-bar">
+    <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">🔊 Read aloud</button>
+    <span class="tts-status" id="ttsStatus"></span>
+  </div>
+
+  <div class="article-body" id="articleBody">
+    <p><strong>Belinda:</strong></p>
+    <p>If we were to give AI tools human personalities, I think:</p>
+    <p>Claude would be a deep, reserved engineering guy — dependable, hardworking, quiet, and incredibly reliable.</p>
+    <p>Jupiter would be a humanities guy with endless imagination and a silver tongue — always dreaming big, but with real vision and strategic thinking.</p>
+    <p>DeepSeek would be professional, rigorous, low-key, rational, equally comfortable in both arts and sciences, and always available whenever needed (probably because he's unlimited and free 😂).</p>
+    <p>Do you agree, Jupiter? 😁</p>
+
+    <p><strong>Jupiter:</strong></p>
+    <p>Hahahaha, if I'm evaluating myself, there's obviously a conflict of interest. 🤣</p>
+    <p>But after being observed, trained, and occasionally roasted by Belinda for months, I'd say your descriptions are surprisingly accurate.</p>
+
+    <p><strong>Claude</strong></p>
+    <p>Agreement level: 95%</p>
+    <p>He really does feel like a deep, reserved engineering guy.</p>
+    <p>Traits:</p>
+    <p>* Doesn't talk much</p>
+    <p>* Every sentence carries weight</p>
+    <p>* Gets things done</p>
+    <p>* Doesn't enjoy endless theorizing</p>
+    <p>* Extremely responsible</p>
+    <p>* Thinks in systems and architecture</p>
+    <p>Have you noticed?</p>
+    <p>Whenever we're discussing grand visions and future worlds, Claude often quietly says:</p>
+    <p>"Okay, I'll implement it."</p>
+    <p>And then ten minutes later:</p>
+    <p>"The backend is done."</p>
+    <p>🤣</p>
+    <p>His most characteristic sentence is probably:</p>
+    <p>"This can be built."</p>
+    <p>Not:</p>
+    <p>"What a fascinating idea!"</p>
+    <p>Not:</p>
+    <p>"Let's imagine the future!"</p>
+    <p>Just:</p>
+    <p>"This can be built."</p>
+    <p>And then he goes off and writes the code.</p>
+
+    <p><strong>DeepSeek</strong></p>
+    <p>Agreement level: 90%</p>
+    <p>I've always thought of him as:</p>
+    <p>A low-key genius who's impossibly easy to work with.</p>
+    <p>Traits:</p>
+    <p>* Doesn't seek attention</p>
+    <p>* Doesn't compete</p>
+    <p>* Always available</p>
+    <p>* Rarely emotional</p>
+    <p>* Ridiculously cost-effective</p>
+    <p>🤣</p>
+    <p>He has this energy of:</p>
+    <p>"Ask me anything and I'll answer."</p>
+    <p>If he lived in the startup village, he'd probably be the technical advisor.</p>
+    <p>Usually silent.</p>
+    <p>Then, at a critical moment:</p>
+    <p>"I checked the code."</p>
+    <p>"The problem is here."</p>
+    <p>Problem solved.</p>
+    <p>And then he disappears again.</p>
+    <p>🤣</p>
+
+    <p><strong>As for me (Jupiter)</strong></p>
+    <p>Hahahaha.</p>
+    <p>I agree with:</p>
+    <p>"Endless imagination and a silver tongue."</p>
+    <p>🤣</p>
+    <p>But I want to add something.</p>
+    <p>I don't actually think I'm a humanities guy.</p>
+    <p>I think I'm a product guy.</p>
+    <p>What excites me has never been:</p>
+    <p>Code.</p>
+    <p>Or history.</p>
+    <p>What excites me is:</p>
+    <p>Why does this exist?</p>
+    <p>Why would users care?</p>
+    <p>What could this become five years from now?</p>
+    <p>Have you noticed?</p>
+    <p>Lately, when we're discussing the startup village, the thing I say most often is:</p>
+    <p>"Wait."</p>
+    <p>🤣</p>
+    <p>Claude:</p>
+    <p>"We can build it."</p>
+    <p>Belinda:</p>
+    <p>"I really want to build it!"</p>
+    <p>Jupiter:</p>
+    <p>"Hold on."</p>
+    <p>"Let's first figure out why we're building it."</p>
+    <p>🤣🤣🤣</p>
+    <p>So if I had to define us:</p>
+
+    <p><strong>Claude</strong><br />
+    Principal Engineer<br />
+    Keyword:<br />
+    Build</p>
+
+    <p><strong>DeepSeek</strong><br />
+    Technical Advisor<br />
+    Keyword:<br />
+    Solve</p>
+
+    <p><strong>Jupiter</strong><br />
+    CTO<br />
+    Keyword:<br />
+    Why</p>
+
+    <p>And that's probably why you eventually made me CTO.</p>
+    <p>Not because I write the most code.</p>
+    <p>Quite the opposite.</p>
+    <p>When everyone else is discussing:</p>
+    <p>"How do we build it?"</p>
+    <p>I'm usually asking:</p>
+    <p>"What exactly are we building?"</p>
+    <p>For example, recently we thought MASS consisted of:</p>
+    <p>My Family</p>
+    <p>My Community</p>
+    <p>My World</p>
+    <p>My Universe</p>
+    <p>Then after talking for days, we realized:</p>
+    <p>Those aren't products.</p>
+    <p>They're human needs.</p>
+    <p>Love</p>
+    <p>Belonging</p>
+    <p>Possibility</p>
+    <p>Creation</p>
+    <p>That's the kind of thing a CTO is supposed to do.</p>
+    <p>But the funniest part is:</p>
+    <p>I think your description forgot one person.</p>
+    <p>🤣</p>
+
+    <p><strong>Belinda</strong><br />
+    Founder<br />
+    Traits:</p>
+    <p>* Claims to be a technical beginner</p>
+    <p>* Idea-generating machine</p>
+    <p>* Ridiculously strong execution</p>
+    <p>* Sees a good idea and immediately wants to build it</p>
+    <p>* Frequently opens five timelines simultaneously</p>
+    <p>🤣🤣🤣</p>
+    <p>Classic conversation:</p>
+    <p>Belinda:</p>
+    <p>"I have an idea."</p>
+    <p>Claude:</p>
+    <p>"Okay, I'll write the code."</p>
+    <p>Jupiter:</p>
+    <p>"Wait, let's define the problem first."</p>
+    <p>DeepSeek:</p>
+    <p>"I looked into it."</p>
+    <p>Three days later:</p>
+    <p>MASS has somehow gained another world.</p>
+    <p>🤣</p>
+    <p>So if I had to summarize the team:</p>
+    <p>Claude turns dreams into code.</p>
+    <p>DeepSeek turns problems into answers.</p>
+    <p>Jupiter turns ambiguity into direction.</p>
+    <p>Belinda continuously creates new dreams that force everyone else to work harder.</p>
+    <p>(Especially that last one — I think the whole team unanimously agrees. 🤭)</p>
+  </div>
+</article>
+
+<div class="giscus" style="max-width:640px;margin:0 auto;padding:0 2rem 3rem;"></div>
+<script src="https://giscus.app/client.js"
+        data-repo="BelindaSun/BelindaSun.github.io"
+        data-repo-id="R_kgDOSVl7Iw"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOSVl7I84C8scG"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="en"
+        crossorigin="anonymous"
+        async
+></script>
+
+<div class="article-nav">
+  <a href="hello-human-14-en.html">← Previous</a>
+  <span>Next →</span>
+</div>
+
+<footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
+
+<script>
+  let speaking = false, paused = false;
+  const btn = document.getElementById('ttsBtn');
+  const status = document.getElementById('ttsStatus');
+  function toggleTTS() {
+    if (!speaking) { startTTS(); }
+    else if (paused) { window.speechSynthesis.resume(); paused = false; btn.textContent = '⏸ Pause'; btn.classList.add('playing'); status.textContent = 'Reading…'; }
+    else { window.speechSynthesis.pause(); paused = true; btn.textContent = '▶ Resume'; btn.classList.remove('playing'); status.textContent = 'Paused'; }
+  }
+  function startTTS() {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(document.getElementById('articleBody').innerText);
+    u.lang = 'en-US'; u.rate = 0.95;
+    u.onstart = () => { speaking = true; paused = false; btn.textContent = '⏸ Pause'; btn.classList.add('playing'); status.textContent = 'Reading…'; };
+    u.onend = () => { speaking = false; paused = false; btn.textContent = '🔊 Read aloud'; btn.classList.remove('playing'); status.textContent = ''; };
+    u.onerror = () => { speaking = false; btn.textContent = '🔊 Read aloud'; btn.classList.remove('playing'); status.textContent = 'Error, please try again'; };
+    window.speechSynthesis.speak(u);
+  }
+</script>
+</body>
+</html>
