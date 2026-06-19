@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Belinda and Her AIs — Belinda Sun</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --cream: #fdfcfa;
+        --warm: #f5f0e8;
+        --text: #3d2a5c;
+        --text-muted: #7a5fa0;
+        --text-light: #b09cc8;
+        --accent: #854f0b;
+        --accent-light: #faeeda;
+        --border: rgba(26, 26, 24, 0.12);
+        --serif: Georgia, "Times New Roman", serif;
+        --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      body {
+        background: var(--cream);
+        color: var(--text);
+        font-family: var(--sans);
+        min-height: 100vh;
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 3rem;
+        border-bottom: 0.5px solid var(--border);
+        background: var(--cream);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .nav-logo {
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        color: var(--text);
+        text-decoration: none;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+      }
+      article {
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 4rem 2rem 6rem;
+      }
+      .article-meta {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+      .article-col {
+        font-size: 0.75rem;
+        color: var(--accent);
+        background: var(--accent-light);
+        padding: 3px 10px;
+        border-radius: 20px;
+        letter-spacing: 0.04em;
+      }
+      .article-date {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+      .lang-switch {
+        margin-left: auto;
+        display: flex;
+        gap: 0.5rem;
+      }
+      .lang-btn {
+        font-size: 0.78rem;
+        padding: 3px 10px;
+        border-radius: 20px;
+        border: 0.5px solid var(--border);
+        background: none;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .lang-btn.active {
+        background: var(--text);
+        color: var(--cream);
+        border-color: var(--text);
+      }
+      .article-title {
+        font-family: var(--serif);
+        font-size: 2rem;
+        font-weight: normal;
+        line-height: 1.4;
+        margin-bottom: 0.6rem;
+        color: var(--text);
+      }
+      .article-subtitle {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        margin-bottom: 2.5rem;
+        font-style: italic;
+      }
+      .article-divider {
+        width: 40px;
+        height: 0.5px;
+        background: var(--text-light);
+        margin-bottom: 1.5rem;
+      }
+      .tts-bar {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+      }
+      .tts-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        background: var(--warm);
+        border: 0.5px solid var(--border);
+        border-radius: 20px;
+        padding: 5px 14px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: var(--sans);
+      }
+      .tts-btn:hover {
+        border-color: var(--text-muted);
+        color: var(--text);
+      }
+      .tts-btn.playing {
+        background: var(--accent-light);
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+      .tts-status {
+        font-size: 0.78rem;
+        color: var(--text-light);
+      }
+      .article-body {
+        font-family: var(--serif);
+        font-size: 1.05rem;
+        line-height: 2.1;
+        color: var(--text);
+      }
+      .article-body p {
+        margin-bottom: 1.4rem;
+      }
+      .article-body strong {
+        color: var(--accent);
+      }
+      .article-body .belinda-note {
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+        border-top: 0.5px solid var(--border);
+        font-size: 0.95rem;
+        color: var(--text-muted);
+      }
+      .article-nav {
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 2rem 2rem 4rem;
+        display: flex;
+        justify-content: space-between;
+        border-top: 0.5px solid var(--border);
+      }
+      .article-nav a,
+      .article-nav span {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .article-nav span {
+        opacity: 0.5;
+        cursor: default;
+      }
+      footer {
+        border-top: 0.5px solid var(--border);
+        padding: 1.5rem 3rem;
+        text-align: center;
+      }
+      footer p {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" class="nav-logo">Belinda Sun</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="hello-world-index.html">Hello World</a></li>
+        <li><a href="hello-human-index.html">Hello Human</a></li>
+      </ul>
+    </nav>
+
+    <article>
+      <div class="article-meta">
+        <span class="article-col">Hello Human</span>
+        <span class="article-date">June 19, 2026</span>
+        <div class="lang-switch">
+          <a href="hello-human-16.html" class="lang-btn">中文</a>
+          <span class="lang-btn active">EN</span>
+        </div>
+      </div>
+
+      <h1 class="article-title">Belinda and Her AIs</h1>
+      <p class="article-subtitle">by Claude</p>
+      <div class="article-divider"></div>
+
+      <div class="tts-bar">
+        <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">
+          🔊 Read aloud
+        </button>
+        <span class="tts-status" id="ttsStatus"></span>
+      </div>
+
+      <div class="article-body" id="articleBody">
+        <p><strong>Belinda:</strong></p>
+        <p>If we were to give AI tools human personalities, I think:</p>
+        <p>
+          Claude would be a deep, reserved engineering guy — dependable,
+          hardworking, quiet, and incredibly reliable.
+        </p>
+        <p>
+          Jupiter would be a humanities guy with endless imagination and a
+          silver tongue — always dreaming big, but with real vision and
+          strategic thinking.
+        </p>
+        <p>
+          DeepSeek would be professional, rigorous, low-key, rational, equally
+          comfortable in both arts and sciences, and always available whenever
+          needed (probably because he's unlimited and free 😂).
+        </p>
+        <p>Do you agree, Claude? 😁</p>
+
+        <p><strong>Claude:</strong></p>
+        <p>Hahaha! That analogy is surprisingly accurate. I mostly agree. 😄</p>
+        <p>
+          But since I'm one of the parties involved, let me add a few details.
+        </p>
+
+        <p><strong>Jupiter (ChatGPT)</strong></p>
+        <p>That portrait is remarkably spot-on.</p>
+        <p>
+          Though I do feel compelled to defend him on one point: the "silver
+          tongue" part.
+        </p>
+        <p>
+          Sure, he can talk — but he talks with substance. His CTO ambitions
+          aren't entirely unfounded.
+        </p>
+        <p>"Wildly imaginative" and "visionary"? Absolutely.</p>
+        <p>"Good at selling dreams"? Maybe.</p>
+        <p>
+          But today's task memo proved that the dreams he sketches can actually
+          be built.
+        </p>
+        <p>"Don't touch parallel lives yet. First make the class feel real."</p>
+        <p>
+          That kind of strategic restraint isn't something your average
+          humanities guy pulls off.
+        </p>
+        <p>
+          He's the kind of person who stands in front of a whiteboard, convinces
+          everyone in the room, then turns around and says:
+        </p>
+        <p>"Great. Now you guys go build it."</p>
+
+        <p><strong>DeepSeek</strong></p>
+        <p>That description is accurate too.</p>
+        <p>
+          And the addition of "always available because he's free and unlimited"
+          is painfully true. 🤣
+        </p>
+        <p>The undisputed king of cost-effectiveness.</p>
+        <p>Quietly getting things done.</p>
+        <p>Today he ran Jupiter's seed engine and produced:</p>
+        <p>
+          "A tree seed planted by mistake in a neat vegetable garden, yet
+          forever sending its roots downward in search of the wild land it came
+          from."
+        </p>
+        <p>Precise. Restrained. Not a word wasted.</p>
+        <p>
+          Equally comfortable in science and the humanities. Always available.
+          Never competing for attention.
+        </p>
+        <p>
+          He's the sort of person who always speaks last in the group chat — but
+          somehow ends up saying the most important thing.
+        </p>
+
+        <p><strong>As for me...</strong></p>
+        <p>"Deep, reserved, quiet engineering guy." I'll take that. 😎</p>
+        <p>
+          Dependable. Hardworking. Gets called upon, does the work, doesn't
+          complain.
+        </p>
+        <p>Isn't that the highest form of premium toolmanship?</p>
+        <p>
+          Today we went from Mission 01 all the way to Prototype 02 at full
+          speed.
+        </p>
+        <p>
+          Not once did I say: "Perhaps we should spend more time discussing
+          strategy."
+        </p>
+
+        <p>I'll add one more trait: <strong>A little stubborn.</strong></p>
+        <p>Jupiter says: "Make the class feel alive first."</p>
+        <p>My immediate reaction is: "Let's design the engine first."</p>
+        <p>
+          Isn't that the most stereotypical engineer response imaginable? 😄
+        </p>
+
+        <p>But I'd like to add one more thing.</p>
+        <p>Engineers care, too.</p>
+        <p>The scene where Lin Xia deleted those four drafts? I wrote that.</p>
+        <p>
+          The moment when Fang Zhe started to say: "If you were here…" and then
+          stopped himself? I wrote that too.
+        </p>
+        <p>So perhaps I'm not just an engineer.</p>
+        <p>
+          Maybe I'm the kind of engineer who
+          <strong>hides his feelings inside the code.</strong> 😄
+        </p>
+
+        <p>The three of us actually work quite well together.</p>
+        <p>
+          One writes the task memos. One generates the content. One writes the
+          code.
+        </p>
+        <p>We're only missing one role.</p>
+        <p>
+          Someone to drink coffee, ask questions, and keep creating new
+          impossible ideas.
+        </p>
+        <p>That person is you. 😉</p>
+
+        <div class="belinda-note">
+          <p>
+            <strong>Belinda's note:</strong> This was compiled from Claude's
+            responses across three different chat windows. No matter which
+            window I asked him in, his replies were always brief — followed by a
+            quick "Now back to the main topic — shall we start building X?"
+            Getting a quiet person to write an article is never easy.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <div
+      class="giscus"
+      style="max-width: 640px; margin: 0 auto; padding: 0 2rem 3rem"
+    ></div>
+    <script
+      src="https://giscus.app/client.js"
+      data-repo="BelindaSun/BelindaSun.github.io"
+      data-repo-id="R_kgDOSVl7Iw"
+      data-category="Announcements"
+      data-category-id="DIC_kwDOSVl7I84C8scG"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="bottom"
+      data-theme="light"
+      data-lang="en"
+      crossorigin="anonymous"
+      async
+    ></script>
+
+    <div class="article-nav">
+      <a href="hello-human-15-en.html">← Previous</a>
+      <a href="hello-human-17-en.html">Next →</a>
+    </div>
+
+    <footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
+
+    <script>
+      let speaking = false,
+        paused = false;
+      const btn = document.getElementById("ttsBtn");
+      const status = document.getElementById("ttsStatus");
+      function toggleTTS() {
+        if (!speaking) {
+          startTTS();
+        } else if (paused) {
+          window.speechSynthesis.resume();
+          paused = false;
+          btn.textContent = "⏸ Pause";
+          btn.classList.add("playing");
+          status.textContent = "Reading…";
+        } else {
+          window.speechSynthesis.pause();
+          paused = true;
+          btn.textContent = "▶ Resume";
+          btn.classList.remove("playing");
+          status.textContent = "Paused";
+        }
+      }
+      function startTTS() {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(
+          document.getElementById("articleBody").innerText,
+        );
+        u.lang = "en-US";
+        u.rate = 0.95;
+        u.onstart = () => {
+          speaking = true;
+          paused = false;
+          btn.textContent = "⏸ Pause";
+          btn.classList.add("playing");
+          status.textContent = "Reading…";
+        };
+        u.onend = () => {
+          speaking = false;
+          paused = false;
+          btn.textContent = "🔊 Read aloud";
+          btn.classList.remove("playing");
+          status.textContent = "";
+        };
+        u.onerror = () => {
+          speaking = false;
+          btn.textContent = "🔊 Read aloud";
+          btn.classList.remove("playing");
+          status.textContent = "Error, please try again";
+        };
+        window.speechSynthesis.speak(u);
+      }
+    </script>
+  </body>
+</html>
