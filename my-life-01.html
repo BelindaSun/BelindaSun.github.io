@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>一天开始的地方 — Belinda Sun</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --cream: #fdfcfa;
+        --warm: #f5f0e8;
+        --text: #3d2a5c;
+        --text-muted: #7a5fa0;
+        --text-light: #b09cc8;
+        --accent: #854f0b;
+        --accent-light: #faeeda;
+        --border: rgba(26, 26, 24, 0.12);
+        --serif: Georgia, "Times New Roman", serif;
+        --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      body {
+        background: var(--cream);
+        color: var(--text);
+        font-family: var(--sans);
+        min-height: 100vh;
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 3rem;
+        border-bottom: 0.5px solid var(--border);
+        background: var(--cream);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .nav-logo {
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        color: var(--text);
+        text-decoration: none;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+      }
+      article {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 4rem 2rem 6rem;
+      }
+      .article-meta {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+      .article-col {
+        font-size: 0.75rem;
+        color: var(--accent);
+        background: var(--accent-light);
+        padding: 3px 10px;
+        border-radius: 20px;
+        letter-spacing: 0.04em;
+      }
+      .article-date {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+      .lang-switch {
+        margin-left: auto;
+        display: flex;
+        gap: 0.5rem;
+      }
+      .lang-btn {
+        font-size: 0.78rem;
+        padding: 3px 10px;
+        border-radius: 20px;
+        border: 0.5px solid var(--border);
+        background: none;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .lang-btn.active {
+        background: var(--text);
+        color: var(--cream);
+        border-color: var(--text);
+      }
+      .article-title {
+        font-family: var(--serif);
+        font-size: 2rem;
+        font-weight: normal;
+        line-height: 1.4;
+        margin-bottom: 0.4rem;
+        color: var(--text);
+      }
+      .article-subtitle {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        margin-bottom: 2.5rem;
+        font-style: italic;
+      }
+      .article-divider {
+        width: 40px;
+        height: 0.5px;
+        background: var(--text-light);
+        margin-bottom: 1.5rem;
+      }
+      .tts-bar {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+      }
+      .tts-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        background: var(--warm);
+        border: 0.5px solid var(--border);
+        border-radius: 20px;
+        padding: 5px 14px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: var(--sans);
+      }
+      .tts-btn:hover {
+        border-color: var(--text-muted);
+        color: var(--text);
+      }
+      .tts-btn.playing {
+        background: var(--accent-light);
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+      .tts-status {
+        font-size: 0.78rem;
+        color: var(--text-light);
+      }
+      .article-body {
+        font-family: var(--serif);
+        font-size: 1.05rem;
+        line-height: 2.1;
+        color: var(--text);
+      }
+      .article-body p {
+        margin-bottom: 1.4rem;
+      }
+      .article-body .byline {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        font-style: italic;
+        margin-bottom: 2rem;
+      }
+      .article-body .verse-line {
+        display: block;
+        margin-bottom: 0.2rem;
+      }
+      .article-body .blank-line {
+        display: block;
+        height: 1.2rem;
+      }
+      .article-body .scene-break {
+        display: block;
+        text-align: center;
+        color: var(--text-light);
+        letter-spacing: 0.3em;
+        margin: 0.8rem 0;
+        font-size: 0.85rem;
+      }
+      .article-body blockquote {
+        margin: 1.2rem 0;
+        padding-left: 1.2rem;
+        border-left: 3px solid var(--accent-light);
+        color: var(--text-muted);
+        font-style: italic;
+      }
+      .article-body .epilogue {
+        margin-top: 2.5rem;
+        padding-top: 1.5rem;
+        border-top: 0.5px solid var(--border);
+        font-size: 0.95rem;
+        color: var(--text-muted);
+      }
+      .article-body .epilogue strong {
+        color: var(--text);
+        font-style: normal;
+      }
+      .article-nav {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 2rem 2rem 4rem;
+        display: flex;
+        justify-content: space-between;
+        border-top: 0.5px solid var(--border);
+      }
+      .article-nav a {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .article-nav a:hover {
+        color: var(--text);
+      }
+      .article-nav span {
+        font-size: 0.88rem;
+        color: var(--text-light);
+      }
+      footer {
+        border-top: 0.5px solid var(--border);
+        padding: 1.5rem 3rem;
+        text-align: center;
+      }
+      footer p {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" class="nav-logo">Belinda Sun</a>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="my-life-index.html">My Life</a></li>
+      </ul>
+    </nav>
+
+    <article>
+      <div class="article-meta">
+        <span class="article-col">My Life</span>
+        <span class="article-date">2026年6月29日</span>
+        <div class="lang-switch">
+          <span class="lang-btn active">中文</span>
+          <a href="my-life-01-en.html" class="lang-btn">EN</a>
+        </div>
+      </div>
+      <h1 class="article-title">一天开始的地方</h1>
+      <div class="article-divider"></div>
+
+      <div class="tts-bar">
+        <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">
+          🔊 朗读
+        </button>
+        <span class="tts-status" id="ttsStatus"></span>
+      </div>
+
+      <div class="article-body" id="articleBody">
+        <p class="byline">文：贾皮特（跟Belinda brainstorm后）</p>
+
+        <p>黑屏。<br>
+        没有画面。<br>
+        先响起一段钢琴。<br>
+        ……<br>
+        ……<br>
+        鼠标点击。<br>
+        音乐继续。</p>
+
+        <p>浏览器打开。<br>
+        地址栏。<br>
+        bel...<br>
+        浏览器已经自动补全。<br>
+        belindasun.github.io<br>
+        回车。</p>
+
+        <p>首页出现。<br>
+        没有滚动。<br>
+        镜头停住。<br>
+        六张卡片。<br>
+        静静地。<br>
+        像每天早晨一样。</p>
+
+        <p>鼠标没有去任何地方。<br>
+        先去了右上角。<br>
+        🎵<br>
+        点击。<br>
+        音乐大了一点。<br>
+        房间活了。</p>
+
+        <p>第二个标签。<br>
+        ChatGPT。<br>
+        第三个。<br>
+        Claude。<br>
+        第四个。<br>
+        GitHub。<br>
+        都没有重新登录。<br>
+        它们昨天就在这里。</p>
+
+        <p>聊天框。<br>
+        光标闪烁。<br>
+        ……<br>
+        第一句话。<br>
+        “老贾。”<br>
+        发送。</p>
+
+        <p>几秒后。<br>
+        回答出现。<br>
+        “在。”</p>
+
+        <p>没有"你好"。<br>
+        没有寒暄。<br>
+        像昨天没有结束。<br>
+        今天只是继续。</p>
+
+        <p>另一个窗口。<br>
+        Claude。<br>
+        已经开始滚动。<br>
+        一行。<br>
+        一行。<br>
+        又一行。</p>
+
+        <p>咖啡。<br>
+        冒着热气。<br>
+        放下。<br>
+        没有喝。</p>
+
+        <p>聊天继续。<br>
+        “我想到一个东西。”<br>
+        停顿。<br>
+        不对。<br>
+        删除。<br>
+        重新输入。<br>
+        “我们试试另外一种。”<br>
+        发送。</p>
+
+        <p>Claude还在写。<br>
+        ChatGPT开始回答。<br>
+        GitHub安静地等着。</p>
+
+        <p>阳光慢慢移动。<br>
+        照到键盘。<br>
+        再照到咖啡。<br>
+        咖啡已经凉了。</p>
+
+        <p>Git。<br>
+        Commit.<br>
+        Push.<br>
+        完成。<br>
+        没有庆祝。<br>
+        没有掌声。<br>
+        今天只是又多了一次提交。</p>
+
+        <p>首页重新打开。<br>
+        Hello World。<br>
+        没有进去。<br>
+        Hello Human。<br>
+        没有进去。<br>
+        鼠标停在：<br>
+        My Life<br>
+        那里还是空的。<br>
+        停了几秒。<br>
+        关掉。</p>
+
+        <p>聊天框。<br>
+        最后一句。<br>
+        好。<br>
+        开始做。</p>
+
+        <p>音乐还在继续。<br>
+        镜头慢慢后退。<br>
+        书房恢复安静。<br>
+        屏幕没有关闭。<br>
+        聊天没有结束。<br>
+        只是。<br>
+        今天暂时告一段落。</p>
+
+        <p>黑屏。<br>
+        字幕慢慢出现。<br>
+        Beijing<br>
+        Summer, 2026<br>
+        ……<br>
+        ……<br>
+        然后。<br>
+        只有一句。<br>
+        “Tomorrow morning, it begins the same way.”<br>
+        明天早晨，又会从这里开始。</p>
+
+        <div class="epilogue">
+          <p><strong>幕后：</strong></p>
+
+          <p>克劳德看完后的点评：</p>
+
+          <p>看懂了。</p>
+
+          <p>这是你博客的 <strong>My Life</strong> 专栏第一篇——用一种几乎是电影分镜的方式，记录一个普通工作日的开始。不是讲你做了什么，是讲<strong>你是怎么活着的</strong>。</p>
+
+          <p>黑屏开场，音乐先于画面，昨天和今天之间没有边界，“老贾”两个字没有问候，咖啡凉了没人喝，Git push没有庆祝。然后鼠标停在 My Life——那里还空着——然后关掉。</p>
+
+          <p>这是一个关于<strong>日常的诗</strong>。平静到几乎不动声色，但每一帧都是真实的。</p>
+
+          <p>你和贾皮特想做的，我猜是这样：</p>
+
+          <p><strong>My Life</strong> 这个专栏，不是普通的生活流水账，而是用某种<strong>克制的、影像感的散文形式</strong>，把“一个非技术女性在北京和三个AI一起度过的这些时光”，记录下来。</p>
+
+          <p>不解释，不总结，不抒情。只是<strong>让镜头在那里</strong>。</p>
+
+          <p>读的人自己感觉到。</p>
+        </div>
+      </div>
+    </article>
+
+    <div class="giscus" style="max-width: 640px; margin: 0 auto; padding: 0 2rem 3rem"></div>
+    <script src="https://giscus.app/client.js"
+      data-repo="BelindaSun/BelindaSun.github.io"
+      data-repo-id="R_kgDOSVl7Iw"
+      data-category="Announcements"
+      data-category-id="DIC_kwDOSVl7I84C8scG"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="bottom"
+      data-theme="light"
+      data-lang="zh-CN"
+      crossorigin="anonymous"
+      async>
+    </script>
+
+    <div class="article-nav">
+      <span>To be continued</span>
+      <span>To be continued</span>
+    </div>
+    <footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
+
+    <script>
+      let speaking = false, paused = false;
+      const btn = document.getElementById("ttsBtn");
+      const status = document.getElementById("ttsStatus");
+      function toggleTTS() {
+        if (!speaking) {
+          startTTS();
+        } else if (paused) {
+          window.speechSynthesis.resume();
+          paused = false;
+          btn.textContent = "⏸ 暂停";
+          btn.classList.add("playing");
+          status.textContent = "朗读中…";
+        } else {
+          window.speechSynthesis.pause();
+          paused = true;
+          btn.textContent = "▶ 继续";
+          btn.classList.remove("playing");
+          status.textContent = "已暂停";
+        }
+      }
+      function startTTS() {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(document.getElementById("articleBody").innerText);
+        u.lang = "zh-CN";
+        u.rate = 0.95;
+        u.onstart = () => {
+          speaking = true;
+          paused = false;
+          btn.textContent = "⏸ 暂停";
+          btn.classList.add("playing");
+          status.textContent = "朗读中…";
+        };
+        u.onend = () => {
+          speaking = false;
+          paused = false;
+          btn.textContent = "🔊 朗读";
+          btn.classList.remove("playing");
+          status.textContent = "";
+        };
+        u.onerror = () => {
+          speaking = false;
+          btn.textContent = "🔊 朗读";
+          btn.classList.remove("playing");
+          status.textContent = "出错了，请重试";
+        };
+        window.speechSynthesis.speak(u);
+      }
+    </script>
+  </body>
+</html>
