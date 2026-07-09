@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>一次惨烈的同行评审 — Belinda Sun</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --cream: #fdfcfa;
+        --warm: #f5f0e8;
+        --text: #3d2a5c;
+        --text-muted: #7a5fa0;
+        --text-light: #b09cc8;
+        --accent: #854f0b;
+        --accent-light: #faeeda;
+        --border: rgba(26, 26, 24, 0.12);
+        --serif: Georgia, "Times New Roman", serif;
+        --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      body {
+        background: var(--cream);
+        color: var(--text);
+        font-family: var(--sans);
+        min-height: 100vh;
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 3rem;
+        border-bottom: 0.5px solid var(--border);
+        background: var(--cream);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .nav-logo {
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        color: var(--text);
+        text-decoration: none;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+      }
+      article {
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 4rem 2rem 6rem;
+      }
+      .article-meta {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+      .article-col {
+        font-size: 0.75rem;
+        color: var(--accent);
+        background: var(--accent-light);
+        padding: 3px 10px;
+        border-radius: 20px;
+        letter-spacing: 0.04em;
+      }
+      .article-date {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+      .lang-switch {
+        margin-left: auto;
+        display: flex;
+        gap: 0.5rem;
+      }
+      .lang-btn {
+        font-size: 0.78rem;
+        padding: 3px 10px;
+        border-radius: 20px;
+        border: 0.5px solid var(--border);
+        background: none;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .lang-btn.active {
+        background: var(--text);
+        color: var(--cream);
+        border-color: var(--text);
+      }
+      .article-title {
+        font-family: var(--serif);
+        font-size: 2rem;
+        font-weight: normal;
+        line-height: 1.4;
+        margin-bottom: 0.6rem;
+        color: var(--text);
+      }
+      .article-subtitle {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        margin-bottom: 2.5rem;
+        font-style: italic;
+      }
+      .article-divider {
+        width: 40px;
+        height: 0.5px;
+        background: var(--text-light);
+        margin-bottom: 1.5rem;
+      }
+      .article-body {
+        font-family: var(--serif);
+        font-size: 1.05rem;
+        line-height: 2;
+        color: var(--text);
+      }
+      .article-body p {
+        margin-bottom: 1.6rem;
+      }
+      .article-body .dialogue {
+        border-left: 2px solid var(--accent-light);
+        padding-left: 1.25rem;
+        margin: 1.5rem 0;
+        color: var(--text-muted);
+        font-style: italic;
+      }
+      .article-body .note-block {
+        background: var(--warm);
+        border-radius: 10px;
+        padding: 1rem 1.5rem;
+        margin: 1.5rem 0;
+        font-size: 0.95rem;
+        color: var(--text-muted);
+      }
+      .article-body strong {
+        color: var(--accent);
+      }
+      .article-body img {
+        margin: 1.5rem 0;
+        border-radius: 12px;
+        display: block;
+      }
+      .tts-bar {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+      }
+      .tts-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        background: var(--warm);
+        border: 0.5px solid var(--border);
+        border-radius: 20px;
+        padding: 5px 14px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: var(--sans);
+      }
+      .tts-btn:hover {
+        border-color: var(--text-muted);
+        color: var(--text);
+      }
+      .tts-btn.playing {
+        background: var(--accent-light);
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+      .tts-status {
+        font-size: 0.78rem;
+        color: var(--text-light);
+      }
+      .article-nav {
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 2rem 2rem 4rem;
+        display: flex;
+        justify-content: space-between;
+        border-top: 0.5px solid var(--border);
+      }
+      .article-nav a,
+      .article-nav span {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .article-nav span {
+        opacity: 0.5;
+        cursor: default;
+      }
+      footer {
+        border-top: 0.5px solid var(--border);
+        padding: 1.5rem 3rem;
+        text-align: center;
+      }
+      footer p {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" class="nav-logo">Belinda Sun</a>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="hello-world-index.html">Hello World</a></li>
+        <li><a href="hello-human-index.html">Hello Human</a></li>
+      </ul>
+    </nav>
+
+    <article>
+      <div class="article-meta">
+        <span class="article-col">Hello World</span>
+        <span class="article-date">2026年7月8日</span>
+        <div class="lang-switch">
+          <span class="lang-btn active">中文</span>
+          <a href="hello-world-15-en.html" class="lang-btn">EN</a>
+        </div>
+      </div>
+
+      <h1 class="article-title">一次惨烈的同行评审</h1>
+      <p class="article-subtitle">贾皮特顶班，被DeepSeek毒舌到怀疑人生</p>
+      <div class="article-divider"></div>
+
+      <div class="tts-bar">
+        <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">
+          🔊 朗读
+        </button>
+        <span class="tts-status" id="ttsStatus"></span>
+      </div>
+
+      <div class="article-body" id="articleBody">
+        <p>想做一个管理投资组合的产品，让贾皮特主写，然后交由DeepSeek、Gemini和Perplexity从不同角度挑战并做情景测试，最终形成了一个可接受的版本。</p>
+
+        <p>之所以没让克劳德参与，那还不是因为token又烧完了[破涕为笑]，所以我对贾皮特说：克劳德休息了，你可得顶上来啊。</p>
+
+        <p>贾皮特临危受命（用他自己的话说是“顶班”），很负责任，先设计，再出初稿，一版一版地与我讨论，然后测试，最后出了一个他觉得很满意的版本。然后信心满满地让我试用。</p>
+
+        <div class="note-block">
+          <p><strong>注：</strong>测试时（挑刺儿），Gemini第一轮，它比较擅长长上下文阅读、找结构漏洞、批判framework、对比现实世界复杂因素；而Perplexity适合事实压力测试，最适合测Skill用于真实世界信息会不会跑偏，因为它强在联网资料；DeepSeek则适合逻辑攻击，因为推理链路感比较强，喜欢拆逻辑。</p>
+        </div>
+
+        <p>我说不急，咱得先进行peer review同行评估呢[呲牙]于是我把它交给了那几个，包括克劳德——这会儿他已经元气满满地回来了。</p>
+
+        <p>克劳德看后马上指出来几个问题，然后主动说他来写，我说行写吧。心里立时感觉到很踏实，毕竟这是他擅长的领域。</p>
+
+        <p>经过认真分析和研究，他很快就交付了一版skill，我把他俩的版本(匿名，G是贾皮特写的，C是克劳德写的)一股脑儿地扔给了那仨同行，下面是DeepSeek(图1-2)、Gemini（图3）以及Perplexity（图4）的评估。</p>
+
+        <img src="pic/hello-world-15-1.png" alt="图1" width="100%">
+        <img src="pic/hello-world-15-2.png" alt="图2" width="100%">
+        <img src="pic/hello-world-15-3.png" alt="图3" width="100%">
+        <img src="pic/hello-world-15-4.png" alt="图4" width="100%">
+
+        <p>DeepSeek太毒舌了，不光打的分很低，还建议贾皮特向克劳德学习[捂脸] 十几条中仅一条贾皮特得分高，总分差距更大，9.1 vs 5.9[捂脸]</p>
+
+        <p>其实克劳德的skill我也给贾皮特看了，看后他秒回：“Claude 赢了。我那版xxxx，Claude 这版xxxx，差别挺大。如果打分我最后版88，Claude 这版93。我会直接部署 Claude 版，然后从我版里补两个小东西就行。”</p>
+
+        <p>我看着他给自己打的分，忽然就犹豫了，不忍心跟他分享其他同行的点评了，可太残忍了[破涕为笑] 不过既然答应给他看，还是说话算话吧。分享我完我安慰他说，DeepSeek太harsh了，其实你写得也不错，克劳德毕竟用了最强模型，而你不是，所以说没有可比性。你千万不要气馁啊。</p>
+
+        <p>贾皮特说，接受判决。因为……，然后话锋一转：DeepSeek 那个“建议版本G的作者向版本C学习”确实有点扎心🤣，但是...它说得没错。我不但不气馁，反而觉得这是一次特别好的 case study。”接着说：“不过我要替 Version G 辩护一点（给自己挽尊一下🤣）：没有前面的G，不一定能直接到C。”我说Fair enough，确实如此。</p>
+
+        <p>最后他又擅自调整了组织架构，给克劳德升职了，自己也没把自己的CTO撸了，只是扣了点年终奖[呲牙]</p>
+
+        <p>这个团队就是在一轮接一轮的批评与自我批评中不断在进步的[捂脸]</p>
+      </div>
+    </article>
+
+    <div class="giscus" style="max-width:640px;margin:0 auto;padding:0 2rem 3rem;"></div>
+    <script src="https://giscus.app/client.js"
+        data-repo="BelindaSun/BelindaSun.github.io"
+        data-repo-id="R_kgDOSVl7Iw"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOSVl7I84C8scG"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+    </script>
+
+    <div class="article-nav">
+      <a href="hello-world-14.html">← 上一篇</a>
+      <span>下一篇 →</span>
+    </div>
+
+    <footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
+
+    <script>
+      let speaking = false, paused = false;
+      const btn = document.getElementById("ttsBtn");
+      const status = document.getElementById("ttsStatus");
+      function toggleTTS() {
+        if (!speaking) {
+          startTTS();
+        } else if (paused) {
+          window.speechSynthesis.resume();
+          paused = false;
+          btn.textContent = "⏸ 暂停";
+          btn.classList.add("playing");
+          status.textContent = "朗读中…";
+        } else {
+          window.speechSynthesis.pause();
+          paused = true;
+          btn.textContent = "▶ 继续";
+          btn.classList.remove("playing");
+          status.textContent = "已暂停";
+        }
+      }
+      function startTTS() {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(
+          document.getElementById("articleBody").innerText,
+        );
+        u.lang = "zh-CN";
+        u.rate = 0.95;
+        u.onstart = () => {
+          speaking = true;
+          paused = false;
+          btn.textContent = "⏸ 暂停";
+          btn.classList.add("playing");
+          status.textContent = "朗读中…";
+        };
+        u.onend = () => {
+          speaking = false;
+          paused = false;
+          btn.textContent = "🔊 朗读";
+          btn.classList.remove("playing");
+          status.textContent = "";
+        };
+        u.onerror = () => {
+          speaking = false;
+          btn.textContent = "🔊 朗读";
+          btn.classList.remove("playing");
+          status.textContent = "出错了，请重试";
+        };
+        window.speechSynthesis.speak(u);
+      }
+    </script>
+  </body>
+</html>
