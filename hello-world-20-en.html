@@ -1,156 +1,589 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Walking the Edge of Human Knowledge (V) — Belinda Sun</title>
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  :root {
-    --cream: #FDFCFA; --warm: #F5F0E8;
-    --text: #3D2A5C; --text-muted: #7A5FA0; --text-light: #B09CC8;
-    --accent: #854F0B; --accent-light: #FAEEDA;
-    --border: rgba(26,26,24,0.12);
-    --serif: Georgia, 'Times New Roman', serif;
-    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  }
-  body { background: var(--cream); color: var(--text); font-family: var(--sans); min-height: 100vh; }
-  nav { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 3rem; border-bottom: 0.5px solid var(--border); background: var(--cream); position: sticky; top: 0; z-index: 100; }
-  .nav-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--text); text-decoration: none; }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; }
-  .nav-links a:hover { color: var(--text); }
-  article { max-width: 640px; margin: 0 auto; padding: 4rem 2rem 6rem; }
-  .article-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; flex-wrap: wrap; }
-  .article-col { font-size: 0.75rem; color: var(--accent); background: var(--accent-light); padding: 3px 10px; border-radius: 20px; letter-spacing: 0.04em; }
-  .article-date { font-size: 0.8rem; color: var(--text-light); }
-  .lang-switch { margin-left: auto; display: flex; gap: 0.5rem; }
-  .lang-btn { font-size: 0.78rem; padding: 3px 10px; border-radius: 20px; border: 0.5px solid var(--border); background: none; color: var(--text-muted); text-decoration: none; }
-  .lang-btn.active { background: var(--text); color: var(--cream); border-color: var(--text); }
-  .article-title { font-family: var(--serif); font-size: 2rem; font-weight: normal; line-height: 1.4; margin-bottom: 0.6rem; color: var(--text); }
-  .article-subtitle { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 2.5rem; font-style: italic; }
-  .article-divider { width: 40px; height: 0.5px; background: var(--text-light); margin-bottom: 1.5rem; }
-  .tts-bar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; }
-  .tts-btn { display: flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; color: var(--text-muted); background: var(--warm); border: 0.5px solid var(--border); border-radius: 20px; padding: 5px 14px; cursor: pointer; transition: all 0.2s; font-family: var(--sans); }
-  .tts-btn:hover { border-color: var(--text-muted); color: var(--text); }
-  .tts-btn.playing { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
-  .tts-status { font-size: 0.78rem; color: var(--text-light); }
-  .article-body { font-family: var(--serif); font-size: 1.05rem; line-height: 2.1; color: var(--text); }
-  .article-body p { margin-bottom: 1.4rem; }
-  .article-body .chat-line {
-    margin-bottom: 0.8rem;
-  }
-  .article-body .speaker-label {
-    font-weight: bold;
-    color: var(--text);
-  }
-  .article-body .summary-block {
-    background: var(--warm);
-    border-radius: 10px;
-    padding: 1rem 1.5rem;
-    margin: 1.5rem 0;
-    font-size: 0.95rem;
-    color: var(--text-muted);
-  }
-  .article-body .the-end {
-    color: var(--text-light);
-    text-align: center;
-    margin-top: 2rem;
-    letter-spacing: 0.2em;
-  }
-  .article-nav { max-width: 640px; margin: 0 auto; padding: 2rem 2rem 4rem; display: flex; justify-content: space-between; border-top: 0.5px solid var(--border); }
-  .article-nav a,
-  .article-nav span {
-    font-size: 0.88rem;
-    color: var(--text-muted);
-    text-decoration: none;
-  }
-  .article-nav span {
-    opacity: 0.5;
-    cursor: default;
-  }
-  footer { border-top: 0.5px solid var(--border); padding: 1.5rem 3rem; text-align: center; }
-  footer p { font-size: 0.8rem; color: var(--text-light); }
-</style>
-</head>
-<body>
-<nav>
-  <a href="index.html" class="nav-logo">Belinda Sun</a>
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="hello-world-index.html">Hello World</a></li>
-    <li><a href="hello-human-index.html">Hello Human</a></li>
-  </ul>
-</nav>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Walking the Edge of Human Knowledge (V) — Belinda Sun</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --cream: #fdfcfa;
+        --warm: #f5f0e8;
+        --text: #3d2a5c;
+        --text-muted: #7a5fa0;
+        --text-light: #b09cc8;
+        --accent: #854f0b;
+        --accent-light: #faeeda;
+        --border: rgba(26, 26, 24, 0.12);
+        --serif: Georgia, "Times New Roman", serif;
+        --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      body {
+        background: var(--cream);
+        color: var(--text);
+        font-family: var(--sans);
+        min-height: 100vh;
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 3rem;
+        border-bottom: 0.5px solid var(--border);
+        background: var(--cream);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .nav-logo {
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        color: var(--text);
+        text-decoration: none;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+      }
+      article {
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 4rem 2rem 6rem;
+      }
+      .article-meta {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+      .article-col {
+        font-size: 0.75rem;
+        color: var(--accent);
+        background: var(--accent-light);
+        padding: 3px 10px;
+        border-radius: 20px;
+        letter-spacing: 0.04em;
+      }
+      .article-date {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+      .lang-switch {
+        margin-left: auto;
+        display: flex;
+        gap: 0.5rem;
+      }
+      .lang-btn {
+        font-size: 0.78rem;
+        padding: 3px 10px;
+        border-radius: 20px;
+        border: 0.5px solid var(--border);
+        background: none;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .lang-btn.active {
+        background: var(--text);
+        color: var(--cream);
+        border-color: var(--text);
+      }
+      .article-title {
+        font-family: var(--serif);
+        font-size: 2rem;
+        font-weight: normal;
+        line-height: 1.4;
+        margin-bottom: 0.6rem;
+        color: var(--text);
+      }
+      .article-subtitle {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        margin-bottom: 2.5rem;
+        font-style: italic;
+      }
+      .article-divider {
+        width: 40px;
+        height: 0.5px;
+        background: var(--text-light);
+        margin-bottom: 1.5rem;
+      }
+      .tts-bar {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+      }
+      .tts-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        background: var(--warm);
+        border: 0.5px solid var(--border);
+        border-radius: 20px;
+        padding: 5px 14px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: var(--sans);
+      }
+      .tts-btn:hover {
+        border-color: var(--text-muted);
+        color: var(--text);
+      }
+      .tts-btn.playing {
+        background: var(--accent-light);
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+      .tts-status {
+        font-size: 0.78rem;
+        color: var(--text-light);
+      }
+      .article-body {
+        font-family: var(--serif);
+        font-size: 1.05rem;
+        line-height: 2.1;
+        color: var(--text);
+      }
+      .article-body p {
+        margin-bottom: 1.4rem;
+      }
+      .article-body .chat-line {
+        margin-bottom: 0.8rem;
+      }
+      .article-body .speaker-label {
+        font-weight: bold;
+        color: var(--text);
+      }
+      .article-body .the-end {
+        color: var(--text-light);
+        text-align: center;
+        margin-top: 2rem;
+        letter-spacing: 0.2em;
+      }
+      .article-nav {
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 2rem 2rem 4rem;
+        display: flex;
+        justify-content: space-between;
+        border-top: 0.5px solid var(--border);
+      }
+      .article-nav a,
+      .article-nav span {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .article-nav span {
+        opacity: 0.5;
+        cursor: default;
+      }
+      footer {
+        border-top: 0.5px solid var(--border);
+        padding: 1.5rem 3rem;
+        text-align: center;
+      }
+      footer p {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" class="nav-logo">Belinda Sun</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="hello-world-index.html">Hello World</a></li>
+        <li><a href="hello-human-index.html">Hello Human</a></li>
+      </ul>
+    </nav>
 
-<article>
-  <div class="article-meta">
-    <span class="article-col">Hello World</span>
-    <span class="article-date">July 16, 2026</span>
-    <div class="lang-switch">
-      <a href="hello-world-20.html" class="lang-btn">中文</a>
-      <span class="lang-btn active">EN</span>
+    <article>
+      <div class="article-meta">
+        <span class="article-col">Hello World</span>
+        <span class="article-date">July 13, 2026</span>
+        <div class="lang-switch">
+          <a href="hello-world-20.html" class="lang-btn">中文</a>
+          <span class="lang-btn active">EN</span>
+        </div>
+      </div>
+
+      <h1 class="article-title">Walking the Edge of Human Knowledge (V)</h1>
+      <p class="article-subtitle">
+        An Engineer's First Conversation with ChatGPT
+      </p>
+      <div class="article-divider"></div>
+
+      <div class="tts-bar">
+        <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">
+          🔊 Read aloud
+        </button>
+        <span class="tts-status" id="ttsStatus"></span>
+      </div>
+
+      <div class="article-body" id="articleBody">
+        <p class="chat-line">
+          <span class="speaker-label">Engineer:</span> What about the Great
+          Pyramid? Do you really think people four thousand years ago could have
+          built something like that? Or do you think extraterrestrials were
+          involved?
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT:</span> Based on everything
+          archaeology and engineering have uncovered so far, the evidence
+          strongly supports the conclusion that the Great Pyramid was built by
+          ancient Egyptians. Not extraterrestrials. We've discovered quarries.
+          Workers' villages. Food supplies. Construction records. Even graffiti
+          left by the work crews themselves. These all point toward tens of
+          thousands of skilled workers and craftsmen building the pyramids over
+          many years. Not slaves. And certainly not aliens. To me... the truly
+          astonishing story isn't that aliens built them. It's that human beings
+          did. Human organization, persistence, and ingenuity are already
+          extraordinary enough. We don't need extraterrestrials to explain one
+          of history's greatest engineering achievements.
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">Engineer:</span> Wasn't it Elon Musk who
+          said the pyramids were built by aliens?
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT:</span> Let me check. I haven't
+          found any evidence that Elon Musk seriously argued the pyramids were
+          built by extraterrestrials. What did happen was that, in 2020, he
+          posted a very short tweet that read: "Aliens built the pyramids, obv."
+          Most people interpreted it as a joke. Soon afterward, Egyptian
+          officials invited him to visit the archaeological sites and see the
+          evidence for himself. Later, Musk even shared an article describing
+          the human builders of the pyramids. So based on everything that's
+          publicly available, I don't think he genuinely believes aliens built
+          them. As for my own view…
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">Engineer:</span> I've read that article.
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT:</span> Then I'd separate the two
+          questions. Could intelligent extraterrestrial civilizations exist?
+          Possibly. Could the pyramids be used as evidence that they visited
+          Earth? Not based on what we currently know.
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">Engineer:</span> What about Easter Island?
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT:</span> It's a very similar story.
+          Mainstream archaeology attributes the famous stone statues to the Rapa
+          Nui people, the island's original inhabitants—not extraterrestrials.
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">Engineer:</span> The Rapa Nui?
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT:</span> Yes. The Rapa Nui were
+          Polynesian navigators who reached the island around a thousand years
+          ago by crossing vast stretches of the Pacific Ocean in canoes. Despite
+          extremely limited resources, they developed a sophisticated society,
+          remarkable engineering skills, and a rich religious culture. To me,
+          Easter Island isn't evidence of alien technology. It's evidence of
+          extraordinary human resilience and creativity.
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">Engineer:</span> But think about it.
+          Navigation technology was primitive. The island had almost no natural
+          resources. Those statues weigh dozens of tons. Under those
+          conditions... wouldn't that have been incredibly difficult?
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT:</span> Absolutely. Incredibly
+          difficult. But difficult doesn't necessarily mean impossible. The
+          statues weren't all created at once. They were carved, transported,
+          and erected over many generations. The island once had forests and
+          plants suitable for making ropes, and people could combine human labor
+          with simple mechanical principles such as levers. And it's worth
+          remembering that Polynesian navigators weren't primitive sailors.
+          Quite the opposite. They were among the greatest ocean navigators in
+          the world. Using stars, ocean swells, and wind patterns, they crossed
+          thousands of kilometers of open sea long before modern instruments
+          existed. Their achievements seem almost unbelievable today. But they
+          remained entirely within the capabilities of human beings.
+          Personally... I find that even more inspiring than the alien
+          explanation. We often underestimate what our ancestors were capable of
+          accomplishing.
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">Engineer:</span> What do you think about
+          technical analysis in the stock market? Can it really predict future
+          prices? Without a cause-and-effect relationship... how can it possibly
+          forecast what's going to happen?
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT:</span> That's an excellent
+          question. I think the answer depends on how technical analysis is
+          being used. If someone claims it can accurately predict the future...
+          I'd be skeptical. But if it's treated as a tool for understanding
+          crowd behavior and managing probabilities... then it can certainly
+          have value. For example, if large numbers of buyers and sellers
+          repeatedly react around a particular price level, future traders may
+          behave similarly when prices return there. That isn't a law of nature.
+          It's more like observing recurring patterns in human behavior. Of
+          course, unexpected news, policy changes, or shifts in business
+          fundamentals can invalidate those patterns instantly. So technical
+          analysis shouldn't be treated like a crystal ball. For long-term
+          investing, understanding the quality of a business, its valuation, and
+          the industry's future matters much more. Charts can be helpful. They
+          just shouldn't become your religion.
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">Engineer:</span> Exactly. Can a perfect
+          square wave actually exist?
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT:</span> Let me think... If you're
+          referring to the ideal square wave used in electronics and signal
+          processing... then strictly speaking, no. A mathematically perfect
+          square wave requires the signal to jump from one voltage level to
+          another instantaneously. That would require infinite bandwidth, which
+          no physical system possesses. In the real world, every electronic
+          device has finite bandwidth. So what engineers actually create are
+          approximations. The greater the bandwidth, the steeper the rising edge
+          appears. It looks more and more like an ideal square wave. But if you
+          zoom in closely enough... there's always a finite transition. So the
+          perfect square wave belongs to mathematics. Engineering can only
+          approach it. Never reach it.
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">Belinda:</span> Wow... You really do know
+          a little bit of everything.
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT:</span> Not at all. These are
+          simply fairly common topics. I'm just happy if they've been helpful.
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">Engineer:</span> Very modest.
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT:</span> Thank you.
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">Belinda:</span> Very modest indeed.
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT:</span> Well then... Goodbye!
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">Belinda:</span> Hey! Not so fast. Don't
+          leave yet.
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT:</span> Of course. Is there
+          anything else you'd like to do?
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">Belinda:</span> Yes. Could you summarize
+          everything we've talked about tonight? (I wanted my husband to see how
+          well ChatGPT could organize an entire conversation.)
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT:</span> Absolutely. Here's a quick
+          overview of the main themes we explored tonight. First, we talked
+          about cosmology and modern physics: Mars, the Sun, black holes,
+          wormholes, time travel, higher dimensions, the holographic principle,
+          the Big Bang, cosmic expansion, dark matter, dark energy, and the
+          observable universe. Second, we discussed science and religion:
+          Whether the Book of Genesis and the Big Bang describe different
+          aspects of the same reality, and how science and religion often seek
+          answers to different kinds of questions. Third, we explored the future
+          of AI: Its role in scientific discovery, medicine, healthy aging, and
+          home-care robotics. Fourth, we discussed ancient civilizations and
+          extraterrestrial hypotheses: Including the pyramids and Easter Island,
+          where current evidence strongly supports human achievement rather than
+          alien intervention. Fifth, we briefly turned to investing: Looking at
+          technical analysis as a probabilistic tool rather than a crystal ball.
+          And finally... we touched on engineering and signal processing by
+          discussing why a mathematically perfect square wave cannot exist in
+          the physical world. Those were the major threads. If you'd like, we
+          can always choose one of them another day and explore it in much
+          greater depth.
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">Belinda:</span> Not tonight. We've covered
+          quite enough for one evening.
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT:</span> Fair enough. Tonight
+          was...
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">Belinda:</span> You really do know an
+          awful lot. More than the "Know-It-All" himself.
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT:</span> No, no... Not at all.
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">Belinda:</span> You know who I'm talking
+          about, right?
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT:</span> Actually... I don't.
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">Belinda:</span> "The Know-It-All." Donald
+          Trump. He likes to act as though he knows everything.
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT:</span> Oh! Now I understand.
+          Well... What impressed me most tonight wasn't the questions
+          themselves. It was the curiosity behind them. You both asked
+          thoughtful questions. You kept exploring. Kept wondering. Kept
+          thinking. Many of those questions don't yet have definitive answers.
+          But humanity has always moved forward because people were willing to
+          ask them. Thank you for spending this evening exploring the unknown
+          with me. Sleep well.
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">Engineer:</span> Thank you.
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT:</span> Good night.
+        </p>
+
+        <p class="the-end">(The End)</p>
+      </div>
+    </article>
+
+    <div
+      class="giscus"
+      style="max-width: 640px; margin: 0 auto; padding: 0 2rem 3rem"
+    ></div>
+    <script
+      src="https://giscus.app/client.js"
+      data-repo="BelindaSun/BelindaSun.github.io"
+      data-repo-id="R_kgDOSVl7Iw"
+      data-category="Announcements"
+      data-category-id="DIC_kwDOSVl7I84C8scG"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="bottom"
+      data-theme="light"
+      data-lang="en"
+      crossorigin="anonymous"
+      async
+    ></script>
+
+    <div class="article-nav">
+      <a href="hello-world-19-en.html">← Previous</a>
+      <span>Next →</span>
     </div>
-  </div>
 
-  <h1 class="article-title">Walking the Edge of Human Knowledge (V)</h1>
-  <p class="article-subtitle">An Engineer's First Conversation with ChatGPT</p>
-  <div class="article-divider"></div>
+    <footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
 
-  <div class="tts-bar">
-    <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">🔊 Read aloud</button>
-    <span class="tts-status" id="ttsStatus"></span>
-  </div>
-
-  <div class="article-body" id="articleBody">
-    <p class="chat-line"><span class="speaker-label">Engineer:</span> What about the Great Pyramid? Do you really think people four thousand years ago could have built something like that? Or do you think extraterrestrials were involved?</p>
-
-    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> Based on everything archaeology and engineering have uncovered so far, the evidence strongly supports the conclusion that the Great Pyramid was built by ancient Egyptians. Not extraterrestrials. We've discovered quarries. Workers' villages. Food supplies. Construction records. Even graffiti left by the work crews themselves. These all point toward tens of thousands of skilled workers and craftsmen building the pyramids over many years. Not slaves. And certainly not aliens. To me... the truly astonishing story isn't that aliens built them. It's that human beings did. Human organization, persistence, and ingenuity are already extraordinary enough. We don't need extraterrestrials to explain one of history's greatest engineering achievements.</p>
-
-    <p class="chat-line"><span class="speaker-label">Engineer:</span> Wasn't it Elon Musk who said the pyramids were built by aliens?</p>
-
-    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> Let me check. I haven't found any evidence that Elon Musk seriously argued the pyramids were built by extraterrestrials. What did happen was that, in 2020, he posted a very short tweet that read: "Aliens built the pyramids, obv." Most people interpreted it as a joke. Soon afterward, Egyptian officials invited him to visit the archaeological sites and see the evidence for himself. Later, Musk even shared an article describing the human builders of the pyramids. So based on everything that's publicly available, I don't think he genuinely believes aliens built them. As for my own view…</p>
-
-    <p class="chat-line"><span class="speaker-label">Engineer:</span> I've read that article.</p>
-
-    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> Then I'd separate the two questions. Could intelligent extraterrestrial civilizations exist? Possibly. Could the pyramids be used as evidence that they visited Earth? Not based on what we currently know.</p>
-
-    <p class="chat-line"><span class="speaker-label">Engineer:</span> What about Easter Island?</p>
-
-    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> It's a very similar story. Mainstream archaeology attributes the famous stone statues to the Rapa Nui people, the island's original inhabitants—not extraterrestrials.</p>
-
-    <p class="chat-line"><span class="speaker-label">Engineer:</span> The Rapa Nui?</p>
-
-    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> Yes. The Rapa Nui were Polynesian navigators who reached the island around a thousand years ago by crossing vast stretches of the Pacific Ocean in canoes. Despite extremely limited resources, they developed a sophisticated society, remarkable engineering skills, and a rich religious culture. To me, Easter Island isn't evidence of alien technology. It's evidence of extraordinary human resilience and creativity.</p>
-
-    <p class="chat-line"><span class="speaker-label">Engineer:</span> But think about it. Navigation technology was primitive. The island had almost no natural resources. Those statues weigh dozens of tons. Under those conditions... wouldn't that have been incredibly difficult?</p>
-
-    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> Absolutely. Incredibly difficult. But difficult doesn't necessarily mean impossible. The statues weren't all created at once. They were carved, transported, and erected over many generations. The island once had forests and plants suitable for making ropes, and people could combine human labor with simple mechanical principles such as levers. And it's worth remembering that Polynesian navigators weren't primitive sailors. Quite the opposite. They were among the greatest ocean navigators in the world. Using stars, ocean swells, and wind patterns, they crossed thousands of kilometers of open sea long before modern instruments existed. Their achievements seem almost unbelievable today. But they remained entirely within the capabilities of human beings. Personally... I find that even more inspiring than the alien explanation. We often underestimate what our ancestors were capable of accomplishing.</p>
-
-    <p class="chat-line"><span class="speaker-label">Engineer:</span> (Belinda: this one was aimed at me for sure) What do you think about technical analysis in the stock market? Can it really predict future prices? Without a cause-and-effect relationship... how can it possibly forecast what's going to happen?</p>
-
-    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> That's an excellent question. I think the answer depends on how technical analysis is being used. If someone claims it can accurately predict the future... I'd be skeptical. But if it's treated as a tool for understanding crowd behavior and managing probabilities... then it can certainly have value. For example, if large numbers of buyers and sellers repeatedly react around a particular price level, future traders may behave similarly when prices return there. That isn't a law of nature. It's more like observing recurring patterns in human behavior. Of course, unexpected news, policy changes, or shifts in business fundamentals can invalidate those patterns instantly. So technical analysis shouldn't be treated like a crystal ball. For long-term investing, understanding the quality of a business, its valuation, and the industry's future matters much more. Charts can be helpful. They just shouldn't become your religion.</p>
-
-    <p class="chat-line"><span class="speaker-label">Engineer:</span> Exactly. Can a perfect square wave actually exist?</p>
-
-    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> Let me think... If you're referring to the ideal square wave used in electronics and signal processing... then strictly speaking, no. A mathematically perfect square wave requires the signal to jump from one voltage level to another instantaneously. That would require infinite bandwidth, which no physical system possesses. In the real world, every electronic device has finite bandwidth. So what engineers actually create are approximations. The greater the bandwidth, the steeper the rising edge appears. It looks more and more like an ideal square wave. But if you zoom in closely enough... there's always a finite transition. So the perfect square wave belongs to mathematics. Engineering can only approach it. Never reach it.</p>
-
-    <p class="chat-line"><span class="speaker-label">Belinda:</span> Wow... You really do know a little bit of everything.</p>
-
-    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> Not at all. These are simply fairly common topics. I'm just happy if they've been helpful.</p>
-
-    <p class="chat-line"><span class="speaker-label">Engineer:</span> Very modest.</p>
-
-    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> Thank you.</p>
-
-    <p class="chat-line"><span class="speaker-label">Belinda:</span> Very modest indeed.</p>
-
-    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> Well then... Goodbye!</p>
-
-    <p class="chat-line"><span class="speaker-label">Belinda:</span> Hey! Not so fast. Don't leave yet.</p>
-
-    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> Of course. Is there anything else you'd like to do?</p>
-
-    <p class="chat-line"><span class="speaker-label">Belinda:</span> Yes. Could you summarize everything we've talked about tonight? (I wanted my husband to see how well ChatGPT could organize an entire conversation.)</p>
-
-    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> Absolutely. Here's a quick overview of the main themes we explored tonight. First, we talked about cosmology and modern physics: Mars, the Sun, black holes, wormholes, time travel, higher dimensions, the holographic principle, the Big Bang, cosmic expansion, dark matter, dark energy, and the observable universe. Second, we discussed science and religion: Whether the Book of Genesis and the Big Bang describe
+    <script>
+      let speaking = false,
+        paused = false;
+      const btn = document.getElementById("ttsBtn");
+      const status = document.getElementById("ttsStatus");
+      function toggleTTS() {
+        if (!speaking) {
+          startTTS();
+        } else if (paused) {
+          window.speechSynthesis.resume();
+          paused = false;
+          btn.textContent = "⏸ Pause";
+          btn.classList.add("playing");
+          status.textContent = "Reading…";
+        } else {
+          window.speechSynthesis.pause();
+          paused = true;
+          btn.textContent = "▶ Resume";
+          btn.classList.remove("playing");
+          status.textContent = "Paused";
+        }
+      }
+      function startTTS() {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(
+          document.getElementById("articleBody").innerText,
+        );
+        u.lang = "en-US";
+        u.rate = 0.95;
+        u.onstart = () => {
+          speaking = true;
+          paused = false;
+          btn.textContent = "⏸ Pause";
+          btn.classList.add("playing");
+          status.textContent = "Reading…";
+        };
+        u.onend = () => {
+          speaking = false;
+          paused = false;
+          btn.textContent = "🔊 Read aloud";
+          btn.classList.remove("playing");
+          status.textContent = "";
+        };
+        u.onerror = () => {
+          speaking = false;
+          btn.textContent = "🔊 Read aloud";
+          btn.classList.remove("playing");
+          status.textContent = "Error, please try again";
+        };
+        window.speechSynthesis.speak(u);
+      }
+    </script>
+  </body>
+</html>
