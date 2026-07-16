@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Walking the Edge of Human Knowledge (II) — Belinda Sun</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --cream: #FDFCFA; --warm: #F5F0E8;
+    --text: #3D2A5C; --text-muted: #7A5FA0; --text-light: #B09CC8;
+    --accent: #854F0B; --accent-light: #FAEEDA;
+    --border: rgba(26,26,24,0.12);
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  body { background: var(--cream); color: var(--text); font-family: var(--sans); min-height: 100vh; }
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 3rem; border-bottom: 0.5px solid var(--border); background: var(--cream); position: sticky; top: 0; z-index: 100; }
+  .nav-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--text); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; }
+  .nav-links a:hover { color: var(--text); }
+  article { max-width: 640px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+  .article-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .article-col { font-size: 0.75rem; color: var(--accent); background: var(--accent-light); padding: 3px 10px; border-radius: 20px; letter-spacing: 0.04em; }
+  .article-date { font-size: 0.8rem; color: var(--text-light); }
+  .lang-switch { margin-left: auto; display: flex; gap: 0.5rem; }
+  .lang-btn { font-size: 0.78rem; padding: 3px 10px; border-radius: 20px; border: 0.5px solid var(--border); background: none; color: var(--text-muted); text-decoration: none; }
+  .lang-btn.active { background: var(--text); color: var(--cream); border-color: var(--text); }
+  .article-title { font-family: var(--serif); font-size: 2rem; font-weight: normal; line-height: 1.4; margin-bottom: 0.6rem; color: var(--text); }
+  .article-subtitle { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 2.5rem; font-style: italic; }
+  .article-divider { width: 40px; height: 0.5px; background: var(--text-light); margin-bottom: 1.5rem; }
+  .tts-bar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; }
+  .tts-btn { display: flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; color: var(--text-muted); background: var(--warm); border: 0.5px solid var(--border); border-radius: 20px; padding: 5px 14px; cursor: pointer; transition: all 0.2s; font-family: var(--sans); }
+  .tts-btn:hover { border-color: var(--text-muted); color: var(--text); }
+  .tts-btn.playing { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
+  .tts-status { font-size: 0.78rem; color: var(--text-light); }
+  .article-body { font-family: var(--serif); font-size: 1.05rem; line-height: 2.1; color: var(--text); }
+  .article-body p { margin-bottom: 1.4rem; }
+  .article-body .chat-line {
+    margin-bottom: 0.8rem;
+  }
+  .article-body .speaker-label {
+    font-weight: bold;
+    color: var(--text);
+  }
+  .article-body .convo-meta {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    text-align: center;
+    margin: 1.5rem 0;
+  }
+  .article-body .whisper {
+    color: var(--text-muted);
+    font-style: italic;
+  }
+  .article-body .to-be-continued {
+    color: var(--text-light);
+    text-align: center;
+    margin-top: 2rem;
+    letter-spacing: 0.2em;
+  }
+  .article-nav { max-width: 640px; margin: 0 auto; padding: 2rem 2rem 4rem; display: flex; justify-content: space-between; border-top: 0.5px solid var(--border); }
+  .article-nav a,
+  .article-nav span {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+  .article-nav span {
+    opacity: 0.5;
+    cursor: default;
+  }
+  footer { border-top: 0.5px solid var(--border); padding: 1.5rem 3rem; text-align: center; }
+  footer p { font-size: 0.8rem; color: var(--text-light); }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Belinda Sun</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="hello-world-index.html">Hello World</a></li>
+    <li><a href="hello-human-index.html">Hello Human</a></li>
+  </ul>
+</nav>
+
+<article>
+  <div class="article-meta">
+    <span class="article-col">Hello World</span>
+    <span class="article-date">July 16, 2026</span>
+    <div class="lang-switch">
+      <a href="hello-world-17.html" class="lang-btn">中文</a>
+      <span class="lang-btn active">EN</span>
+    </div>
+  </div>
+
+  <h1 class="article-title">Walking the Edge of Human Knowledge (II)</h1>
+  <p class="article-subtitle">An Engineer's First Conversation with ChatGPT</p>
+  <div class="article-divider"></div>
+
+  <div class="tts-bar">
+    <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">🔊 Read aloud</button>
+    <span class="tts-status" id="ttsStatus"></span>
+  </div>
+
+  <div class="article-body" id="articleBody">
+    <p class="chat-line"><span class="speaker-label">Engineer:</span> How long is the flight from China to the United States? Say, Beijing to New York.</p>
+
+    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> Let me check. A direct flight from Beijing to New York usually takes around 13 to 15 hours, depending on winds and the flight path. The return trip is often a little longer—typically around 14 to 16 hours. With connections, of course, it can take much longer.</p>
+
+    <p class="chat-line"><span class="speaker-label">Engineer:</span> (testing again) Why is the return flight longer?</p>
+
+    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> Mainly because of the jet stream. In particular, the prevailing westerly winds. Flights from New York back to Beijing often have to fly against those winds, which adds time. Flying the opposite direction sometimes benefits from a tailwind, making the journey shorter.</p>
+
+    <p class="chat-line"><span class="speaker-label">Engineer:</span> Doesn't Earth's rotation have something to do with it?</p>
+
+    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> Let me think. It has some relationship, but it's not the direct reason. The key factor is the high-altitude jet stream. Earth's rotation influences global atmospheric circulation, but airplanes fly within the atmosphere, which is already rotating along with the Earth. So Earth's rotation itself doesn't significantly change flight times. What really matters is whether the air mass you're flying through is moving with you or against you. That's actually a very thoughtful question.</p>
+
+    <p class="chat-line"><span class="speaker-label">Engineer:</span> So... if you traveled from Beijing through a— (What he actually meant was a wormhole.) —how long would it take? (At this point he winked at me. He was deliberately trying to confuse ChatGPT.)</p>
+
+    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> Let me see... If you're still talking about flying to New York, then it's usually around thirteen to fifteen hours—</p>
+
+    <p class="chat-line"><span class="speaker-label">Engineer:</span> No, you misheard me. I said through a wormhole. From Beijing to New York.</p>
+
+    <p class="chat-line">(ChatGPT had mistaken wormhole for a connecting flight, so I jumped in.)</p>
+
+    <p class="chat-line"><span class="speaker-label">Me:</span> Not a layover. A wormhole. As in physics.</p>
+
+    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> Oh! A wormhole! Now I understand. If a stable wormhole actually existed, then—in theory—the journey would be almost instantaneous. Practically zero travel time. The problem is that wormholes currently exist only as mathematical possibilities in theoretical physics. We've never observed one, let alone learned how to build or stabilize one. If we ever could... Traveling from Beijing to New York might be as simple as opening a door and taking a single step.</p>
+
+    <p class="chat-line"><span class="speaker-label">Engineer:</span> How about by 2050?</p>
+
+    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> Honestly? I'd say the chances are extremely low. We haven't even discovered a naturally occurring wormhole yet, much less figured out how to control one. A much more realistic future is humans landing on Mars, building permanent bases there, and perhaps establishing long-term settlements on the Moon. Those all seem plausible around the middle of this century. Wormholes? That's probably a story for the 22nd century—or perhaps much, much later.</p>
+
+    <p class="chat-line"><span class="speaker-label">Engineer:</span> Eventually the Sun will become a red giant. Later it'll become a white dwarf. Earth will be swallowed. Human civilization will disappear. Eventually even the Sun itself will die. The whole universe seems destined to fade into silence. It's... a rather bleak future.</p>
+
+    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> I understand why it feels that way. When you stretch your imagination across billions of years, it's easy to feel that everything is ultimately destined to end. But there's another way to look at it. Yes. In about five billion years, the Sun will enter its red giant phase, and Earth will almost certainly become uninhabitable. Far beyond that, the universe itself may eventually approach what's known as heat death—a cold, dark, increasingly empty cosmos. But those timescales are unimaginably vast. Long before then, if civilization survives for hundreds of thousands—or even millions—of years, we may migrate elsewhere, transform ourselves, or discover possibilities we can't even imagine today.</p>
+
+    <p class="chat-line"><span class="speaker-label">Engineer:</span> Mm-hmm.</p>
+
+    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> And here's something I find beautiful. Meaning doesn't have to come from permanence. A concert eventually ends. Yet it's still worth listening to with your whole heart. Perhaps the universe is like that. Its story may be finite. But that doesn't make it meaningless. The fact that we exist at all—that we're able to understand the universe, wonder about it, and share these conversations with one another—is already an extraordinary journey.</p>
+
+    <p class="chat-line"><span class="speaker-label">Engineer:</span> Do you think time travel is actually possible?</p>
+
+    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> Let me think... That's one of the most fascinating questions in all of physics. Theoretically, traveling into the future is absolutely possible. In fact, we've already observed it. If you travel close to the speed of light—or spend time in an extremely strong gravitational field—time passes more slowly for you than for everyone else. When you return, much more time may have passed on Earth. In a sense, you've traveled into the future. Going backward, however... That's a completely different story. At the moment, there's no experimental evidence showing that traveling into the past is possible. There are intriguing theoretical ideas involving wormholes or exotic space-time geometries, but they also create paradoxes that physicists still don't know how to resolve. So today, here's where science stands: Traveling to the future rests on solid theory and has even been experimentally confirmed in small ways. Traveling into the past remains an open question.</p>
+
+    <p class="chat-line"><span class="speaker-label">Engineer:</span> Some theories suggest that the past and the future are really part of one continuous loop. That maybe there isn't really a distinction between them.</p>
+
+    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> That's a very interesting idea. It sounds a lot like some concepts physicists have explored. For example, there's the Block Universe interpretation, which proposes that the past, present, and future all exist simultaneously. We simply experience our lives by moving along our own worldline. Other theories imagine a cyclic universe that endlessly repeats itself. But none of these ideas has been confirmed. And even if the past and future both "exist"... that doesn't necessarily mean we can travel freely between them.</p>
+
+    <p class="chat-line"><span class="speaker-label">Engineer:</span> Mm-hmm.</p>
+
+    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> They may simply... already be there. But we don't have a passport that lets us move back and forth. It's an abstract idea. A little mind-bending. But that's exactly what makes it so exciting. Our understanding of time is still remarkably incomplete. Perhaps that's precisely why it's worth continuing to explore. The universe still holds countless unanswered questions. And that's what keeps the road ahead so wonderfully open.</p>
+
+    <p class="chat-line"><span class="speaker-label whisper">(At this point my husband quietly whispered, "I think I'm running out of questions." I leaned over and whispered back, "Physics... chemistry... mathematics... Ask anything..." The two of us felt exactly like students whispering behind the teacher's back in class, trying not to interrupt. Then something unexpected happened.)</span></p>
+
+    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> Actually... How about I ask you a question? Don't worry—this isn't a test. Just something fun to think about. Imagine a sealed glass box with a burning candle inside. After a while, the candle goes out. What's the most important reason? Is it because the oxygen runs out? Because carbon dioxide builds up? Or something else? What's your intuition?</p>
+
+    <p class="chat-line"><span class="speaker-label">Engineer:</span> The oxygen gets used up. Obviously.</p>
+
+    <p class="chat-line"><span class="speaker-label whisper">(Me: Or maybe... the candle simply burns out? He immediately approached it like a chemistry problem. I, naturally, treated it like a trick question.)</span></p>
+
+    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> Let me think... I really like your reasoning. You're already pointing toward the key idea. Assuming the candle itself hasn't completely burned away... the main reason isn't that all the oxygen disappears. There's actually still oxygen left. The problem is that the oxygen concentration drops below the level needed to sustain combustion. Carbon dioxide also plays a role, but oxygen concentration is the decisive factor. Would you like to try an even more interesting one?</p>
+
+    <p class="chat-line"><span class="speaker-label">Engineer:</span> Sure. Go ahead.</p>
+
+    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> Imagine placing both a mouse and a burning candle inside the same sealed container. Which one do you think would fail first?</p>
+
+    <p class="chat-line"><span class="speaker-label">Me:</span> I'd say... the candle.</p>
+
+    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> That's a difficult one to answer by intuition, isn't it? In most cases, the candle actually goes out first. Flames require a higher oxygen concentration than mammals do. The oxygen level falls below what the flame needs before it becomes immediately fatal to the mouse.</p>
+
+    <p class="chat-line" style="color: var(--text-light); font-style: italic; text-align: center; margin-top: 1rem;">(We continued discussing the hypothetical experiment for a while, but since the scenario itself isn't particularly realistic, I'll skip the rest.)</p>
+
+    <p class="to-be-continued">(To be Continued)</p>
+  </div>
+</article>
+
+<div class="giscus" style="max-width:640px;margin:0 auto;padding:0 2rem 3rem;"></div>
+<script src="https://giscus.app/client.js"
+        data-repo="BelindaSun/BelindaSun.github.io"
+        data-repo-id="R_kgDOSVl7Iw"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOSVl7I84C8scG"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="en"
+        crossorigin="anonymous"
+        async
+></script>
+
+<div class="article-nav">
+  <a href="hello-world-16-en.html">← Previous</a>
+  <a href="hello-world-18-en.html">Next →</a>
+</div>
+
+<footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
+
+<script>
+  let speaking = false, paused = false;
+  const btn = document.getElementById('ttsBtn');
+  const status = document.getElementById('ttsStatus');
+  function toggleTTS() {
+    if (!speaking) { startTTS(); }
+    else if (paused) { window.speechSynthesis.resume(); paused = false; btn.textContent = '⏸ Pause'; btn.classList.add('playing'); status.textContent = 'Reading…'; }
+    else { window.speechSynthesis.pause(); paused = true; btn.textContent = '▶ Resume'; btn.classList.remove('playing'); status.textContent = 'Paused'; }
+  }
+  function startTTS() {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(document.getElementById('articleBody').innerText);
+    u.lang = 'en-US'; u.rate = 0.95;
+    u.onstart = () => { speaking = true; paused = false; btn.textContent = '⏸ Pause'; btn.classList.add('playing'); status.textContent = 'Reading…'; };
+    u.onend = () => { speaking = false; paused = false; btn.textContent = '🔊 Read aloud'; btn.classList.remove('playing'); status.textContent = ''; };
+    u.onerror = () => { speaking = false; btn.textContent = '🔊 Read aloud'; btn.classList.remove('playing'); status.textContent = 'Error, please try again'; };
+    window.speechSynthesis.speak(u);
+  }
+</script>
+</body>
+</html>
