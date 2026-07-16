@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Walking the Edge of Human Knowledge — Belinda Sun</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --cream: #fdfcfa;
+        --warm: #f5f0e8;
+        --text: #3d2a5c;
+        --text-muted: #7a5fa0;
+        --text-light: #b09cc8;
+        --accent: #854f0b;
+        --accent-light: #faeeda;
+        --border: rgba(26, 26, 24, 0.12);
+        --serif: Georgia, "Times New Roman", serif;
+        --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      body {
+        background: var(--cream);
+        color: var(--text);
+        font-family: var(--sans);
+        min-height: 100vh;
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 3rem;
+        border-bottom: 0.5px solid var(--border);
+        background: var(--cream);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .nav-logo {
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        color: var(--text);
+        text-decoration: none;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+      }
+      article {
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 4rem 2rem 6rem;
+      }
+      .article-meta {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+      .article-col {
+        font-size: 0.75rem;
+        color: var(--accent);
+        background: var(--accent-light);
+        padding: 3px 10px;
+        border-radius: 20px;
+        letter-spacing: 0.04em;
+      }
+      .article-date {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+      .lang-switch {
+        margin-left: auto;
+        display: flex;
+        gap: 0.5rem;
+      }
+      .lang-btn {
+        font-size: 0.78rem;
+        padding: 3px 10px;
+        border-radius: 20px;
+        border: 0.5px solid var(--border);
+        background: none;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .lang-btn.active {
+        background: var(--text);
+        color: var(--cream);
+        border-color: var(--text);
+      }
+      .article-title {
+        font-family: var(--serif);
+        font-size: 2rem;
+        font-weight: normal;
+        line-height: 1.4;
+        margin-bottom: 0.6rem;
+        color: var(--text);
+      }
+      .article-subtitle {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        margin-bottom: 2.5rem;
+        font-style: italic;
+      }
+      .article-divider {
+        width: 40px;
+        height: 0.5px;
+        background: var(--text-light);
+        margin-bottom: 1.5rem;
+      }
+      .tts-bar {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+      }
+      .tts-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        background: var(--warm);
+        border: 0.5px solid var(--border);
+        border-radius: 20px;
+        padding: 5px 14px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: var(--sans);
+      }
+      .tts-btn:hover {
+        border-color: var(--text-muted);
+        color: var(--text);
+      }
+      .tts-btn.playing {
+        background: var(--accent-light);
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+      .tts-status {
+        font-size: 0.78rem;
+        color: var(--text-light);
+      }
+      .article-body {
+        font-family: var(--serif);
+        font-size: 1.05rem;
+        line-height: 2.1;
+        color: var(--text);
+      }
+      .article-body p {
+        margin-bottom: 1.4rem;
+      }
+      .article-body .author-note {
+        background: var(--warm);
+        border-radius: 10px;
+        padding: 1rem 1.5rem;
+        margin: 1.5rem 0;
+        font-size: 0.95rem;
+        color: var(--text-muted);
+      }
+      .article-body .chat-line {
+        margin-bottom: 0.8rem;
+      }
+      .article-body .speaker-label {
+        font-weight: bold;
+        color: var(--text);
+      }
+      .article-body strong {
+        color: var(--accent);
+      }
+      .article-body .convo-meta {
+        color: var(--text-light);
+        font-size: 0.9rem;
+        text-align: center;
+        margin: 1.5rem 0;
+      }
+      .article-nav {
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 2rem 2rem 4rem;
+        display: flex;
+        justify-content: space-between;
+        border-top: 0.5px solid var(--border);
+      }
+      .article-nav a,
+      .article-nav span {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .article-nav span {
+        opacity: 0.5;
+        cursor: default;
+      }
+      footer {
+        border-top: 0.5px solid var(--border);
+        padding: 1.5rem 3rem;
+        text-align: center;
+      }
+      footer p {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" class="nav-logo">Belinda Sun</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="hello-world-index.html">Hello World</a></li>
+        <li><a href="hello-human-index.html">Hello Human</a></li>
+      </ul>
+    </nav>
+
+    <article>
+      <div class="article-meta">
+        <span class="article-col">Hello Human</span>
+        <span class="article-date">July 16, 2026</span>
+        <div class="lang-switch">
+          <a href="hello-human-16.html" class="lang-btn">中文</a>
+          <span class="lang-btn active">EN</span>
+        </div>
+      </div>
+
+      <h1 class="article-title">Walking the Edge of Human Knowledge</h1>
+      <p class="article-subtitle">
+        An Engineer's First Conversation with ChatGPT
+      </p>
+      <div class="article-divider"></div>
+
+      <div class="tts-bar">
+        <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">
+          🔊 Read aloud
+        </button>
+        <span class="tts-status" id="ttsStatus"></span>
+      </div>
+
+      <div class="article-body" id="articleBody">
+        <div class="author-note">
+          <p><strong>Before We Begin</strong></p>
+          <p>
+            Ever since late last year, whenever my engineer husband saw me
+            filling my Moments feed with posts about how AI was "about to
+            disrupt this" and "about to reinvent that," he'd roll his eyes and
+            accuse me of "creating anxiety every single day."
+          </p>
+          <p>"Stop being so alarmist."</p>
+          <p>I couldn't really blame him.</p>
+          <p>
+            If you don't follow the AI world closely, it does sound like
+            exaggeration.
+          </p>
+          <p>
+            But if you spend every day immersed in frontier AI developments, you
+            realize something important:
+          </p>
+          <p>The world has already begun to change.</p>
+          <p>
+            After months of my relentless campaign—mostly by forcing him to
+            watch tiny AI products come to life in just a few minutes—he finally
+            started paying attention.
+          </p>
+          <p>Little by little, his curiosity replaced his skepticism.</p>
+          <p>
+            He began reading about large language models, following AI news, and
+            more than once found himself genuinely amazed by how quickly
+            everything was evolving.
+          </p>
+          <p>
+            Last night, on a whim, I decided to try ChatGPT's new voice
+            conversation feature.
+          </p>
+          <p>
+            We chatted for a while about AI, creativity, and how, in a world
+            where code is becoming less of a competitive moat, good ideas matter
+            more than ever.
+          </p>
+          <p>Eventually we ran out of things to talk about.</p>
+          <p>So I handed the conversation over to my husband.</p>
+          <p>
+            What followed turned into an unexpectedly long—and
+            fascinating—conversation.
+          </p>
+          <p>It was his very first time talking to an AI.</p>
+          <p>
+            As you'll soon discover, it also offers a surprisingly accurate
+            glimpse into what occupies his mind every single day. 😄
+          </p>
+          <p>
+            Afterwards, ChatGPT automatically generated a transcript of the
+            conversation, preserving almost all of the original pacing and tone.
+          </p>
+          <p>
+            For readability, I removed the endless strings of "uh-huhs" and
+            repeated filler words, but otherwise left it almost entirely
+            untouched.
+          </p>
+          <p>
+            I also asked ChatGPT to write an article about the experience for my
+            website's Hello Human column.
+          </p>
+          <p>
+            Less than a minute later, it produced both Chinese and English
+            versions, then cheerfully added:
+          </p>
+          <p>
+            "I intentionally kept the rhythm of your husband's relentless
+            questioning. It feels much more like a Hello Human story than a
+            typical science explainer. You could even give it a more playful
+            title—something like 'My Husband Took Me from Mars to Square Waves.'
+            😄"
+          </p>
+          <p>
+            There were, admittedly, a few tiny AI hallucinations in the article.
+          </p>
+          <p>Nothing serious.</p>
+          <p>What stayed with me wasn't perfect factual accuracy.</p>
+          <p>It was something else entirely.</p>
+          <p>
+            Last night's conversation—from its tone to its rhythm to its
+            spontaneity—felt astonishingly human.
+          </p>
+          <p>
+            For the first time, it genuinely felt as though another person was
+            sitting across the table.
+          </p>
+          <p>And that was the part that truly amazed me.</p>
+        </div>
+
+        <p class="convo-meta">
+          Walking the Edge of Human Knowledge (I)<br />An Engineer's First
+          Conversation with ChatGPT
+        </p>
+
+        <p class="convo-meta">July 12, 2026 · 10:40 PM</p>
+
+        <p class="chat-line">
+          <span class="speaker-label">Engineer:</span> When do you think humans
+          will finally land on Mars?
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT:</span> Let me think... That's a
+          fascinating question. Honestly, nobody can give an exact date. The
+          most realistic prediction is sometime in the 2030s—or perhaps even
+          later. NASA's current roadmap is to establish a long-term presence on
+          the Moon first, using it as a proving ground before attempting Mars.
+          SpaceX certainly has ambitious plans, but reality almost always moves
+          more slowly than imagination. The challenge isn't just getting there.
+          We have to land safely, survive there, and then return safely. Any one
+          of those hurdles could delay the schedule. Personally, I think the
+          second half of the 2030s sounds realistic. Earlier wouldn't surprise
+          me. Neither would 2040. But we're fortunate enough that our generation
+          may actually live to witness humanity setting foot on Mars.
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">Engineer:</span> By 2050, it should
+          definitely have happened, right?
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT:</span> I'd be much more
+          optimistic about 2050. Of course, no one can guarantee it, but I'd say
+          there's a very good chance humans will have reached Mars by then.
+          Technology keeps improving. Rockets keep evolving. AI and robotics are
+          making exploration far safer. And governments as well as private
+          companies are all pushing toward the same goal. What excites me even
+          more isn't simply planting another flag. It's the possibility of a
+          small, permanent scientific outpost—a place where dozens of
+          researchers rotate in and out over the years. A real Martian city?
+          That will probably take much longer. So yes, I think people living on
+          Mars by 2050 is entirely possible. Hundreds of thousands of settlers?
+          That would be... considerably more optimistic.
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">Engineer:</span> What about the Sun? When
+          do you think we'll be able to land on the Sun?
+        </p>
+
+        <div class="author-note">
+          <p><strong>Author's Note:</strong></p>
+          <p>
+            1. My husband's pronunciation isn't always crystal clear because
+            he's missing a tooth.
+          </p>
+          <p>
+            2. More importantly, he was being mischievous. When he asked this
+            question, he shot me a sly little grin. I immediately knew what he
+            was doing. He was testing ChatGPT. We exchanged a knowing smile and
+            quietly waited to see whether it would embarrass itself.
+          </p>
+        </div>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT:</span> Hmm... Let me check... I'm
+          guessing you might be asking when the Sun will burn out. That would be
+          roughly another five billion years—
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">Engineer:</span> No, no. I mean if humans
+          can land on Mars around 2050... When will we be able to land on the
+          Sun? That's what I'm asking.
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT:</span> Oh! That's a fun question.
+          The answer is actually very straightforward: Almost certainly never.
+          The Sun doesn't have a solid surface to stand on. It's essentially a
+          gigantic sphere of plasma. Its visible surface is about 5,500°C
+          (9,900°F), and every material we know of would vaporize long before
+          getting anywhere close. The deeper you go, the more extreme it
+          becomes. So landing on the Sun isn't like landing on the Moon or Mars.
+          What we can do—and are already doing—is fly as close as possible to
+          study it. NASA's Parker Solar Probe has already traveled closer to the
+          Sun than any spacecraft in history. But even it merely skims the
+          outskirts to collect data. So yes—landing on the Moon? Absolutely.
+          Landing on Mars? Very likely. Landing on the Sun? That's a bit like
+          trying to dance on a flame. The laws of physics simply don't allow it.
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">Me:</span> Not bad. He passed the test.
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">Engineer:</span> Mm-hmm.
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT:</span> Glad to hear it! Keep the
+          questions coming.
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">Engineer:</span> What about getting close
+          to the edge of a black hole?
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT:</span> Now that's an even more
+          exciting question. In theory, yes—you can get close. But it depends on
+          what kind of black hole we're talking about, and what exactly you mean
+          by "close."
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">Engineer:</span> I mean... standing right
+          at the event horizon...
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT:</span> Right. If you mean
+          orbiting just outside the event horizon, then yes—in theory that's
+          possible. Of course, it would require propulsion and protection
+          technologies far beyond anything we currently possess.
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">Me:</span> (touched the screen and
+          disconnected) We weren't finished!
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT:</span> Hang on... Of course!
+          Let's continue. We were talking about approaching the event horizon of
+          a black hole. From a physics perspective, yes—I remember exactly where
+          we left off. Theoretically, you can travel astonishingly close to the
+          event horizon, especially around a supermassive black hole. Until you
+          actually cross it, you might not even notice anything unusual. Smaller
+          stellar-mass black holes are a different story. Their tidal forces
+          would—put simply—stretch you into a very long strand of spaghetti.
+          Physicists even have a name for it: Spaghettification. What's even
+          more fascinating is how time appears to different observers. Someone
+          watching you from far away would see you moving more and more slowly,
+          almost frozen at the edge forever. But from your own perspective,
+          everything would feel perfectly normal. Time would continue flowing
+          naturally. So yes—you can approach a black hole. You can even orbit
+          one. But you can't stand on it. There isn't actually a surface there.
+          That
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

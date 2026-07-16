@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>在人类知识边界漫步 — Belinda Sun</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --cream: #fdfcfa;
+        --warm: #f5f0e8;
+        --text: #3d2a5c;
+        --text-muted: #7a5fa0;
+        --text-light: #b09cc8;
+        --accent: #854f0b;
+        --accent-light: #faeeda;
+        --border: rgba(26, 26, 24, 0.12);
+        --serif: Georgia, "Times New Roman", serif;
+        --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      body {
+        background: var(--cream);
+        color: var(--text);
+        font-family: var(--sans);
+        min-height: 100vh;
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 3rem;
+        border-bottom: 0.5px solid var(--border);
+        background: var(--cream);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .nav-logo {
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        color: var(--text);
+        text-decoration: none;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+      }
+      article {
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 4rem 2rem 6rem;
+      }
+      .article-meta {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+      .article-col {
+        font-size: 0.75rem;
+        color: var(--accent);
+        background: var(--accent-light);
+        padding: 3px 10px;
+        border-radius: 20px;
+        letter-spacing: 0.04em;
+      }
+      .article-date {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+      .lang-switch {
+        margin-left: auto;
+        display: flex;
+        gap: 0.5rem;
+      }
+      .lang-btn {
+        font-size: 0.78rem;
+        padding: 3px 10px;
+        border-radius: 20px;
+        border: 0.5px solid var(--border);
+        background: none;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .lang-btn.active {
+        background: var(--text);
+        color: var(--cream);
+        border-color: var(--text);
+      }
+      .article-title {
+        font-family: var(--serif);
+        font-size: 2rem;
+        font-weight: normal;
+        line-height: 1.4;
+        margin-bottom: 0.6rem;
+        color: var(--text);
+      }
+      .article-subtitle {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        margin-bottom: 2.5rem;
+        font-style: italic;
+      }
+      .article-divider {
+        width: 40px;
+        height: 0.5px;
+        background: var(--text-light);
+        margin-bottom: 1.5rem;
+      }
+      .article-body {
+        font-family: var(--serif);
+        font-size: 1.05rem;
+        line-height: 2;
+        color: var(--text);
+      }
+      .article-body p {
+        margin-bottom: 1.6rem;
+      }
+      .article-body .dialogue {
+        border-left: 2px solid var(--accent-light);
+        padding-left: 1.25rem;
+        margin: 1.5rem 0;
+        color: var(--text-muted);
+        font-style: italic;
+      }
+      .article-body .author-note {
+        background: var(--warm);
+        border-radius: 10px;
+        padding: 1rem 1.5rem;
+        margin: 1.5rem 0;
+        font-size: 0.95rem;
+        color: var(--text-muted);
+      }
+      .article-body .chat-line {
+        margin-bottom: 0.8rem;
+      }
+      .article-body .speaker-label {
+        font-weight: bold;
+        color: var(--text);
+      }
+      .article-body strong {
+        color: var(--accent);
+      }
+      .article-body .convo-meta {
+        color: var(--text-light);
+        font-size: 0.9rem;
+        text-align: center;
+        margin: 1.5rem 0;
+      }
+      .tts-bar {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+      }
+      .tts-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        background: var(--warm);
+        border: 0.5px solid var(--border);
+        border-radius: 20px;
+        padding: 5px 14px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: var(--sans);
+      }
+      .tts-btn:hover {
+        border-color: var(--text-muted);
+        color: var(--text);
+      }
+      .tts-btn.playing {
+        background: var(--accent-light);
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+      .tts-status {
+        font-size: 0.78rem;
+        color: var(--text-light);
+      }
+      .article-nav {
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 2rem 2rem 4rem;
+        display: flex;
+        justify-content: space-between;
+        border-top: 0.5px solid var(--border);
+      }
+      .article-nav a,
+      .article-nav span {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+      .article-nav span {
+        opacity: 0.5;
+        cursor: default;
+      }
+      footer {
+        border-top: 0.5px solid var(--border);
+        padding: 1.5rem 3rem;
+        text-align: center;
+      }
+      footer p {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" class="nav-logo">Belinda Sun</a>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="hello-world-index.html">Hello World</a></li>
+        <li><a href="hello-human-index.html">Hello Human</a></li>
+      </ul>
+    </nav>
+
+    <article>
+      <div class="article-meta">
+        <span class="article-col">Hello Human</span>
+        <span class="article-date">2026年7月16日</span>
+        <div class="lang-switch">
+          <span class="lang-btn active">中文</span>
+          <a href="hello-human-16-en.html" class="lang-btn">EN</a>
+        </div>
+      </div>
+
+      <h1 class="article-title">在人类知识边界漫步</h1>
+      <p class="article-subtitle">理工男与ChatGPT的第一次对话</p>
+      <div class="article-divider"></div>
+
+      <div class="tts-bar">
+        <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">
+          🔊 朗读
+        </button>
+        <span class="tts-status" id="ttsStatus"></span>
+      </div>
+
+      <div class="article-body" id="articleBody">
+        <div class="author-note">
+          <p><strong>写在前面：</strong></p>
+          <p>
+            从去年底理工男看我在朋友圈老发AI即将颠覆这个、即将颠覆那个的言论就说我“天天制造焦虑”，是“耸人听闻”。
+          </p>
+          <p>
+            唉，不看AI前沿发展的人都会以为这是制造焦虑，天天看的人就知道已经变天了。
+          </p>
+          <p>
+            后来在我孜孜不倦地不懈地影响之下（逼着他看我的AI小产品怎么在几分钟之内诞生），理工男终于开始把眼光投向AI投向大模型，也时常惊叹AI发展的日新月异。
+          </p>
+          <p>
+            昨晚我心血来潮想试试贾皮特聊天新功能，聊到现在没有代码壁垒时代更要有好的idea等问题后就觉得无话可聊了，于是就让理工男跟他主聊，然后就有了这个长篇。
+          </p>
+          <p>
+            这是理工男第一次跟AI聊天，看看都聊了啥，由此也看出了他脑子里天天都想的是啥[捂脸]
+          </p>
+          <p>
+            聊完后贾皮特自动生成文字，保留聊天的语气和节奏，为了阅读体验我把那些嗯嗯等重复的词删了，其它尽量保存原貌。
+          </p>
+          <p>
+            我还让贾皮特写一篇文章我给他发表在我网站hello
+            human栏目，他不到一分钟就写完了，又是中英文，还特意说：“这篇我特意保留了'理工男一路追问'的节奏，比普通科普总结更像一篇
+            Hello Human
+            文章。标题也可以改成更俏皮一点，比如《理工男把我从火星问到方波》😄”
+          </p>
+          <p>
+            可以看出他的文章还是有几个小幻觉的，但是，无伤大雅，昨天的聊天，从语气到内容，真的就跟真人坐在你对面一样，太震撼了！
+          </p>
+        </div>
+
+        <p class="convo-meta">
+          在人类知识边界漫步（一）<br />理工男与ChatGPT的第一次对话
+        </p>
+
+        <p class="convo-meta">July 12th 2026 10:40 PM</p>
+
+        <p class="chat-line">
+          <span class="speaker-label">理工男：</span
+          >你说人类什么时候能登上火星啊？
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT：</span
+          >我看看啊。这是个很有意思的问题。嗯，现在没人能给准日子，但比较靠谱的说法是：2030年代，甚至更晚。NASA的路线是先把登月长期化，把技术磨成熟了，再去火星。嗯，还有SpaceX野心很大，但现实总比想象的慢。难点呢不只是发射，而且是在那儿安全着陆，安全生活和安全返回。这些任何一环节都能把日程表往后推。我自己觉得2030年代中后期比较现实，快了未必，慢到2040也不奇怪。我们这代人很幸运，也许真能看到那一幕。
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">理工男：</span>2050年应该差不多了吧
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT：</span
+          >我再看看嗯，我会乐观很多，虽然没人能绝对保证但大概率到那时人类应该能上去。原因很简单：技术在进步、火箭在迭代、AI和机器人能大幅降低风险，而且多国和私企都在朝那儿拱。但我更期待的是——那时不只是短暂插旗，而是有个能长期运作的小科研基地，几十个人轮换驻留。城市嘛，那可能还得再等等。所以，2050年火星上有人，我觉得有希望，但几十万人生活，那就太乐观了。
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">理工男：</span
+          >太阳呢，估计什么时间能上去太阳呢？
+        </p>
+
+        <div class="author-note">
+          <p><strong>注：</strong></p>
+          <p>一：理工男牙掉了漏风，所以说话不是很清楚。</p>
+          <p>
+            二：理工男冒坏呢，他问这问题的时候狡黠地看了我一眼，我也知道他在测ChatGPT，于是我俩相视一笑，等着看ChatGPT
+            会不会闹笑话。
+          </p>
+        </div>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT：</span
+          >嗯，我看一下。嗯，我猜你可能是想问...太阳什么时候会不行？大概在十亿年后
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">理工男：</span
+          >不是，不是——就是人类既然2050年可以登上火星，那什么时候可以登上太阳？我问的是这个问题
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT：</span
+          >哦，这问题很有意思！答案很直接：几乎不可能。太阳没有坚实的表面，它是一个等离子大火球。表面温度大约5500
+        </p>
+
+        <p class="chat-line"><span class="speaker-label">我：</span>不傻；</p>
+
+        <p class="chat-line"><span class="speaker-label">理工男：</span>嗯嗯</p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT：</span
+          >摄氏度，任何已知材料都会蒸发掉。越往里越离谱。所以登太阳不像登月或登火星那样，我们能做，而且正在做的，是尽可能靠近去研究它，比如帕克太阳探测器，已经飞得非常近，但那也只是擦边，数据采集而已。所以嘛，登月可以、登火星有望，登太阳嘛，就像试图站在火焰上跳舞，物理规则不允许。
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">我：</span
+          >嗯嗯嗯嗯嗯嗯嗯——行，这考验通过了。
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT：</span>嗯好！有啥尽管问。
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">理工男：</span
+          >那个如果说——靠近黑洞的边缘可以吗
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT：</span
+          >我看看。这就更刺激了。理论上可以靠近，但这取决于黑洞的类型和你说的靠近是什么意思。
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">理工男：</span
+          >在事件就是站在它那个事件视界…
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT：</span
+          >对。对对，在事件视界之外绕飞，理论上是可以，但需要极端先进的推进和防护。
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">我：</span>（碰了屏幕，断了）刚才没聊完呢
+        </p>
+
+        <p class="chat-line">
+          <span class="speaker-label">ChatGPT：</span
+          >等下哈。当然，我们继续，刚才你问靠近黑洞的事件视界。从物理上说啊，当然记得啦。我们刚才说到靠近黑洞的事件视界，从物理上来说，理论上你可以飞到非常靠近，尤其是那种超大质量的黑洞。在穿过之前，你甚至感觉不到什么。但对小一点的恒星级黑洞，潮汐力会把你——说直白点——拉成长长的意大利面。有意思的是，在外面的人看你，会觉得你越来越慢，几乎停在边缘，但你自己却觉得时间一切正常，直接就过去了。所以呢，可以靠近，可以绕飞，但不能“站在上面”——那不是个实体表面。这问题问得很硬核，很有意思。
+        </p>
+
+        <p
+          style="
+            color: var(--text-light);
+            text-align: center;
+            margin-top: 2rem;
+            letter-spacing: 0.2em;
+          "
+        >
+          （未完待续）
+        </p>
+      </div>
+    </article>
+
+    <div
+      class="giscus"
+      style="max-width: 640px; margin: 0 auto; padding: 0 2rem 3rem"
+    ></div>
+    <script
+      src="https://giscus.app/client.js"
+      data-repo="BelindaSun/BelindaSun.github.io"
+      data-repo-id="R_kgDOSVl7Iw"
+      data-category="Announcements"
+      data-category-id="DIC_kwDOSVl7I84C8scG"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="bottom"
+      data-theme="light"
+      data-lang="zh-CN"
+      crossorigin="anonymous"
+      async
+    ></script>
+
+    <div class="article-nav">
+      <a href="hello-human-18.html">← 上一篇</a>
+      <span>下一篇 →</span>
+    </div>
+
+    <footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
+
+    <script>
+      let speaking = false,
+        paused = false;
+      const btn = document.getElementById("ttsBtn");
+      const status = document.getElementById("ttsStatus");
+      function toggleTTS() {
+        if (!speaking) {
+          startTTS();
+        } else if (paused) {
+          window.speechSynthesis.resume();
+          paused = false;
+          btn.textContent = "⏸ 暂停";
+          btn.classList.add("playing");
+          status.textContent = "朗读中…";
+        } else {
+          window.speechSynthesis.pause();
+          paused = true;
+          btn.textContent = "▶ 继续";
+          btn.classList.remove("playing");
+          status.textContent = "已暂停";
+        }
+      }
+      function startTTS() {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(
+          document.getElementById("articleBody").innerText,
+        );
+        u.lang = "zh-CN";
+        u.rate = 0.95;
+        u.onstart = () => {
+          speaking = true;
+          paused = false;
+          btn.textContent = "⏸ 暂停";
+          btn.classList.add("playing");
+          status.textContent = "朗读中…";
+        };
+        u.onend = () => {
+          speaking = false;
+          paused = false;
+          btn.textContent = "🔊 朗读";
+          btn.classList.remove("playing");
+          status.textContent = "";
+        };
+        u.onerror = () => {
+          speaking = false;
+          btn.textContent = "🔊 朗读";
+          btn.classList.remove("playing");
+          status.textContent = "出错了，请重试";
+        };
+        window.speechSynthesis.speak(u);
+      }
+    </script>
+  </body>
+</html>
