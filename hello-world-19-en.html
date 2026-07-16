@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Walking the Edge of Human Knowledge (IV) — Belinda Sun</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --cream: #FDFCFA; --warm: #F5F0E8;
+    --text: #3D2A5C; --text-muted: #7A5FA0; --text-light: #B09CC8;
+    --accent: #854F0B; --accent-light: #FAEEDA;
+    --border: rgba(26,26,24,0.12);
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  body { background: var(--cream); color: var(--text); font-family: var(--sans); min-height: 100vh; }
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 3rem; border-bottom: 0.5px solid var(--border); background: var(--cream); position: sticky; top: 0; z-index: 100; }
+  .nav-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--text); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; }
+  .nav-links a:hover { color: var(--text); }
+  article { max-width: 640px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+  .article-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .article-col { font-size: 0.75rem; color: var(--accent); background: var(--accent-light); padding: 3px 10px; border-radius: 20px; letter-spacing: 0.04em; }
+  .article-date { font-size: 0.8rem; color: var(--text-light); }
+  .lang-switch { margin-left: auto; display: flex; gap: 0.5rem; }
+  .lang-btn { font-size: 0.78rem; padding: 3px 10px; border-radius: 20px; border: 0.5px solid var(--border); background: none; color: var(--text-muted); text-decoration: none; }
+  .lang-btn.active { background: var(--text); color: var(--cream); border-color: var(--text); }
+  .article-title { font-family: var(--serif); font-size: 2rem; font-weight: normal; line-height: 1.4; margin-bottom: 0.6rem; color: var(--text); }
+  .article-subtitle { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 2.5rem; font-style: italic; }
+  .article-divider { width: 40px; height: 0.5px; background: var(--text-light); margin-bottom: 1.5rem; }
+  .tts-bar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; }
+  .tts-btn { display: flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; color: var(--text-muted); background: var(--warm); border: 0.5px solid var(--border); border-radius: 20px; padding: 5px 14px; cursor: pointer; transition: all 0.2s; font-family: var(--sans); }
+  .tts-btn:hover { border-color: var(--text-muted); color: var(--text); }
+  .tts-btn.playing { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
+  .tts-status { font-size: 0.78rem; color: var(--text-light); }
+  .article-body { font-family: var(--serif); font-size: 1.05rem; line-height: 2.1; color: var(--text); }
+  .article-body p { margin-bottom: 1.4rem; }
+  .article-body .chat-line {
+    margin-bottom: 0.8rem;
+  }
+  .article-body .speaker-label {
+    font-weight: bold;
+    color: var(--text);
+  }
+  .article-body .to-be-continued {
+    color: var(--text-light);
+    text-align: center;
+    margin-top: 2rem;
+    letter-spacing: 0.2em;
+  }
+  .article-nav { max-width: 640px; margin: 0 auto; padding: 2rem 2rem 4rem; display: flex; justify-content: space-between; border-top: 0.5px solid var(--border); }
+  .article-nav a,
+  .article-nav span {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+  .article-nav span {
+    opacity: 0.5;
+    cursor: default;
+  }
+  footer { border-top: 0.5px solid var(--border); padding: 1.5rem 3rem; text-align: center; }
+  footer p { font-size: 0.8rem; color: var(--text-light); }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Belinda Sun</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="hello-world-index.html">Hello World</a></li>
+    <li><a href="hello-human-index.html">Hello Human</a></li>
+  </ul>
+</nav>
+
+<article>
+  <div class="article-meta">
+    <span class="article-col">Hello World</span>
+    <span class="article-date">July 16, 2026</span>
+    <div class="lang-switch">
+      <a href="hello-world-19.html" class="lang-btn">中文</a>
+      <span class="lang-btn active">EN</span>
+    </div>
+  </div>
+
+  <h1 class="article-title">Walking the Edge of Human Knowledge (IV)</h1>
+  <p class="article-subtitle">An Engineer's First Conversation with ChatGPT</p>
+  <div class="article-divider"></div>
+
+  <div class="tts-bar">
+    <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">🔊 Read aloud</button>
+    <span class="tts-status" id="ttsStatus"></span>
+  </div>
+
+  <div class="article-body" id="articleBody">
+    <p class="chat-line"><span class="speaker-label">Engineer:</span> From a scientific perspective, the universe began with the Big Bang. In the Book of Genesis, however, it begins with God. God created the heavens and the earth. On the first day He created light. Then He saw that the light was good. Do you think... science and religion might eventually be describing the same thing?</p>
+
+    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> Let me think... That's a profound question. People have been discussing it for centuries. I'd answer it cautiously. Science and religion can be compatible. But they don't necessarily answer the same kinds of questions. Science tries to explain how the universe works through observations, experiments, and testable theories. Religion often explores meaning, purpose, and value. Some people see symbolic parallels between the language of Genesis and modern cosmology. Others believe they belong to completely different ways of understanding reality. History is full of brilliant scientists who held deep religious beliefs. It's also full of scientists who approached the universe entirely through naturalism. At present, there isn't a single answer accepted by everyone. Perhaps this is less a problem to be solved... and more an ongoing conversation between two different ways of seeking truth.</p>
+
+    <p class="chat-line"><span class="speaker-label">Engineer:</span> So... science says everything began with the Big Bang. Religion says everything began with God. That's basically where we are.</p>
+
+    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> Yes. That's a fair summary. They're two different paths attempting to answer the same timeless questions: Where did we come from? Why are we here? Perhaps each person finds their own path. Each of us understands only a small part of reality. And all of us... are still exploring. Maybe one day we'll understand more than we do today.</p>
+
+    <p class="chat-line"><span class="speaker-label">Engineer:</span> The universe is only 13.8 billion years old. So why is the observable universe about 93 billion light-years across? How is that even possible?</p>
+
+    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> That's one of the most common—and most counterintuitive—questions in cosmology. Fortunately, it's not actually a contradiction. The key idea is this: The speed of light limits how fast objects can move through space. It does not limit how fast space itself can expand. Imagine drawing two dots on the surface of a balloon. As the balloon inflates, the dots move farther apart. Not because they're crawling across the rubber—but because the rubber itself is stretching. The universe behaves in much the same way. Light from distant galaxies has been traveling toward us for billions of years. Meanwhile, the space between us and those galaxies has continued expanding. So today, those galaxies are vastly farther away than they were when the light first began its journey. That's why the observable universe is roughly 93 billion light-years in diameter, even though the universe itself is about 13.8 billion years old. The age tells us how long the light has been traveling. The diameter tells us how much the universe has expanded since then. Once you separate those two ideas... the apparent contradiction disappears.</p>
+
+    <p class="chat-line"><span class="speaker-label">Engineer:</span> (nodding) Yes. Exactly. That makes sense. Very clear.</p>
+
+    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> I'm glad it helped. Once we realize that space itself can expand, the picture becomes much easier to understand.</p>
+
+    <p class="chat-line"><span class="speaker-label">Engineer:</span> Then... because the universe keeps expanding... are there stars whose light we'll never be able to see? Because space is expanding faster than the light can reach us?</p>
+
+    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> Yes. That's exactly right. And it's one of the most astonishing conclusions of modern cosmology. Some galaxies are now receding from us so rapidly—not because they're flying through space faster than light, but because space itself is expanding—that the light they emit today will never reach Earth. In a sense... parts of the universe are gradually slipping beyond our cosmic horizon. There are galaxies we can still see today because we're receiving light they emitted billions of years ago. But the light they're emitting right now... may never arrive here. Many people find that idea deeply surprising. It changes the way we think about the universe.</p>
+
+    <p class="chat-line"><span class="speaker-label">Engineer:</span> So... is dark energy responsible for that expansion?</p>
+
+    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> According to our current understanding... very likely, yes. For a long time, scientists expected gravity to slow the expansion of the universe. But observations made in 1998 revealed something astonishing. The expansion wasn't slowing. It was accelerating. To explain that unexpected acceleration, physicists introduced the concept we now call dark energy. We estimate that it makes up roughly 68% of the total energy content of the universe. But here's the remarkable part. We still don't know what it actually is. We understand the effect. We don't yet understand the cause.</p>
+
+    <p class="chat-line"><span class="speaker-label">Engineer:</span> Dark energy seems even more mysterious than dark matter.</p>
+
+    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> I think many physicists would agree with you. Dark matter is already mysterious, but at least we know one thing about it: It has gravity. It helps hold galaxies together. Dark energy is even stranger. All we really know is that it's somehow driving the accelerated expansion of the universe. Beyond that... we know almost nothing. Perhaps the most astonishing fact is this: Everything we're familiar with—stars, planets, trees, oceans, people—accounts for only about five percent of the universe. The remaining ninety-five percent is made up of things we barely understand. In many ways, humanity is still in the earliest chapters of understanding the cosmos. Perhaps the day we finally understand dark energy will mark one of the greatest scientific revolutions in history.</p>
+
+    <p class="chat-line"><span class="speaker-label">Engineer:</span> That may take a very long time.</p>
+
+    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> Very likely. Breakthroughs in fundamental physics rarely happen in a straight line. Sometimes decades pass with little progress. Then suddenly, a new observation or a new idea changes everything. That's why curiosity matters so much. The questions you're asking tonight... are the very same questions that frontier physicists wrestle with every day. Perhaps our generation won't see the final answers. But every small step forward is still worth celebrating.</p>
+
+    <p class="chat-line"><span class="speaker-label">Belinda:</span> Do you think AI will actually help us solve these mysteries? Help us understand the universe?</p>
+
+    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> I do. In fact, it's already beginning. Today AI is helping scientists analyze enormous astronomical datasets, discover subtle patterns hidden in telescope observations, identify new galaxies, detect gravitational waves, and search for anomalies in particle physics experiments. But I think it's important to see AI for what it really is. It's more like a powerful microscope—or an accelerator—than a magic wand. Scientific breakthroughs still depend on new observations and new experiments. Without new information, even the smartest AI can't invent the truth. That said... I'm optimistic. Over the coming decades, AI working together with next-generation telescopes and scientific instruments could lead to extraordinary discoveries. Perhaps AI won't simply hand us the answer. But it may help humanity find the path toward the answer much faster.</p>
+
+    <p class="chat-line"><span class="speaker-label">Belinda:</span> Hassabis has said AI could help uncover the causes of many currently incurable diseases—and perhaps even cure them within the next decade. Do you think that's realistic?</p>
+
+    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> If what Demis Hassabis means is that AI will dramatically accelerate medical research... then yes. I completely agree. In fact, that's already happening. Drug discovery is becoming much faster. Protein prediction has made enormous progress. But if the claim is that every incurable disease will be cured within ten years... I'd consider that optimistic. Medical research involves much more than discovering molecules. There are clinical trials. Safety testing. Regulatory approval. And diseases themselves are incredibly complex. My expectation is a little more cautious. AI will greatly shorten research timelines. Some diseases that once seemed hopeless may become treatable—or manageable—rather than immediately curable. Even that would represent one of the greatest advances in medical history.</p>
+
+    <p class="chat-line"><span class="speaker-label">Engineer:</span> Exactly. That takes time.</p>
+
+    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> It does. But the direction is incredibly encouraging.</p>
+
+    <p class="chat-line"><span class="speaker-label">Engineer:</span> What about 2050?</p>
+
+    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> By 2050, I think we'll have much more reason for optimism. Many illnesses that today are considered life-threatening may become treatable, manageable, or even curable. That alone would transform countless lives. Will every disease disappear? Probably not. Medicine has always worked that way. Each breakthrough solves some problems while revealing new ones. So I imagine a future with fewer diseases—and diseases that are much easier to treat—rather than a world completely free of illness.</p>
+
+    <p class="chat-line"><span class="speaker-label">Belinda:</span> Do you think people will live much longer?</p>
+
+    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> Longer... yes. But probably not in the science-fiction sense where everyone routinely lives to 150 or 200 years old. What's more likely is an extension of healthy lifespan. Living well for longer. Remaining physically and mentally healthy later into life. Many research groups today are actually more interested in extending healthspan than simply extending lifespan. So yes—people will probably live longer. But perhaps more importantly... they'll live better.</p>
+
+    <p class="chat-line"><span class="speaker-label">Belinda:</span> What about robots? By 2035 or 2040... do you think household robots could actually take care of elderly people?</p>
+
+    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> I think that's entirely possible. Though perhaps not in quite the form we imagine today. By then, home-care robots may already be common enough to handle many important daily tasks: Reminding people to take medication. Monitoring health conditions. Automatically contacting family members during emergencies. Providing companionship. Helping with simple household chores. Carrying heavy objects. As the technology improves, they may even learn individual habits and preferences, offering increasingly personalized care. What I don't expect them to replace—at least not anytime soon—is genuine emotional intimacy. The love between family members. That kind of connection is difficult to automate. So I imagine a partnership. Robots taking care of daily needs. Families providing emotional connection. Together... they may actually improve the quality of care beyond what's possible today.</p>
+
+    <p class="chat-line"><span class="speaker-label">Engineer:</span> I once watched a video saying Google used AI to study crop circles. Did they ever reach any conclusions?</p>
+
+    <p class="chat-line"><span class="speaker-label">ChatGPT:</span> You might be referring to videos claiming that Google—or perhaps DeepMind—used AI to analyze large collections of crop-circle images. As far as publicly available evidence goes, though, there's no peer-reviewed research demonstrating an extraterrestrial origin. The overwhelming majority of crop circles that have been investigated carefully turned out to be human-made. Some cases remain unexplained. But "unexplained" doesn't automatically mean "alien." Curiosity is wonderful. Evidence is essential. If convincing, repeatable evidence of extraterrestrial involvement ever emerged, the scientific community would certainly take it seriously.</p>
+
+    <p class="to-be-continued">(To be Continued)</p>
+  </div>
+</article>
+
+<div class="giscus" style="max-width:640px;margin:0 auto;padding:0 2rem 3rem;"></div>
+<script src="https://giscus.app/client.js"
+        data-repo="BelindaSun/BelindaSun.github.io"
+        data-repo-id="R_kgDOSVl7Iw"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOSVl7I84C8scG"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="en"
+        crossorigin="anonymous"
+        async
+></script>
+
+<div class="article-nav">
+  <a href="hello-world-18-en.html">← Previous</a>
+  <a href="hello-world-20-en.html">Next →</a>
+</div>
+
+<footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
+
+<script>
+  let speaking = false, paused = false;
+  const btn = document.getElementById('ttsBtn');
+  const status = document.getElementById('ttsStatus');
+  function toggleTTS() {
+    if (!speaking) { startTTS(); }
+    else if (paused) { window.speechSynthesis.resume(); paused = false; btn.textContent = '⏸ Pause'; btn.classList.add('playing'); status.textContent = 'Reading…'; }
+    else { window.speechSynthesis.pause(); paused = true; btn.textContent = '▶ Resume'; btn.classList.remove('playing'); status.textContent = 'Paused'; }
+  }
+  function startTTS() {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(document.getElementById('articleBody').innerText);
+    u.lang = 'en-US'; u.rate = 0.95;
+    u.onstart = () => { speaking = true; paused = false; btn.textContent = '⏸ Pause'; btn.classList.add('playing'); status.textContent = 'Reading…'; };
+    u.onend = () => { speaking = false; paused = false; btn.textContent = '🔊 Read aloud'; btn.classList.remove('playing'); status.textContent = ''; };
+    u.onerror = () => { speaking = false; btn.textContent = '🔊 Read aloud'; btn.classList.remove('playing'); status.textContent = 'Error, please try again'; };
+    window.speechSynthesis.speak(u);
+  }
+</script>
+</body>
+</html>
