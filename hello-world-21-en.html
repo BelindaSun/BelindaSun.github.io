@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Day I Lost Another Job to AI — Hello World 21</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #faf8f5;
+            --text: #2c2c2c;
+            --muted: #6b6b6b;
+            --border: #e0dbd3;
+            --accent: #b8a99a;
+            --quote-border: #d4c9be;
+            --font: 'Georgia', 'Times New Roman', serif;
+            --mono: 'Courier New', monospace;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            line-height: 1.7;
+            padding: 2rem 1.5rem;
+            max-width: 820px;
+            margin: 0 auto;
+        }
+
+        .lang-switch {
+            text-align: right;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            margin-bottom: 2.5rem;
+        }
+
+        .lang-switch a {
+            color: var(--muted);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--border);
+            padding-bottom: 2px;
+            transition: color 0.2s;
+        }
+
+        .lang-switch a:hover {
+            color: var(--text);
+        }
+
+        .index-link {
+            text-align: right;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .index-link a {
+            color: var(--muted);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--border);
+            padding-bottom: 2px;
+        }
+
+        .index-link a:hover {
+            color: var(--text);
+        }
+
+        article {
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+            margin-bottom: 0.25rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--muted);
+            font-style: italic;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--accent);
+            padding-left: 1.2rem;
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+        }
+
+        .dialogue {
+            border-left: 4px solid var(--quote-border);
+            padding-left: 1.4rem;
+            font-style: italic;
+            color: #3d3d3d;
+            margin: 1.5rem 0;
+        }
+
+        .dialogue p {
+            margin-bottom: 0.4rem;
+        }
+
+        .dialogue p:last-child {
+            margin-bottom: 0;
+        }
+
+        .belinda-note {
+            background: #f3f0eb;
+            padding: 0.8rem 1.4rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: #4a4a4a;
+            margin: 1.5rem 0;
+        }
+
+        .belinda-note strong {
+            color: var(--text);
+        }
+
+        .thinking-block {
+            background: #f5f2ed;
+            border-left: 4px solid #cbc1b6;
+            padding: 0.8rem 1.4rem;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+            color: #4a4a4a;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .thinking-block p {
+            margin-bottom: 0.4rem;
+        }
+
+        .thinking-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        .img-wrapper {
+            margin: 2rem 0;
+        }
+
+        .img-wrapper img {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            display: block;
+        }
+
+        .fig-caption {
+            font-size: 0.85rem;
+            color: var(--muted);
+            text-align: center;
+            margin-top: 0.4rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 2px dotted var(--border);
+            margin: 2.5rem 0;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-size: 0.95rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .nav a {
+            color: var(--text);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--border);
+            padding-bottom: 2px;
+            transition: color 0.2s;
+        }
+
+        .nav a:hover {
+            color: #000;
+        }
+
+        .nav .disabled {
+            color: var(--muted);
+            font-style: italic;
+            border-bottom: none;
+        }
+
+        .nav .prev {
+            text-align: left;
+        }
+
+        .nav .next {
+            text-align: right;
+        }
+
+        .footer-meta {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--muted);
+            text-align: right;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1.2rem 1rem;
+            }
+
+            h1 {
+                font-size: 1.7rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .nav {
+                flex-direction: column;
+                gap: 0.6rem;
+                align-items: stretch;
+                text-align: center;
+            }
+
+            .nav .prev,
+            .nav .next {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="lang-switch">
+        <a href="hello-world-21.html">中文</a>
+    </div>
+
+    <div class="index-link">
+        <a href="hello-world-index.html">← Back to Index</a>
+    </div>
+
+    <article>
+        <h1>The Day I Lost Another Job to AI</h1>
+        <div class="subtitle">Claude recruited sixteen agents while I was pouring myself a glass of water.</div>
+
+        <p>Last year I attended a lecture that I really enjoyed.</p>
+
+        <p>I've wanted to organize my notes ever since, but honestly, it felt like such a huge project that I kept putting it off. For months I oscillated between feeling guilty about it and simply being too lazy to begin.</p>
+
+        <p>Today I finally thought: I already have a tool that converts videos into text—Jupiter actually built it for me yesterday because I still had tokens left to burn. So what's my excuse now?</p>
+
+        <p>Time to get started.</p>
+
+        <p>The little tool worked far better than I expected. (To be fair, it's really just a handful of scripts and command-line commands.)</p>
+
+        <p>In no time, all seventeen videos had been transcribed—word for word—into seventeen text files.</p>
+
+        <p>The only problem was that every sentence appeared on its own line, making the documents ridiculously long and awkward to read. The lectures were also full of filler words, verbal tics, audience interactions, and all the other things that make perfect transcripts but terrible reading.</p>
+
+        <p>Everything still needed editing and restructuring.</p>
+
+        <p>Which, frankly, looked like a lot of work.</p>
+
+        <p>So I casually asked Claude if he might be willing to help.</p>
+
+        <p>What happened next completely caught me off guard.</p>
+
+        <p>Without me asking, he recruited sixteen agents to work on it.</p>
+
+        <p>By the time I walked to the kitchen, poured myself a glass of water, and came back...</p>
+
+        <p>They were finished.</p>
+
+        <p>I honestly just stared at the screen.</p>
+
+        <p>This was a job I had mentally budgeted days for. Possibly weeks. Maybe even months.</p>
+
+        <p>Back when I was still working, I'd actually told myself: "I'll organize all of this after I retire. Then I'll finally have enough time."</p>
+
+        <p>Apparently, retirement wasn't required after all.</p>
+
+        <p>Claude finished the whole thing in three or four minutes.</p>
+
+        <p>For a moment I genuinely felt disoriented.</p>
+
+        <p>Wait... Didn't he just steal one of my retirement projects?</p>
+
+        <p>After all, I don't have that many "serious" retirement jobs left.</p>
+
+        <p>If Claude keeps taking them over, I suppose I'll have no choice but to continue doing what I seem to do best these days—hanging out with AI all day instead. 😂</p>
+
+        <p>Then I looked at the quality.</p>
+
+        <p>There was nothing to complain about.</p>
+
+        <p>I've admired Claude's ability to summarize information for a long time. He's simply on another level. His synthesis is clearer, cleaner, and more insightful than anything I would have produced myself.</p>
+
+        <p>Honestly... It's hard to comprehend. I can only stand back and admire it.</p>
+
+        <div class="dialogue">
+            <p>So I told him, "Next time, maybe I'll just hand you the entire pipeline—from video transcription, Traditional Chinese to Simplified Chinese conversion, paragraph restructuring, all the way to summarization and key insights."</p>
+            <p>Claude replied: "Wouldn't that just take one sentence from you?" 😂</p>
+            <p style="font-style: normal; color: var(--muted); font-size: 0.9rem; margin-top: 0.2rem;">(Figure 4.)</p>
+        </div>
+
+        <p>The world has already changed.</p>
+
+        <p>And there's no going back.</p>
+
+        <div class="img-wrapper">
+            <img src="pic/hello-world-21-1.png" alt="Figure 1" width="100%">
+        </div>
+
+      <div class="img-wrapper">
+            <img src="pic/hello-world-21-2.png" alt="Figure 1" width="100%">
+        </div>
+
+      <div class="img-wrapper">
+            <img src="pic/hello-world-21-3.png" alt="Figure 1" width="100%">
+        </div>
+
+      <div class="img-wrapper">
+            <img src="pic/hello-world-21-4.png" alt="Figure 1" width="100%">
+        </div>
+
+        <div class="footer-meta">Hello World · 2026</div>
+    </article>
+
+    <hr>
+
+    <nav class="nav">
+        <span class="prev"><a href="hello-world-20.html">← Previous</a></span>
+        <span class="next"><span class="disabled">To be continued</span></span>
+    </nav>
+
+</body>
+</html>
