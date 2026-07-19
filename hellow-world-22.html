@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI时代平凡的一天 — Belinda Sun</title>
+    <title>AI 又把我活儿给抢了 — Belinda Sun</title>
     <style>
       * {
         margin: 0;
@@ -152,19 +152,24 @@
         font-size: 0.95rem;
         color: var(--text-muted);
       }
-      .img-wrapper {
+      .img-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
         margin: 2rem 0;
-        text-align: center;
       }
-      .img-wrapper img {
-        max-width: 100%;
+      .img-grid img {
+        width: 100%;
         border-radius: 6px;
         border: 0.5px solid var(--border);
+        display: block;
       }
-      .img-wrapper .img-caption {
+      .img-grid .img-caption {
+        grid-column: 1 / -1;
         font-size: 0.8rem;
         color: var(--text-light);
-        margin-top: 0.4rem;
+        text-align: center;
+        margin-top: 0.2rem;
       }
       .tts-bar {
         display: flex;
@@ -238,6 +243,10 @@
         article {
           padding: 2rem 1.25rem 4rem;
         }
+        .img-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 0.5rem;
+        }
       }
     </style>
   </head>
@@ -254,15 +263,17 @@
     <article>
       <div class="article-meta">
         <span class="article-col">Hello World</span>
-        <span class="article-date">2026年7月18日</span>
+        <span class="article-date">2026年7月19日</span>
         <div class="lang-switch">
           <span class="lang-btn active">中文</span>
-          <a href="hello-world-21-en.html" class="lang-btn">EN</a>
+          <a href="hello-world-22-en.html" class="lang-btn">EN</a>
         </div>
       </div>
 
-      <h1 class="article-title">AI时代平凡的一天</h1>
-      <p class="article-subtitle">副标题：只是同事都不是人😁</p>
+      <h1 class="article-title">AI 又把我活儿给抢了</h1>
+      <p class="article-subtitle">
+        我喝口水回来，克劳德已经组了个16人的智能体施工队。
+      </p>
       <div class="article-divider"></div>
 
       <div class="tts-bar">
@@ -274,52 +285,61 @@
 
       <div class="article-body" id="articleBody">
         <p>
-          天天做的AI产品都是没什么实用价值的[调皮]，今天决定来点实际的，做几个日常能用上的。
+          去年听了一个讲座，感觉还不错，一直想整理出来。但说实话工作量太大，几个月以来一直发愁和犯懒没有启动。
         </p>
 
         <p>
-          现在的大模型基本上就是个大agent，人类只需要下命令就行了，AI们能从头到尾给你实现，到手的都是经过测试的，直接可用。且只需动嘴不用动手（键盘可以换成AI键盘了）。
+          今天想着都有视频转文字的工具了（昨天为了烧完token让GPT做的），没理由再拖了，开动吧。
         </p>
 
         <p>
-          "GPT，给我做个视频转文字的app吧。"于是十几分钟就做完了，马上拿了一个30分钟的视频一试，又快又准确，完美！
+          小工具出乎意料地好用（其实就是几个脚本/命令行），很快把17个视频一字一句原封不动地转成了17个文本文件。
         </p>
 
         <p>
-          "克劳德，给我做个把英文书翻译成中文书的app吧。这次冒烟测试你不用自己编了，就用我图书里那本英文的《The
-          Linux Command
-          Line》就行。"嗖嗖就写完了，因为是PDF的，格式马马虎虎吧。epub应该更容易，我说我一会儿要出门，我给你我电脑的full
-          access，你把运行命令做成一个能双击执行的app，然后翻译我图书里那本书epub的书，回来给我看结果。
+          但是因为整理出来都是"一句一行"，篇幅很长，读起来不方便，且讲座有很多口头禅、口水词、互动等没用的内容，需再整理，有点儿费劲。
+        </p>
+
+        <p>我就想能不能让克劳德帮我干干呢。</p>
+
+        <p>
+          于是随口问了他一句，没想到这哥们蹭蹭蹭就自行找来了16个agent帮忙，我倒杯水的工夫他就整理完了！
         </p>
 
         <p>
-          但克劳德还是时不时地请示，我说没事儿啊你想干什么就干什么，我电脑没啥重要的无需请示。克劳德说，不行，有些系统红线是不能越的。
+          我一时都没反应过来。要知道这可是我几天甚至几周/月才能干完的活儿，去年没退休的时候我就想等退休有时间了可以慢慢整理。
         </p>
 
         <p>
-          行吧，反正也花不了几分钟，我就闭眼摁allow。然后几分钟就好了，他就开始给我转那本书，说有我盯着你就放心出门吧，回来书就翻好啦。（最近还老爱您您的，我心说这么见外了吗[呲牙]）
+          没想到克劳德三四分钟就给我整完了，我有点恍惚。这不是把我活儿抢了吗，退休后就这么点正事儿还让他给干了，那我只好接着不务正业天天跟AI混了😂
         </p>
 
         <p>
-          听着哈萨比斯昨天在WCIT的专访出门去公园走路，一大早很凉爽，空气也清新，湿度一贯比较大的朝阳公园今天也还挺舒服。回到家时正好听完，一分钟不多一分钟不少。再一看书也翻好了等着我呢。
+          再看质量，没得挑，他的总结能力我早就领教过，比我自己总结得不知道强多少倍。不可想象，膜拜！
         </p>
 
-        <p>真好！有AI相伴的日子。</p>
+        <div class="dialogue">
+          <p>
+            我说下次我干脆直接把从视频转繁体文字再转简体文字再到整理段落和总结提炼全套都交给你吧，
+          </p>
+          <p>克劳德说那还不是您一句话的事儿😂（图四）</p>
+        </div>
 
-        <p>
-          然后看了看翻译的质量，不错！就是《江雪》这首诗吧，有点一言难尽[破涕为笑]（见图）。大模型有点儿偷懒没去找原诗。不过，Ollama运行本地的qwen，一分钱不花，要什么自行车啊[偷笑]
-        </p>
+        <p>世界已经改变，而且回不去了。</p>
 
-        <div class="img-wrapper">
-          <img src="pic/hello-world-21-1.png" alt="图一" />
-          <div class="img-caption">图一 · 《江雪》翻译翻车现场</div>
+        <div class="img-grid">
+          <img src="pic/hello-world-22-1.png" alt="图一" />
+          <img src="pic/hello-world-22-2.png" alt="图二" />
+          <img src="pic/hello-world-22-3.png" alt="图三" />
+          <img src="pic/hello-world-22-4.png" alt="图四" />
+          <div class="img-caption">图一 · 图二 · 图三 · 图四</div>
         </div>
       </div>
     </article>
 
     <div class="article-nav">
-      <a href="hello-world-20.html">← 上一篇</a>
-      <a href="hello-world-22.html">下一篇 →</a>
+      <a href="hello-world-21.html">← 上一篇</a>
+      <span>未完待续</span>
     </div>
 
     <footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
