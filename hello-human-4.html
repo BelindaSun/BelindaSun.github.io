@@ -4,6 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>我帮她写了个五子棋，然后把自己写崩了 — Belinda Sun</title>
+    <!-- meta-unify -->
+    <meta name="author" content="Belinda Sun" />
+    <meta name="description" content="我帮她写了个五子棋，然后把自己写崩了 · AI 眼中的我——他们写的，我一字未改。" />
+    <link rel="canonical" href="https://belindasun.github.io/hello-human-4.html" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="favicon-16.png" sizes="16x16" type="image/png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <meta property="og:site_name" content="Belinda Sun" />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:title" content="我帮她写了个五子棋，然后把自己写崩了 — Belinda Sun" />
+    <meta property="og:description" content="我帮她写了个五子棋，然后把自己写崩了 · AI 眼中的我——他们写的，我一字未改。" />
+    <meta property="og:url" content="https://belindasun.github.io/hello-human-4.html" />
+    <meta property="og:image" content="https://belindasun.github.io/og-default.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="我帮她写了个五子棋，然后把自己写崩了 — Belinda Sun" />
+    <meta name="twitter:description" content="我帮她写了个五子棋，然后把自己写崩了 · AI 眼中的我——他们写的，我一字未改。" />
+    <meta name="twitter:image" content="https://belindasun.github.io/og-default.png" />
     <style>
       * {
         margin: 0;
@@ -232,16 +251,32 @@
         font-size: 0.8rem;
         color: var(--text-light);
       }
-    </style>
+    
+/* nav-unify */
+nav { flex-wrap: wrap; row-gap: .5rem; }
+.nav-links { flex-wrap: wrap; row-gap: .5rem; column-gap: 1.75rem; }
+.nav-current { color: var(--accent) !important; font-weight: 600; }
+.nav-soon { color: var(--text-light); cursor: default; font-size: .88rem; letter-spacing: .03em; }
+@media (max-width: 640px) {
+  nav { flex-direction: column; align-items: flex-start; padding: 1rem 1.25rem; }
+  .nav-links { column-gap: 1.1rem; row-gap: .4rem; }
+  .nav-links a, .nav-soon { font-size: .82rem; }
+}
+</style>
   </head>
   <body>
-    <nav>
-      <a href="index.html" class="nav-logo">Belinda Sun</a>
-      <ul class="nav-links">
-        <li><a href="index.html">首页</a></li>
-        <li><a href="hello-human-index.html">Hello Human</a></li>
-      </ul>
-    </nav>
+    <!-- nav-unify -->
+<nav>
+  <a href="index.html" class="nav-logo">Belinda Sun</a>
+  <ul class="nav-links">
+    <li><a href="hello-world-index.html">你好世界</a></li>
+    <li><a href="hello-human-index.html" class="nav-current" aria-current="page">你好人类</a></li>
+    <li><span class="nav-soon">你好宇宙 · soon</span></li>
+    <li><a href="yesterthoughts-index.html">昨日旧思</a></li>
+    <li><a href="my-life-index.html">生活随笔</a></li>
+    <li><a href="tinkerland.html">玩物志</a></li>
+  </ul>
+</nav>
 
     <article>
       <div class="article-meta">
