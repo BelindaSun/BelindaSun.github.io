@@ -387,7 +387,7 @@ nav { flex-wrap: wrap; row-gap: .5rem; }
       <a href="hello-world-9.html">← 上一篇</a>
       <span style="color:var(--text-light); font-size:0.88rem;">未完待续</span>
     </div>
-    <footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
+    <footer><p>© 2026 Belinda Sun · belindasun.github.io</p></footer>
 
     <script>
       let speaking = false,
@@ -441,5 +441,11 @@ nav { flex-wrap: wrap; row-gap: .5rem; }
         window.speechSynthesis.speak(u);
       }
     </script>
-  </body>
+  <script>
+  var SIZES={s:0.92,m:1,l:1.12};
+  function setSize(k){if(!SIZES[k])k='m';document.documentElement.style.setProperty('--fs',SIZES[k]);var b=document.querySelectorAll('.textsize button');['s','m','l'].forEach(function(key,i){b[i]&&b[i].classList.toggle('active',key===k);});try{localStorage.setItem('textScale',k);}catch(e){}}
+  (function(){var k='m';try{var s=localStorage.getItem('textScale');if(s&&SIZES[s])k=s;}catch(e){}setSize(k);})();
+  function toggleMusic(){var a=document.getElementById('bgm'),btn=document.getElementById('musicBtn');if(a.paused){a.volume=0.25;a.play().then(function(){btn.classList.add('playing');}).catch(function(){});}else{a.pause();btn.classList.remove('playing');}}
+</script>
+</body>
 </html>
