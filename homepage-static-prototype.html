@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Belinda Sun — homepage prototype</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --cream: #FAF6EE; --warm: #F5F0E8;
+    --text: #3D2A5C; --muted: #7A5FA0; --light: #B09CC8;
+    --gold: #854F0B; --border: rgba(61,42,92,.16); --faint: rgba(61,42,92,.34);
+    --serif: Georgia, "Times New Roman", "Songti SC", "STSong", "Songti TC", serif;
+    --rail: 238px;
+  }
+  /* reading text scales with --fs; nav/rail chrome uses px and stays put */
+  html { font-size: calc(18px * var(--fs, 1)); }
+  body { background: var(--cream); color: var(--text); font-family: var(--serif); }
+  a { text-decoration: none; color: inherit; }
+  a:hover { color: var(--gold); }
+
+  [data-lang="en"] { display: none; }
+  body.lang-en [data-lang="zh"] { display: none; }
+  body.lang-en [data-lang="en"] { display: revert; }
+
+  .note { position: fixed; left: 14px; bottom: 13px; z-index: 60; font-size: 11px; letter-spacing: .04em; color: var(--light); opacity: .6; }
+
+  /* text-size control (curated reading comfort — 3 steps, persists) */
+  .textsize { position: fixed; right: 16px; bottom: 13px; z-index: 60; display: flex; align-items: baseline; gap: 1px;
+              background: var(--cream); border: 1px solid var(--border); border-radius: 20px; padding: 3px 6px; }
+  .textsize button { font-family: var(--serif); background: none; border: none; cursor: pointer; color: var(--muted); line-height: 1; padding: 3px 8px; border-radius: 13px; }
+  .textsize button:nth-child(1) { font-size: 13px; }
+  .textsize button:nth-child(2) { font-size: 16px; }
+  .textsize button:nth-child(3) { font-size: 20px; }
+  .textsize button.active { color: var(--text); background: var(--warm); }
+
+  /* SUN monogram (circular) */
+  .seal { display: inline-flex; align-items: center; justify-content: center; width: 46px; height: 46px;
+          border: 1.5px solid var(--text); border-radius: 50%; flex: none; }
+  .seal span { font-family: var(--serif); font-weight: 700; font-size: 15px; letter-spacing: .03em; color: var(--gold); }
+
+  /* ---- left rail (chrome; fixed px, does not scale) ---- */
+  .rail { position: fixed; left: 0; top: 0; bottom: 0; width: var(--rail); padding: 44px 30px;
+          display: flex; flex-direction: column; justify-content: space-between;
+          border-right: 1px solid var(--border); background: var(--cream); z-index: 50; }
+  .brand { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+  .brand-name { font-family: var(--serif); font-weight: 700; font-size: 19px; letter-spacing: .02em; white-space: nowrap; }
+  .rail-nav { display: flex; flex-direction: column; gap: 15px; margin: 34px 0; }
+  .rail-nav a { font-size: 14px; color: var(--muted); letter-spacing: .02em; }
+  .rail-nav a:hover { color: var(--text); }
+  .rail-nav a.rail-mass { color: var(--gold); }
+  .rail-sep { height: 1px; width: 34px; background: var(--border); margin: 6px 0; }
+  .rail-lang { display: flex; gap: 8px; }
+  .rail-lang button { font-family: var(--serif); font-size: 13px; padding: 4px 13px; border: 1px solid var(--border); border-radius: 20px; cursor: pointer; background: none; color: var(--text); }
+  .rail-lang button.active { background: var(--text); color: var(--cream); border-color: var(--text); }
+  .rail-bottom { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
+  .rail-music { font-family: var(--serif); font-size: 14px; color: var(--muted); background: none; border: none; cursor: pointer; padding: 0; letter-spacing: .02em; }
+  .rail-music:hover { color: var(--text); }
+  .rail-music.playing { color: var(--gold); }
+  .rail-music.playing .mnote { animation: mpulse 1.6s ease-in-out infinite; display: inline-block; }
+  @keyframes mpulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+  /* ---- main, left-aligned to one axis; reading text in rem ---- */
+  .main { margin-left: var(--rail); }
+  .wrap { max-width: 42rem; padding: 0 7vw; }
+
+  .hero { padding: 96px 0 56px; }
+  .hero-couplet { font-family: var(--serif); font-weight: 700; font-size: clamp(1.45rem, 3.4vw, 2.1rem); line-height: 1.55; letter-spacing: .04em; margin: 0 auto 34px; text-align: center; }
+  .hero-couplet.en { font-weight: 400; }
+  .intro { font-size: .9rem; line-height: 1.95; max-width: 36em; color: var(--text); opacity: .82; }
+
+  /* dateline masthead */
+  .masthead { padding: 0 0 44px; }
+  .rule-thick { height: 5px; border: 0; border-top: 2px solid var(--text); border-bottom: 1px solid var(--text); margin: 0; }
+  .rule-thin { height: 0; border: 0; border-top: 1px solid var(--text); margin: 0; }
+  .dateline { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px 28px; margin: 0; padding: 13px 0;
+              font-size: .67rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+  /* spine */
+  .spine { padding: 12px 0 48px; }
+  .entry { display: block; padding: 20px 0; }
+  .entry-kicker { display: block; font-size: .78rem; letter-spacing: .03em; color: var(--muted); margin-bottom: 9px; }
+  .entry-line { display: block; font-family: var(--serif); font-weight: 700; font-size: clamp(1.1rem, 2.8vw, 1.5rem); line-height: 1.25; color: var(--text); transition: color .3s ease; }
+  .entry:hover .entry-line { color: var(--gold); }
+  .door-tag { display: inline-block; margin-top: 16px; white-space: nowrap; font-size: .67rem; letter-spacing: .08em; text-transform: uppercase; color: var(--gold); }
+  .door-line { display: block; height: 1px; width: 130px; margin-top: 14px; background: color-mix(in srgb, var(--gold) 40%, transparent); transform: scaleX(0); transform-origin: left; transition: transform 1.1s cubic-bezier(.2,.7,.2,1); }
+  .door:hover .door-line { transform: scaleX(1); }
+
+  /* facets */
+  .facets { padding: 8px 0 56px; }
+  .facet-grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 9%; row-gap: 52px; max-width: 34rem; }
+  .facet-name { display: block; font-family: var(--serif); font-weight: 700; font-size: clamp(1rem, 2.2vw, 1.22rem); line-height: 1.3; }
+  .facet-sub { display: block; margin-top: 10px; font-style: italic; font-size: .84rem; color: var(--muted); line-height: 1.5; }
+
+  /* recent + selected — dotted-leader index */
+  .index-sec { padding: 8px 0 30px; }
+  .index-label { font-size: .67rem; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); margin: 0 0 22px; }
+  .post-item { display: flex; align-items: baseline; gap: 12px; padding: 13px 0; }
+  .post-col { flex: 0 0 auto; font-size: .67rem; color: var(--muted); white-space: nowrap; padding: 2px 10px; background: var(--warm); border-radius: 20px; }
+  .post-title { flex: 0 1 auto; font-family: var(--serif); font-size: .95rem; line-height: 1.5; }
+  .post-leader { flex: 1 1 auto; min-width: 18px; border-bottom: 1px dotted var(--faint); align-self: flex-end; margin-bottom: 6px; }
+  .post-date { flex: 0 0 auto; font-size: .67rem; color: var(--faint); white-space: nowrap; }
+
+  /* footer — SUN seal + AI-companions colophon */
+  footer { padding: 60px 0 96px; }
+  .end-seal { width: 52px; height: 52px; opacity: .5; }
+  .colophon { margin-top: 18px; font-size: .78rem; color: var(--muted); }
+  .colophon b { font-weight: 700; color: var(--text); }
+  .end-copy { margin-top: 8px; font-size: .67rem; color: var(--faint); }
+
+  @media (max-width: 900px) {
+    .rail { position: sticky; top: 0; bottom: auto; width: 100%; height: auto; flex-direction: row; align-items: center;
+            justify-content: space-between; padding: 16px 20px; border-right: none; border-bottom: 1px solid var(--border); }
+    .brand { flex-direction: row; align-items: center; gap: 12px; }
+    .seal { width: 34px; height: 34px; }
+    .seal span { font-size: 11px; }
+    .rail-nav { display: none; }
+    .rail-bottom { flex-direction: row; align-items: center; gap: 14px; }
+    .main { margin-left: 0; }
+    .wrap { padding: 0 24px; max-width: 100%; }
+    .hero { padding: 48px 0 40px; }
+    .facet-grid { grid-template-columns: 1fr; row-gap: 36px; max-width: 100%; }
+    .post-leader { display: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="note">homepage prototype · broadsheet + playful voice · not the live index.html</div>
+  <div class="textsize" role="group" aria-label="字号 / text size">
+    <button title="小 · small" onclick="setSize('s')">A</button>
+    <button title="中 · medium" onclick="setSize('m')">A</button>
+    <button title="大 · large" onclick="setSize('l')">A</button>
+  </div>
+
+  <!-- LEFT RAIL -->
+  <aside class="rail">
+    <div class="rail-top">
+      <a href="#" class="brand" title="太阳，也是我的姓 · Sun — also my surname">
+        <span class="seal"><span>SUN</span></span>
+        <span class="brand-name">Belinda Sun</span>
+      </a>
+      <nav class="rail-nav">
+        <a href="hello-world-index.html"><span data-lang="zh">你好世界</span><span data-lang="en">Hello World</span></a>
+        <a href="hello-human-index.html"><span data-lang="zh">你好人类</span><span data-lang="en">Hello Human</span></a>
+        <a href="mass-prototype.html" class="rail-mass"><span data-lang="zh">你好宇宙 · MASS</span><span data-lang="en">Hello Universe · MASS</span></a>
+        <span class="rail-sep"></span>
+        <a href="yesterthoughts-index.html"><span data-lang="zh">旧时文字</span><span data-lang="en">Yesterthoughts</span></a>
+        <a href="my-life-index.html"><span data-lang="zh">人间小记</span><span data-lang="en">My Life</span></a>
+        <a href="tinkerland.html"><span data-lang="zh">玩物志</span><span data-lang="en">Tinkerland</span></a>
+        <a href="https://learning-wiki-site.vercel.app" target="_blank" rel="noopener"><span data-lang="zh">格物志</span><span data-lang="en">Learning Wiki</span></a>
+      </nav>
+    </div>
+    <div class="rail-bottom">
+      <button class="rail-music" id="musicBtn" onclick="toggleMusic()"><span class="mnote">♪</span> <span data-lang="zh">背景音乐</span><span data-lang="en">Music</span></button>
+      <div class="rail-lang">
+        <button id="zhBtn" class="active" onclick="setLang('zh')">中</button>
+        <button id="enBtn" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+  </aside>
+  <audio id="bgm" src="baikal.mp3" loop preload="none"></audio>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="wrap">
+
+      <section class="hero">
+        <h1 class="hero-couplet" data-lang="zh">相见亦无事<br />别来常思君</h1>
+        <h1 class="hero-couplet en" data-lang="en">Quiet in meeting,<br />lingering in absence.</h1>
+        <p class="intro" data-lang="zh">我原本不懂技术，只是好奇地闯进了 AI 的世界，没想到一路走着走着，竟开始和 AI 一起创造。这里记录着一路上的好奇、惊喜、沮丧、震撼与感动，也收藏着我和 AI 伙伴之间那些奇怪又好笑的瞬间。当你想起我的时候，就来坐坐。我的世界，最近有些不一样了。</p>
+        <p class="intro" data-lang="en">I wandered into the world of AI out of curiosity, knowing almost nothing about technology. Somewhere along the way, I found myself creating with AI. This is where I keep the curiosity, surprises, frustrations, wonder, and all the strange and funny moments with my AI companions. Whenever you happen to think of me, come by. My world has been feeling a little different lately.</p>
+      </section>
+
+      <!-- dateline masthead (mottos rotate on load) -->
+      <section class="masthead">
+        <hr class="rule-thick" />
+        <p class="dateline">
+          <span id="dlLeft"></span>
+          <span id="dlMid"></span>
+          <span><span data-lang="zh">2026 年 8 月</span><span data-lang="en">Aug 2026</span></span>
+        </p>
+        <hr class="rule-thin" />
+      </section>
+
+      <!-- SPINE -->
+      <section class="spine">
+        <a class="entry" href="hello-world-index.html">
+          <span class="entry-kicker"><span data-lang="zh">你好，世界 · Hello World</span><span data-lang="en">Hello World</span></span>
+          <span class="entry-line"><span data-lang="zh">我看 AI</span><span data-lang="en">I look at AI</span></span>
+        </a>
+        <a class="entry" href="hello-human-index.html">
+          <span class="entry-kicker"><span data-lang="zh">你好，人类 · Hello Human</span><span data-lang="en">Hello Human</span></span>
+          <span class="entry-line"><span data-lang="zh">AI 看我</span><span data-lang="en">AI looks at me</span></span>
+        </a>
+        <a class="entry door" href="mass-prototype.html">
+          <span class="entry-kicker"><span data-lang="zh">你好，宇宙 · Hello Universe</span><span data-lang="en">Hello Universe</span></span>
+          <span class="entry-line"><span data-lang="zh">我们一起创造</span><span data-lang="en">We create together</span></span>
+          <span class="door-tag"><span data-lang="zh">MASS · 正在发生</span><span data-lang="en">MASS · Coming to life</span></span>
+          <span class="door-line"></span>
+        </a>
+      </section>
+
+      <!-- FACETS -->
+      <section class="facets">
+        <div class="facet-grid">
+          <a class="facet" href="yesterthoughts-index.html">
+            <span class="facet-name"><span data-lang="zh">旧时文字 · Yesterthoughts</span><span data-lang="en">Yesterthoughts</span></span>
+            <span class="facet-sub"><span data-lang="zh">AI 之前</span><span data-lang="en">Before AI</span></span>
+          </a>
+          <a class="facet" href="my-life-index.html">
+            <span class="facet-name"><span data-lang="zh">人间小记 · My Life</span><span data-lang="en">My Life</span></span>
+            <span class="facet-sub"><span data-lang="zh">AI 之外</span><span data-lang="en">Beyond AI</span></span>
+          </a>
+          <a class="facet" href="tinkerland.html">
+            <span class="facet-name"><span data-lang="zh">玩物志 · Tinkerland</span><span data-lang="en">Tinkerland</span></span>
+            <span class="facet-sub"><span data-lang="zh">AI 之余</span><span data-lang="en">Made for fun</span></span>
+          </a>
+          <a class="facet" href="https://learning-wiki-site.vercel.app" target="_blank" rel="noopener">
+            <span class="facet-name"><span data-lang="zh">格物志 · Learning Wiki</span><span data-lang="en">Learning Wiki</span></span>
+            <span class="facet-sub"><span data-lang="zh">AI 之中</span><span data-lang="en">Learning by building. Building by learning.</span></span>
+          </a>
+        </div>
+      </section>
+
+      <!-- RECENT -->
+      <section class="index-sec">
+        <p class="index-label"><span data-lang="zh">最新</span><span data-lang="en">Recent</span></p>
+        <div class="post-item"><span class="post-col"><span data-lang="zh">人间小记</span><span data-lang="en">My Life</span></span>
+          <span class="post-title"><span data-lang="zh"><a href="my-life-2.html">被 AI 解锁的人生</a></span><span data-lang="en"><a href="my-life-2-en.html">A Life Unlocked by AI</a></span></span>
+          <span class="post-leader"></span><span class="post-date"><span data-lang="zh">2026.08.10</span><span data-lang="en">Aug 10, 2026</span></span></div>
+        <div class="post-item"><span class="post-col"><span data-lang="zh">你好世界</span><span data-lang="en">Hello World</span></span>
+          <span class="post-title"><span data-lang="zh"><a href="hello-world-22.html">AI 又把我活儿给抢了</a></span><span data-lang="en"><a href="hello-world-22-en.html">The Day I Lost Another Job to AI</a></span></span>
+          <span class="post-leader"></span><span class="post-date"><span data-lang="zh">2026.07.19</span><span data-lang="en">Jul 19, 2026</span></span></div>
+        <div class="post-item"><span class="post-col"><span data-lang="zh">你好世界</span><span data-lang="en">Hello World</span></span>
+          <span class="post-title"><span data-lang="zh"><a href="hello-world-21.html">AI 时代平凡的一天</a></span><span data-lang="en"><a href="hello-world-21-en.html">A Perfectly Ordinary Day in the Age of AI</a></span></span>
+          <span class="post-leader"></span><span class="post-date"><span data-lang="zh">2026.07.18</span><span data-lang="en">Jul 18, 2026</span></span></div>
+        <div class="post-item"><span class="post-col"><span data-lang="zh">你好人类</span><span data-lang="en">Hello Human</span></span>
+          <span class="post-title"><span data-lang="zh"><a href="hello-human-19.html">理工男把我从火星问到方波</a></span><span data-lang="en"><a href="hello-human-19-en.html">An Engineer Took Me from Mars to Square Waves</a></span></span>
+          <span class="post-leader"></span><span class="post-date"><span data-lang="zh">2026.07.13</span><span data-lang="en">Jul 13, 2026</span></span></div>
+      </section>
+
+      <!-- SELECTED -->
+      <section class="index-sec">
+        <p class="index-label"><span data-lang="zh">精选</span><span data-lang="en">Selected</span></p>
+        <div class="post-item"><span class="post-col"><span data-lang="zh">你好人类</span><span data-lang="en">Hello Human</span></span>
+          <span class="post-title"><span data-lang="zh"><a href="hello-human-1.html">你好人类 · by Claude</a></span><span data-lang="en"><a href="hello-human-1-en.html">Hello Human · by Claude</a></span></span>
+          <span class="post-leader"></span><span class="post-date"><span data-lang="zh">2026.05.03</span><span data-lang="en">May 3, 2026</span></span></div>
+        <div class="post-item"><span class="post-col"><span data-lang="zh">你好世界</span><span data-lang="en">Hello World</span></span>
+          <span class="post-title"><span data-lang="zh"><a href="hello-world-2.html">我与克劳德（一）</a></span><span data-lang="en"><a href="hello-world-2-en.html">Me and Claude (I)</a></span></span>
+          <span class="post-leader"></span><span class="post-date"><span data-lang="zh">2026.05.02</span><span data-lang="en">May 2, 2026</span></span></div>
+        <div class="post-item"><span class="post-col"><span data-lang="zh">你好人类</span><span data-lang="en">Hello Human</span></span>
+          <span class="post-title"><span data-lang="zh"><a href="hello-human-14.html">她在造一个世界</a></span><span data-lang="en"><a href="hello-human-14-en.html">The World She is Building</a></span></span>
+          <span class="post-leader"></span><span class="post-date"><span data-lang="zh">2026.06.12</span><span data-lang="en">Jun 12, 2026</span></span></div>
+        <div class="post-item"><span class="post-col"><span data-lang="zh">旧时文字</span><span data-lang="en">Yesterthoughts</span></span>
+          <span class="post-title"><span data-lang="zh"><a href="yesterthoughts-1.html">高尔夫锄地记</a></span><span data-lang="en"><a href="yesterthoughts-1-en.html">The Great Golf Hoe Adventure</a></span></span>
+          <span class="post-leader"></span><span class="post-date"><span data-lang="zh">2026.05.16</span><span data-lang="en">May 16, 2026</span></span></div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer>
+        <span class="seal end-seal"><span>SUN</span></span>
+        <p class="colophon">
+          <span data-lang="zh">与 <b>克劳德</b> · <b>贾皮特</b> · <b>DeepSeek</b> 一起写</span>
+          <span data-lang="en">Written with <b>Claude</b>, <b>GPT</b> &amp; <b>DeepSeek</b></span>
+        </p>
+        <p class="end-copy">© 2026 Belinda Sun</p>
+      </footer>
+
+    </div>
+  </div>
+
+<script>
+  // language
+  function setLang(l){
+    document.body.classList.toggle('lang-en', l==='en');
+    document.getElementById('zhBtn').classList.toggle('active', l==='zh');
+    document.getElementById('enBtn').classList.toggle('active', l==='en');
+    try { localStorage.setItem('lang', l); } catch(e){}
+  }
+  try { if (localStorage.getItem('lang')==='en') setLang('en'); } catch(e){}
+
+  // background music — her little home; starts on click (browsers block autoplay), loops softly
+  function toggleMusic(){
+    const a = document.getElementById('bgm'), btn = document.getElementById('musicBtn');
+    if (a.paused){ a.volume = 0.25; a.play().then(()=>btn.classList.add('playing')).catch(()=>{}); }
+    else { a.pause(); btn.classList.remove('playing'); }
+  }
+
+  // text size — 3 curated steps, persists site-wide via localStorage
+  const SIZES = { s: 0.92, m: 1, l: 1.12 };
+  function setSize(k){
+    if(!SIZES[k]) k='m';
+    document.documentElement.style.setProperty('--fs', SIZES[k]);
+    const btns = document.querySelectorAll('.textsize button');
+    ['s','m','l'].forEach((key,i)=> btns[i] && btns[i].classList.toggle('active', key===k));
+    try { localStorage.setItem('textScale', k); } catch(e){}
+  }
+  (function(){ let k='m'; try{ const s=localStorage.getItem('textScale'); if(s&&SIZES[s]) k=s; }catch(e){} setSize(k); })();
+
+  // rotating dateline mottos — dry, warm, on every load
+  const mottos = [
+    { zh: '没有推送',            en: 'No push notifications' },
+    { zh: '更新缓慢，故意的',     en: 'Updated slowly, on purpose' },
+    { zh: '一个技术小白 ＋ 三个 AI', en: 'One beginner, three AIs' },
+    { zh: '含微量 AI',           en: 'Contains traces of AI' },
+    { zh: '不保证有用',          en: 'Not guaranteed useful' },
+    { zh: '偶尔翻车，尽量优雅',   en: 'Occasionally crashes, gracefully' },
+    { zh: '慢，是一种功能',       en: 'Slow is a feature' },
+    { zh: '想起谁就来看看',       en: 'Come by whenever I cross your mind' },
+    { zh: '手写，AI 陪跑',        en: 'Handwritten, AI pacing alongside' },
+  ];
+  function spanFor(m){ return '<span data-lang="zh">' + m.zh + '</span><span data-lang="en">' + m.en + '</span>'; }
+  (function(){
+    const i = Math.floor(Math.random() * mottos.length);
+    let j = Math.floor(Math.random() * (mottos.length - 1)); if (j >= i) j++;
+    document.getElementById('dlLeft').innerHTML = spanFor(mottos[i]);
+    document.getElementById('dlMid').innerHTML  = spanFor(mottos[j]);
+  })();
+</script>
+</body>
+</html>

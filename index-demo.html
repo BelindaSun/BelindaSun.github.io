@@ -476,7 +476,34 @@
           font-size: 2.1rem;
         }
       }
-    </style>
+    
+/* ===== spine + rooms (demo) ===== */
+.spine { max-width: 860px; margin: 0 auto; padding: 3rem 2rem 0; }
+.spine-overline, .rooms-overline { text-align: center; font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--text-light); margin-bottom: 2.4rem; }
+.spine-row { display: flex; align-items: center; justify-content: center; gap: .5rem; }
+.spine-node { flex: 1 1 0; text-decoration: none; text-align: center; padding: 1.6rem 1rem; border-radius: 14px; transition: background .2s; display: flex; flex-direction: column; gap: .7rem; }
+.spine-node:hover { background: var(--warm); }
+.spine-node.soon { opacity: .8; }
+.spine-label { font-family: var(--serif); font-size: .9rem; color: var(--text-muted); letter-spacing: .06em; }
+.spine-essence { font-family: var(--serif); font-size: 1.55rem; line-height: 1.35; color: var(--text); }
+.spine-node.soon .spine-essence { color: var(--text-muted); }
+.spine-soon { font-size: .7rem; letter-spacing: .05em; color: var(--accent); background: var(--accent-light); padding: 2px 10px; border-radius: 20px; align-self: center; }
+.spine-arrow { flex: 0 0 auto; font-size: 1.4rem; color: var(--text-light); }
+.spine-to-rooms { width: .5px; height: 46px; background: var(--text-light); opacity: .45; margin: 1.6rem auto; }
+.rooms { max-width: 720px; margin: 0 auto; padding: 0 2rem 4.5rem; }
+.rooms-row { display: flex; justify-content: center; gap: 1rem; }
+.room { flex: 1 1 0; min-width: 150px; text-decoration: none; text-align: center; padding: 1.15rem 1rem; border-radius: 12px; border: .5px solid var(--border); background: var(--cream); transition: transform .15s, box-shadow .2s; display: flex; flex-direction: column; gap: .3rem; }
+.room:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.06); }
+.room-icon { font-size: 1.15rem; }
+.room-name { font-family: var(--serif); font-size: 1rem; color: var(--text); }
+.room-sub { font-size: .8rem; color: var(--text-light); letter-spacing: .02em; }
+@media (max-width: 640px) {
+  .spine-row { flex-direction: column; gap: .2rem; }
+  .spine-arrow { transform: rotate(90deg); }
+  .spine-essence { font-size: 1.4rem; }
+  .rooms-row { flex-direction: column; }
+}
+</style>
   </head>
   <body>
     <div id="yt-player" style="display: none"></div>
@@ -536,7 +563,8 @@
             <a href="linux-command-trainer.html">🐧 Linux命令行 Linux CLI</a>
             <a href="english-trainer.html">📚 每日英语 Daily English</a>
             <a href="musical-staff.html">🎵 五线谱 Musical Staff</a>
-            <a href="https://health-os-all.vercel.app">🏋️ 你的专属AI健康操作系统 Health OS</a>
+            <a href="vita-plan-claude-deepseek.html">🍃 AI健康计划 VitaPlan</a>
+            <a href="https://health-os-cyan-two.vercel.app">🏋️ 你的专属AI健康操作系统 Health OS</a>
           </div>
         </li>
         <li>
@@ -575,98 +603,52 @@
       </p>
     </section>
 
-    <section class="columns">
-      <p class="columns-title">
-        <span class="zh">专栏</span>
-        <span class="en">Columns</span>
+        <section class="spine">
+      <p class="spine-overline">
+        <span class="zh">从世界，到人类，到宇宙</span>
+        <span class="en">From world, to human, to universe</span>
       </p>
-
-      <div class="columns-grid">
-        <a href="hello-world-index.html" class="col-card hw">
-          <div class="col-icon">🌍</div>
-          <div class="col-name">
-            <span class="zh">你好, 世界</span>
-            <span class="en">Hello World</span>
-          </div>
-          <div class="col-desc zh">
-            从一无所知到开始做AI。一步一步, 都是聊出来的。
-          </div>
-          <div class="col-desc en">
-            My journey from zero to AI builder — one conversation at a time.
-          </div>
-          <span class="col-tag zh">进行中</span>
-          <span class="col-tag en">Ongoing</span>
+      <div class="spine-row">
+        <a class="spine-node" href="hello-world-index.html">
+          <div class="spine-label"><span class="zh">你好，世界</span><span class="en">Hello World</span></div>
+          <div class="spine-essence"><span class="zh">我看世界。</span><span class="en">I look at the world.</span></div>
         </a>
-
-        <a href="hello-human-index.html" class="col-card hh">
-          <div class="col-icon">✦</div>
-          <div class="col-name">
-            <span class="zh">你好, 人类</span>
-            <span class="en">Hello Human</span>
-          </div>
-          <div class="col-desc zh">AI眼中的我。这是他们写的，我一字未改。</div>
-          <div class="col-desc en">
-            What the AIs see when they look at me. Their words, not mine.
-          </div>
-          <span class="col-tag zh">进行中</span>
-          <span class="col-tag en">Ongoing</span>
+        <div class="spine-arrow">&rarr;</div>
+        <a class="spine-node" href="hello-human-index.html">
+          <div class="spine-label"><span class="zh">你好，人类</span><span class="en">Hello Human</span></div>
+          <div class="spine-essence"><span class="zh">AI 看我。</span><span class="en">AI looks at me.</span></div>
         </a>
-
-        <div class="col-card pl">
-          <div class="col-icon">✨</div>
-          <div class="col-name">
-            <span class="zh">你好, 宇宙</span>
-            <span class="en">MASS</span>
-          </div>
-          <div class="col-desc zh">
-            如果人生不能重来，或许可以体验另一种可能。
-          </div>
-          <div class="col-desc en">
-            If life cannot be replayed, perhaps it can still be reimagined.
-          </div>
+        <div class="spine-arrow">&rarr;</div>
+        <div class="spine-node soon">
+          <div class="spine-label"><span class="zh">你好，宇宙</span><span class="en">Hello Universe</span></div>
+          <div class="spine-essence"><span class="zh">我们开始创造世界。</span><span class="en">We begin to create worlds.</span></div>
+          <div class="spine-soon">MASS · <span class="zh">即将开启</span><span class="en">soon</span></div>
         </div>
+      </div>
+    </section>
 
-        <a href="yesterthoughts-index.html" class="col-card hh">
-          <div class="col-icon">📖</div>
-          <div class="col-name">
-            <span class="zh">昨日旧思</span>
-            <span class="en">Yesterthoughts</span>
-          </div>
-          <div class="col-desc zh">那时文字——在AI把我“带坏”之前。</div>
-          <div class="col-desc en">
-            Earlier writing — before AI ruined me in the best possible way.
-          </div>
-          <span class="col-tag zh">搬运中</span>
-          <span class="col-tag en">Migrating</span>
+    <div class="spine-to-rooms"></div>
+
+    <section class="rooms">
+      <p class="rooms-overline">
+        <span class="zh">由主轴生长出的三个房间</span>
+        <span class="en">Three rooms grown around it</span>
+      </p>
+      <div class="rooms-row">
+        <a class="room" href="yesterthoughts-index.html">
+          <span class="room-icon">📖</span>
+          <span class="room-name"><span class="zh">昨日旧思</span><span class="en">Yesterthoughts</span></span>
+          <span class="room-sub"><span class="zh">过去的我</span><span class="en">the past me</span></span>
         </a>
-
-        <a href="my-life-index.html" class="col-card ml">
-          <div class="col-icon">☕</div>
-          <div class="col-name">
-            <span class="zh">生活随笔</span>
-            <span class="en">My Life</span>
-          </div>
-          <div class="col-desc zh">
-            除了AI, 人生当然还有别的, 比如旅行、电影、音乐，以及生活本身。
-          </div>
-          <div class="col-desc en">
-            The life happening in between — travel, food, music, and everything
-            else.
-          </div>
+        <a class="room" href="my-life-index.html">
+          <span class="room-icon">☕</span>
+          <span class="room-name"><span class="zh">生活随笔</span><span class="en">My Life</span></span>
+          <span class="room-sub"><span class="zh">生活中的我</span><span class="en">the living me</span></span>
         </a>
-
-        <a href="tinkerland.html" class="col-card tk">
-          <div class="col-icon">🔧</div>
-          <div class="col-name">
-            <span class="zh">玩物志</span>
-            <span class="en">Tinkerland</span>
-          </div>
-          <div class="col-desc zh">一些出于好玩而做的小东西。来吧。</div>
-          <div class="col-desc en">
-            Games, tools, and little things built for fun. Come play.
-          </div>
-          <span class="col-tag zh">新</span>
-          <span class="col-tag en">New</span>
+        <a class="room" href="tinkerland.html">
+          <span class="room-icon">🔧</span>
+          <span class="room-name"><span class="zh">玩物志</span><span class="en">Tinkerland</span></span>
+          <span class="room-sub"><span class="zh">玩东西的我</span><span class="en">the playful me</span></span>
         </a>
       </div>
     </section>
@@ -762,7 +744,7 @@
       <p>© 2026 Belinda Sun · belindasun.blog</p>
     </footer>
 
-    <script src="https://www.youtube.com/iframe_api"></script>
+    
     <script>
       // 语言切换
       function setLang(lang) {

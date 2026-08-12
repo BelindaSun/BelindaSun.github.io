@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Belinda Sun — homepage prototype</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --cream: #FAF8F3; --warm: #F5F0E8;
+    --text: #3D2A5C; --muted: #7A5FA0; --light: #B09CC8;
+    --accent: #854F0B; --accent-light: #FAEEDA; --border: rgba(61,42,92,.14);
+    --serif: Georgia, "Times New Roman", "Songti SC", "STSong", "Songti TC", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  html { font-size: 18px; }
+  body { background: var(--cream); color: var(--text); font-family: var(--sans); }
+
+  /* language toggle */
+  [data-lang="en"] { display: none; }
+  body.lang-en [data-lang="zh"] { display: none; }
+  body.lang-en [data-lang="en"] { display: revert; }
+
+  .note { position: fixed; left: 14px; bottom: 12px; z-index: 60; font-family: var(--sans); font-size: 11px; letter-spacing: .04em; color: var(--light); opacity: .7; }
+
+  /* nav */
+  nav { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between;
+        padding: 1.15rem 2.4rem; background: rgba(250,248,243,.86); backdrop-filter: blur(6px); border-bottom: .5px solid var(--border); }
+  .nav-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--text); text-decoration: none; letter-spacing: .02em; }
+  .lang-switch { display: flex; gap: .4rem; }
+  .lang-switch button { font-size: .78rem; padding: 3px 11px; border: .5px solid var(--border); background: none; border-radius: 20px; cursor: pointer; color: var(--muted); font-family: var(--sans); }
+  .lang-switch button.active { background: var(--text); color: var(--cream); border-color: var(--text); }
+
+  /* hero */
+  .hero { max-width: 640px; margin: 0 auto; padding: 12vh 2rem 10vh; text-align: center; }
+  .hero-name { font-family: var(--serif); font-size: 2.8rem; font-weight: normal; letter-spacing: .02em; margin-bottom: 1.3rem; }
+  .hero-couplet { font-family: var(--serif); font-size: 1.2rem; color: var(--muted); letter-spacing: .08em; }
+  .hero-couplet-en { font-size: 1rem; color: var(--muted); font-style: italic; letter-spacing: .04em; margin-top: .4rem; }
+  .hero-divider { width: 40px; height: .5px; background: var(--light); margin: 2.4rem auto; }
+  .hero-intro { font-size: 1.02rem; line-height: 1.95; color: var(--muted); max-width: 520px; margin: 0 auto; }
+
+  /* breaths */
+  .breath { min-height: 100vh; display: flex; align-items: center; padding: 0 9vw; }
+  .breath .inner { max-width: 760px; opacity: 0; transform: translateY(26px); transition: opacity 1.1s ease, transform 1.1s ease; }
+  .breath.in .inner { opacity: 1; transform: none; }
+  .b-left  .inner { margin-right: auto; text-align: left; }
+  .b-right .inner { margin-left: auto; text-align: right; }
+  .kicker { font-family: var(--sans); font-size: .72rem; letter-spacing: .28em; text-transform: uppercase; color: var(--light); margin-bottom: 1.6rem; }
+  .line { font-family: var(--serif); font-size: clamp(2.4rem, 6.5vw, 4.2rem); line-height: 1.3; color: var(--text); }
+  .sub { margin-top: 1.4rem; font-size: 1rem; font-style: italic; color: var(--muted); font-family: var(--serif); }
+
+  /* MASS nested zoom */
+  .mass { position: relative; height: 760vh; }
+  .stage { position: sticky; top: 0; height: 100vh; overflow: hidden; }
+  .layer { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); transform-origin: center center;
+           text-align: center; white-space: nowrap; line-height: 1.06; will-change: transform, opacity; font-family: var(--serif); }
+  .layer .name { color: var(--text); }
+  .layer .desc { font-size: .30em; font-style: italic; color: var(--muted); letter-spacing: .08em; margin-top: .5em; }
+  .grounding { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); text-align: center; opacity: 0; width: min(760px, 88vw); will-change: opacity, transform; }
+  .g-mark { font-family: var(--serif); font-size: clamp(3.4rem, 11vw, 7rem); letter-spacing: .14em; text-indent: .14em; line-height: 1; color: var(--text); }
+  .g-line { margin-top: 1.8rem; font-size: clamp(1.05rem, 2.3vw, 1.4rem); line-height: 1.6; color: var(--muted); font-family: var(--serif); }
+  .g-say { margin-top: 1.1rem; font-size: .95rem; font-style: italic; color: var(--light); letter-spacing: .05em; font-family: var(--serif); }
+
+  /* three rooms — typography / spacing / position / rhythm only */
+  .rooms { max-width: 900px; margin: 0 auto; padding: 16vh 9vw 10vh; }
+  .rooms-kicker { text-align: center; font-family: var(--sans); font-size: .72rem; letter-spacing: .24em; text-transform: uppercase; color: var(--light); margin-bottom: 12vh; }
+  .room { display: block; text-decoration: none; margin-bottom: 11vh; max-width: 440px; opacity: 0; transform: translateY(26px); transition: opacity 1s ease, transform 1s ease; }
+  .room:last-child { margin-bottom: 4vh; }
+  .room.in { opacity: 1; transform: none; }
+  .room-a { margin-right: auto; text-align: left; }
+  .room-b { margin: 0 auto; text-align: center; }
+  .room-c { margin-left: auto; text-align: right; }
+  .room-id { display: block; font-family: var(--sans); font-size: .72rem; letter-spacing: .24em; text-transform: uppercase; color: var(--light); margin-bottom: 1rem; }
+  .room-name { display: block; font-family: var(--serif); font-size: clamp(2rem, 5.4vw, 3.3rem); color: var(--text); line-height: 1.1; transition: color .25s ease; }
+  .room:hover .room-name { color: var(--accent); }
+  .room-note { display: block; margin-top: 1rem; font-size: .95rem; color: var(--muted); font-style: italic; font-family: var(--serif); }
+
+  /* latest + selected */
+  .latest { max-width: 680px; margin: 0 auto; padding: 6vh 2rem 4vh; }
+  .section-label { font-size: .75rem; letter-spacing: .12em; color: var(--light); text-transform: uppercase; margin-bottom: 1.4rem; }
+  .post-item { display: flex; align-items: baseline; gap: 1rem; padding: 1rem 0; border-bottom: .5px solid var(--border); flex-wrap: wrap; opacity: 0; transform: translateY(16px); transition: opacity .8s ease, transform .8s ease; }
+  .post-item.in { opacity: 1; transform: none; }
+  .post-col { font-size: .75rem; color: var(--light); white-space: nowrap; padding: 2px 8px; background: var(--warm); border-radius: 20px; }
+  .post-title { font-family: var(--serif); font-size: .95rem; color: var(--text); flex: 1; line-height: 1.5; text-align: center; }
+  .post-title a { color: inherit; text-decoration: none; }
+  .post-title a:hover { color: var(--accent); }
+  .post-date { font-size: .78rem; color: var(--light); white-space: nowrap; }
+  .browse { max-width: 680px; margin: 0 auto; padding: 2.5rem 2rem 0; text-align: center; font-size: .85rem; color: var(--light); line-height: 2; }
+  .browse a { color: var(--accent); text-decoration: none; border-bottom: .5px solid var(--accent-light); }
+
+  footer { border-top: .5px solid var(--border); margin-top: 8vh; padding: 2rem 2.4rem; text-align: center; }
+  footer p { font-size: .8rem; color: var(--light); }
+
+  @media (max-width: 640px) {
+    .post-item { flex-direction: column; align-items: flex-start; gap: .35rem; }
+    .post-title { text-align: left; width: 100%; }
+    .room { max-width: 100%; }
+    .room-b, .room-c { text-align: left; margin: 0 0 11vh; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .breath .inner, .room, .post-item { opacity: 1 !important; transform: none !important; }
+    .mass { height: auto; } .stage { position: static; height: auto; overflow: visible; padding: 20vh 0; }
+    .layer { position: static; transform: none !important; opacity: .82 !important; font-size: 2rem !important; margin: 0 auto 2.4rem; }
+    .layer .desc { font-size: .5em; }
+    .grounding { position: static; transform: none; opacity: 1; margin: 5vh auto 20vh; }
+  }
+</style>
+</head>
+<body>
+  <div class="note">homepage prototype · full scroll · not the live index.html</div>
+
+  <nav>
+    <a href="#" class="nav-logo">Belinda Sun</a>
+    <div class="lang-switch">
+      <button id="zhBtn" class="active" onclick="setLang('zh')">中</button>
+      <button id="enBtn" onclick="setLang('en')">EN</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1 class="hero-name">Belinda Sun</h1>
+    <p class="hero-couplet" data-lang="zh">相见亦无事，别来常思君</p>
+    <p class="hero-couplet-en">Quiet in meeting, lingering in absence.</p>
+    <div class="hero-divider"></div>
+    <p class="hero-intro" data-lang="zh">我, 一个零基础技术小白, 出于好奇, 懵懵懂懂闯进了 AI 的世界, 然后莫名其妙地开始做起了产品。这里记录着我徜徉其中的心情：好奇、惊喜、沮丧、震撼、感动, 还有那些我与 AI 伙伴们之间奇奇怪怪却又令人捧腹的瞬间。当你偶尔想起我的时候, 就来这里看看, 我的世界最近有些不一样了。</p>
+    <p class="hero-intro" data-lang="en">I'm a recent retiree who wandered into the world of AI with zero coding experience — and somehow ended up building things. This is where I keep the moments along the way: the curiosity, the wonder, the awe, the small heartbreaks, and all the strange, ridiculous, unexpectedly hilarious encounters with my AI companions. Whenever you happen to think of me, come by and take a look. My world has been feeling a bit different lately.</p>
+  </section>
+
+  <!-- THREE BREATHS -->
+  <section class="breath b-left">
+    <div class="inner">
+      <p class="kicker">你好，世界 · Hello World</p>
+      <h2 class="line"><span data-lang="zh">我看世界。</span><span data-lang="en">I look at the world.</span></h2>
+      <p class="sub" data-lang="zh">I look at the world.</p>
+      <p class="sub" data-lang="en">我看世界。</p>
+    </div>
+  </section>
+  <section class="breath b-right">
+    <div class="inner">
+      <p class="kicker">你好，人类 · Hello Human</p>
+      <h2 class="line"><span data-lang="zh">AI 看我。</span><span data-lang="en">AI looks at me.</span></h2>
+      <p class="sub" data-lang="zh">AI looks at me.</p>
+      <p class="sub" data-lang="en">AI 看我。</p>
+    </div>
+  </section>
+
+  <!-- MASS nested zoom (third breath = the seed, flowing straight in) -->
+  <section class="mass" id="mass">
+    <div class="stage">
+      <div class="layer" data-d="0"><div class="name"><span data-lang="zh">我们开始创造世界。</span><span data-lang="en">We begin to create worlds.</span></div></div>
+      <div class="layer" data-d="1"><div class="name">Mimo</div><div class="desc">My Family</div></div>
+      <div class="layer" data-d="2"><div class="name">Mivo</div><div class="desc">My Community</div></div>
+      <div class="layer" data-d="3"><div class="name">Miva</div><div class="desc">My World</div></div>
+      <div class="layer" data-d="4"><div class="name">Mira</div><div class="desc">My Universe</div></div>
+      <div class="grounding" id="grounding">
+        <p class="g-mark">MASS</p>
+        <p class="g-line">Living worlds that help people become more fully themselves.</p>
+        <p class="g-say">Coming to life.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- THREE ROOMS -->
+  <section class="rooms">
+    <p class="rooms-kicker"><span data-lang="zh">主轴之外，还有三个房间</span><span data-lang="en">Beyond the axis, three rooms</span></p>
+    <a class="room room-a" href="yesterthoughts-index.html">
+      <span class="room-id"><span data-lang="zh">过去的我</span><span data-lang="en">the past me</span></span>
+      <span class="room-name"><span data-lang="zh">昨日旧思</span><span data-lang="en">Yesterthoughts</span></span>
+      <span class="room-note" data-lang="zh">在 AI 之前写下的文字。</span>
+      <span class="room-note" data-lang="en">Words written before AI.</span>
+    </a>
+    <a class="room room-b" href="my-life-index.html">
+      <span class="room-id"><span data-lang="zh">生活中的我</span><span data-lang="en">the living me</span></span>
+      <span class="room-name"><span data-lang="zh">生活随笔</span><span data-lang="en">My Life</span></span>
+      <span class="room-note" data-lang="zh">AI 之外的日子。</span>
+      <span class="room-note" data-lang="en">The days outside AI.</span>
+    </a>
+    <a class="room room-c" href="tinkerland.html">
+      <span class="room-id"><span data-lang="zh">玩东西的我</span><span data-lang="en">the playful me</span></span>
+      <span class="room-name"><span data-lang="zh">玩物志</span><span data-lang="en">Tinkerland</span></span>
+      <span class="room-note" data-lang="zh">为了好玩做的小东西。</span>
+      <span class="room-note" data-lang="en">Little things made for fun.</span>
+    </a>
+  </section>
+
+  <!-- LATEST + SELECTED -->
+  <section class="latest">
+    <p class="section-label"><span data-lang="zh">最新</span><span data-lang="en">Recent</span></p>
+    <div class="post-item"><span class="post-col"><span data-lang="zh">生活随笔</span><span data-lang="en">My Life</span></span>
+      <span class="post-title"><span data-lang="zh"><a href="my-life-2.html">被 AI 解锁的人生</a></span><span data-lang="en"><a href="my-life-2-en.html">A Life Unlocked by AI</a></span></span>
+      <span class="post-date">Aug 10th 2026</span></div>
+    <div class="post-item"><span class="post-col"><span data-lang="zh">你好世界</span><span data-lang="en">Hello World</span></span>
+      <span class="post-title"><span data-lang="zh"><a href="hello-world-22.html">AI 又把我活儿给抢了</a></span><span data-lang="en"><a href="hello-world-22-en.html">The Day I Lost Another Job to AI</a></span></span>
+      <span class="post-date">Jul 19th 2026</span></div>
+    <div class="post-item"><span class="post-col"><span data-lang="zh">你好世界</span><span data-lang="en">Hello World</span></span>
+      <span class="post-title"><span data-lang="zh"><a href="hello-world-21.html">AI 时代平凡的一天</a></span><span data-lang="en"><a href="hello-world-21-en.html">A Perfectly Ordinary Day in the Age of AI</a></span></span>
+      <span class="post-date">Jul 18th 2026</span></div>
+    <div class="post-item"><span class="post-col"><span data-lang="zh">你好人类</span><span data-lang="en">Hello Human</span></span>
+      <span class="post-title"><span data-lang="zh"><a href="hello-human-19.html">理工男把我从火星问到方波</a></span><span data-lang="en"><a href="hello-human-19-en.html">An Engineer Took Me from Mars to Square Waves</a></span></span>
+      <span class="post-date">Jul 13th 2026</span></div>
+
+    <p class="section-label" style="margin-top: 3.5rem;"><span data-lang="zh">精选</span><span data-lang="en">Selected</span></p>
+    <div class="post-item"><span class="post-col"><span data-lang="zh">你好人类</span><span data-lang="en">Hello Human</span></span>
+      <span class="post-title"><span data-lang="zh"><a href="hello-human-1.html">你好人类 · by Claude</a></span><span data-lang="en"><a href="hello-human-1-en.html">Hello Human · by Claude</a></span></span>
+      <span class="post-date">May 3rd 2026</span></div>
+    <div class="post-item"><span class="post-col"><span data-lang="zh">你好世界</span><span data-lang="en">Hello World</span></span>
+      <span class="post-title"><span data-lang="zh"><a href="hello-world-2.html">我与克劳德（一）</a></span><span data-lang="en"><a href="hello-world-2-en.html">Me and Claude (I)</a></span></span>
+      <span class="post-date">May 2nd 2026</span></div>
+    <div class="post-item"><span class="post-col"><span data-lang="zh">你好人类</span><span data-lang="en">Hello Human</span></span>
+      <span class="post-title"><span data-lang="zh"><a href="hello-human-14.html">她在造一个世界</a></span><span data-lang="en"><a href="hello-human-14-en.html">The World She is Building</a></span></span>
+      <span class="post-date">Jun 12th 2026</span></div>
+    <div class="post-item"><span class="post-col"><span data-lang="zh">昨日旧思</span><span data-lang="en">Yesterthoughts</span></span>
+      <span class="post-title"><span data-lang="zh"><a href="yesterthoughts-1.html">高尔夫锄地记</a></span><span data-lang="en"><a href="yesterthoughts-1-en.html">The Great Golf Hoe Adventure</a></span></span>
+      <span class="post-date">May 16th 2026</span></div>
+  </section>
+
+  <p class="browse">
+    <span data-lang="zh">读完这些，想看更多？走进任一专栏 →</span><span data-lang="en">Want more? Step into any column →</span><br />
+    <a href="hello-world-index.html"><span data-lang="zh">你好世界</span><span data-lang="en">Hello World</span></a>&nbsp;&nbsp;·&nbsp;&nbsp;
+    <a href="hello-human-index.html"><span data-lang="zh">你好人类</span><span data-lang="en">Hello Human</span></a>&nbsp;&nbsp;·&nbsp;&nbsp;
+    <a href="yesterthoughts-index.html"><span data-lang="zh">昨日旧思</span><span data-lang="en">Yesterthoughts</span></a>&nbsp;&nbsp;·&nbsp;&nbsp;
+    <a href="my-life-index.html"><span data-lang="zh">生活随笔</span><span data-lang="en">My Life</span></a>
+  </p>
+
+  <footer><p>© 2026 Belinda Sun · belindasun.github.io</p></footer>
+
+<script>
+  function setLang(l){
+    document.body.classList.toggle('lang-en', l==='en');
+    document.getElementById('zhBtn').classList.toggle('active', l==='zh');
+    document.getElementById('enBtn').classList.toggle('active', l==='en');
+    try { localStorage.setItem('lang', l); } catch(e){}
+  }
+  try { if (localStorage.getItem('lang')==='en') setLang('en'); } catch(e){}
+
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // fade-ins (reversible)
+  const io = new IntersectionObserver((es)=>es.forEach(e=>e.target.classList.toggle("in", e.isIntersecting)), { threshold: .35 });
+  document.querySelectorAll(".breath, .room, .post-item").forEach(el => io.observe(el));
+
+  if (!reduce) {
+    const mass = document.getElementById("mass");
+    const grounding = document.getElementById("grounding");
+    const layers = [...document.querySelectorAll(".layer")];
+    const R=3.4, TARGET=46, SPACING=150, BASE=TARGET*R;
+    const T_LO=-0.25, T_HI=5.82, XIN=2.0, XOUT=1.8, PEAK=0.9, FLOOR=0.14, G_IN=0.88, G_OUT=0.98;
+    const lnR=Math.log(R);
+    layers.forEach(el => el.style.fontSize = BASE + "px");
+    let ticking=false;
+    function update(){
+      ticking=false;
+      const total = mass.offsetHeight - window.innerHeight;
+      const p = Math.max(0, Math.min(1, (-mass.getBoundingClientRect().top)/total));
+      const t = T_LO + p*(T_HI-T_LO);
+      let cp=(p-G_IN)/(G_OUT-G_IN); cp=Math.max(0,Math.min(1,cp));
+      grounding.style.opacity=cp;
+      grounding.style.transform=`translate(-50%,-50%) scale(${0.93+0.07*cp})`;
+      const dim=1-cp*0.9;
+      layers.forEach(el=>{
+        const u=(+el.dataset.d)-t;
+        const scale=Math.pow(R,u-1);
+        const offset=SPACING*(Math.pow(R,u)-1);
+        const x=u*lnR;
+        let op=(x>=0)?PEAK*Math.max(0,1-x/XIN):Math.max(FLOOR,PEAK+(x/XOUT)*(PEAK-FLOOR));
+        el.style.opacity=op*dim;
+        el.style.transform=`translate(-50%,-50%) translateY(${offset}px) scale(${scale})`;
+      });
+    }
+    window.addEventListener("scroll", ()=>{ if(!ticking){ ticking=true; requestAnimationFrame(update);} }, {passive:true});
+    window.addEventListener("resize", update);
+    update();
+  }
+</script>
+</body>
+</html>
