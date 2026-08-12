@@ -120,7 +120,14 @@
   </section>
 
 <script>
-  try { if (localStorage.getItem('lang') === 'en') document.body.classList.add('lang-en'); } catch(e){}
+  (function(){
+    try {
+      var s = localStorage.getItem('lang'), l = 'zh';
+      if (s === 'en' || s === 'zh') l = s;
+      else if ((navigator.language || '').toLowerCase().indexOf('zh') !== 0) l = 'en';
+      if (l === 'en') document.body.classList.add('lang-en');
+    } catch(e){}
+  })();
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reduce) { const m = document.getElementById("massActions"); if (m) m.classList.add("show"); }
   const io = new IntersectionObserver((es)=>es.forEach(e=>e.target.classList.toggle("in", e.isIntersecting)), { threshold: 0.5 });

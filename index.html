@@ -80,7 +80,7 @@
 
   /* ---- main, left-aligned to one axis; reading text in rem ---- */
   .main { margin-left: var(--rail); }
-  .wrap { max-width: 42rem; padding: 0 7vw; }
+  .wrap { max-width: 46rem; margin: 0 auto; padding: 0 32px; }
 
   .hero { padding: 96px 0 56px; }
   .hero-couplet { font-family: var(--serif); font-weight: 700; font-size: clamp(1.45rem, 3.4vw, 2.1rem); line-height: 1.55; letter-spacing: .04em; margin: 0 auto 34px; text-align: center; }
@@ -287,14 +287,23 @@
   </div>
 
 <script>
-  // language
-  function setLang(l){
+  // language — a saved choice always wins; otherwise follow the visitor's browser
+  // (English-language browsers see English right away, no need to find the toggle)
+  function applyLang(l){
     document.body.classList.toggle('lang-en', l==='en');
     document.getElementById('zhBtn').classList.toggle('active', l==='zh');
     document.getElementById('enBtn').classList.toggle('active', l==='en');
-    try { localStorage.setItem('lang', l); } catch(e){}
   }
-  try { if (localStorage.getItem('lang')==='en') setLang('en'); } catch(e){}
+  function setLang(l){ applyLang(l); try { localStorage.setItem('lang', l); } catch(e){} }
+  (function(){
+    var l = 'zh';
+    try {
+      var s = localStorage.getItem('lang');
+      if (s === 'en' || s === 'zh') l = s;
+      else if ((navigator.language || '').toLowerCase().indexOf('zh') !== 0) l = 'en';
+    } catch(e){}
+    applyLang(l);
+  })();
 
   // background music — her little home; starts on click (browsers block autoplay), loops softly
   function toggleMusic(){
