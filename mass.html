@@ -46,14 +46,14 @@
   .mass { position: relative; height: 1240vh; }
   .stage { position: sticky; top: 0; height: 100vh; overflow: hidden; }
   .layer {
-    position: absolute; left: 50%; top: 45%;
+    position: absolute; left: 50%; top: 34%;
     transform: translate(-50%, -50%); transform-origin: center center;
     text-align: center; white-space: nowrap; line-height: 1.06; will-change: transform, opacity;
   }
   .layer .name { color: var(--text); }
   .layer .desc { font-size: 0.30em; font-style: italic; color: var(--muted); letter-spacing: .08em; margin-top: 0.5em; }
 
-  .grounding { position: absolute; left: 50%; top: 47%; transform: translate(-50%, -50%); text-align: center; opacity: 0; width: min(760px, 88vw); will-change: opacity, transform; }
+  .grounding { position: absolute; left: 50%; top: 40%; transform: translate(-50%, -50%); text-align: center; opacity: 0; width: min(760px, 88vw); will-change: opacity, transform; }
   .g-mark { font-family: var(--serif); font-size: clamp(3.4rem, 11vw, 7rem); letter-spacing: .14em; text-indent: .14em; line-height: 1; color: var(--text); }
   .g-line { margin-top: 1.8rem; font-size: clamp(1.05rem, 2.3vw, 1.4rem); line-height: 1.6; color: var(--muted); }
   .g-expand { margin-top: 1rem; font-size: .95rem; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); }
@@ -61,14 +61,14 @@
   .g-soon { margin-top: 1.5rem; font-size: .76rem; letter-spacing: .22em; text-transform: uppercase; color: var(--accent); }
 
   /* the tagline beats — appear one after another, after Mira, before MASS */
-  .tagline { position: absolute; left: 50%; top: 45%; transform: translate(-50%, -50%); text-align: center; width: min(760px, 88vw); }
+  .tagline { position: absolute; left: 50%; top: 38%; transform: translate(-50%, -50%); text-align: center; width: min(760px, 88vw); }
   .tag-l1, .tag-l2 { font-family: var(--serif); font-size: clamp(1.35rem, 3vw, 1.95rem); line-height: 1.5; margin: 0; opacity: 0; will-change: opacity; }
   .tag-l1 { color: var(--text); }
   .tag-l2 { color: var(--muted); margin-top: .5rem; }
 
   /* the closing acts: MASS+expansion → the mission line alone → the final resting MASS */
-  .beat-a { position: absolute; left: 50%; top: 47%; transform: translate(-50%, -50%); text-align: center; opacity: 0; width: min(760px, 88vw); will-change: opacity; }
-  .beat-b { position: absolute; left: 50%; top: 45%; transform: translate(-50%, -50%); text-align: center; opacity: 0; width: min(760px, 88vw); will-change: opacity; }
+  .beat-a { position: absolute; left: 50%; top: 40%; transform: translate(-50%, -50%); text-align: center; opacity: 0; width: min(760px, 88vw); will-change: opacity; }
+  .beat-b { position: absolute; left: 50%; top: 38%; transform: translate(-50%, -50%); text-align: center; opacity: 0; width: min(760px, 88vw); will-change: opacity; }
   .bb-line { font-family: var(--serif); font-size: clamp(1.1rem, 2.4vw, 1.5rem); line-height: 1.6; color: var(--muted); margin: 0; }
   #beatAExpand span, #gSoon .u { opacity: 0; display: inline-block; }
 
@@ -150,7 +150,7 @@
     const R = 3.4;          // scale ratio between nested worlds
     const TARGET = 46;      // px: on-screen size where a name reads "here"
     const SPACING = 150;    // px: vertical separation between adjacent nested worlds
-    const T_LO = -0.25, T_HI = 10.4;  // Mira focal ~p0.40; a long finale of sequential beats follows
+    const T_LO = -0.10, T_HI = 10.4;  // Mira focal ~p0.40; a long finale of sequential beats follows
     const XIN = 2.0, XOUT = 1.8, PEAK = 0.9, FLOOR = 0.14;
     const G_IN = 0.91, G_OUT = 0.95;  // MASS + expansion settle in; then "coming to life" pops after
     const lnR = Math.log(R);
