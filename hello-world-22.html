@@ -279,30 +279,98 @@ nav { flex-wrap: wrap; row-gap: .5rem; }
   .nav-links a, .nav-soon { font-size: .82rem; }
 }
 </style>
-  </head>
+  
+<style>
+  /* ===== new-design reskin (overrides the article's own theme) ===== */
+  :root {
+    --cream:#FAF6EE; --warm:#F5F0E8;
+    --text:#3D2A5C; --text-muted:#7A5FA0; --text-light:#B09CC8;
+    --muted:#7A5FA0; --light:#B09CC8;
+    --accent:#854F0B; --gold:#854F0B; --accent-light:#EDE6F5;
+    --border:rgba(61,42,92,.16); --faint:rgba(61,42,92,.34);
+    --serif:Georgia,"Times New Roman","Songti SC","STSong","Songti TC",serif;
+    --rail:238px;
+  }
+  html { font-size: calc(18px * var(--fs,1)); }
+  body { background:var(--cream); color:var(--text); font-family:var(--serif); padding-left:var(--rail); }
+  body > nav { display:none; }  /* safety net: hide any leftover old top nav */
+  a:hover { color:var(--gold); }
+
+  [data-lang="en"]{ display:none; }
+  body.lang-en [data-lang="zh"]{ display:none; }
+  body.lang-en [data-lang="en"]{ display:revert; }
+
+  /* text-size control */
+  .textsize{position:fixed;right:16px;bottom:13px;z-index:60;display:flex;align-items:baseline;gap:1px;background:var(--cream);border:1px solid var(--border);border-radius:20px;padding:3px 6px;}
+  .textsize button{font-family:var(--serif);background:none;border:none;cursor:pointer;color:var(--muted);line-height:1;padding:3px 8px;border-radius:13px;}
+  .textsize button:nth-child(1){font-size:13px;} .textsize button:nth-child(2){font-size:16px;} .textsize button:nth-child(3){font-size:20px;}
+  .textsize button.active{color:var(--text);background:var(--warm);}
+
+  /* left rail */
+  .seal{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border:1.5px solid var(--text);border-radius:50%;flex:none;}
+  .seal span{font-family:var(--serif);font-weight:700;font-size:15px;letter-spacing:.03em;color:var(--gold);}
+  .rail{position:fixed;left:0;top:0;bottom:0;width:var(--rail);padding:44px 30px;display:flex;flex-direction:column;justify-content:space-between;border-right:1px solid var(--border);background:var(--cream);z-index:50;}
+  .rail .brand{display:flex;flex-direction:column;gap:14px;align-items:flex-start;}
+  .brand-name{font-family:var(--serif);font-weight:700;font-size:19px;letter-spacing:.02em;white-space:nowrap;color:var(--text);}
+  .rail-nav{display:flex;flex-direction:column;gap:15px;margin:34px 0;}
+  .rail-nav a{font-size:14px;color:var(--muted);letter-spacing:.02em;text-decoration:none;} .rail-nav a:hover{color:var(--text);}
+  .rail-nav a.rail-mass{color:var(--gold);} .rail-nav a.rail-on{color:var(--text);font-weight:700;}
+  .rail-sep{height:1px;width:34px;background:var(--border);margin:6px 0;}
+  .rail-bottom{display:flex;flex-direction:column;gap:16px;align-items:flex-start;}
+  .rail-music{font-family:var(--serif);font-size:14px;color:var(--muted);background:none;border:none;cursor:pointer;padding:0;letter-spacing:.02em;}
+  .rail-music:hover{color:var(--text);} .rail-music.playing{color:var(--gold);} .rail-music.playing .mnote{animation:mpulse 1.6s ease-in-out infinite;display:inline-block;}
+  @keyframes mpulse{0%,100%{opacity:1}50%{opacity:.4}}
+  .rail-lang{display:flex;gap:8px;}
+  .rail-lang a{font-family:var(--serif);font-size:13px;padding:4px 13px;border:1px solid var(--border);border-radius:20px;cursor:pointer;background:none;color:var(--text);text-decoration:none;}
+  .rail-lang a.rail-lang-on{background:var(--text);color:var(--cream);border-color:var(--text);}
+
+  @media (max-width: 900px){
+    body{ padding-left:0; }
+    .rail{position:sticky;top:0;bottom:auto;width:100%;height:auto;flex-direction:row;align-items:center;justify-content:space-between;padding:16px 20px;border-right:none;border-bottom:1px solid var(--border);}
+    .rail .brand{flex-direction:row;align-items:center;gap:12px;} .rail .seal{width:34px;height:34px;} .rail .seal span{font-size:11px;}
+    .rail-nav{display:none;} .rail-bottom{flex-direction:row;align-items:center;gap:14px;}
+  }
+</style>
+
+</head>
   <body>
-    <!-- nav-unify -->
-<nav>
-  <a href="index.html" class="nav-logo">Belinda Sun</a>
-  <ul class="nav-links">
-    <li><a href="hello-world-index.html" class="nav-current" aria-current="page">你好世界</a></li>
-    <li><a href="hello-human-index.html">你好人类</a></li>
-    <li><span class="nav-soon">你好宇宙 · soon</span></li>
-    <li><a href="yesterthoughts-index.html">旧时文字</a></li>
-    <li><a href="my-life-index.html">人间小记</a></li>
-    <li><a href="tinkerland.html">玩物志</a></li>
-  </ul>
-</nav>
+    <div class="textsize" role="group" aria-label="字号 / text size">
+    <button title="小 · small" onclick="setSize('s')">A</button>
+    <button title="中 · medium" onclick="setSize('m')">A</button>
+    <button title="大 · large" onclick="setSize('l')">A</button>
+  </div>
+  <aside class="rail">
+    <div class="rail-top">
+      <a href="index.html" class="brand" title="太阳，也是我的姓 · Sun — also my surname">
+        <span class="seal"><span>SUN</span></span>
+        <span class="brand-name">Belinda Sun</span>
+      </a>
+      <nav class="rail-nav">
+        <a href="hello-world-index.html" class="rail-on"><span data-lang="zh">你好世界</span><span data-lang="en">Hello World</span></a>
+        <a href="hello-human-index.html"><span data-lang="zh">你好人类</span><span data-lang="en">Hello Human</span></a>
+        <a href="mass.html" class="rail-mass"><span data-lang="zh">你好宇宙 · MASS</span><span data-lang="en">Hello Universe · MASS</span></a>
+        <span class="rail-sep"></span>
+        <a href="yesterthoughts-index.html"><span data-lang="zh">旧时文字</span><span data-lang="en">Yesterthoughts</span></a>
+        <a href="my-life-index.html"><span data-lang="zh">人间小记</span><span data-lang="en">My Life</span></a>
+        <a href="tinkerland.html"><span data-lang="zh">玩物志</span><span data-lang="en">Tinkerland</span></a>
+        <a href="https://learning-wiki-site.vercel.app" target="_blank" rel="noopener"><span data-lang="zh">格物志</span><span data-lang="en">Learning Wiki</span></a>
+      </nav>
+    </div>
+    <div class="rail-bottom">
+      <button class="rail-music" id="musicBtn" onclick="toggleMusic()"><span class="mnote">♪</span> <span data-lang="zh">背景音乐</span><span data-lang="en">Music</span></button>
+      <div class="rail-lang">
+        <a href="hello-world-22.html" class="rail-lang-link rail-lang-on">中</a>
+        <a href="hello-world-22-en.html" class="rail-lang-link">EN</a>
+      </div>
+    </div>
+  </aside>
+  <audio id="bgm" src="baikal.mp3" loop preload="none"></audio>
 
     <article>
       <div class="article-meta">
         <span class="article-col">Hello World</span>
         <span class="article-date">2026年7月19日</span>
-        <div class="lang-switch">
-          <span class="lang-btn active">中文</span>
-          <a href="hello-world-22-en.html" class="lang-btn">EN</a>
-        </div>
-      </div>
+  </div>
 
       <h1 class="article-title">AI 又把我活儿给抢了</h1>
       <p class="article-subtitle">
