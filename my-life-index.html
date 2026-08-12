@@ -1,252 +1,139 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Life — Belinda Sun</title>
-    <!-- meta-unify -->
-    <meta name="author" content="Belinda Sun" />
-    <meta name="description" content="AI 之外的生活：旅行、电影、音乐，以及生活本身。" />
-    <link rel="canonical" href="https://belindasun.github.io/my-life-index.html" />
-    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-    <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
-    <link rel="icon" href="favicon-16.png" sizes="16x16" type="image/png" />
-    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-    <meta property="og:site_name" content="Belinda Sun" />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="zh_CN" />
-    <meta property="og:title" content="My Life — Belinda Sun" />
-    <meta property="og:description" content="AI 之外的生活：旅行、电影、音乐，以及生活本身。" />
-    <meta property="og:url" content="https://belindasun.github.io/my-life-index.html" />
-    <meta property="og:image" content="https://belindasun.github.io/og-default.png" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="My Life — Belinda Sun" />
-    <meta name="twitter:description" content="AI 之外的生活：旅行、电影、音乐，以及生活本身。" />
-    <meta name="twitter:image" content="https://belindasun.github.io/og-default.png" />
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      :root {
-        --cream: #faf8f3;
-        --warm: #f5f0e8;
-        --text: #2c2c2a;
-        --text-muted: #888780;
-        --text-light: #b4b2a9;
-        --accent: #854f0b;
-        --accent-light: #faeeda;
-        --border: rgba(44, 44, 42, 0.1);
-        --serif: Georgia, "Times New Roman", serif;
-        --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      }
-      body {
-        background: var(--cream);
-        color: var(--text);
-        font-family: var(--sans);
-        min-height: 100vh;
-      }
-      nav {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 1.25rem 3rem;
-        border-bottom: 0.5px solid var(--border);
-        background: var(--cream);
-        position: sticky;
-        top: 0;
-        z-index: 100;
-      }
-      .nav-logo {
-        font-family: var(--serif);
-        font-size: 1.1rem;
-        color: var(--text);
-        text-decoration: none;
-      }
-      .nav-links {
-        display: flex;
-        gap: 2rem;
-        list-style: none;
-      }
-      .nav-links a {
-        font-size: 0.88rem;
-        color: var(--text-muted);
-        text-decoration: none;
-      }
-      .nav-links a:hover {
-        color: var(--text);
-      }
-
-      .page-header {
-        max-width: 680px;
-        margin: 0 auto;
-        padding: 4rem 2rem 3rem;
-      }
-      .page-label {
-        font-size: 0.75rem;
-        letter-spacing: 0.12em;
-        color: var(--text-light);
-        text-transform: uppercase;
-        margin-bottom: 1rem;
-      }
-      .page-title {
-        font-family: var(--serif);
-        font-size: 2.2rem;
-        font-weight: normal;
-        margin-bottom: 0.8rem;
-      }
-      .page-desc {
-        font-size: 0.95rem;
-        color: var(--text-muted);
-        line-height: 1.8;
-        max-width: 480px;
-      }
-      .page-divider {
-        width: 40px;
-        height: 0.5px;
-        background: var(--text-light);
-        margin: 2rem 0;
-      }
-
-      .post-list {
-        max-width: 680px;
-        margin: 0 auto;
-        padding: 0 2rem 6rem;
-      }
-      .post-item {
-        display: flex;
-        align-items: baseline;
-        gap: 1rem;
-        padding: 1.2rem 0;
-        border-bottom: 0.5px solid var(--border);
-      }
-      .post-item:last-child {
-        border-bottom: none;
-      }
-      .post-num {
-        font-size: 0.78rem;
-        color: var(--text-light);
-        min-width: 1.5rem;
-      }
-      .post-title {
-        font-family: var(--serif);
-        font-size: 1rem;
-        color: var(--text);
-        flex: 1;
-        line-height: 1.5;
-      }
-      .post-title a {
-        color: inherit;
-        text-decoration: none;
-      }
-      .post-title a:hover {
-        color: var(--accent);
-      }
-      .post-author {
-        font-size: 0.78rem;
-        color: var(--text-light);
-        font-style: italic;
-        margin-top: 0.2rem;
-      }
-      .post-meta {
-        display: flex;
-        gap: 0.75rem;
-        align-items: center;
-      }
-      .post-date {
-        font-size: 0.78rem;
-        color: var(--text-light);
-        white-space: nowrap;
-      }
-      .post-lang {
-        font-size: 0.72rem;
-        color: var(--accent);
-        background: var(--accent-light);
-        padding: 1px 7px;
-        border-radius: 20px;
-        text-decoration: none;
-        white-space: nowrap;
-      }
-
-      footer {
-        border-top: 0.5px solid var(--border);
-        padding: 1.5rem 3rem;
-        text-align: center;
-      }
-      footer p {
-        font-size: 0.8rem;
-        color: var(--text-light);
-      }
-    
-/* nav-unify */
-nav { flex-wrap: wrap; row-gap: .5rem; }
-.nav-links { flex-wrap: wrap; row-gap: .5rem; column-gap: 1.75rem; }
-.nav-current { color: var(--accent) !important; font-weight: 600; }
-.nav-soon { color: var(--text-light); cursor: default; font-size: .88rem; letter-spacing: .03em; }
-@media (max-width: 640px) {
-  nav { flex-direction: column; align-items: flex-start; padding: 1rem 1.25rem; }
-  .nav-links { column-gap: 1.1rem; row-gap: .4rem; }
-  .nav-links a, .nav-soon { font-size: .82rem; }
-}
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>人间小记 My Life — Belinda Sun</title>
+<meta name="author" content="Belinda Sun" />
+<meta name="description" content="AI 之外的日子：旅行、电影、音乐，以及生活本身。" />
+<link rel="canonical" href="https://belindasun.github.io/my-life-index.html" />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<meta property="og:site_name" content="Belinda Sun" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="人间小记 My Life — Belinda Sun" />
+<meta property="og:description" content="AI 之外的日子：旅行、电影、音乐，以及生活本身。" />
+<meta property="og:url" content="https://belindasun.github.io/my-life-index.html" />
+<meta property="og:image" content="https://belindasun.github.io/og-default.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root { --cream:#FAF6EE; --warm:#F5F0E8; --text:#3D2A5C; --muted:#7A5FA0; --light:#B09CC8; --gold:#854F0B; --border:rgba(61,42,92,.16); --faint:rgba(61,42,92,.34); --serif:Georgia,"Times New Roman","Songti SC","STSong","Songti TC",serif; --rail:238px; }
+  html { font-size:calc(18px * var(--fs,1)); }
+  body { background:var(--cream); color:var(--text); font-family:var(--serif); }
+  a { text-decoration:none; color:inherit; } a:hover { color:var(--gold); }
+  [data-lang="en"]{display:none;} body.lang-en [data-lang="zh"]{display:none;} body.lang-en [data-lang="en"]{display:revert;}
+  .textsize{position:fixed;right:16px;bottom:13px;z-index:60;display:flex;align-items:baseline;gap:1px;background:var(--cream);border:1px solid var(--border);border-radius:20px;padding:3px 6px;}
+  .textsize button{font-family:var(--serif);background:none;border:none;cursor:pointer;color:var(--muted);line-height:1;padding:3px 8px;border-radius:13px;}
+  .textsize button:nth-child(1){font-size:13px;} .textsize button:nth-child(2){font-size:16px;} .textsize button:nth-child(3){font-size:20px;}
+  .textsize button.active{color:var(--text);background:var(--warm);}
+  .seal{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border:1.5px solid var(--text);border-radius:50%;flex:none;}
+  .seal span{font-family:var(--serif);font-weight:700;font-size:15px;letter-spacing:.03em;color:var(--gold);}
+  .rail{position:fixed;left:0;top:0;bottom:0;width:var(--rail);padding:44px 30px;display:flex;flex-direction:column;justify-content:space-between;border-right:1px solid var(--border);background:var(--cream);z-index:50;}
+  .brand{display:flex;flex-direction:column;gap:14px;align-items:flex-start;}
+  .brand-name{font-family:var(--serif);font-weight:700;font-size:19px;letter-spacing:.02em;white-space:nowrap;}
+  .rail-nav{display:flex;flex-direction:column;gap:15px;margin:34px 0;}
+  .rail-nav a{font-size:14px;color:var(--muted);letter-spacing:.02em;} .rail-nav a:hover{color:var(--text);}
+  .rail-nav a.rail-mass{color:var(--gold);} .rail-nav a.rail-on{color:var(--text);font-weight:700;}
+  .rail-sep{height:1px;width:34px;background:var(--border);margin:6px 0;}
+  .rail-bottom{display:flex;flex-direction:column;gap:16px;align-items:flex-start;}
+  .rail-music{font-family:var(--serif);font-size:14px;color:var(--muted);background:none;border:none;cursor:pointer;padding:0;letter-spacing:.02em;}
+  .rail-music:hover{color:var(--text);} .rail-music.playing{color:var(--gold);} .rail-music.playing .mnote{animation:mpulse 1.6s ease-in-out infinite;display:inline-block;}
+  @keyframes mpulse{0%,100%{opacity:1}50%{opacity:.4}}
+  .rail-lang{display:flex;gap:8px;}
+  .rail-lang button{font-family:var(--serif);font-size:13px;padding:4px 13px;border:1px solid var(--border);border-radius:20px;cursor:pointer;background:none;color:var(--text);}
+  .rail-lang button.active{background:var(--text);color:var(--cream);border-color:var(--text);}
+  .main{margin-left:var(--rail);}
+  .wrap{max-width:46rem;margin-left:max(0px,calc(50vw - var(--rail) - 23rem));margin-right:auto;padding:0 32px;}
+  .page-head{padding:88px 0 26px;}
+  .page-kicker{font-size:.8rem;letter-spacing:.04em;color:var(--muted);margin-bottom:12px;}
+  .page-headline{font-family:var(--serif);font-weight:700;font-size:clamp(2rem,5vw,3rem);line-height:1.2;color:var(--text);}
+  .page-desc{margin-top:20px;font-size:.92rem;line-height:1.85;color:var(--muted);max-width:34em;}
+  .page-divider{width:40px;height:1px;background:var(--text);opacity:.5;margin:34px 0 4px;}
+  .post-list{padding:0 0 30px;}
+  .post-item{display:flex;align-items:baseline;gap:14px;padding:14px 0;border-bottom:.5px solid var(--border);}
+  .post-num{flex:0 0 1.8rem;font-size:.78rem;color:var(--faint);}
+  .post-main{flex:0 1 auto;}
+  .post-title{font-family:var(--serif);font-size:1.02rem;line-height:1.45;}
+  .post-author{display:block;font-size:.8rem;font-style:italic;color:var(--light);margin-top:3px;}
+  .post-leader{flex:1 1 auto;min-width:18px;border-bottom:1px dotted var(--faint);align-self:flex-end;margin-bottom:6px;}
+  .post-date{flex:0 0 auto;font-size:.72rem;color:var(--faint);white-space:nowrap;}
+  footer{padding:56px 0 90px;}
+  .end-seal{width:48px;height:48px;opacity:.5;}
+  .colophon{margin-top:16px;font-size:.78rem;color:var(--muted);} .colophon b{font-weight:700;color:var(--text);}
+  .end-copy{margin-top:8px;font-size:.67rem;color:var(--faint);}
+  @media(max-width:900px){
+    .rail{position:sticky;top:0;bottom:auto;width:100%;height:auto;flex-direction:row;align-items:center;justify-content:space-between;padding:16px 20px;border-right:none;border-bottom:1px solid var(--border);}
+    .brand{flex-direction:row;align-items:center;gap:12px;} .seal{width:34px;height:34px;} .seal span{font-size:11px;}
+    .rail-nav{display:none;} .rail-bottom{flex-direction:row;align-items:center;gap:14px;}
+    .main{margin-left:0;} .wrap{margin-left:auto;padding:0 22px;max-width:100%;}
+    .page-head{padding:40px 0 20px;} .post-leader{display:none;}
+  }
 </style>
-  </head>
-  <body>
-    <!-- nav-unify -->
-<nav>
-  <a href="index.html" class="nav-logo">Belinda Sun</a>
-  <ul class="nav-links">
-    <li><a href="hello-world-index.html">你好世界</a></li>
-    <li><a href="hello-human-index.html">你好人类</a></li>
-    <li><span class="nav-soon">你好宇宙 · soon</span></li>
-    <li><a href="yesterthoughts-index.html">旧时文字</a></li>
-    <li><a href="my-life-index.html" class="nav-current" aria-current="page">人间小记</a></li>
-    <li><a href="tinkerland.html">玩物志</a></li>
-  </ul>
-</nav>
+</head>
+<body>
+  <div class="textsize" role="group" aria-label="字号 / text size">
+    <button title="小 · small" onclick="setSize('s')">A</button>
+    <button title="中 · medium" onclick="setSize('m')">A</button>
+    <button title="大 · large" onclick="setSize('l')">A</button>
+  </div>
+  <aside class="rail">
+    <div class="rail-top">
+      <a href="index.html" class="brand" title="太阳，也是我的姓 · Sun — also my surname">
+        <span class="seal"><span>SUN</span></span>
+        <span class="brand-name">Belinda Sun</span>
+      </a>
+      <nav class="rail-nav">
+        <a href="hello-world-index.html"><span data-lang="zh">你好世界</span><span data-lang="en">Hello World</span></a>
+        <a href="hello-human-index.html"><span data-lang="zh">你好人类</span><span data-lang="en">Hello Human</span></a>
+        <a href="mass.html" class="rail-mass"><span data-lang="zh">你好宇宙 · MASS</span><span data-lang="en">Hello Universe · MASS</span></a>
+        <span class="rail-sep"></span>
+        <a href="yesterthoughts-index.html"><span data-lang="zh">旧时文字</span><span data-lang="en">Yesterthoughts</span></a>
+        <a href="my-life-index.html" class="rail-on"><span data-lang="zh">人间小记</span><span data-lang="en">My Life</span></a>
+        <a href="tinkerland.html"><span data-lang="zh">玩物志</span><span data-lang="en">Tinkerland</span></a>
+        <a href="https://learning-wiki-site.vercel.app" target="_blank" rel="noopener"><span data-lang="zh">格物志</span><span data-lang="en">Learning Wiki</span></a>
+      </nav>
+    </div>
+    <div class="rail-bottom">
+      <button class="rail-music" id="musicBtn" onclick="toggleMusic()"><span class="mnote">♪</span> <span data-lang="zh">背景音乐</span><span data-lang="en">Music</span></button>
+      <div class="rail-lang">
+        <button id="zhBtn" class="active" onclick="setLang('zh')">中</button>
+        <button id="enBtn" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+  </aside>
+  <audio id="bgm" src="baikal.mp3" loop preload="none"></audio>
 
-    <div class="page-header">
-      <p class="page-label">Column</p>
-      <h1 class="page-title">人间小记 My Life ☕</h1>
-      <p class="page-desc">
-        除了AI, 人生当然还有别的, 比如旅行、电影、音乐，以及生活本身。The life
-        happening in between — travel, food, music, and everything else.
-      </p>
-      <p class="page-desc">
-        有的人生，靠大事记住。有的人生，靠一个又一个普通的早晨。
-        Some lives are remembered through milestones. Some are remembered through mornings.
-      </p>
+  <div class="main"><div class="wrap">
+    <section class="page-head">
+      <p class="page-kicker"><span data-lang="zh">AI 之外</span><span data-lang="en">Beyond AI</span></p>
+      <h1 class="page-headline"><span data-lang="zh">人间小记</span><span data-lang="en">My Life</span></h1>
+      <p class="page-desc"><span data-lang="zh">AI 之外的日子：旅行、电影、音乐，以及生活本身。</span><span data-lang="en">The days outside AI — travel, film, music, and life itself.</span></p>
       <div class="page-divider"></div>
-    </div>
-    <div class="post-list">
-
-
-
-      <!-- 02 文章 最近一篇-->
-      <div class="post-item">
-        <span class="post-num">02</span>
-        <div style="flex: 1">
-          <div class="post-title"><a href="my-life-2.html">被 AI 解锁的人生｜A Life Unlocked by AI</a></div>
-        </div>
-        <div class="post-meta">
-          <a href="my-life-2-en.html" class="post-lang">EN</a>
-          <span class="post-date">August 10th, 2026</span>
-        </div>
-      </div>
-
-      <!-- 01 文章 -->
-      <div class="post-item">
-        <span class="post-num">01</span>
-        <div style="flex: 1">
-          <div class="post-title"><a href="my-life-1.html">一天开始的地方｜Where The Day Begins</a></div>
-        </div>
-        <div class="post-meta">
-          <a href="my-life-1-en.html" class="post-lang">EN</a>
-          <span class="post-date">June 29th, 2026</span>
-        </div>
-      </div>
-    </div>
-
-    <footer><p>© 2026 Belinda Sun · belindasun.blog</p></footer>
-  </body>
+    </section>
+    <section class="post-list">
+        <div class="post-item"><span class="post-num">02</span>
+          <span class="post-main"><span class="post-title"><span data-lang="zh"><a href="my-life-2.html">被 AI 解锁的人生</a></span><span data-lang="en"><a href="my-life-2-en.html">A Life Unlocked by AI</a></span></span></span>
+          <span class="post-leader"></span><span class="post-date">August 10th, 2026</span></div>
+        <div class="post-item"><span class="post-num">01</span>
+          <span class="post-main"><span class="post-title"><span data-lang="zh"><a href="my-life-1.html">一天开始的地方</a></span><span data-lang="en"><a href="my-life-1-en.html">Where The Day Begins</a></span></span></span>
+          <span class="post-leader"></span><span class="post-date">June 29th, 2026</span></div>
+    </section>
+    <footer>
+      <span class="seal end-seal"><span>SUN</span></span>
+      <p class="colophon"><span data-lang="zh">与 <b>克劳德</b> · <b>贾皮特</b> · <b>DeepSeek</b> 共同撰写</span><span data-lang="en">Written with <b>Claude</b>, <b>GPT</b> &amp; <b>DeepSeek</b></span></p>
+      <p class="end-copy">© 2026 Belinda Sun</p>
+    </footer>
+  </div></div>
+<script>
+  function applyLang(l){document.body.classList.toggle('lang-en',l==='en');document.getElementById('zhBtn').classList.toggle('active',l==='zh');document.getElementById('enBtn').classList.toggle('active',l==='en');}
+  function setLang(l){applyLang(l);try{localStorage.setItem('lang',l);}catch(e){}}
+  (function(){var l='zh';try{var s=localStorage.getItem('lang');if(s==='en'||s==='zh')l=s;else if((navigator.language||'').toLowerCase().indexOf('zh')!==0)l='en';}catch(e){}applyLang(l);})();
+  var SIZES={s:0.92,m:1,l:1.12};
+  function setSize(k){if(!SIZES[k])k='m';document.documentElement.style.setProperty('--fs',SIZES[k]);var b=document.querySelectorAll('.textsize button');['s','m','l'].forEach(function(key,i){b[i]&&b[i].classList.toggle('active',key===k);});try{localStorage.setItem('textScale',k);}catch(e){}}
+  (function(){var k='m';try{var s=localStorage.getItem('textScale');if(s&&SIZES[s])k=s;}catch(e){}setSize(k);})();
+  function toggleMusic(){var a=document.getElementById('bgm'),btn=document.getElementById('musicBtn');if(a.paused){a.volume=0.25;a.play().then(function(){btn.classList.add('playing');}).catch(function(){});}else{a.pause();btn.classList.remove('playing');}}
+</script>
+</body>
 </html>
