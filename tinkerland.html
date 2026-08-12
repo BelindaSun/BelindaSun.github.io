@@ -160,6 +160,19 @@ nav { flex-wrap: wrap; row-gap: .5rem; }
     .grid{ padding:0 22px 4rem; }
   }
 </style>
+<style>
+  /* language-aware square cards + one-line hero desc */
+  .page-desc{ max-width:none; }
+  .grid{ align-items:start; }
+  .item-card{ aspect-ratio:1; display:flex; flex-direction:column; align-items:flex-start; gap:.5rem; padding:1.5rem 1.4rem; }
+  .item-icon{ margin:0; }
+  .item-name{ margin:0; }
+  .item-desc{ margin:0; }
+  .item-foot{ display:flex; justify-content:space-between; align-items:baseline; width:100%; margin-top:auto; gap:8px; }
+  .item-story{ font-size:.7rem; color:var(--text-muted); text-decoration:none; white-space:nowrap; }
+  .item-story:hover{ color:var(--gold); }
+  @media (max-width:520px){ .item-card{ aspect-ratio:auto; } }
+</style>
 </head>
 <body>
 <div class="textsize" role="group" aria-label="字号 / text size">
@@ -195,88 +208,83 @@ nav { flex-wrap: wrap; row-gap: .5rem; }
   <audio id="bgm" src="baikal.mp3" loop preload="none"></audio>
 
 <div class="page-header">
-  <p class="page-label">Tinkerland</p>
-  <h1 class="page-title">🔧 Tinkerland</h1>
-  <p class="page-desc">好奇心、无聊感，加上一点点对 AI 的迷恋，慢慢长成了这些小游戏、小工具。<br><br>Little games, tiny experiments. Built for fun — some with AI, some for AI, all made to play with. Come in, look around, stay as long as you like.</p>
+  <p class="page-label"><span data-lang="zh">AI 之余</span><span data-lang="en">Made for fun</span></p>
+  <h1 class="page-title"><span data-lang="zh">🔧 玩物志</span><span data-lang="en">🔧 Tinkerland</span></h1>
+  <p class="page-desc"><span data-lang="zh">好奇心、无聊感，加上一点点对 AI 的迷恋，慢慢长成了这些小游戏、小工具。</span><span data-lang="en">Little games, tiny experiments. Built for fun — some with AI, some for AI, all made to play with. Come in, look around, stay as long as you like.</span></p>
   <div class="page-divider"></div>
 </div>
 
 <div class="grid">
-  <!-- 数独卡片：改用 div + 内部两个链接，解决嵌套问题 -->
-  <div class="item-card sudoku">
+  <div class="item-card">
     <div class="item-icon">🎲</div>
-    <div class="item-name">数独 Sudoku</div>
-    <div class="item-desc">不吵不闹，一个人慢慢上头。<br><br>No login. No ads. Just you and the puzzle.</div>
-    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 0.5rem;">
-      <a href="sudoku.html" class="item-tag" style="text-decoration: none;">Play now</a>
-      <a href="hello-world-5.html" style="font-size: 0.65rem; color: var(--text-muted); text-decoration: none;">→ 背后的故事</a>
+    <div class="item-name"><span data-lang="zh">数独</span><span data-lang="en">Sudoku</span></div>
+    <div class="item-desc"><span data-lang="zh">不吵不闹，一个人慢慢上头。</span><span data-lang="en">No login. No ads. Just you and the puzzle.</span></div>
+    <div class="item-foot">
+      <a href="sudoku.html" class="item-tag"><span data-lang="zh">开始玩</span><span data-lang="en">Play now</span></a>
+      <a href="hello-world-5.html" class="item-story"><span data-lang="zh">→ 背后的故事</span><span data-lang="en">→ The story</span></a>
     </div>
   </div>
 
-
-
-  <a href="gomoku.html" class="item-card gomoku">
+  <div class="item-card">
     <div class="item-icon">⚫️⚪️</div>
-    <div class="item-name">五子棋 Gomoku</div>
-    <div class="item-desc">随时来一局，简单的快乐。<br><br>A quiet little battle of black and white.</div>
-    <span class="item-tag">Play now</span>
-  </a>
+    <div class="item-name"><span data-lang="zh">五子棋</span><span data-lang="en">Gomoku</span></div>
+    <div class="item-desc"><span data-lang="zh">随时来一局，简单的快乐。</span><span data-lang="en">A quiet little battle of black and white.</span></div>
+    <div class="item-foot">
+      <a href="gomoku.html" class="item-tag"><span data-lang="zh">开始玩</span><span data-lang="en">Play now</span></a>
+      <a href="hello-human-4.html" class="item-story"><span data-lang="zh">→ 背后的故事</span><span data-lang="en">→ The story</span></a>
+    </div>
+  </div>
 
-  <a href="2048.html" class="item-card vitaplan">
+  <a href="2048.html" class="item-card">
     <div class="item-icon">🔢</div>
-    <div class="item-name">2048 数字方块</div>
-    <div class="item-desc">听说分数与IQ成正比？不服来战😉<br><br>Heard your score equals your IQ? Prove it right😏.</div>
-    <span class="item-tag">Play now</span>
-  </a> 
+    <div class="item-name"><span data-lang="zh">2048 数字方块</span><span data-lang="en">2048</span></div>
+    <div class="item-desc"><span data-lang="zh">听说分数与IQ成正比？不服来战😉</span><span data-lang="en">Heard your score equals your IQ? Prove it right😏.</span></div>
+    <div class="item-foot"><span class="item-tag"><span data-lang="zh">开始玩</span><span data-lang="en">Play now</span></span></div>
+  </a>
 
-   <a href="tetris.html" class="item-card gomoku">
+  <a href="tetris.html" class="item-card">
     <div class="item-icon">🧱</div>
-    <div class="item-name">俄罗斯方块 Tetris</div>
-    <div class="item-desc">堆整齐不难，别手滑就行。<br><br>Stack 'em neat. Don't slip.</div>
-    <span class="item-tag">Play now</span>
+    <div class="item-name"><span data-lang="zh">俄罗斯方块</span><span data-lang="en">Tetris</span></div>
+    <div class="item-desc"><span data-lang="zh">堆整齐不难，别手滑就行。</span><span data-lang="en">Stack 'em neat. Don't slip.</span></div>
+    <div class="item-foot"><span class="item-tag"><span data-lang="zh">开始玩</span><span data-lang="en">Play now</span></span></div>
   </a>
- 
- 
-  <a href="wordle.html" class="item-card vitaplan">
+
+  <a href="wordle.html" class="item-card">
     <div class="item-icon">🔤</div>
-    <div class="item-name">猜单词 Wordle</div>
-    <div class="item-desc">猜词的乐趣，谁懂：）<br><br>No rush. Just word fun.</div>
-    <span class="item-tag">Play now</span>
+    <div class="item-name"><span data-lang="zh">猜单词</span><span data-lang="en">Wordle</span></div>
+    <div class="item-desc"><span data-lang="zh">猜词的乐趣，谁懂：）</span><span data-lang="en">No rush. Just word fun.</span></div>
+    <div class="item-foot"><span class="item-tag"><span data-lang="zh">开始玩</span><span data-lang="en">Play now</span></span></div>
   </a>
- 
-  <a href="linux-command-trainer.html" class="item-card english">
+
+  <a href="linux-command-trainer.html" class="item-card">
     <div class="item-icon">🐧</div>
-    <div class="item-name">Linux 命令行 Linux CLI</div>
-    <div class="item-desc">别怕终端，它没看起来那么凶。<br><br>Learn commands, break nothing, look smart.</div>
-    <span class="item-tag">Play now</span>
+    <div class="item-name"><span data-lang="zh">Linux 命令行</span><span data-lang="en">Linux CLI</span></div>
+    <div class="item-desc"><span data-lang="zh">别怕终端，它没看起来那么凶。</span><span data-lang="en">Learn commands, break nothing, look smart.</span></div>
+    <div class="item-foot"><span class="item-tag"><span data-lang="zh">开始玩</span><span data-lang="en">Play now</span></span></div>
   </a>
 
-  <a href="english-trainer.html" class="item-card linux">
+  <a href="english-trainer.html" class="item-card">
     <div class="item-icon">📖</div>
-    <div class="item-name">每日英语词汇 Daily English</div>
-    <div class="item-desc">一天几个词，慢慢把世界听懂。<br><br>Tiny words. Bigger worlds.</div>
-    <span class="item-tag">Play now</span>
+    <div class="item-name"><span data-lang="zh">每日英语词汇</span><span data-lang="en">Daily English</span></div>
+    <div class="item-desc"><span data-lang="zh">一天几个词，慢慢把世界听懂。</span><span data-lang="en">Tiny words. Bigger worlds.</span></div>
+    <div class="item-foot"><span class="item-tag"><span data-lang="zh">开始玩</span><span data-lang="en">Play now</span></span></div>
   </a>
 
-
- 
-   <a href="musical-staff.html" class="item-card music">
+  <a href="musical-staff.html" class="item-card">
     <div class="item-icon">🎵</div>
-    <div class="item-name">五线谱 Musical Staff</div>
-    <div class="item-desc">从 Do Re Mi 开始，慢慢看见音乐。<br><br>For people who love music but never learned to read it.</div>
-    <span class="item-tag">Play now</span>
+    <div class="item-name"><span data-lang="zh">五线谱</span><span data-lang="en">Musical Staff</span></div>
+    <div class="item-desc"><span data-lang="zh">从 Do Re Mi 开始，慢慢看见音乐。</span><span data-lang="en">For people who love music but never learned to read it.</span></div>
+    <div class="item-foot"><span class="item-tag"><span data-lang="zh">开始玩</span><span data-lang="en">Play now</span></span></div>
   </a>
- 
 
-  <a href="https://health-os-cyan-two.vercel.app" target="_blank" class="item-card healthos">
+  <a href="https://health-os-cyan-two.vercel.app" class="item-card" target="_blank" rel="noopener">
     <div class="item-icon">🏋️</div>
-    <div class="item-name">你的专属AI健康操作系统 Health OS</div>
-    <div class="item-desc">输入你的信息，AI 同时生成营养、训练、购物清单等7个模块。<br><br>Your personal health system, built by AI in seconds.</div>
-    <span class="item-tag">Try it now</span>
+    <div class="item-name"><span data-lang="zh">你的专属AI健康操作系统</span><span data-lang="en">Health OS</span></div>
+    <div class="item-desc"><span data-lang="zh">输入你的信息，AI 同时生成营养、训练、购物清单等7个模块。</span><span data-lang="en">Your personal health system, built by AI in seconds.</span></div>
+    <div class="item-foot"><span class="item-tag"><span data-lang="zh">去试试</span><span data-lang="en">Try it now</span></span></div>
   </a>
- 
-</div> 
- 
+</div>
+
 <footer><p>© 2026 Belinda Sun · belindasun.github.io</p></footer>
 <script>
   function applyLang(l){document.body.classList.toggle('lang-en',l==='en');document.getElementById('zhBtn').classList.toggle('active',l==='zh');document.getElementById('enBtn').classList.toggle('active',l==='en');}
