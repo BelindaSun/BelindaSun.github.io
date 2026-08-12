@@ -135,6 +135,31 @@ nav { flex-wrap: wrap; row-gap: .5rem; }
   .rail-bottom{ align-items:center; }
   .rail-lang{ justify-content:center; }
 </style>
+<style>
+  /* ===== tinkerland hero -> index-page style + left axis; 9 distinct soft cards ===== */
+  .page-header{ max-width:46rem; margin:0 0 0 max(0px, calc(50vw - var(--rail) - 23rem)); padding:88px 32px 20px; }
+  .page-label{ font-size:.9rem; letter-spacing:.04em; text-transform:none; color:var(--muted); margin-bottom:12px; }
+  .page-title{ font-family:var(--serif); font-weight:700; font-size:clamp(1.35rem,3.2vw,1.85rem); line-height:1.25; color:var(--text); margin-bottom:0; }
+  .page-desc{ font-size:1.02rem; line-height:1.85; color:var(--muted); max-width:34em; }
+  .page-divider{ width:40px; height:1px; background:var(--text); opacity:.5; margin:34px 0 4px; }
+  .grid{ max-width:860px; margin:0 0 0 max(0px, calc(50vw - var(--rail) - 23rem)); padding:0 32px 6rem; }
+
+  /* nine distinct muted tints (all low-saturation) */
+  .grid > .item-card:nth-child(1){ background:#EAF1F8; border-color:#C3D5E6; } /* soft blue */
+  .grid > .item-card:nth-child(2){ background:#F4EBDC; border-color:#E1CBA6; } /* soft sand */
+  .grid > .item-card:nth-child(3){ background:#ECE7F3; border-color:#CDBFE1; } /* soft lavender */
+  .grid > .item-card:nth-child(4){ background:#E6F0E7; border-color:#BDD6BD; } /* soft sage */
+  .grid > .item-card:nth-child(5){ background:#F6E9EC; border-color:#E2C4CB; } /* soft rose */
+  .grid > .item-card:nth-child(6){ background:#E0EDEB; border-color:#B2CFCA; } /* soft teal */
+  .grid > .item-card:nth-child(7){ background:#F4F0DA; border-color:#DED2A2; } /* soft butter */
+  .grid > .item-card:nth-child(8){ background:#EFE6F0; border-color:#D4BFD2; } /* soft mauve */
+  .grid > .item-card:nth-child(9){ background:#E5E9F4; border-color:#BCC5DE; } /* soft periwinkle */
+
+  @media (max-width:900px){
+    .page-header{ padding:40px 22px 14px; }
+    .grid{ padding:0 22px 4rem; }
+  }
+</style>
 </head>
 <body>
 <div class="textsize" role="group" aria-label="字号 / text size">
