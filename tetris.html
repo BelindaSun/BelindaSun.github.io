@@ -128,6 +128,30 @@ body{
 
 .msg{flex-shrink:0;font-size:10px;color:#4A4845;min-height:14px;text-align:center;letter-spacing:.05em;}
 </style>
+<style>
+  /* ===== warm reskin: dark -> warm-light (colors only, gameplay untouched) ===== */
+  body{ background:#FAF6EE; color:#3D2A5C; }
+  .page-nav{ background:#FAF6EE; }
+  .stat{ background:#F3EDE3; border-color:rgba(61,42,92,.16); }
+  .stat .lbl{ color:#7A5FA0; }
+  .stat .val{ color:#3D2A5C; }
+  .board-wrap{ background:#FCFAF5; border-color:rgba(61,42,92,.16); }
+  .side-box{ background:#F3EDE3; border-color:rgba(61,42,92,.16); }
+  .side-box .lbl{ color:#7A5FA0; }
+  .side-btn{ color:#7A5FA0; border-color:rgba(61,42,92,.16); }
+  .side-btn:active{ background:#E8E0D2; }
+  .side-btn.accent{ border-color:#D8B36A; color:#854F0B; }
+  .cbtn{ background:#F3EDE3; border-color:rgba(61,42,92,.16); color:#7A5FA0; }
+  .cbtn:active{ background:#E8E0D2; color:#3D2A5C; }
+  .cbtn.wide{ color:#7A5FA0; }
+  .cbtn.wide:active{ background:#E8E0D2; color:#854F0B; }
+  .overlay{ background:rgba(250,246,238,.92); }
+  .ov-title{ color:#3D2A5C; }
+  .ov-sub{ color:#7A5FA0; }
+  .ov-btn{ border-color:#D8B36A; color:#854F0B; }
+  .ov-btn:active{ background:#EDE6D8; }
+  .msg{ color:#7A5FA0; }
+</style>
 </head>
 <body>
 
@@ -276,10 +300,10 @@ function drawCell(ctx,x,y,color,alpha,cs){
 
 function drawBoard(){
   if(!board)return;
-  bx.fillStyle='#0D0D0D';
+  bx.fillStyle='#FCFAF5';
   bx.fillRect(0,0,bc.width,bc.height);
   // grid
-  bx.strokeStyle='rgba(255,255,255,0.03)';
+  bx.strokeStyle='rgba(61,42,92,0.06)';
   bx.lineWidth=.5;
   for(var r=0;r<=R;r++){bx.beginPath();bx.moveTo(0,r*CS);bx.lineTo(C*CS,r*CS);bx.stroke();}
   for(var c=0;c<=C;c++){bx.beginPath();bx.moveTo(c*CS,0);bx.lineTo(c*CS,R*CS);bx.stroke();}
@@ -294,7 +318,7 @@ function drawBoard(){
 }
 
 function drawNext(){
-  nx.fillStyle='#161616';
+  nx.fillStyle='#F3EDE3';
   nx.fillRect(0,0,nc.width,nc.height);
   if(!nxt)return;
   var s=nxt.shape,cs=10;
