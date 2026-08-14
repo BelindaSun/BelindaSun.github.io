@@ -256,7 +256,7 @@
     <nav class="page-nav">
       <a href="index.html">Belinda Sun</a>
       <div class="nav-right">
-        <a href="tinkerland.html">🔧 Tinkerland</a>
+        <a href="tinkerland.html">🔧 Tinkerland</a><a href="#" class="js-msg" style="margin-left:1.4rem" title="给 Belinda 留个言">✉ 留言</a>
       </div>
     </nav>
 
@@ -3747,5 +3747,20 @@
       refresh();
       bindEvents();
     </script>
-  </body>
+  <script>
+  (function(){
+    var links=document.querySelectorAll('.js-msg'); if(!links.length) return;
+    var addr='sunbelinda1108'+String.fromCharCode(64)+'gmail.com';
+    function build(){
+      var en=document.body.classList.contains('lang-en');
+      var subj=encodeURIComponent(en?'A note for Belinda':'给 Belinda 的留言');
+      var body=encodeURIComponent((en?'(from: ':'（来自：')+location.href+(en?')\n\n':'）\n\n'));
+      var href='mailto:'+addr+'?subject='+subj+'&body='+body;
+      for(var i=0;i<links.length;i++) links[i].href=href;
+    }
+    build();
+    for(var i=0;i<links.length;i++) links[i].addEventListener('click',build);
+  })();
+</script>
+</body>
 </html>

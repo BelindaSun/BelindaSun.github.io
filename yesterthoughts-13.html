@@ -282,6 +282,13 @@ nav { flex-wrap: wrap; row-gap: .5rem; }
   .rail-bottom{ align-items:center; }
   .rail-lang{ justify-content:center; }
 </style>
+<style>
+  /* leave-a-note link in the rail; lift the bottom group up to fill space */
+  .rail-bottom{ margin-bottom: 13vh; gap: 18px; }
+  .rail-msg{ font-family: var(--serif); font-size: 14px; color: var(--muted); text-decoration: none; letter-spacing: .02em; }
+  .rail-msg:hover{ color: var(--gold); }
+  @media (max-width:900px){ .rail-bottom{ margin-bottom:0; } }
+</style>
 </head>
   <body>
     <div class="textsize" role="group" aria-label="字号 / text size">
@@ -312,6 +319,7 @@ nav { flex-wrap: wrap; row-gap: .5rem; }
         <a href="yesterthoughts-13.html" class="rail-lang-link rail-lang-on">中</a>
         <a href="yesterthoughts-13-en.html" class="rail-lang-link">EN</a>
       </div>
+      <a href="#" class="rail-msg js-msg" title="给 Belinda 留个言 · Leave a note"><span data-lang="zh">✉ 留言</span><span data-lang="en">✉ Leave a note</span></a>
     </div>
   </aside>
   <audio id="bgm" src="baikal.mp3" loop preload="none"></audio>
@@ -621,6 +629,21 @@ nav { flex-wrap: wrap; row-gap: .5rem; }
   function setSize(k){if(!SIZES[k])k='m';document.documentElement.style.setProperty('--fs',SIZES[k]);var b=document.querySelectorAll('.textsize button');['s','m','l'].forEach(function(key,i){b[i]&&b[i].classList.toggle('active',key===k);});try{localStorage.setItem('textScale',k);}catch(e){}}
   (function(){var k='m';try{var s=localStorage.getItem('textScale');if(s&&SIZES[s])k=s;}catch(e){}setSize(k);})();
   function toggleMusic(){var a=document.getElementById('bgm'),btn=document.getElementById('musicBtn');if(a.paused){a.volume=0.25;a.play().then(function(){btn.classList.add('playing');}).catch(function(){});}else{a.pause();btn.classList.remove('playing');}}
+</script>
+<script>
+  (function(){
+    var links=document.querySelectorAll('.js-msg'); if(!links.length) return;
+    var addr='sunbelinda1108'+String.fromCharCode(64)+'gmail.com';
+    function build(){
+      var en=document.body.classList.contains('lang-en');
+      var subj=encodeURIComponent(en?'A note for Belinda':'给 Belinda 的留言');
+      var body=encodeURIComponent((en?'(from: ':'（来自：')+location.href+(en?')\n\n':'）\n\n'));
+      var href='mailto:'+addr+'?subject='+subj+'&body='+body;
+      for(var i=0;i<links.length;i++) links[i].href=href;
+    }
+    build();
+    for(var i=0;i<links.length;i++) links[i].addEventListener('click',build);
+  })();
 </script>
 </body>
 </html>
