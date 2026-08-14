@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Couplet font picker — Belinda Sun</title>
+<title>中文对句字体 · Couplet font picker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@700&family=Roboto+Slab:wght@700&family=Arvo:wght@700&family=Bitter:wght@700&family=Alfa+Slab+One&family=Playfair+Display:wght@800&family=Fraunces:wght@900&family=DM+Serif+Display&family=Archivo+Black&family=Spectral:wght@800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,900&family=Noto+Serif+SC:wght@700;900&family=Ma+Shan+Zheng&family=Long+Cang&family=Liu+Jian+Mao+Cao&family=Zhi+Mang+Xing&family=ZCOOL+QingKe+HuangYou&family=ZCOOL+XiaoWei&display=swap&text=相见亦无事别来常思君Quietinmetlgabsc.," rel="stylesheet" />
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
   :root{
@@ -14,79 +14,69 @@
     --gold:#854F0B; --border:rgba(61,42,92,.16);
     --serif:Georgia,"Times New Roman","Songti SC","STSong","Songti TC",serif;
   }
-  body{ background:var(--cream); color:var(--text); font-family:var(--serif); padding:48px 24px 80px; }
+  body{ background:var(--cream); color:var(--text); font-family:var(--serif); padding:44px 24px 80px; }
   .wrap{ max-width:760px; margin:0 auto; }
   h1{ font-size:1.5rem; font-weight:700; margin-bottom:6px; }
   .lead{ color:var(--muted); font-size:.95rem; line-height:1.7; margin-bottom:8px; }
   .lead b{ color:var(--gold); }
-  .opt{ border-top:1px solid var(--border); padding:30px 0 26px; }
-  .tag{ display:flex; align-items:baseline; gap:10px; margin-bottom:16px; }
-  .num{ font-family:var(--serif); font-weight:700; font-size:1.1rem; color:var(--gold); }
-  .name{ font-family:var(--serif); font-size:.82rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
-  .cp{ font-size:clamp(1.7rem, 4.4vw, 2.6rem); line-height:1.3; color:var(--text); text-align:center; }
-  .cp .zh{ display:block; font-family:var(--serif); font-weight:700; font-size:.86em; color:var(--muted); margin-top:12px; }
-  /* the faces */
-  .f-zilla   .cp{ font-family:"Zilla Slab",serif; font-weight:700; }
-  .f-roboto  .cp{ font-family:"Roboto Slab",serif; font-weight:700; }
-  .f-arvo    .cp{ font-family:"Arvo",serif; font-weight:700; }
-  .f-bitter  .cp{ font-family:"Bitter",serif; font-weight:700; }
-  .f-alfa    .cp{ font-family:"Alfa Slab One",serif; font-weight:400; letter-spacing:.01em; }
-  .f-playfair.cp, .f-playfair .cp{ font-family:"Playfair Display",serif; font-weight:800; }
-  .f-fraunces .cp{ font-family:"Fraunces",serif; font-weight:900; }
-  .f-dmserif .cp{ font-family:"DM Serif Display",serif; font-weight:400; }
-  .f-archivo .cp{ font-family:"Archivo Black",sans-serif; font-weight:400; }
-  .f-spectral .cp{ font-family:"Spectral",serif; font-weight:800; }
-  .hint{ text-align:center; font-size:.72rem; color:var(--light); margin-top:14px; letter-spacing:.04em; }
+  .en-ref{ text-align:center; font-family:"Fraunces",Georgia,serif; font-weight:900; font-optical-sizing:auto; font-size:1.5rem; color:var(--light); margin:6px 0 4px; }
+  .opt{ border-top:1px solid var(--border); padding:26px 0 22px; }
+  .tag{ display:flex; align-items:baseline; gap:10px; margin-bottom:12px; }
+  .num{ font-weight:700; font-size:1.1rem; color:var(--gold); }
+  .name{ font-size:.82rem; letter-spacing:.06em; color:var(--muted); }
+  .cp{ font-size:clamp(2.1rem, 6vw, 3.2rem); line-height:1.4; color:var(--text); text-align:center; }
+  .cp span{ display:block; }
+  .f-song900 .cp{ font-family:"Noto Serif SC",serif; font-weight:900; }
+  .f-mashan  .cp{ font-family:"Ma Shan Zheng",cursive; }
+  .f-long    .cp{ font-family:"Long Cang",cursive; }
+  .f-liujian .cp{ font-family:"Liu Jian Mao Cao",cursive; line-height:1.2; }
+  .f-zhimang .cp{ font-family:"Zhi Mang Xing",cursive; }
+  .f-huangyou .cp{ font-family:"ZCOOL QingKe HuangYou",sans-serif; }
+  .f-xiaowei .cp{ font-family:"ZCOOL XiaoWei",serif; }
+  .f-current .cp{ font-family:"Songti SC","STSong",serif; font-weight:700; }
+  .hint{ text-align:center; font-size:.72rem; color:var(--light); margin-top:16px; letter-spacing:.04em; }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>选个字体 · Couplet font picker</h1>
-  <p class="lead">下面是首页英文对句「Quiet in meeting, lingering in absence.」在不同字体下的样子。挑一个你喜欢的，把 <b>编号</b>（或名字）告诉我就行。中文那句不动。</p>
-  <p class="lead">大致分三类：<b>板衬线 1–5</b>（方、稳、有份量）／<b>优雅展示体 6–8</b>（大气、有对比）／<b>重磅冲击 9–10</b>（最粗最抢眼）。</p>
+  <h1>中文对句字体 · 挑一个</h1>
+  <p class="lead">首页中文对句「相见亦无事 · 别来常思君」换个不那么平淡的字体。英文已定为 <b>Fraunces</b>（下面这行给你看配对感）。挑一个把 <b>编号</b> 告诉我即可。</p>
+  <div class="en-ref">Quiet in meeting, lingering in absence.</div>
 
-  <div class="opt f-zilla">
-    <div class="tag"><span class="num">1</span><span class="name">Zilla Slab · 现在这个 / 暖板衬线</span></div>
-    <div class="cp">Quiet in meeting,<br />lingering in absence.<span class="zh">相见亦无事 · 别来常思君</span></div>
+  <div class="opt f-song900">
+    <div class="tag"><span class="num">1</span><span class="name">Noto Serif SC 900 · 庄重大气宋体</span></div>
+    <div class="cp"><span>相见亦无事</span><span>别来常思君</span></div>
   </div>
-  <div class="opt f-roboto">
-    <div class="tag"><span class="num">2</span><span class="name">Roboto Slab · 干净利落板衬线</span></div>
-    <div class="cp">Quiet in meeting,<br />lingering in absence.</div>
+  <div class="opt f-mashan">
+    <div class="tag"><span class="num">2</span><span class="name">马善政 · 毛笔楷书</span></div>
+    <div class="cp"><span>相见亦无事</span><span>别来常思君</span></div>
   </div>
-  <div class="opt f-arvo">
-    <div class="tag"><span class="num">3</span><span class="name">Arvo · 几何方板衬线</span></div>
-    <div class="cp">Quiet in meeting,<br />lingering in absence.</div>
+  <div class="opt f-long">
+    <div class="tag"><span class="num">3</span><span class="name">龙藏 · 行楷</span></div>
+    <div class="cp"><span>相见亦无事</span><span>别来常思君</span></div>
   </div>
-  <div class="opt f-bitter">
-    <div class="tag"><span class="num">4</span><span class="name">Bitter · 柔和暖板衬线</span></div>
-    <div class="cp">Quiet in meeting,<br />lingering in absence.</div>
+  <div class="opt f-liujian">
+    <div class="tag"><span class="num">4</span><span class="name">刘建毛草 · 草书（飘逸）</span></div>
+    <div class="cp"><span>相见亦无事</span><span>别来常思君</span></div>
   </div>
-  <div class="opt f-alfa">
-    <div class="tag"><span class="num">5</span><span class="name">Alfa Slab One · 超粗厚板</span></div>
-    <div class="cp">Quiet in meeting,<br />lingering in absence.</div>
+  <div class="opt f-zhimang">
+    <div class="tag"><span class="num">5</span><span class="name">志莽行书 · 手写行书</span></div>
+    <div class="cp"><span>相见亦无事</span><span>别来常思君</span></div>
   </div>
-  <div class="opt f-playfair">
-    <div class="tag"><span class="num">6</span><span class="name">Playfair Display · 优雅高对比</span></div>
-    <div class="cp">Quiet in meeting,<br />lingering in absence.</div>
+  <div class="opt f-huangyou">
+    <div class="tag"><span class="num">6</span><span class="name">站酷庆科黄油 · 圆润粗体</span></div>
+    <div class="cp"><span>相见亦无事</span><span>别来常思君</span></div>
   </div>
-  <div class="opt f-fraunces">
-    <div class="tag"><span class="num">7</span><span class="name">Fraunces · 有个性的展示衬线</span></div>
-    <div class="cp">Quiet in meeting,<br />lingering in absence.</div>
+  <div class="opt f-xiaowei">
+    <div class="tag"><span class="num">7</span><span class="name">站酷小薇 · 文艺细宋</span></div>
+    <div class="cp"><span>相见亦无事</span><span>别来常思君</span></div>
   </div>
-  <div class="opt f-dmserif">
-    <div class="tag"><span class="num">8</span><span class="name">DM Serif Display · 戏剧高对比</span></div>
-    <div class="cp">Quiet in meeting,<br />lingering in absence.</div>
-  </div>
-  <div class="opt f-spectral">
-    <div class="tag"><span class="num">9</span><span class="name">Spectral · 精致粗衬线</span></div>
-    <div class="cp">Quiet in meeting,<br />lingering in absence.</div>
-  </div>
-  <div class="opt f-archivo">
-    <div class="tag"><span class="num">10</span><span class="name">Archivo Black · 重磅方正无衬线</span></div>
-    <div class="cp">Quiet in meeting,<br />lingering in absence.</div>
+  <div class="opt f-current">
+    <div class="tag"><span class="num">0</span><span class="name">现在这个 · 系统宋体（对照）</span></div>
+    <div class="cp"><span>相见亦无事</span><span>别来常思君</span></div>
   </div>
 
-  <p class="hint">选好了告诉我编号即可 · 选完我会删掉这个预览页</p>
+  <p class="hint">选好告诉我编号即可 · 选完我会删掉这个预览页</p>
 </div>
 </body>
 </html>
