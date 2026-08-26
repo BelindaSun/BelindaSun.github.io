@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>此部分暂不公开 — Belinda Sun</title>
+    <!-- meta-unify -->
+    <meta name="author" content="Belinda Sun" />
+    <meta name="description" content="出于版权或在建等原因，此部分暂不对外公开。" />
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href="https://belindasun.github.io/locked.html" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="favicon-16.png" sizes="16x16" type="image/png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <meta property="og:site_name" content="Belinda Sun" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:title" content="此部分暂不公开 — Belinda Sun" />
+    <meta property="og:description" content="出于版权或在建等原因，此部分暂不对外公开。" />
+    <meta property="og:url" content="https://belindasun.github.io/locked.html" />
+    <meta property="og:image" content="https://belindasun.github.io/og-default.png" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root{
+    --cream:#FAF6EE; --warm:#F5F0E8;
+    --text:#3D2A5C; --text-muted:#7A5FA0; --text-light:#B09CC8;
+    --muted:#7A5FA0; --light:#B09CC8;
+    --accent:#854F0B; --gold:#854F0B; --accent-light:#EDE6F5;
+    --border:rgba(61,42,92,.16); --faint:rgba(61,42,92,.34);
+    --serif:Georgia,"Times New Roman","Songti SC","STSong","Songti TC",serif;
+    --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --rail:238px;
+  }
+  html{ font-size:calc(18px * var(--fs,1)); }
+  body{ background:var(--cream); color:var(--text); font-family:var(--serif); min-height:100vh; padding-left:var(--rail); }
+  a:hover{ color:var(--gold); }
+  [data-lang="en"]{display:none;} body.lang-en [data-lang="zh"]{display:none;} body.lang-en [data-lang="en"]{display:revert;}
+
+  /* ===== rail (shared with site) ===== */
+  .seal{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border:1.5px solid var(--text);border-radius:50%;flex:none;}
+  .seal span{font-family:var(--serif);font-weight:700;font-size:15px;letter-spacing:.03em;color:var(--gold);}
+  .rail{position:fixed;left:0;top:0;bottom:0;width:var(--rail);padding:44px 30px;display:flex;flex-direction:column;justify-content:space-between;border-right:1px solid var(--border);background:var(--cream);z-index:50;align-items:center;}
+  .rail-top{display:flex;flex-direction:column;align-items:center;}
+  .rail .brand{display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center;text-decoration:none;}
+  .brand-name{font-family:var(--serif);font-weight:700;font-size:19px;letter-spacing:.02em;white-space:nowrap;color:var(--text);}
+  .rail-nav{display:flex;flex-direction:column;gap:15px;margin:34px 0;align-items:center;text-align:center;}
+  .rail-nav a{font-size:14px;color:var(--muted);letter-spacing:.02em;text-decoration:none;text-align:center;} .rail-nav a:hover{color:var(--text);}
+  .rail-nav a.rail-mass{color:var(--gold);} .rail-nav a.rail-on{color:var(--text);font-weight:700;}
+  .rail-sep{height:1px;width:34px;background:var(--border);margin:6px 0;}
+  .rail-bottom{display:flex;flex-direction:column;gap:16px;align-items:center;margin-bottom:6vh;}
+  .rail-lang{display:flex;gap:8px;justify-content:center;}
+  .rail-lang button{font-family:var(--serif);font-size:13px;padding:4px 13px;border:1px solid var(--border);border-radius:20px;cursor:pointer;background:none;color:var(--text);}
+  .rail-lang button.active{background:var(--text);color:var(--cream);border-color:var(--text);}
+  @media (max-width:900px){
+    body{ padding-left:0; }
+    .rail{position:sticky;top:0;bottom:auto;width:100%;height:auto;flex-direction:row;align-items:center;justify-content:space-between;padding:16px 20px;border-right:none;border-bottom:1px solid var(--border);}
+    .rail .brand{flex-direction:row;align-items:center;gap:12px;} .rail .seal{width:34px;height:34px;} .rail .seal span{font-size:11px;}
+    .rail-nav{display:none;} .rail-bottom{flex-direction:row;align-items:center;gap:14px;margin-bottom:0;}
+  }
+
+  /* ===== locked card ===== */
+  .wrap{ min-height:100vh; display:flex; align-items:center; justify-content:center; padding:72px 28px; }
+  @media (max-width:900px){ .wrap{ min-height:auto; padding:56px 22px 72px; } }
+  .card{ width:min(520px,100%); background:#FCFAF5; border:1px solid var(--border); border-radius:18px; padding:44px 40px 38px; text-align:center; box-shadow:0 20px 60px rgba(61,42,92,.08); }
+  @media (max-width:520px){ .card{ padding:36px 26px 32px; } }
+  .l-icon{ font-size:2.6rem; line-height:1; margin-bottom:14px; }
+  .l-lock{ display:inline-flex; align-items:center; gap:7px; font-family:var(--sans); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); background:var(--accent-light); padding:5px 12px; border-radius:20px; margin-bottom:20px; }
+  .l-name{ font-family:var(--serif); font-weight:700; font-size:1.5rem; line-height:1.3; color:var(--text); margin-bottom:10px; }
+  .l-desc{ font-size:.98rem; line-height:1.8; color:var(--muted); margin:0 auto 24px; max-width:34em; }
+  .l-divider{ width:40px; height:1px; background:var(--text); opacity:.4; margin:0 auto 22px; }
+  .l-reason{ font-size:.92rem; line-height:1.85; color:var(--text); background:var(--warm); border-radius:12px; padding:16px 18px; margin-bottom:26px; text-align:left; }
+  .l-reason .r-label{ display:block; font-family:var(--sans); font-size:.7rem; letter-spacing:.06em; text-transform:uppercase; color:var(--text-light); margin-bottom:6px; }
+  .l-back{ display:inline-block; font-size:.9rem; color:var(--muted); text-decoration:none; border:1px solid var(--border); border-radius:22px; padding:9px 20px; }
+  .l-back:hover{ color:var(--gold); border-color:var(--faint); }
+
+  /* ===== author run-notes (collapsible) ===== */
+  .l-notes{ text-align:left; margin:0 0 24px; border:1px solid var(--border); border-radius:12px; overflow:hidden; background:#FCFAF5; }
+  .l-notes summary{ list-style:none; cursor:pointer; padding:12px 16px; font-family:var(--sans); font-size:.8rem; letter-spacing:.02em; color:var(--text-muted); display:flex; align-items:center; gap:8px; user-select:none; }
+  .l-notes summary::-webkit-details-marker{ display:none; }
+  .l-notes summary::after{ content:"▸"; margin-left:auto; transition:transform .15s; color:var(--text-light); }
+  .l-notes[open] summary::after{ transform:rotate(90deg); }
+  .l-notes .nb{ padding:4px 16px 16px; }
+  .l-notes .nb-block{ margin-top:14px; }
+  .l-notes .nb-h{ font-family:var(--sans); font-size:.72rem; letter-spacing:.05em; text-transform:uppercase; color:var(--text-light); margin-bottom:6px; }
+  .l-notes .nb-t{ font-size:.92rem; line-height:1.7; color:var(--text); margin:0 0 6px; }
+  .l-notes pre{ margin:0; background:var(--warm); border-radius:8px; padding:11px 13px; overflow-x:auto; }
+  .l-notes code{ font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.82rem; line-height:1.75; color:var(--text); white-space:pre; }
+</style>
+</head>
+<body>
+  <aside class="rail">
+    <div class="rail-top">
+      <a href="index.html" class="brand" title="太阳，也是我的姓 · Sun — also my surname">
+        <span class="seal"><span>SUN</span></span>
+        <span class="brand-name">Belinda Sun</span>
+      </a>
+      <nav class="rail-nav">
+        <a href="hello-world-index.html"><span data-lang="zh">你好世界</span><span data-lang="en">Hello World</span></a>
+        <a href="hello-human-index.html"><span data-lang="zh">你好人类</span><span data-lang="en">Hello Human</span></a>
+        <a href="mass.html" class="rail-mass"><span data-lang="zh">你好宇宙 · MASS</span><span data-lang="en">Hello Universe · MASS</span></a>
+        <span class="rail-sep"></span>
+        <a href="yesterthoughts-index.html"><span data-lang="zh">旧时文字</span><span data-lang="en">Yesterthoughts</span></a>
+        <a href="my-life-index.html"><span data-lang="zh">人间小记</span><span data-lang="en">My Life</span></a>
+        <a href="tinkerland.html" class="rail-on"><span data-lang="zh">玩物志</span><span data-lang="en">Tinkerland</span></a>
+        <a href="https://learning-wiki-site.vercel.app" target="_blank" rel="noopener"><span data-lang="zh">格物志</span><span data-lang="en">Learning Wiki</span></a>
+      </nav>
+    </div>
+    <div class="rail-bottom">
+      <div class="rail-lang">
+        <button id="zhBtn" class="active" onclick="setLang('zh')">中</button>
+        <button id="enBtn" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="wrap">
+    <div class="card">
+      <div class="l-icon" id="lIcon">🔒</div>
+      <div class="l-lock">
+        <span data-lang="zh">🔒 暂不公开</span><span data-lang="en">🔒 Not public</span>
+      </div>
+      <h1 class="l-name">
+        <span data-lang="zh" id="nameZh">这个小东西</span><span data-lang="en" id="nameEn">This little thing</span>
+      </h1>
+      <p class="l-desc">
+        <span data-lang="zh" id="descZh">一个 Belinda 私下做着玩的小产品。</span><span data-lang="en" id="descEn">A little something Belinda built on the side.</span>
+      </p>
+      <div class="l-divider"></div>
+      <div class="l-reason">
+        <span class="r-label"><span data-lang="zh">为什么玩不了？</span><span data-lang="en">Why can't I use it?</span></span>
+        <span data-lang="zh" id="reasonZh">出于版权原因，这部分只作私人学习用途，暂不对外开放。你能看到它是什么，但没法在这里使用它。</span><span data-lang="en" id="reasonEn">For copyright reasons, this one is kept for private study only and isn't open to the public. You can see what it is, but can't use it here.</span>
+      </div>
+      <details class="l-notes" id="lNotes" hidden>
+        <summary><span data-lang="zh" id="notesTitleZh">怎么在本地跑起来（我的备忘）</span><span data-lang="en" id="notesTitleEn">How I run it locally (my memo)</span></summary>
+        <div class="nb" id="notesBody"></div>
+      </details>
+      <a href="tinkerland.html" class="l-back">
+        <span data-lang="zh">← 回到玩物志</span><span data-lang="en">← Back to Tinkerland</span>
+      </a>
+    </div>
+  </main>
+
+<script>
+  /* ===== product registry: add one entry per locked product ===== */
+  var LOCKED = {
+    'ai2030': {
+      icon: '🧠',
+      nameZh: 'AI2030 · 九个大脑', nameEn: 'AI2030 · 9 Brains',
+      descZh: '九个 AI 研究员在一间屋子里，为 2030 的未来自主辩论——谁开口，由未清偿的争论和张力决定，不是掷骰子。',
+      descEn: 'Nine AI fellows argue their way toward 2030 in one room — who speaks next is driven by unsettled debts and tensions, not dice.',
+      reasonZh: '这是一个要在本地跑起来、还得用我自己的模型 API 的研究原型，没法在网页上直接玩。源码我另外私下存着。',
+      reasonEn: 'It’s a research prototype that runs locally and needs my own model API key, so it can’t run here on the web. The source is kept privately.',
+      notes: {
+        titleZh: '怎么在本地跑起来（我的备忘）', titleEn: 'How I run it locally (my memo)',
+        blocks: [
+          { hZh: '初次运行', hEn: 'First run', code: ['cd ai2030', 'npm install', 'export DEEPSEEK_API_KEY=你的key', 'npm run institute:real'] },
+          { hZh: '之后每次', hEn: 'Every time after', code: ['cd ai2030', 'export DEEPSEEK_API_KEY=你的key', 'npm run institute:real'] },
+          { hZh: '在浏览器打开', hEn: 'Open in browser', code: ['http://localhost:5050/', 'http://localhost:5050/roundtable.html', 'http://localhost:5050/lobby.html', 'http://localhost:5050/index.html'] },
+          { hZh: '注入一个事件（可选）', hEn: 'Inject an event (optional)', code: ['curl -X POST "http://localhost:5050/inject-event?q=<qid>" \\', '  -H "Content-Type: application/json" \\', '  -d \'{"text":"一份新报告...", "source":"world_event"}\''] }
+        ]
+      }
+    },
+    'screenscribe-text': {
+      icon: '📝',
+      nameZh: 'ScreenScribe · 录屏成文', nameEn: 'ScreenScribe · to Text',
+      descZh: '把录屏或音频拖进浏览器，在 Mac 本机转成文字——全程离线，文件不上传。',
+      descEn: 'Drag a screen recording or audio into the browser and turn it into text — all on your Mac, fully offline.',
+      reasonZh: '这是一个跑在我 Mac 本机的小程序（用 Whisper 模型离线转录），没法在网页上直接用。源码我另外私下存着。',
+      reasonEn: 'A little app that runs locally on my Mac (offline Whisper transcription), so it can’t run here on the web. The source is kept privately.',
+      notes: {
+        titleZh: '怎么打开（我的备忘）', titleEn: 'How I open it (my memo)',
+        blocks: [
+          { hZh: '第一次', hEn: 'First time', textZh: '双击 install.command 安装（若 macOS 拦截：按住 Control 点按 → 打开）。', textEn: 'Double-click install.command (if macOS blocks it: Control-click → Open).' },
+          { hZh: '每次使用', hEn: 'Each time', textZh: '双击 start.command，浏览器会自动打开。', textEn: 'Double-click start.command; the browser opens automatically.' },
+          { hZh: '转录', hEn: 'Transcribe', textZh: '拖入录屏或音频 → 选语言和模型 → 点「开始转录」。结果默认存到「文稿 / ScreenScribe Local」。', textEn: 'Drag in a recording → pick language + model → Start. Output saves to Documents / ScreenScribe Local.' }
+        ]
+      }
+    },
+    'screenscribe-audio': {
+      icon: '🎧',
+      nameZh: 'ScreenScribe · 视频转音频', nameEn: 'ScreenScribe · to Audio',
+      descZh: '把视频拖进来，在 Mac 本机提取成音频（MP3 / M4A / WAV）——离线，不上传。',
+      descEn: 'Drop in a video and pull the audio out (MP3 / M4A / WAV) on your Mac — offline, nothing uploaded.',
+      reasonZh: '本地 Mac 应用（本机用 FFmpeg 转码），没法在网页上直接用。源码我另外私下存着。',
+      reasonEn: 'A local Mac app (transcodes with FFmpeg on-device), so it can’t run here on the web. The source is kept privately.',
+      notes: {
+        titleZh: '怎么打开（我的备忘）', titleEn: 'How I open it (my memo)',
+        blocks: [
+          { hZh: '第一次', hEn: 'First time', textZh: '双击 install.command 安装（若 macOS 拦截：按住 Control 点按 → 打开）。', textEn: 'Double-click install.command (if macOS blocks it: Control-click → Open).' },
+          { hZh: '每次使用', hEn: 'Each time', textZh: '双击 start.command，浏览器会自动打开。', textEn: 'Double-click start.command; the browser opens automatically.' },
+          { hZh: '转换', hEn: 'Convert', textZh: '拖入视频 → 选格式（MP3 / M4A / WAV）和音质 → 点「开始逐个转换」。默认存到项目里的「输出音频」文件夹。', textEn: 'Drag in videos → pick format (MP3 / M4A / WAV) + quality → Start. Saves to the project’s 输出音频 folder.' }
+        ]
+      }
+    },
+    'life-organizer': {
+      icon: '🗂️',
+      nameZh: 'Life Organizer · 生活整理师', nameEn: 'Life Organizer',
+      descZh: '扫描你的文件夹，给出一份可预览、可撤销的整理方案——从不自动删除或移动。',
+      descEn: 'Scans your folders and proposes a reversible cleanup plan — never deletes or moves anything on its own.',
+      reasonZh: '一个跑在本机、会扫描我自己文件的桌面 App，既涉及隐私、也没法在网页上运行。源码我另外私下存着。',
+      reasonEn: 'A desktop app that runs locally and scans my own files — both private and impossible to run on the web. The source is kept privately.',
+      notes: {
+        titleZh: '怎么打开（我的备忘）', titleEn: 'How I open it (my memo)',
+        blocks: [
+          { hZh: '直接打开', hEn: 'Just open it', textZh: '双击 outputs 里的「Life Organizer.app」（若 macOS 拦截：按住 Control 点按 → 打开）。', textEn: 'Double-click “Life Organizer.app” in outputs/ (if macOS blocks it: Control-click → Open).' },
+          { hZh: '开发模式（可选，需 Node 20）', hEn: 'Dev mode (optional, needs Node 20)', code: ['cd "Life Organizer 生活整理师"', 'npm install', 'npm run dev'] }
+        ]
+      }
+    },
+    'book-translator': {
+      icon: '📚',
+      nameZh: '电子书翻译', nameEn: 'Book Translator',
+      descZh: '把英文电子书整本翻成中文（EPUB / PDF），可选本地 Ollama 或 DeepSeek。',
+      descEn: 'Translate whole English ebooks into Chinese (EPUB / PDF), via local Ollama or DeepSeek.',
+      reasonZh: '一个跑在本机的桌面小程序（要么用本地大模型，要么用我自己的 DeepSeek Key），没法在网页上直接用。源码我另外私下存着。',
+      reasonEn: 'A desktop app that runs locally (a local LLM, or my own DeepSeek key), so it can’t run here on the web. The source is kept privately.',
+      notes: {
+        titleZh: '怎么打开（我的备忘）', titleEn: 'How I open it (my memo)',
+        blocks: [
+          { hZh: '打开', hEn: 'Open', textZh: '双击桌面上的「电子书翻译.app」。', textEn: 'Double-click “电子书翻译.app” on the Desktop.' },
+          { hZh: '依次选择', hEn: 'It asks you', textZh: '普通文件还是苹果图书导出的文件夹 → 选文件/文件夹 → 选引擎（本地 Ollama 或 DeepSeek）。', textEn: 'Plain file or an Apple Books export folder → pick it → choose engine (local Ollama or DeepSeek).' },
+          { hZh: 'DeepSeek 的 Key', hEn: 'DeepSeek key', textZh: '第一次粘贴 API Key，自动存进 macOS 钥匙串（系统弹「允许访问钥匙串」就点允许）；以后会问「更新 Key / 用已保存的」，不用重输。Key 不会明文存文件。', textEn: 'First time, paste the API key — it’s saved to the macOS Keychain (allow the access prompt); after that it reuses the saved key. Never stored in plaintext.' },
+          { hZh: '结果', hEn: 'Result', textZh: '跑完弹系统通知 + 对话框；完整日志在 /tmp/book_translator_run.log。', textEn: 'When done, a notification + dialog appears; full log at /tmp/book_translator_run.log.' }
+        ]
+      }
+    },
+    'english-handwriting': {
+      icon: '✍️',
+      nameZh: '英文手写练习', nameEn: 'English Handwriting',
+      descZh: '练习英文书写——带笔顺动画、字体选择，iPad 上也能离线用。',
+      descEn: 'Practice English handwriting — animated stroke order, font choices, works offline on iPad.',
+      reasonZh: '一个带数据库的网页应用（要专门的托管才能跑），没法在 GitHub Pages 上直接用。以后可能会真的部署上线。源码我另外私下存着。',
+      reasonEn: 'A web app with its own database (needs proper hosting to run), so it can’t run on GitHub Pages. Might be deployed for real later. The source is kept privately.',
+      notes: {
+        titleZh: '怎么在本地跑起来（我的备忘）', titleEn: 'How I run it locally (my memo)',
+        blocks: [
+          { hZh: '本地开发（需 Node ≥ 22）', hEn: 'Local dev (needs Node ≥ 22)', code: ['cd "English Handwriting"', 'npm install', 'npm run dev'] }
+        ]
+      }
+    },
+    'glass-box-lab': {
+      icon: '🔬',
+      nameZh: '玻璃盒实验室', nameEn: 'Glass-Box Lab',
+      descZh: '把一次 LLM 调用内部拆开给你看——预测、运行、对照、归因，建立准确的 AI 心智模型。',
+      descEn: 'Opens up what happens inside a single LLM call — predict, run, compare, attribute — to build an accurate mental model of AI.',
+      reasonZh: '一个要在本机跑起来、还得用我自己的 DeepSeek Key 的学习实验室（Next.js），没法在 GitHub Pages 上直接用。源码我另外私下存着。',
+      reasonEn: 'A learning lab (Next.js) that runs locally and needs my own DeepSeek key, so it can’t run on GitHub Pages. The source is kept privately.',
+      notes: {
+        titleZh: '怎么在本地跑起来（我的备忘）', titleEn: 'How I run it locally (my memo)',
+        blocks: [
+          { hZh: '本地跑起来（需 Node 18+）', hEn: 'Run locally (needs Node 18+)', code: ['cd glass-box-lab', 'npm install', 'npm run dev'] },
+          { hZh: '配置真实模型', hEn: 'Use a real model', textZh: '在项目根目录建 .env.local（参照 env.example.txt），填 DEEPSEEK_API_KEY=你的key；改完重启 npm run dev。浏览器打开 http://localhost:3000。', textEn: 'Create .env.local in the project root (see env.example.txt), set DEEPSEEK_API_KEY=your-key, restart npm run dev. Open http://localhost:3000.' }
+        ]
+      }
+    },
+    'econ-az': {
+      icon: '🅰️',
+      nameZh: '经济学名词 A–Z', nameEn: 'Economics A–Z',
+      descZh: '从 absolute advantage 到 zero-sum game，一部中英对照的经济学学习词典。',
+      descEn: 'A bilingual economics glossary, from absolute advantage to zero-sum game.',
+      reasonZh: '释义原文版权归 The Economist 所有，仅作私人学习用途，未经授权不便公开。你能看到它是什么，但没法在这里使用它。',
+      reasonEn: 'The definitions are © The Economist and kept for private study only, so it isn’t open to the public. You can see what it is, but can’t use it here.'
+    }
+  };
+
+  (function(){
+    var id = new URLSearchParams(location.search).get('id');
+    var p = id && LOCKED[id];
+    if(!p) return; // no/unknown id -> generic locked page
+    function set(elId, val){ var e=document.getElementById(elId); if(e && val!=null) e.textContent=val; }
+    if(p.icon) document.getElementById('lIcon').textContent = p.icon;
+    set('nameZh', p.nameZh); set('nameEn', p.nameEn);
+    set('descZh', p.descZh); set('descEn', p.descEn);
+    set('reasonZh', p.reasonZh); set('reasonEn', p.reasonEn);
+    var t = document.body.classList.contains('lang-en') ? p.nameEn : p.nameZh;
+    if(t) document.title = t + ' — Belinda Sun';
+
+    if(p.notes && p.notes.blocks && p.notes.blocks.length){
+      set('notesTitleZh', p.notes.titleZh); set('notesTitleEn', p.notes.titleEn);
+      var body = document.getElementById('notesBody');
+      p.notes.blocks.forEach(function(b){
+        var wrap = document.createElement('div'); wrap.className = 'nb-block';
+        var h = document.createElement('div'); h.className = 'nb-h';
+        var sz = document.createElement('span'); sz.setAttribute('data-lang','zh'); sz.textContent = b.hZh || '';
+        var se = document.createElement('span'); se.setAttribute('data-lang','en'); se.textContent = b.hEn || '';
+        h.appendChild(sz); h.appendChild(se);
+        wrap.appendChild(h);
+        if(b.textZh || b.textEn){
+          var pt = document.createElement('p'); pt.className = 'nb-t';
+          var tz = document.createElement('span'); tz.setAttribute('data-lang','zh'); tz.textContent = b.textZh || '';
+          var te = document.createElement('span'); te.setAttribute('data-lang','en'); te.textContent = b.textEn || '';
+          pt.appendChild(tz); pt.appendChild(te); wrap.appendChild(pt);
+        }
+        if(b.code && b.code.length){
+          var pre = document.createElement('pre'); var code = document.createElement('code');
+          code.textContent = b.code.join('\n'); pre.appendChild(code); wrap.appendChild(pre);
+        }
+        body.appendChild(wrap);
+      });
+      document.getElementById('lNotes').hidden = false;
+    }
+  })();
+
+  function applyLang(l){document.body.classList.toggle('lang-en',l==='en');document.getElementById('zhBtn').classList.toggle('active',l==='zh');document.getElementById('enBtn').classList.toggle('active',l==='en');}
+  function setLang(l){applyLang(l);try{localStorage.setItem('lang',l);}catch(e){}}
+  (function(){var l='zh';try{var s=localStorage.getItem('lang');if(s==='en'||s==='zh')l=s;else if((navigator.language||'').toLowerCase().indexOf('zh')!==0)l='en';}catch(e){}applyLang(l);})();
+</script>
+</body>
+</html>

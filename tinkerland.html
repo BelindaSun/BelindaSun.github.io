@@ -180,6 +180,13 @@ nav { flex-wrap: wrap; row-gap: .5rem; }
   .rail-msg:hover{ color: var(--gold); }
   @media (max-width:900px){ .rail-bottom{ margin-bottom:0; } }
 </style>
+<style>
+  /* locked / private cards — visible on the shelf, but not playable */
+  .grid > .item-card.locked{ background:#EEEBE4; border-color:#D8D2C7; }
+  .item-card.locked .item-name{ display:flex; align-items:center; gap:.35em; }
+  .item-card.locked .item-name::after{ content:"🔒"; font-size:.85em; opacity:.7; }
+  .item-tag.locked{ color:var(--text-muted); background:var(--warm); }
+</style>
 </head>
 <body>
 <div class="textsize" role="group" aria-label="字号 / text size">
@@ -297,6 +304,55 @@ nav { flex-wrap: wrap; row-gap: .5rem; }
     <div class="item-name"><span data-lang="zh">你的专属AI健康操作系统</span><span data-lang="en">Health OS</span></div>
     <div class="item-desc"><span data-lang="zh">输入你的信息，AI 同时生成营养、训练、购物清单等7个模块。</span><span data-lang="en">Your personal health system, built by AI in seconds.</span></div>
     <div class="item-foot"><span class="item-tag"><span data-lang="zh">去试试</span><span data-lang="en">Try it now</span></span></div>
+  </a>
+
+  <a href="locked.html?id=ai2030" class="item-card locked">
+    <div class="item-icon">🧠</div>
+    <div class="item-name"><span data-lang="zh">AI2030 · 九个大脑</span><span data-lang="en">AI2030 · 9 Brains</span></div>
+    <div class="item-desc"><span data-lang="zh">九个 AI 研究员在一间屋子里，为 2030 自主辩论。</span><span data-lang="en">Nine AI fellows debating their way toward 2030, on their own.</span></div>
+    <div class="item-foot"><span class="item-tag locked"><span data-lang="zh">🔒 暂不公开</span><span data-lang="en">🔒 Not public</span></span></div>
+  </a>
+
+  <a href="locked.html?id=screenscribe-text" class="item-card locked">
+    <div class="item-icon">📝</div>
+    <div class="item-name"><span data-lang="zh">录屏成文</span><span data-lang="en">ScreenScribe · Text</span></div>
+    <div class="item-desc"><span data-lang="zh">录屏或音频，在 Mac 本机转成文字，离线不上传。</span><span data-lang="en">Recordings to text, entirely on your Mac — offline.</span></div>
+    <div class="item-foot"><span class="item-tag locked"><span data-lang="zh">🔒 暂不公开</span><span data-lang="en">🔒 Not public</span></span></div>
+  </a>
+
+  <a href="locked.html?id=screenscribe-audio" class="item-card locked">
+    <div class="item-icon">🎧</div>
+    <div class="item-name"><span data-lang="zh">视频转音频</span><span data-lang="en">ScreenScribe · Audio</span></div>
+    <div class="item-desc"><span data-lang="zh">把视频在本机提取成音频（MP3/M4A/WAV），离线不上传。</span><span data-lang="en">Pull audio out of video (MP3/M4A/WAV), locally — offline.</span></div>
+    <div class="item-foot"><span class="item-tag locked"><span data-lang="zh">🔒 暂不公开</span><span data-lang="en">🔒 Not public</span></span></div>
+  </a>
+
+  <a href="locked.html?id=life-organizer" class="item-card locked">
+    <div class="item-icon">🗂️</div>
+    <div class="item-name"><span data-lang="zh">生活整理师</span><span data-lang="en">Life Organizer</span></div>
+    <div class="item-desc"><span data-lang="zh">扫描文件夹，给出可预览、可撤销的整理方案，从不自动删。</span><span data-lang="en">A reversible cleanup plan for your folders — never auto-deletes.</span></div>
+    <div class="item-foot"><span class="item-tag locked"><span data-lang="zh">🔒 暂不公开</span><span data-lang="en">🔒 Not public</span></span></div>
+  </a>
+
+  <a href="locked.html?id=book-translator" class="item-card locked">
+    <div class="item-icon">📚</div>
+    <div class="item-name"><span data-lang="zh">电子书翻译</span><span data-lang="en">Book Translator</span></div>
+    <div class="item-desc"><span data-lang="zh">把英文书整本翻成中文（EPUB/PDF），本地或用大模型。</span><span data-lang="en">Whole English books into Chinese (EPUB/PDF), local or via an LLM.</span></div>
+    <div class="item-foot"><span class="item-tag locked"><span data-lang="zh">🔒 暂不公开</span><span data-lang="en">🔒 Not public</span></span></div>
+  </a>
+
+  <a href="locked.html?id=english-handwriting" class="item-card locked">
+    <div class="item-icon">✍️</div>
+    <div class="item-name"><span data-lang="zh">英文手写练习</span><span data-lang="en">English Handwriting</span></div>
+    <div class="item-desc"><span data-lang="zh">练习英文书写，带笔顺动画，iPad 也能离线用。</span><span data-lang="en">Practice penmanship with animated stroke order — offline on iPad.</span></div>
+    <div class="item-foot"><span class="item-tag locked"><span data-lang="zh">🔒 暂不公开</span><span data-lang="en">🔒 Not public</span></span></div>
+  </a>
+
+  <a href="locked.html?id=glass-box-lab" class="item-card locked">
+    <div class="item-icon">🔬</div>
+    <div class="item-name"><span data-lang="zh">玻璃盒实验室</span><span data-lang="en">Glass-Box Lab</span></div>
+    <div class="item-desc"><span data-lang="zh">把一次 LLM 调用内部拆开给你看，建立准确的 AI 心智模型。</span><span data-lang="en">See inside a single LLM call — build an accurate mental model of AI.</span></div>
+    <div class="item-foot"><span class="item-tag locked"><span data-lang="zh">🔒 暂不公开</span><span data-lang="en">🔒 Not public</span></span></div>
   </a>
 </div>
 
