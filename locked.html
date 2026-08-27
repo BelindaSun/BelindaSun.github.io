@@ -312,10 +312,10 @@
     },
     'stock-why-wiki-site': {
       icon: '📊',
-      nameZh: 'Stock Why · 因果 wiki', nameEn: 'Stock Why · Wiki',
+      nameZh: 'Stock Why 因果 wiki', nameEn: 'Stock Why Wiki',
       descZh: '把每支股票「为什么涨/跌」追到底，连出上下游，攒成一张不断长大的因果 wiki。',
       descEn: 'Traces why each stock moved — its upstream and downstream — into a causal wiki that keeps growing.',
-      gate: { salt: 'JM8e56Asigu5iAzZoElq9Q==', iv: 'LU0nFe2VzO0nQ7Vn', ct: 'jSaEWlEaVblZEQAyL+fBfFZbsKMkDRwc26gYnklQTQT5KJSS5D/caDu60BbWh0E5UurdVoyaWQ=' }
+      gate: { salt: 'IFE/EVefS/eSRcbuc4frVg==', iv: '2F9njsATrGfnHBNi', ct: 'kZ0fRciiXc1TOfmDC+iSnw7qcxE6BdxeBWYplkUSL8E0OzjEm5XXWl8u/gSo6boJbBIJ7bgmvQ==' }
     }
   };
 
@@ -387,15 +387,31 @@
         err=document.getElementById('gateErr'), btn=form.querySelector('button');
     var en=function(){return document.body.classList.contains('lang-en');};
     pw.addEventListener('keydown', function(e){ if(e.key==='Enter'){ e.preventDefault(); if(form.requestSubmit){ form.requestSubmit(); } else { form.dispatchEvent(new Event('submit',{cancelable:true})); } } });
+    // Try the entered text plus dot-tolerant variants (middle dot • · ・ etc. look
+    // alike but are different characters, and copy-paste often swaps them).
+    function candidates(v){
+      var DOTS = /[·•‧∙·᛫・ㆍ･]/g;
+      var set = [v];
+      set.push(v.replace(DOTS, '·'));                                   // normalize any dot → ·
+      set.push(v.replace(/\s*[·•‧∙·᛫・ㆍ･]\s*/g, ' ').replace(/\s+/g,' ').trim()); // drop dot, single space
+      set.push(v.replace(DOTS, '·').replace(/\s+/g,' ').trim());        // normalized + tidy spaces
+      var out=[], seen={};
+      for(var i=0;i<set.length;i++){ if(!seen[set[i]]){ seen[set[i]]=1; out.push(set[i]); } }
+      return out;
+    }
     form.addEventListener('submit', function(e){
       e.preventDefault();
       if(!gate || !gate.ct){ err.textContent = en()?'Gate not set up yet.':'密码门还没配置好。'; return; }
       var val=pw.value||''; if(!val) return;
       btn.disabled=true; err.textContent = en()?'Checking…':'验证中…';
-      gateDecrypt(gate, val).then(function(url){
-        if(/^https?:\/\//.test(url)){ err.textContent = en()?'Opening…':'正在进入…'; location.href=url; }
-        else { throw new Error('bad'); }
-      }).catch(function(){ err.textContent = en()?'Wrong password.':'密码不对。'; btn.disabled=false; pw.select(); });
+      var cands = candidates(val);
+      (function tryNext(i){
+        if(i>=cands.length){ err.textContent = en()?'Wrong password.':'密码不对。'; btn.disabled=false; pw.select(); return; }
+        gateDecrypt(gate, cands[i]).then(function(url){
+          if(/^https?:\/\//.test(url)){ err.textContent = en()?'Opening…':'正在进入…'; location.href=url; }
+          else { tryNext(i+1); }
+        }).catch(function(){ tryNext(i+1); });
+      })(0);
     });
   }
 
