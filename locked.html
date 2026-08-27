@@ -173,8 +173,8 @@
       notes: {
         titleZh: '怎么在本地跑起来（我的备忘）', titleEn: 'How I run it locally (my memo)',
         blocks: [
-          { hZh: '初次运行', hEn: 'First run', code: ['cd ai2030', 'npm install', 'export DEEPSEEK_API_KEY=你的key', 'npm run institute:real'] },
-          { hZh: '之后每次', hEn: 'Every time after', code: ['cd ai2030', 'export DEEPSEEK_API_KEY=你的key', 'npm run institute:real'] },
+          { hZh: '初次运行', hEn: 'First run', code: ['cd ~/Project/ai2030', 'npm install', 'export DEEPSEEK_API_KEY=你的key', 'npm run institute:real'] },
+          { hZh: '之后每次', hEn: 'Every time after', code: ['cd ~/Project/ai2030', 'export DEEPSEEK_API_KEY=你的key', 'npm run institute:real'] },
           { hZh: '在浏览器打开', hEn: 'Open in browser', code: ['http://localhost:5050/', 'http://localhost:5050/roundtable.html', 'http://localhost:5050/lobby.html', 'http://localhost:5050/index.html'] },
           { hZh: '注入一个事件（可选）', hEn: 'Inject an event (optional)', code: ['curl -X POST "http://localhost:5050/inject-event?q=<qid>" \\', '  -H "Content-Type: application/json" \\', '  -d \'{"text":"一份新报告...", "source":"world_event"}\''] }
         ]
@@ -223,7 +223,7 @@
         titleZh: '怎么打开（我的备忘）', titleEn: 'How I open it (my memo)',
         blocks: [
           { hZh: '直接打开', hEn: 'Just open it', textZh: '双击 outputs 里的「Life Organizer.app」（若 macOS 拦截：按住 Control 点按 → 打开）。', textEn: 'Double-click “Life Organizer.app” in outputs/ (if macOS blocks it: Control-click → Open).' },
-          { hZh: '开发模式（可选，需 Node 20）', hEn: 'Dev mode (optional, needs Node 20)', code: ['cd "Life Organizer 生活整理师"', 'npm install', 'npm run dev'] }
+          { hZh: '开发模式（可选，需 Node 20）', hEn: 'Dev mode (optional, needs Node 20)', code: ['cd ~/Project/"Life Organizer 生活整理师"', 'npm install', 'npm run dev'] }
         ]
       }
     },
@@ -254,7 +254,7 @@
       notes: {
         titleZh: '怎么在本地跑起来（我的备忘）', titleEn: 'How I run it locally (my memo)',
         blocks: [
-          { hZh: '本地开发（需 Node ≥ 22）', hEn: 'Local dev (needs Node ≥ 22)', code: ['cd "English Handwriting"', 'npm install', 'npm run dev'] }
+          { hZh: '本地开发（需 Node ≥ 22）', hEn: 'Local dev (needs Node ≥ 22)', code: ['cd ~/Project/"English Handwriting"', 'npm install', 'npm run dev'] }
         ]
       }
     },
@@ -268,7 +268,7 @@
       notes: {
         titleZh: '怎么在本地跑起来（我的备忘）', titleEn: 'How I run it locally (my memo)',
         blocks: [
-          { hZh: '本地跑起来（需 Node 18+）', hEn: 'Run locally (needs Node 18+)', code: ['cd glass-box-lab', 'npm install', 'npm run dev'] },
+          { hZh: '本地跑起来（需 Node 18+）', hEn: 'Run locally (needs Node 18+)', code: ['cd ~/Project/glass-box-lab', 'npm install', 'npm run dev'] },
           { hZh: '配置真实模型', hEn: 'Use a real model', textZh: '在项目根目录建 .env.local（参照 env.example.txt），填 DEEPSEEK_API_KEY=你的key；改完重启 npm run dev。浏览器打开 http://localhost:3000。', textEn: 'Create .env.local in the project root (see env.example.txt), set DEEPSEEK_API_KEY=your-key, restart npm run dev. Open http://localhost:3000.' }
         ]
       }
@@ -319,6 +319,18 @@
     }
   };
 
+  // "Owner mode": the how-to-run memos are hidden from everyone by default.
+  // Visit any locked page once with ?me=1 to remember (in THIS browser) that you're
+  // the owner; ?me=0 forgets it. After that the memos show only for you, here.
+  var ownerMode = (function(){
+    try{
+      var mp = new URLSearchParams(location.search).get('me');
+      if(mp==='1') localStorage.setItem('bsun_me','1');
+      if(mp==='0') localStorage.removeItem('bsun_me');
+      return localStorage.getItem('bsun_me')==='1';
+    }catch(e){ return false; }
+  })();
+
   (function(){
     var id = new URLSearchParams(location.search).get('id');
     var p = id && LOCKED[id];
@@ -340,7 +352,7 @@
       setupGate(p.gate);
     }
 
-    if(p.notes && p.notes.blocks && p.notes.blocks.length){
+    if(ownerMode && p.notes && p.notes.blocks && p.notes.blocks.length){
       set('notesTitleZh', p.notes.titleZh); set('notesTitleEn', p.notes.titleEn);
       var body = document.getElementById('notesBody');
       p.notes.blocks.forEach(function(b){
