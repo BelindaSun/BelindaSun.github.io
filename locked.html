@@ -86,6 +86,17 @@
   .l-notes .nb-t{ font-size:.92rem; line-height:1.7; color:var(--text); margin:0 0 6px; }
   .l-notes pre{ margin:0; background:var(--warm); border-radius:8px; padding:11px 13px; overflow-x:auto; }
   .l-notes code{ font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.82rem; line-height:1.75; color:var(--text); white-space:pre; }
+
+  /* ===== password gate ===== */
+  .l-gate{ text-align:left; margin:0 0 24px; }
+  .l-gate label{ display:block; font-size:.9rem; color:var(--text-muted); margin-bottom:10px; }
+  .l-gate .g-row{ display:flex; gap:8px; }
+  .l-gate input{ flex:1; font-family:inherit; font-size:.95rem; color:var(--text); background:#FCFAF5; border:1px solid var(--border); border-radius:9px; padding:10px 12px; }
+  .l-gate input:focus{ outline:none; border-color:var(--faint); }
+  .l-gate button{ font-family:var(--serif); font-size:.92rem; background:var(--text); color:var(--cream); border:none; border-radius:9px; padding:10px 18px; cursor:pointer; white-space:nowrap; }
+  .l-gate button:hover{ background:var(--gold); }
+  .l-gate button:disabled{ opacity:.5; cursor:default; }
+  .l-gate .g-err{ margin:10px 0 0; font-size:.85rem; color:var(--accent); min-height:18px; }
 </style>
 </head>
 <body>
@@ -131,6 +142,14 @@
         <span class="r-label"><span data-lang="zh">为什么玩不了？</span><span data-lang="en">Why can't I use it?</span></span>
         <span data-lang="zh" id="reasonZh">出于版权原因，这部分只作私人学习用途，暂不对外开放。你能看到它是什么，但没法在这里使用它。</span><span data-lang="en" id="reasonEn">For copyright reasons, this one is kept for private study only and isn't open to the public. You can see what it is, but can't use it here.</span>
       </div>
+      <form class="l-gate" id="lGate" hidden>
+        <label><span data-lang="zh">私密内容，输入密码进入</span><span data-lang="en">Private — enter the password to continue</span></label>
+        <div class="g-row">
+          <input type="password" id="gatePw" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="••••••">
+          <button type="submit"><span data-lang="zh">进入</span><span data-lang="en">Enter</span></button>
+        </div>
+        <p class="g-err" id="gateErr"></p>
+      </form>
       <details class="l-notes" id="lNotes" hidden>
         <summary><span data-lang="zh" id="notesTitleZh">怎么在本地跑起来（我的备忘）</span><span data-lang="en" id="notesTitleEn">How I run it locally (my memo)</span></summary>
         <div class="nb" id="notesBody"></div>
@@ -254,13 +273,48 @@
         ]
       }
     },
-    'econ-az': {
+    'economics-a-z-wiki': {
       icon: '🅰️',
       nameZh: '经济学名词 A–Z', nameEn: 'Economics A–Z',
       descZh: '从 absolute advantage 到 zero-sum game，一部中英对照的经济学学习词典。',
       descEn: 'A bilingual economics glossary, from absolute advantage to zero-sum game.',
-      reasonZh: '释义原文版权归 The Economist 所有，仅作私人学习用途，未经授权不便公开。你能看到它是什么，但没法在这里使用它。',
-      reasonEn: 'The definitions are © The Economist and kept for private study only, so it isn’t open to the public. You can see what it is, but can’t use it here.'
+      reasonZh: '释义原文版权归 The Economist 所有，仅作私人学习用途，未经授权请勿公开转载。你能看到它是什么，但没法在这里使用它。',
+      reasonEn: 'The definitions are © The Economist and kept for private study only — please don’t republish. You can see what it is, but can’t use it here.',
+      notes: {
+        titleZh: '怎么打开（我的备忘）', titleEn: 'How I open it (my memo)',
+        blocks: [
+          { hZh: '本地打开', hEn: 'Open locally', textZh: '在 ~/Project/economics-a-z-wiki 里打开 index.html。若内容加载不出来，就在该目录跑本地服务器再访问。', textEn: 'Open index.html in ~/Project/economics-a-z-wiki. If content won’t load, run a local server in that folder first.' },
+          { hZh: '本地服务器（备用）', hEn: 'Local server (fallback)', code: ['cd ~/Project/economics-a-z-wiki', 'python3 -m http.server 8080', '# 浏览器打开 http://localhost:8080'] }
+        ]
+      }
+    },
+    'learning-notes': {
+      icon: '📔',
+      nameZh: '学习笔记', nameEn: 'Learning Notes',
+      descZh: '我的学习与整理笔记合集（讲座转录 + 手记），慢慢攒起来的私人资料。',
+      descEn: 'My private collection of study notes — lecture transcripts and hand notes, built up over time.',
+      reasonZh: '纯私人笔记，只存在我的移动硬盘里，没有放上网。',
+      reasonEn: 'Purely personal notes — they live only on my external drive and are not online.',
+      notes: {
+        titleZh: '在哪、怎么看（我的备忘）', titleEn: 'Where it is (my memo)',
+        blocks: [
+          { hZh: '打开', hEn: 'Open', textZh: '插上移动硬盘，在硬盘里的学习笔记目录下打开对应的 .txt / .md。', textEn: 'Plug in the external drive and open the .txt / .md files in the learning-notes folder there.' }
+        ]
+      }
+    },
+    'investment-book': {
+      icon: '📓',
+      nameZh: '投资账本', nameEn: 'Investment Book',
+      descZh: '一本私人的长期投资决策账本——记录每个买卖决定背后的思考。是一个模拟盘（simulation），不是我的真实持仓。',
+      descEn: 'A private, long-term ledger of investment decisions and the thinking behind them. It’s a simulation — not my real portfolio.',
+      gate: { salt: 'NyNBJNesGPIDF+UGxGxlTA==', iv: 'SbhUBAGDayzgBvFP', ct: 'w305PlacQzYj2eBNaKV65QmguSnoX3+BPyNqVPvu9xLUa0n2BECPGUmfacGR5RnFCvrpsIoBg1uqtjJ3jrPA' }
+    },
+    'stock-why-wiki-site': {
+      icon: '📊',
+      nameZh: 'Stock Why · 因果 wiki', nameEn: 'Stock Why · Wiki',
+      descZh: '把每支股票「为什么涨/跌」追到底，连出上下游，攒成一张不断长大的因果 wiki。',
+      descEn: 'Traces why each stock moved — its upstream and downstream — into a causal wiki that keeps growing.',
+      gate: { salt: 'bdX0W0tlwCttD+pMXJlFZA==', iv: 'qQtKhI7wpyHRUCEu', ct: 'MDVekMi940qCiSx2Rpgg1PrCQ58C/Ya132ULA3kTI8G808GVa7AyjZoxiWrX5jZqARTzsdOECQ=' }
     }
   };
 
@@ -275,6 +329,15 @@
     set('reasonZh', p.reasonZh); set('reasonEn', p.reasonEn);
     var t = document.body.classList.contains('lang-en') ? p.nameEn : p.nameZh;
     if(t) document.title = t + ' — Belinda Sun';
+
+    if(p.gate){
+      // password-gated: hide the "why" box, swap the badge, show the password form
+      var rb = document.querySelector('.l-reason'); if(rb) rb.style.display='none';
+      var lk = document.querySelector('.l-lock');
+      if(lk) lk.innerHTML = '<span data-lang="zh">🔒 私密 · 需密码</span><span data-lang="en">🔒 Private · password</span>';
+      document.getElementById('lGate').hidden = false;
+      setupGate(p.gate);
+    }
 
     if(p.notes && p.notes.blocks && p.notes.blocks.length){
       set('notesTitleZh', p.notes.titleZh); set('notesTitleEn', p.notes.titleEn);
@@ -301,6 +364,39 @@
       document.getElementById('lNotes').hidden = false;
     }
   })();
+
+  /* ===== password gate: decrypt the destination URL with the entered password =====
+     The URL is AES-GCM encrypted (key = PBKDF2-SHA256, 100k iters) with a password
+     only Belinda knows. Neither the password nor the URL is stored in plaintext here.
+     This is a soft gate for casual visitors, not real security (the sites are public). */
+  function b64ToBytes(b64){ var bin=atob(b64), a=new Uint8Array(bin.length); for(var i=0;i<bin.length;i++)a[i]=bin.charCodeAt(i); return a; }
+  function gateDecrypt(gate, password){
+    var enc=new TextEncoder();
+    return crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveKey'])
+      .then(function(baseKey){
+        return crypto.subtle.deriveKey(
+          {name:'PBKDF2', salt:b64ToBytes(gate.salt), iterations:100000, hash:'SHA-256'},
+          baseKey, {name:'AES-GCM', length:256}, false, ['decrypt']);
+      })
+      .then(function(key){ return crypto.subtle.decrypt({name:'AES-GCM', iv:b64ToBytes(gate.iv)}, key, b64ToBytes(gate.ct)); })
+      .then(function(pt){ return new TextDecoder().decode(pt); });
+  }
+  function setupGate(gate){
+    var form=document.getElementById('lGate'), pw=document.getElementById('gatePw'),
+        err=document.getElementById('gateErr'), btn=form.querySelector('button');
+    var en=function(){return document.body.classList.contains('lang-en');};
+    pw.addEventListener('keydown', function(e){ if(e.key==='Enter'){ e.preventDefault(); if(form.requestSubmit){ form.requestSubmit(); } else { form.dispatchEvent(new Event('submit',{cancelable:true})); } } });
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      if(!gate || !gate.ct){ err.textContent = en()?'Gate not set up yet.':'密码门还没配置好。'; return; }
+      var val=pw.value||''; if(!val) return;
+      btn.disabled=true; err.textContent = en()?'Checking…':'验证中…';
+      gateDecrypt(gate, val).then(function(url){
+        if(/^https?:\/\//.test(url)){ err.textContent = en()?'Opening…':'正在进入…'; location.href=url; }
+        else { throw new Error('bad'); }
+      }).catch(function(){ err.textContent = en()?'Wrong password.':'密码不对。'; btn.disabled=false; pw.select(); });
+    });
+  }
 
   function applyLang(l){document.body.classList.toggle('lang-en',l==='en');document.getElementById('zhBtn').classList.toggle('active',l==='zh');document.getElementById('enBtn').classList.toggle('active',l==='en');}
   function setLang(l){applyLang(l);try{localStorage.setItem('lang',l);}catch(e){}}
