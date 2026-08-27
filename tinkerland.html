@@ -187,6 +187,7 @@ nav { flex-wrap: wrap; row-gap: .5rem; }
   .item-card.locked .item-name{ display:flex; align-items:center; gap:.35em; }
   .item-card.locked .item-name::after{ content:"🔒"; font-size:.85em; opacity:.7; }
   .item-tag.locked{ color:var(--text-muted); background:var(--warm); }
+  .item-card{ scroll-margin-top: 88px; }
 </style>
 </head>
 <body>
@@ -394,6 +395,20 @@ nav { flex-wrap: wrap; row-gap: .5rem; }
   function setSize(k){if(!SIZES[k])k='m';document.documentElement.style.setProperty('--fs',SIZES[k]);var b=document.querySelectorAll('.textsize button');['s','m','l'].forEach(function(key,i){b[i]&&b[i].classList.toggle('active',key===k);});try{localStorage.setItem('textScale',k);}catch(e){}}
   (function(){var k='m';try{var s=localStorage.getItem('textScale');if(s&&SIZES[s])k=s;}catch(e){}setSize(k);})();
   function toggleMusic(){var a=document.getElementById('bgm'),btn=document.getElementById('musicBtn');if(a.paused){a.volume=0.25;a.play().then(function(){btn.classList.add('playing');}).catch(function(){});}else{a.pause();btn.classList.remove('playing');}}
+
+  /* deep-link back: give each locked card an id (card-<product>) from its href,
+     so a locked page's "Back to Tinkerland" can return to the exact card. */
+  (function(){
+    var cards = document.querySelectorAll('a.item-card[href*="locked.html?id="]');
+    for(var i=0;i<cards.length;i++){
+      var m = cards[i].getAttribute('href').match(/[?&]id=([^&]+)/);
+      if(m) cards[i].id = 'card-' + m[1];
+    }
+    if(location.hash.indexOf('#card-') === 0){
+      var el = document.getElementById(location.hash.slice(1));
+      if(el) el.scrollIntoView({block:'center'});
+    }
+  })();
 </script>
 <script>
 /* web3forms leave-a-note modal */
