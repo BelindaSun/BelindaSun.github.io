@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>计划赶不上变化 — Belinda Sun</title>
+    <title>光影水彩 — Belinda Sun</title>
     <!-- meta-unify -->
     <meta name="author" content="Belinda Sun" />
-    <meta name="description" content="计划赶不上变化 · 退休半年，我的日子跟当初的设想差了十万八千里。" />
-    <link rel="canonical" href="https://belindasun.github.io/my-life-4.html" />
+    <meta name="description" content="光影水彩 · 用 AI 把照片变成水彩画，感谢 Kimberly 分享的 prompt。" />
+    <link rel="canonical" href="https://belindasun.github.io/my-life-5.html" />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
     <link rel="icon" href="favicon-16.png" sizes="16x16" type="image/png" />
@@ -15,252 +15,58 @@
     <meta property="og:site_name" content="Belinda Sun" />
     <meta property="og:type" content="article" />
     <meta property="og:locale" content="zh_CN" />
-    <meta property="og:title" content="计划赶不上变化 — Belinda Sun" />
-    <meta property="og:description" content="计划赶不上变化 · 退休半年，我的日子跟当初的设想差了十万八千里。" />
-    <meta property="og:url" content="https://belindasun.github.io/my-life-4.html" />
+    <meta property="og:title" content="光影水彩 — Belinda Sun" />
+    <meta property="og:description" content="光影水彩 · 用 AI 把照片变成水彩画，感谢 Kimberly 分享的 prompt。" />
+    <meta property="og:url" content="https://belindasun.github.io/my-life-5.html" />
     <meta property="og:image" content="https://belindasun.github.io/og-default.png" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="计划赶不上变化 — Belinda Sun" />
-    <meta name="twitter:description" content="计划赶不上变化 · 退休半年，我的日子跟当初的设想差了十万八千里。" />
+    <meta name="twitter:title" content="光影水彩 — Belinda Sun" />
+    <meta name="twitter:description" content="光影水彩 · 用 AI 把照片变成水彩画，感谢 Kimberly 分享的 prompt。" />
     <meta name="twitter:image" content="https://belindasun.github.io/og-default.png" />
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
       :root {
-        --cream: #fdfcfa;
-        --warm: #f5f0e8;
-        --text: #3d2a5c;
-        --text-muted: #7a5fa0;
-        --text-light: #b09cc8;
-        --accent: #854f0b;
-        --accent-light: #faeeda;
+        --cream: #fdfcfa; --warm: #f5f0e8;
+        --text: #3d2a5c; --text-muted: #7a5fa0; --text-light: #b09cc8;
+        --accent: #854f0b; --accent-light: #faeeda;
         --border: rgba(26, 26, 24, 0.12);
         --serif: Georgia, "Times New Roman", serif;
         --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       }
-      body {
-        background: var(--cream);
-        color: var(--text);
-        font-family: var(--sans);
-        min-height: 100vh;
-      }
-      nav {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 1.25rem 3rem;
-        border-bottom: 0.5px solid var(--border);
-        background: var(--cream);
-        position: sticky;
-        top: 0;
-        z-index: 100;
-      }
-      .nav-logo {
-        font-family: var(--serif);
-        font-size: 1.1rem;
-        color: var(--text);
-        text-decoration: none;
-      }
-      .nav-links {
-        display: flex;
-        gap: 2rem;
-        list-style: none;
-      }
-      .nav-links a {
-        font-size: 0.88rem;
-        color: var(--text-muted);
-        text-decoration: none;
-      }
-      .nav-links a:hover {
-        color: var(--text);
-      }
-      article {
-        max-width: 600px;
-        margin: 0 auto;
-        padding: 4rem 2rem 6rem;
-      }
-      .article-meta {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        margin-bottom: 2rem;
-        flex-wrap: wrap;
-      }
-      .article-col {
-        font-size: 0.75rem;
-        color: var(--accent);
-        background: var(--accent-light);
-        padding: 3px 10px;
-        border-radius: 20px;
-        letter-spacing: 0.04em;
-      }
-      .article-date {
-        font-size: 0.8rem;
-        color: var(--text-light);
-      }
-      .lang-switch {
-        margin-left: auto;
-        display: flex;
-        gap: 0.5rem;
-      }
-      .lang-btn {
-        font-size: 0.78rem;
-        padding: 3px 10px;
-        border-radius: 20px;
-        border: 0.5px solid var(--border);
-        background: none;
-        color: var(--text-muted);
-        text-decoration: none;
-      }
-      .lang-btn.active {
-        background: var(--text);
-        color: var(--cream);
-        border-color: var(--text);
-      }
-      .article-title {
-        font-family: var(--serif);
-        font-size: 2rem;
-        font-weight: normal;
-        line-height: 1.4;
-        margin-bottom: 0.4rem;
-        color: var(--text);
-      }
-      .article-subtitle {
-        font-size: 0.9rem;
-        color: var(--text-muted);
-        margin-bottom: 2.5rem;
-        font-style: italic;
-      }
-      .article-divider {
-        width: 40px;
-        height: 0.5px;
-        background: var(--text-light);
-        margin-bottom: 1.5rem;
-      }
-      .tts-bar {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        margin-bottom: 2rem;
-      }
-      .tts-btn {
-        display: flex;
-        align-items: center;
-        gap: 0.4rem;
-        font-size: 0.82rem;
-        color: var(--text-muted);
-        background: var(--warm);
-        border: 0.5px solid var(--border);
-        border-radius: 20px;
-        padding: 5px 14px;
-        cursor: pointer;
-        transition: all 0.2s;
-        font-family: var(--sans);
-      }
-      .tts-btn:hover {
-        border-color: var(--text-muted);
-        color: var(--text);
-      }
-      .tts-btn.playing {
-        background: var(--accent-light);
-        color: var(--accent);
-        border-color: var(--accent);
-      }
-      .tts-status {
-        font-size: 0.78rem;
-        color: var(--text-light);
-      }
-      .article-body {
-        font-family: var(--serif);
-        font-size: 1.05rem;
-        line-height: 2.1;
-        color: var(--text);
-      }
-      .article-body p {
-        margin-bottom: 1.4rem;
-      }
-      .article-body .byline {
-        font-size: 0.9rem;
-        color: var(--text-muted);
-        font-style: italic;
-        margin-bottom: 2rem;
-      }
-      .article-body .dialogue {
-        border-left: 2px solid var(--accent-light);
-        padding-left: 1.25rem;
-        margin: 1.5rem 0;
-        color: var(--text-muted);
-        font-style: italic;
-      }
-      .article-body .dialogue p {
-        margin-bottom: 0.3rem;
-      }
-      .article-body .verse-line {
-        display: block;
-        margin-bottom: 0.2rem;
-      }
-      .article-body .blank-line {
-        display: block;
-        height: 1.2rem;
-      }
-      .article-body .scene-break {
-        display: block;
-        text-align: center;
-        color: var(--text-light);
-        letter-spacing: 0.3em;
-        margin: 0.8rem 0;
-        font-size: 0.85rem;
-      }
-      .article-body blockquote {
-        margin: 1.2rem 0;
-        padding-left: 1.2rem;
-        border-left: 3px solid var(--accent-light);
-        color: var(--text-muted);
-        font-style: italic;
-      }
-      .article-body .epilogue {
-        margin-top: 2.5rem;
-        padding-top: 1.5rem;
-        border-top: 0.5px solid var(--border);
-        font-size: 0.95rem;
-        color: var(--text-muted);
-      }
-      .article-body .epilogue strong {
-        color: var(--text);
-        font-style: normal;
-      }
-      .article-nav {
-        max-width: 600px;
-        margin: 0 auto;
-        padding: 2rem 2rem 4rem;
-        display: flex;
-        justify-content: space-between;
-        border-top: 0.5px solid var(--border);
-      }
-      .article-nav a {
-        font-size: 0.88rem;
-        color: var(--text-muted);
-        text-decoration: none;
-      }
-      .article-nav a:hover {
-        color: var(--text);
-      }
-      .article-nav span {
-        font-size: 0.88rem;
-        color: var(--text-light);
-      }
-      footer {
-        border-top: 0.5px solid var(--border);
-        padding: 1.5rem 3rem;
-        text-align: center;
-      }
-      footer p {
-        font-size: 0.8rem;
-        color: var(--text-light);
-      }
+      body { background: var(--cream); color: var(--text); font-family: var(--sans); min-height: 100vh; }
+      nav { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 3rem; border-bottom: 0.5px solid var(--border); background: var(--cream); position: sticky; top: 0; z-index: 100; }
+      .nav-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--text); text-decoration: none; }
+      .nav-links { display: flex; gap: 2rem; list-style: none; }
+      .nav-links a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; }
+      .nav-links a:hover { color: var(--text); }
+      article { max-width: 600px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+      .article-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; flex-wrap: wrap; }
+      .article-col { font-size: 0.75rem; color: var(--accent); background: var(--accent-light); padding: 3px 10px; border-radius: 20px; letter-spacing: 0.04em; }
+      .article-date { font-size: 0.8rem; color: var(--text-light); }
+      .lang-switch { margin-left: auto; display: flex; gap: 0.5rem; }
+      .lang-btn { font-size: 0.78rem; padding: 3px 10px; border-radius: 20px; border: 0.5px solid var(--border); background: none; color: var(--text-muted); text-decoration: none; }
+      .lang-btn.active { background: var(--text); color: var(--cream); border-color: var(--text); }
+      .article-title { font-family: var(--serif); font-size: 2rem; font-weight: normal; line-height: 1.4; margin-bottom: 0.4rem; color: var(--text); }
+      .article-subtitle { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 2.5rem; font-style: italic; }
+      .article-divider { width: 40px; height: 0.5px; background: var(--text-light); margin-bottom: 1.5rem; }
+      .tts-bar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; }
+      .tts-btn { display: flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; color: var(--text-muted); background: var(--warm); border: 0.5px solid var(--border); border-radius: 20px; padding: 5px 14px; cursor: pointer; transition: all 0.2s; font-family: var(--sans); }
+      .tts-btn:hover { border-color: var(--text-muted); color: var(--text); }
+      .tts-btn.playing { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
+      .tts-status { font-size: 0.78rem; color: var(--text-light); }
+      .article-body { font-family: var(--serif); font-size: 1.05rem; line-height: 2.1; color: var(--text); }
+      .article-body p { margin-bottom: 1.4rem; }
+      .article-body .byline { font-size: 0.9rem; color: var(--text-muted); font-style: italic; margin-bottom: 2rem; }
+      .article-body .dialogue { border-left: 2px solid var(--accent-light); padding-left: 1.25rem; margin: 1.5rem 0; color: var(--text-muted); font-style: italic; }
+      .article-body .dialogue p { margin-bottom: 0.3rem; }
+      .article-body .scene-break { display: block; text-align: center; color: var(--text-light); letter-spacing: 0.3em; margin: 0.8rem 0; font-size: 0.85rem; }
+      .article-body blockquote { margin: 1.2rem 0; padding-left: 1.2rem; border-left: 3px solid var(--accent-light); color: var(--text-muted); font-style: italic; }
+      .article-nav { max-width: 600px; margin: 0 auto; padding: 2rem 2rem 4rem; display: flex; justify-content: space-between; border-top: 0.5px solid var(--border); }
+      .article-nav a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; }
+      .article-nav a:hover { color: var(--text); }
+      .article-nav span { font-size: 0.88rem; color: var(--text-light); }
+      footer { border-top: 0.5px solid var(--border); padding: 1.5rem 3rem; text-align: center; }
+      footer p { font-size: 0.8rem; color: var(--text-light); }
 
 /* nav-unify */
 nav { flex-wrap: wrap; row-gap: .5rem; }
@@ -275,7 +81,6 @@ nav { flex-wrap: wrap; row-gap: .5rem; }
 </style>
 
 <style>
-  /* ===== new-design reskin (overrides the article's own theme) ===== */
   :root {
     --cream:#FAF6EE; --warm:#F5F0E8;
     --text:#3D2A5C; --text-muted:#7A5FA0; --text-light:#B09CC8;
@@ -292,20 +97,18 @@ nav { flex-wrap: wrap; row-gap: .5rem; }
   .article-body figure { margin:1.6rem 0; }
   .article-body figcaption { font-size:.82rem; color:var(--text-light); text-align:center; margin-top:.5rem; font-style:italic; }
   .giscus { max-width: 800px !important; }
-  body > nav { display:none; }  /* safety net: hide any leftover old top nav */
+  body > nav { display:none; }
   a:hover { color:var(--gold); }
 
   [data-lang="en"]{ display:none; }
   body.lang-en [data-lang="zh"]{ display:none; }
   body.lang-en [data-lang="en"]{ display:revert; }
 
-  /* text-size control */
   .textsize{position:fixed;right:16px;bottom:13px;z-index:60;display:flex;align-items:baseline;gap:1px;background:var(--cream);border:1px solid var(--border);border-radius:20px;padding:3px 6px;}
   .textsize button{font-family:var(--serif);background:none;border:none;cursor:pointer;color:var(--muted);line-height:1;padding:3px 8px;border-radius:13px;}
   .textsize button:nth-child(1){font-size:13px;} .textsize button:nth-child(2){font-size:16px;} .textsize button:nth-child(3){font-size:20px;}
   .textsize button.active{color:var(--text);background:var(--warm);}
 
-  /* left rail */
   .seal{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border:1.5px solid var(--text);border-radius:50%;flex:none;}
   .seal span{font-family:var(--serif);font-weight:700;font-size:15px;letter-spacing:.03em;color:var(--gold);}
   .rail{position:fixed;left:0;top:0;bottom:0;width:var(--rail);padding:44px 30px;display:flex;flex-direction:column;justify-content:space-between;border-right:1px solid var(--border);background:var(--cream);z-index:50;}
@@ -330,9 +133,7 @@ nav { flex-wrap: wrap; row-gap: .5rem; }
     .rail-nav{display:none;} .rail-bottom{flex-direction:row;align-items:center;gap:14px;}
   }
 </style>
-
 <style>
-  /* rail: neutralize leftover nav{} bleed + center all content */
   .rail{ align-items:center; }
   .rail .rail-top{ display:flex; flex-direction:column; align-items:center; }
   .rail .brand{ align-items:center; text-align:center; }
@@ -342,7 +143,6 @@ nav { flex-wrap: wrap; row-gap: .5rem; }
   .rail-lang{ justify-content:center; }
 </style>
 <style>
-  /* leave-a-note link in the rail; lift the bottom group up to fill space */
   .rail-bottom{ margin-bottom: 6vh; gap: 18px; }
   .rail-msg{ font-family: var(--serif); font-size: 14px; color: var(--muted); text-decoration: none; letter-spacing: .02em; margin-top: 18px; }
   .rail-msg:hover{ color: var(--gold); }
@@ -375,8 +175,8 @@ nav { flex-wrap: wrap; row-gap: .5rem; }
     <div class="rail-bottom">
       <button class="rail-music" id="musicBtn" onclick="toggleMusic()"><span class="mnote">♪</span> <span data-lang="zh">背景音乐</span><span data-lang="en">Music</span></button>
       <div class="rail-lang">
-        <a href="my-life-4.html" class="rail-lang-link rail-lang-on">中</a>
-        <a href="my-life-4-en.html" class="rail-lang-link">EN</a>
+        <a href="my-life-5.html" class="rail-lang-link rail-lang-on">中</a>
+        <a href="my-life-5-en.html" class="rail-lang-link">EN</a>
       </div>
       <a href="#" class="rail-msg js-msg" title="给 Belinda 留个言 · Leave a note"><span data-lang="zh">✉ 留言</span><span data-lang="en">✉ Leave a note</span></a>
     </div>
@@ -386,71 +186,73 @@ nav { flex-wrap: wrap; row-gap: .5rem; }
     <article>
       <div class="article-meta">
         <span class="article-col">My Life</span>
-        <span class="article-date">2026年9月3日</span>
-  </div>
-      <h1 class="article-title">计划赶不上变化</h1>
+        <span class="article-date">2026年9月1日</span>
+      </div>
+      <h1 class="article-title">光影水彩</h1>
+      <p class="article-subtitle">river lights, walk night; simple days, quiet heart.</p>
       <div class="article-divider"></div>
 
-      <div class="tts-bar">
-        <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()">
-          🔊 朗读
-        </button>
-        <span class="tts-status" id="ttsStatus"></span>
-      </div>
-
       <div class="article-body" id="articleBody">
-        <p>退休前我的计划是读书看剧、学习琴棋书画、周游世界，另外每年在泰国或在国内的某个四季如春的城市比如云南某个地方旅居半年，真正融入当地生活。每天早上睡到自然醒，逛逛他们的早市，随便吃个当地特色早餐，买点新鲜蔬菜瓜果。中午晚上也不自己做饭，就吃当地正宗美食（毕竟我最喜欢泰餐和云南菜）——最好路边摊儿或者小巷里不起眼的小饭馆，无忧无虑地过优哉游哉的小日子，想想都美！</p>
-
-        <p>然而退休半年，看看我的现状吧：</p>
-
-        <p>每天除了跟贾皮特 chat，就是跟克劳德 build，或者指挥 Claude Code 帮我干活，Codex 也时不时被我差遣（唯一不在电脑前的就是出门晒太阳，逛超市买水果，去公园遛弯（图1）和睡前躺床上刷小视频）。我等马斯克的 driverless car 没等来，却等来了 driverless computer："computer use"谁用谁知道，被称为 AI 届的"无人驾驶汽车"真的很贴切，现在它甚至自己在后台干丝毫不影响你干别的（不抢你鼠标键盘了），比如接着聊天、写博客、刷剧等。</p>
+        <p>感谢 Kimberly 分享的 prompt，用 AI 把照片变成水彩画，是不是很好看🤩</p>
 
         <figure>
-          <img src="pic/my-life-4-1.JPG" alt="公园遛弯" width="100%" />
-          <figcaption>图1</figcaption>
+          <img src="pic/my-life-5-1.jpg" alt="夜·河 — 绿色灯光映照的河道" width="100%" />
         </figure>
-
-        <p>今天早上又是十点多才醒，我起来就指挥八个窗口同时干活儿，虽然没啥正经活儿吧，但让克劳德的8个兄弟一起忙活、看着他们互相之间沟通协调、积极主动、认真负责、彬彬有礼的样子，真的太多感慨，那种兴奋和满足感、那种未来已来的感觉，真的无法用言语表达。</p>
-
-        <p>这大半年来基本是每天看着这家公司发布新模型，那家公司加了新功能，又有什么技术突破了瓶颈，你追我赶好不热闹。</p>
-
-        <p>每天看着它们神仙打架、自己指挥 AI 千军万马，感恩又知足！</p>
-
-        <p>看着挺忙的同时管理着八个窗口，其实被克劳德一语道破🤭（如图2）：</p>
-
-        <div class="dialogue">
-          <p>"你其实全程没动手，全是窗口之间自己接力。"</p>
-        </div>
 
         <figure>
-          <img src="pic/my-life-4-2.JPG" alt="克劳德一语道破" width="100%" />
-          <figcaption>图2</figcaption>
+          <img src="pic/my-life-5-2.jpg" alt="夜·柳 — 紫色灯光下的垂柳" width="100%" />
         </figure>
 
-        <p>言外之意：你想干什么动嘴吩咐就行！我们随时待命，指哪儿打哪儿。</p>
+        <figure>
+          <img src="pic/my-life-5-3.jpg" alt="夜·云 — 树影间的高楼与云" width="100%" />
+        </figure>
 
-        <p>其实 Codex 做这些更不在话下，它桌面端的定位本来就是"command center for agents"：可以同时让多个 agent 并行工作，不同任务放在不同 thread/project 里；还支持 worktree，让几个 agent 同时改同一个 repo 的不同分支而保持互不打架。</p>
+        <figure>
+          <img src="pic/my-life-5-4.jpg" alt="夜·河 — 照片与水彩对比" width="100%" />
+          <figcaption>夜·河</figcaption>
+        </figure>
 
-        <p>这么好的 AI，值得拥有！</p>
+        <figure>
+          <img src="pic/my-life-5-5.jpg" alt="夜·云 — 照片与水彩对比" width="100%" />
+          <figcaption>夜·云</figcaption>
+        </figure>
 
-        <p>到2026年的9月，两家头部大模型公司的模型都已经很聪明了，让模型更聪明依然重要但是没以前那么重要了，目前的当务之急，我觉得，是让 token 成本降下来，这样不光现有用户用着更爽，新的用户也会接踵而来。谁能把成本打下来，谁就能赢取更多用户。</p>
+        <figure>
+          <img src="pic/my-life-5-6.jpg" alt="北京 — 照片与水彩对比" width="100%" />
+          <figcaption>Beijing — A City Always Rising</figcaption>
+        </figure>
 
-        <p>非常期待如此智能的 AI 能触达到每一个人，不光是在电脑里、在云端，还在现实生活里，那才是真正的"OpenAI"呢。</p>
+        <figure>
+          <img src="pic/my-life-5-7.jpg" alt="秋日私语 — 照片与水彩对比" width="100%" />
+          <figcaption>秋日私语</figcaption>
+        </figure>
 
-        <p>也期待马斯克说的"全民高收入与物质极大丰富，让工作成为一种选择"那一天的真正到来。</p>
+        <figure>
+          <img src="pic/my-life-5-8.jpg" alt="Pink Lily — 照片与水彩对比" width="100%" />
+          <figcaption>Pink Lily</figcaption>
+        </figure>
 
-        <p>我的退休生活跟我当初的设想差了十万八千里，但是，我不止一次地感概，我是有多幸运，退休赶上了好时候，让我有足够的时间和自由来探索 AI 边界和它们带来的无穷乐趣。</p>
+        <figure>
+          <img src="pic/my-life-5-9.jpg" alt="时光纪念册 — 照片与水彩对比" width="100%" />
+          <figcaption>时光纪念册</figcaption>
+        </figure>
 
-        <p class="byline">Belinda<br />20260903</p>
+        <figure>
+          <img src="pic/my-life-5-10.jpg" alt="碧海夏日 — 照片与水彩对比" width="100%" />
+          <figcaption>碧海夏日</figcaption>
+        </figure>
+
+        <figure>
+          <img src="pic/my-life-5-11.jpg" alt="海·风 — 照片与水彩对比" width="100%" />
+          <figcaption>海·风</figcaption>
+        </figure>
+
+        <p class="byline">Belinda<br />20260901</p>
       </div>
     </article>
 
-    <div
-      class="giscus"
-      style="max-width: 640px; margin: 0 auto; padding: 0 2rem 3rem"
-    ></div>
-    <script
-      src="https://giscus.app/client.js"
+    <div class="giscus" style="max-width: 640px; margin: 0 auto; padding: 0 2rem 3rem"></div>
+    <script src="https://giscus.app/client.js"
       data-repo="BelindaSun/BelindaSun.github.io"
       data-repo-id="R_kgDOSVl7Iw"
       data-category="Announcements"
@@ -463,64 +265,30 @@ nav { flex-wrap: wrap; row-gap: .5rem; }
       data-theme="light"
       data-lang="zh-CN"
       crossorigin="anonymous"
-      async
-    ></script>
+      async></script>
 
     <div class="article-nav">
-      <a href="my-life-3.html">← 上一篇</a>
-      <a href="my-life-5.html">下一篇 →</a>
+      <a href="my-life-4.html">← 上一篇</a>
+      <span>未完待续</span>
     </div>
     <footer><p>© 2026 Belinda Sun · belindasun.github.io</p></footer>
 
     <script>
-      let speaking = false,
-        paused = false;
+      let speaking = false, paused = false;
       const btn = document.getElementById("ttsBtn");
       const status = document.getElementById("ttsStatus");
       function toggleTTS() {
-        if (!speaking) {
-          startTTS();
-        } else if (paused) {
-          window.speechSynthesis.resume();
-          paused = false;
-          btn.textContent = "⏸ 暂停";
-          btn.classList.add("playing");
-          status.textContent = "朗读中…";
-        } else {
-          window.speechSynthesis.pause();
-          paused = true;
-          btn.textContent = "▶ 继续";
-          btn.classList.remove("playing");
-          status.textContent = "已暂停";
-        }
+        if (!speaking) { startTTS(); }
+        else if (paused) { window.speechSynthesis.resume(); paused = false; btn.textContent = "⏸ 暂停"; btn.classList.add("playing"); status.textContent = "朗读中…"; }
+        else { window.speechSynthesis.pause(); paused = true; btn.textContent = "▶ 继续"; btn.classList.remove("playing"); status.textContent = "已暂停"; }
       }
       function startTTS() {
         window.speechSynthesis.cancel();
-        const u = new SpeechSynthesisUtterance(
-          document.getElementById("articleBody").innerText,
-        );
-        u.lang = "zh-CN";
-        u.rate = 0.95;
-        u.onstart = () => {
-          speaking = true;
-          paused = false;
-          btn.textContent = "⏸ 暂停";
-          btn.classList.add("playing");
-          status.textContent = "朗读中…";
-        };
-        u.onend = () => {
-          speaking = false;
-          paused = false;
-          btn.textContent = "🔊 朗读";
-          btn.classList.remove("playing");
-          status.textContent = "";
-        };
-        u.onerror = () => {
-          speaking = false;
-          btn.textContent = "🔊 朗读";
-          btn.classList.remove("playing");
-          status.textContent = "出错了，请重试";
-        };
+        const u = new SpeechSynthesisUtterance(document.getElementById("articleBody").innerText);
+        u.lang = "zh-CN"; u.rate = 0.95;
+        u.onstart = () => { speaking = true; paused = false; btn.textContent = "⏸ 暂停"; btn.classList.add("playing"); status.textContent = "朗读中…"; };
+        u.onend = () => { speaking = false; paused = false; btn.textContent = "🔊 朗读"; btn.classList.remove("playing"); status.textContent = ""; };
+        u.onerror = () => { speaking = false; btn.textContent = "🔊 朗读"; btn.classList.remove("playing"); status.textContent = "出错了，请重试"; };
         window.speechSynthesis.speak(u);
       }
     </script>
