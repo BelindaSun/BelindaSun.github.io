@@ -1,0 +1,20 @@
+{
+  "name": "film",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fontsource/caveat": "^5.3.0",
+    "@fontsource/fraunces": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "@fontsource/lxgw-wenkai": "^5.3.0",
+    "@fontsource/noto-serif-sc": "^5.3.0",
+    "lxgw-wenkai-webfont": "^1.7.0"
+  }
+}
