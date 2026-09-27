@@ -15,7 +15,7 @@ const CAPTIONS = []; // {t0,t1,zh,en}
 const CAMS = [];     // {t, d, box, vbox}
 const MOODS = [], LOOKS = [], HOPS = [], THINKS = [], PENCILS = [], CUES = [], THOUGHTS = [];
 const BOARD = [];    // {zh,en,tA,tTick}
-let FINAL_LOOPS = 69;           // real tool-call count, patched before final render
+let FINAL_LOOPS = 101;          // real tool-call count, patched before final render
 
 function P(name, t, v, ease) { (PARAMS[name] || (PARAMS[name] = [])).push([t, v, ease]); }
 function ramp(name, t0, t1, v0, v1, ease) { P(name, t0, v0); P(name, t1, v1, ease); }
@@ -33,6 +33,7 @@ function pv(name, t, def = 0) {
 }
 function cue(t, type, o = {}) { CUES.push({ t: +t.toFixed(3), type, ...o }); }
 function cap(t0, t1, zh, en, o = {}) { CAPTIONS.push({ t0, t1, zh, en, ...o }); }
+window.__CAPS = CAPTIONS;
 function cam(t, box, d = 1.2, vbox) { CAMS.push({ t, d, box, vbox }); }
 function mood(t, m) { MOODS.push([t, m]); }
 function look(t, v) { LOOKS.push([t, v]); }
@@ -544,6 +545,7 @@ const LOG = [
   ['看', 'LOOK', '标题被黑幕盖住了 → fix'],
   ['看', 'LOOK', '🎂 被切成半个字 → fix'],
   ['看', 'LOOK', '竖屏空了一大块 → fix'],
+  ['看', 'LOOK', 'English 太小太淡 → 中英一样大'],
   ['写', 'WRITE', 'music.py · 小德 = C'],
   ['核', 'CHECK', '0.99¹⁰⁰ = 0.366 ✓'],
   ['渲', 'RENDER', '8,959 帧 × 横竖两版'],
@@ -750,7 +752,7 @@ function drawTheKey(ctx, S) {
   if (kg > 0 && pv('myRoom', S.t)) {
     ctx.globalAlpha = kg;
     ctx.fillStyle = '#F4EAD8'; ctx.textAlign = 'center'; ctx.font = `600 20px ${F.zh}`; ctx.fillText('Belinda 的钥匙', x, y - 92);
-    ctx.fillStyle = '#B7A6D6'; ctx.font = `italic 17px ${F.en}`; ctx.fillText('Belinda’s key', x, y - 70);
+    ctx.fillStyle = '#F4EAD8'; ctx.font = `500 20px ${F.en}`; ctx.fillText('Belinda’s key', x, y - 68);
   }
   ctx.restore();
 }
@@ -761,9 +763,9 @@ function drawRelabel(ctx, S) {
     const k = clamp(S.relabel * 1.5 - i * .1);
     ctx.save(); ctx.translate(G.IX0 + 46 + 54, tb.y); ctx.scale(1, Math.abs(Math.cos(k * Math.PI)) || .02);
     if (k > .5) {
-      ctx.fillStyle = i === 4 ? '#6B1F2A' : '#2F4858'; rr(ctx, -54, -17, 108, 34, 6); ctx.fill();
+      ctx.fillStyle = i === 4 ? '#6B1F2A' : '#2F4858'; rr(ctx, -54, -17, 140, 34, 6); ctx.fill();
       ctx.fillStyle = '#F4EAD8'; ctx.textAlign = 'left'; ctx.font = `700 19px ${F.zh}`; ctx.fillText(labs[i][0], -46, 7);
-      ctx.fillStyle = C.brassHi; ctx.font = `700 12px ${F.mono}`; ctx.fillText(labs[i][1], labs[i][0].length > 1 ? -2 : -18, 5);
+      ctx.fillStyle = '#F4EAD8'; ctx.font = `600 18px ${F.en}`; ctx.fillText(labs[i][1][0] + labs[i][1].slice(1).toLowerCase(), labs[i][0].length > 1 ? 0 : -18, 6);
     }
     ctx.restore();
   });
@@ -852,11 +854,11 @@ function drawCaptions(ctx, t) {
   for (const c of CAPTIONS) {
     const a = win(t, c.t0, c.t1, .35, .35); if (a <= 0) continue;
     ctx.save(); ctx.globalAlpha = a;
-    const zs = VERT ? (c.big ? 66 : 50) : (c.big ? 60 : 46), es = VERT ? (c.big ? 42 : 34) : (c.big ? 36 : 29);
+    const zs = VERT ? (c.big ? 60 : 46) : (c.big ? 54 : 42), es = zs;
     const maxW = VERT ? 990 : 1640;
-    ctx.font = `${c.big ? 700 : 500} ${zs}px ${F.zh}`; const zl = wrap(ctx, c.zh, maxW);
-    ctx.font = `italic 400 ${es}px ${F.en}`; const el = wrap(ctx, c.en, maxW);
-    const blockH = zl.length * zs * 1.3 + 10 + el.length * es * 1.25;
+    ctx.font = `${c.big ? 700 : 500} ${zs}px ${F.zh}`; const zl = wrapBalanced(ctx, c.zh, maxW);
+    ctx.font = `${c.big ? 600 : 500} ${es}px ${F.en}`; const el = wrapBalanced(ctx, c.en, maxW);
+    const blockH = zl.length * zs * 1.3 + 12 + el.length * es * 1.3;
     const baseY = VERT ? 1500 + Math.max(0, (330 - blockH) / 2) : (H - 32 - blockH);
     // soft backing
     const g = ctx.createLinearGradient(0, baseY - 60, 0, baseY + blockH + 40);
@@ -868,9 +870,9 @@ function drawCaptions(ctx, t) {
     ctx.font = `${c.big ? 700 : 500} ${zs}px ${F.zh}`; ctx.fillStyle = '#FAF4EA';
     ctx.shadowColor = 'rgba(0,0,0,.6)'; ctx.shadowBlur = 12;
     for (const l of zl) { y += zs * 1.1; ctx.fillText(l, W / 2, y); y += zs * .2; }
-    y += 10;
-    ctx.font = `italic 400 ${es}px ${F.en}`; ctx.fillStyle = '#D2C3EE';
-    for (const l of el) { y += es * 1.05; ctx.fillText(l, W / 2, y); y += es * .2; }
+    y += 12;
+    ctx.font = `${c.big ? 600 : 500} ${es}px ${F.en}`; ctx.fillStyle = '#FAF4EA';
+    for (const l of el) { y += es * 1.1; ctx.fillText(l, W / 2, y); y += es * .2; }
     ctx.restore();
   }
 }
@@ -883,17 +885,17 @@ function drawTitle(ctx, t) {
   glow(ctx, W / 2, cy - 150, 260, 'rgba(255,214,140,A)', .12 * a);
   ctx.textAlign = 'center';
   ctx.fillStyle = '#FAF4EA'; ctx.font = `700 ${VERT ? 96 : 104}px ${F.zh}`; ctx.fillText('什么是 AI Agent？', W / 2, cy);
-  ctx.fillStyle = '#D2C3EE'; ctx.font = `italic 400 ${VERT ? 54 : 56}px ${F.en}`; ctx.fillText('What Is an AI Agent?', W / 2, cy + 82);
+  ctx.fillStyle = '#FAF4EA'; ctx.font = `600 ${VERT ? 84 : 96}px ${F.en}`; ctx.fillText('What Is an AI Agent?', W / 2, cy + 112);
   // the slot
   const sw = 150 * clamp(a * 1.2);
   ctx.fillStyle = C.brass; rr(ctx, W / 2 - sw / 2 - 14, cy - 250, sw + 28, 40, 8); ctx.fill();
   ctx.fillStyle = '#120D1C'; ctx.fillRect(W / 2 - sw / 2, cy - 236, sw, 12);
   glow(ctx, W / 2, cy - 230, 120, 'rgba(255,220,150,A)', .35 * a);
   ctx.fillStyle = '#B7A6D6'; ctx.font = `400 ${VERT ? 30 : 28}px ${F.zh}`;
-  ctx.fillText('一部关于纸条、管道和一个循环的小电影', W / 2, cy + 170);
-  ctx.font = `italic 400 ${VERT ? 28 : 26}px ${F.en}`; ctx.fillText('a small film about notes, tubes, and a loop', W / 2, cy + 212);
-  ctx.fillStyle = '#8F80AE'; ctx.font = `400 ${VERT ? 24 : 22}px ${F.zh}`; ctx.fillText('小德 · 为 Belinda 而作', W / 2, cy + 290);
-  ctx.font = `italic 400 ${VERT ? 22 : 20}px ${F.en}`; ctx.fillText('by Xiao De, for Belinda', W / 2, cy + 320);
+  ctx.fillText('一部关于纸条、管道和一个循环的小电影', W / 2, cy + 200);
+  ctx.font = `400 ${VERT ? 30 : 28}px ${F.en}`; ctx.fillText('a small film about notes, tubes, and a loop', W / 2, cy + 246);
+  ctx.fillStyle = '#B7A6D6'; ctx.font = `400 ${VERT ? 26 : 24}px ${F.zh}`; ctx.fillText('小德 · 为 Belinda 而作', W / 2, cy + 320);
+  ctx.font = `400 ${VERT ? 26 : 24}px ${F.en}`; ctx.fillText('by Xiao De, for Belinda', W / 2, cy + 356);
   ctx.restore();
 }
 function draw37(ctx, t) {
@@ -919,11 +921,11 @@ function draw37(ctx, t) {
   ctx.textAlign = 'left'; ctx.fillStyle = '#FAF4EA';
   ctx.font = `700 ${VERT ? 64 : 56}px ${F.mono}`; ctx.fillText(pct.toFixed(0) + '%', gx + bw + 24 - (VERT ? bw + 24 - bw + 150 : 0), by + 24);
   ctx.textAlign = 'center';
-  ctx.font = `500 ${VERT ? 40 : 34}px ${F.zh}`; ctx.fillStyle = '#FAF4EA';
+  ctx.font = `500 ${VERT ? 36 : 32}px ${F.zh}`; ctx.fillStyle = '#FAF4EA';
   const l1 = steps < 100 ? `每一步 99% 正确……第 ${steps} 步` : '一百步之后，全部做对的机会：37%';
   const l1e = steps < 100 ? `Each step is 99% right… step ${steps}` : 'After 100 steps, the chance of getting all of them right: 37%';
   ctx.fillText(l1, W / 2, by + (VERT ? 150 : 100));
-  ctx.font = `italic 400 ${VERT ? 30 : 26}px ${F.en}`; ctx.fillStyle = '#D2C3EE'; ctx.fillText(l1e, W / 2, by + (VERT ? 196 : 138));
+  ctx.font = `500 ${VERT ? 36 : 32}px ${F.en}`; ctx.fillStyle = '#FAF4EA'; ctx.fillText(l1e, W / 2, by + (VERT ? 200 : 146));
   ctx.restore();
 }
 function drawEnd(ctx, t) {
@@ -931,12 +933,12 @@ function drawEnd(ctx, t) {
   ctx.save(); ctx.globalAlpha = a; ctx.fillStyle = '#0E0B1E'; ctx.fillRect(0, 0, W, H);
   ctx.textAlign = 'center'; const cy = H / 2 - 110;
   ctx.fillStyle = '#FAF4EA'; ctx.font = `700 ${VERT ? 72 : 70}px ${F.zh}`; ctx.fillText('LLM 会回答。Agent 会行动。', W / 2, cy);
-  ctx.fillStyle = '#D2C3EE'; ctx.font = `italic 400 ${VERT ? 42 : 40}px ${F.en}`; ctx.fillText('An LLM answers. An agent acts.', W / 2, cy + 64);
-  ctx.fillStyle = '#8F80AE'; ctx.font = `400 ${VERT ? 28 : 26}px ${F.zh}`;
-  ctx.fillText('取材自 Belinda 的 Learning Wiki', W / 2, cy + 190);
-  ctx.font = `italic 400 ${VERT ? 24 : 22}px ${F.en}`; ctx.fillText('drawn from Belinda’s Learning Wiki', W / 2, cy + 224);
-  ctx.font = `400 ${VERT ? 28 : 26}px ${F.zh}`; ctx.fillText('画面与音乐：代码逐帧生成 · 小德', W / 2, cy + 290);
-  ctx.font = `italic 400 ${VERT ? 24 : 22}px ${F.en}`; ctx.fillText('picture & music made in code, frame by frame · Xiao De', W / 2, cy + 324);
+  ctx.fillStyle = '#FAF4EA'; ctx.font = `600 ${VERT ? 60 : 66}px ${F.en}`; ctx.fillText('An LLM answers. An agent acts.', W / 2, cy + 84);
+  ctx.fillStyle = '#B7A6D6'; ctx.font = `400 ${VERT ? 28 : 26}px ${F.zh}`;
+  ctx.fillText('取材自 Belinda 的 Learning Wiki', W / 2, cy + 200);
+  ctx.font = `400 ${VERT ? 28 : 26}px ${F.en}`; ctx.fillText('drawn from Belinda’s Learning Wiki', W / 2, cy + 238);
+  ctx.font = `400 ${VERT ? 28 : 26}px ${F.zh}`; ctx.fillText('画面与音乐：代码逐帧生成 · 小德', W / 2, cy + 304);
+  ctx.font = `400 ${VERT ? 28 : 26}px ${F.en}`; ctx.fillText('picture & music made in code, frame by frame · Xiao De', W / 2, cy + 342);
   ctx.restore();
 }
 function drawLogPaper(ctx, t) {
@@ -1011,7 +1013,7 @@ function drawSplit(ctx, t, amt) {
     ctx.save(); ctx.textAlign = 'center';
     ctx.globalAlpha = amt * (1 - dim * .7);
     ctx.fillStyle = '#FAF4EA'; ctx.font = `700 ${VERT ? 64 : 64}px ${F.en}`; ctx.fillText(big, vr.x + vr.w / 2, vr.y + (VERT ? 80 : 90));
-    ctx.fillStyle = '#D2C3EE'; ctx.font = `500 ${VERT ? 30 : 30}px ${F.zh}`; ctx.fillText(small, vr.x + vr.w / 2, vr.y + (VERT ? 124 : 134));
+    ctx.fillStyle = '#FAF4EA'; ctx.font = `500 ${VERT ? 30 : 30}px ${F.zh}`; ctx.fillText(small, vr.x + vr.w / 2, vr.y + (VERT ? 124 : 134));
     ctx.restore();
   });
   // divider
@@ -1059,9 +1061,9 @@ async function init() {
   add('什么是 AI Agent？What Is an AI Agent?一部关于纸条、管道和一个循环的小电影 a small film about notes, tubes, and a loop 小德 · 为 Belinda 而作 by Xiao De, for Belinda');
   add('LLM 会回答。Agent 会行动。An LLM answers. An agent acts. 取材自 Belinda 的 Learning Wiki drawn from Belinda’s Learning Wiki 画面与音乐：代码逐帧生成 · 小德 picture & music made in code, frame by frame · Xiao De');
   add('每一步 99% 正确……第 步 一百步之后，全部做对的机会：37% Each step is 99% right… step After 100 steps, the chance of getting all of them right: 0123456789%');
-  add('眼前 CONTEXT 记忆 MEMORY LOOP · 循环 投信口 the slot ? 应该是 3！ / should be 3! 读写渲染看发布 READ WRITE RENDER LOOK PUBLISH Belinda 的钥匙 Belinda’s key 回答 · answers 行动 · acts 问题？答案。Question? Answer. ~/film/what-is-an-agent — 小德的循环 · my loop 次工具调用 · tool calls ∞');
+  add('Context Memory Loop Clock Search Phone Email Pay Read Write Render Look Publish 眼前 CONTEXT 记忆 MEMORY LOOP · 循环 投信口 the slot ? 应该是 3！ / should be 3! 读写渲染看发布 READ WRITE RENDER LOOK PUBLISH Belinda 的钥匙 Belinda’s key 回答 · answers 行动 · acts 问题？答案。Question? Answer. ~/film/what-is-an-agent — 小德的循环 · my loop 次工具调用 · tool calls ∞');
   const s = [...txt].join('');
-  const fams = [[F.zh, '500'], [F.zh, '700'], [F.en, '400'], [F.en, 'italic 400'], [F.en, '600'], [F.en, '700'], [F.hand, '500'], [F.hand, '700'], [F.kai, '400'], [F.kai, '700'], [F.mono, '400'], [F.mono, '700']];
+  const fams = [[F.zh, '500'], [F.zh, '700'], [F.en, '400'], [F.en, '500'], [F.en, 'italic 400'], [F.en, '600'], [F.en, '700'], [F.hand, '500'], [F.hand, '700'], [F.kai, '400'], [F.kai, '700'], [F.mono, '400'], [F.mono, '700']];
   await Promise.all(fams.map(([f, w]) => document.fonts.load(`${w} 40px ${f}`, s).catch(() => {})));
   await document.fonts.ready;
   render(0);
