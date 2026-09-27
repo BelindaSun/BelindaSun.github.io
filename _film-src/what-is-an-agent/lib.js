@@ -60,6 +60,37 @@ function wrap(ctx, text, maxW) {
   return out;
 }
 
+// like wrap(), but for 2–3 lines: prefer breaking after punctuation, then keep lines even (no orphans)
+function wrapBalanced(ctx, text, maxW) {
+  const base = wrap(ctx, text, maxW);
+  const k0 = base.length;
+  if (k0 < 2 || k0 > 3 || text.includes('\n')) return base;
+  const toks = text.match(/[　-鿿＀-￯][，。、！？；：）」』”’》…—]*\s*|[^\s　-鿿＀-￯]+\s*/g) || [text];
+  const n = toks.length, wd = i => ctx.measureText(i).width;
+  const lineOf = (a, b) => toks.slice(a, b).join('').trim();
+  const good = i => /[，。、！？；：,.;:!?—]\s*$/.test(toks[i - 1]);
+  const pen = maxW * 0.3;
+  const solve = (k, strict) => {
+    let best = null;
+    const tryBreaks = br => {
+      if (strict && !br.every(good)) return;
+      const cuts = [0, ...br, n]; let mx = 0, cost = 0;
+      for (let j = 0; j < cuts.length - 1; j++) { const w = wd(lineOf(cuts[j], cuts[j + 1])); if (w > maxW) return; mx = Math.max(mx, w); }
+      for (const c of br) if (!good(c)) cost += pen;
+      cost += mx;
+      if (!best || cost < best.cost) best = { cost, br, bad: br.filter(c => !good(c)).length };
+    };
+    if (k === 2) for (let i = 1; i < n; i++) tryBreaks([i]);
+    else for (let i = 1; i < n; i++) for (let j = i + 1; j < n; j++) tryBreaks([i, j]);
+    return best;
+  };
+  let best = solve(k0, false);
+  if ((!best || best.bad) && k0 < 3) { const alt = solve(k0 + 1, true); if (alt) best = alt; }
+  if (!best) return base;
+  const cuts = [0, ...best.br, n];
+  return cuts.slice(0, -1).map((c, j) => lineOf(c, cuts[j + 1]));
+}
+
 // text with optional letter-reveal (n = number of chars visible)
 function textReveal(ctx, s, x, y, n) {
   if (n == null || n >= s.length) { ctx.fillText(s, x, y); return; }

@@ -160,7 +160,7 @@ function drawBuilding(ctx, b, S) {
     ctx.globalAlpha = a * la;
     ctx.textAlign = 'center'; ctx.fillStyle = '#F4EAD8';
     ctx.font = `600 22px ${F.zh}`; ctx.fillText(b.zh, (x0 + x1) / 2, G.GROUND + 34);
-    ctx.fillStyle = '#B7A6D6'; ctx.font = `italic 17px ${F.en}`; ctx.fillText(b.en, (x0 + x1) / 2, G.GROUND + 56);
+    ctx.fillStyle = '#F4EAD8'; ctx.font = `500 21px ${F.en}`; ctx.fillText(b.en, (x0 + x1) / 2, G.GROUND + 60);
   }
   ctx.restore();
 }
@@ -221,10 +221,10 @@ function drawTubesInside(ctx, S) {
     ctx.fillStyle = '#2E2440'; ctx.beginPath(); ctx.ellipse(38, 0, 5, 17, 0, 0, 7); ctx.fill();
     ctx.strokeStyle = C.brassHi; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(20, -8); ctx.lineTo(37, -16); ctx.stroke();
     // label plate
-    ctx.fillStyle = '#3D2A5C'; rr(ctx, 46, -17, 108, 34, 6); ctx.fill();
+    ctx.fillStyle = '#3D2A5C'; rr(ctx, 46, -17, 140, 34, 6); ctx.fill();
     ctx.fillStyle = '#F4EAD8'; ctx.textAlign = 'left';
     ctx.font = `700 19px ${F.zh}`; ctx.fillText(tb.zh, 55, 7);
-    ctx.fillStyle = C.brassHi; ctx.font = `700 12px ${F.mono}`; ctx.fillText(tb.en, 100, 5);
+    ctx.fillStyle = '#F4EAD8'; ctx.font = `600 18px ${F.en}`; ctx.fillText(tb.en[0] + tb.en.slice(1).toLowerCase(), 98, 6);
     const gl = (S.tubeGlow && S.tubeGlow[tb.id]) || 0;
     if (gl > 0) glow(ctx, 38, 0, 50, 'rgba(255,230,160,A)', .6 * gl);
     ctx.restore();
@@ -378,9 +378,9 @@ function drawBoard(ctx, S) {
   const r = rng(3); ctx.fillStyle = 'rgba(120,80,40,.25)';
   for (let i = 0; i < 90; i++) { ctx.fillRect(x0 + r() * (x1 - x0), y0 + r() * (y1 - y0), 2, 2); }
   // label
-  ctx.fillStyle = C.purple; rr(ctx, x0 + 8, y0 - 22, 104, 26, 5); ctx.fill();
+  ctx.fillStyle = C.purple; rr(ctx, x0 + 8, y0 - 22, 124, 26, 5); ctx.fill();
   ctx.fillStyle = '#F4EAD8'; ctx.font = `700 15px ${F.zh}`; ctx.textAlign = 'left'; ctx.fillText('眼前', x0 + 16, y0 - 3);
-  ctx.fillStyle = C.brassHi; ctx.font = `700 11px ${F.mono}`; ctx.fillText('CONTEXT', x0 + 52, y0 - 4);
+  ctx.fillStyle = '#F4EAD8'; ctx.font = `600 15px ${F.en}`; ctx.fillText('Context', x0 + 54, y0 - 3);
   // items
   (S.boardItems || []).forEach((it, i) => {
     if (it.a <= 0) return;
@@ -401,7 +401,7 @@ function drawBoard(ctx, S) {
     }
     ctx.fillStyle = C.ink; ctx.textAlign = 'left';
     ctx.font = `700 17px ${F.kai}`; ctx.fillText(it.zh, 29, 26);
-    ctx.fillStyle = '#6A5A86'; ctx.font = `700 17px ${F.hand}`; ctx.fillText(it.en, 29, 46);
+    ctx.fillStyle = C.ink; ctx.font = `700 20px ${F.hand}`; ctx.fillText(it.en, 29, 47);
     ctx.restore();
   });
   ctx.restore();
@@ -428,7 +428,7 @@ function drawCounter(ctx, S) {
   const off = (1 - out3(fl)) * 30;
   ctx.fillText(txt, 18, 9 - off);
   ctx.restore();
-  ctx.fillStyle = C.purple; ctx.font = `700 11px ${F.mono}`; ctx.fillText('LOOP · 循环', 0, 40);
+  ctx.fillStyle = C.purple; ctx.font = `700 14px ${F.zh}`; ctx.fillText('循环 · Loop', 0, 42);
   ctx.restore();
 }
 
@@ -456,7 +456,7 @@ function drawCabinet(ctx, S) {
   // label plate on top
   ctx.fillStyle = C.purple; rr(ctx, x0 + 4, y0 - 30, x1 - x0 - 8, 28, 5); ctx.fill();
   ctx.fillStyle = '#F4EAD8'; ctx.font = `700 16px ${F.zh}`; ctx.textAlign = 'left'; ctx.fillText('记忆', x0 + 12, y0 - 10);
-  ctx.fillStyle = C.brassHi; ctx.font = `700 11px ${F.mono}`; ctx.fillText('MEMORY', x0 + 50, y0 - 11);
+  ctx.fillStyle = '#F4EAD8'; ctx.font = `600 15px ${F.en}`; ctx.fillText('Memory', x0 + 52, y0 - 10);
   ctx.restore();
 }
 
@@ -515,7 +515,7 @@ function drawSlot(ctx, S) {
   if (la > 0) {
     ctx.save(); ctx.globalAlpha = la;
     ctx.fillStyle = '#F4EAD8'; ctx.textAlign = 'left'; ctx.font = `600 18px ${F.zh}`; ctx.fillText('投信口', x + 36, y - 6);
-    ctx.fillStyle = '#B7A6D6'; ctx.font = `italic 15px ${F.en}`; ctx.fillText('the slot', x + 36, y + 14);
+    ctx.fillStyle = '#F4EAD8'; ctx.font = `500 18px ${F.en}`; ctx.fillText('the slot', x + 36, y + 16);
     ctx.restore();
   }
 }
@@ -617,13 +617,13 @@ function noteLayout(ctx, N) {
     for (const r of N.rows) {
       const y0 = h;
       if (r.zh) add(r.zh, `700 ${N.zs || 22}px ${F.kai}`, N.zs || 22, C.ink, (N.zs || 22) * 1.3);
-      if (r.en) add(r.en, `700 ${N.es || 22}px ${F.hand}`, N.es || 22, '#5E4E7A', (N.es || 22) * 1.05);
+      if (r.en) { const e = Math.round((N.es || 22) * 1.15); add(r.en, `700 ${e}px ${F.hand}`, e, C.ink, e * 1.02); }
       r.y0 = y0; r.y1 = h; h += 8;
     }
   } else {
     if (N.zh) add(N.zh, `${N.zw || 700} ${N.zs || 24}px ${N.zf || F.kai}`, N.zs || 24, C.ink, (N.zs || 24) * 1.32);
     if (N.zh && N.en) h += 4;
-    if (N.en) add(N.en, `${N.ew || 700} ${N.es || 25}px ${N.ef || F.hand}`, N.es || 25, N.ec || '#5E4E7A', (N.es || 25) * (N.elh || 1.08));
+    if (N.en) { const e = N.ef ? (N.es || 25) : Math.round((N.es || 25) * 1.15); add(N.en, `${N.ew || 700} ${e}px ${N.ef || F.hand}`, e, N.ec || C.ink, e * (N.elh || 1.04)); }
   }
   h += pad - 4;
   const L = { w, h: Math.max(h + (N.extraH || 0), N.minH || 0), blocks, total: blocks.reduce((s, b) => s + b.lines.join('').length, 0) };
