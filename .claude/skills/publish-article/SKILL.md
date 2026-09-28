@@ -71,15 +71,14 @@ For a large body swap, write the new inner HTML to a scratch file and replace th
 grep -c "<distinctive phrase from previous post body>" <column>-<N>.html <column>-<N>-en.html
 python3 -c "from PIL import Image; print(Image.open('pic/<file>').size)"   # image is valid
 ```
-Also load `file://…/<column>-<N>.html` in the browser and screenshot to confirm layout (the pan photo may show broken in the sandbox preview — that's a preview-only limitation, verify the file+path instead).
+Also load `file://…/<column>-<N>.html` in the browser and screenshot to confirm layout (images can show broken in a sandboxed preview even when correct — if so, verify the file exists at the `src` path instead).
 
 ```bash
 git add <column>-<N>.html <column>-<N>-en.html <column>-<N-1>.html <column>-<N-1>-en.html <column>-index.html index.html pic/<file>
 git commit -m "Add <Column> #N <zh title> / <en title>"
 git push origin main
 ```
-End the commit body with:
-`Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`
+End the commit body with a `Co-Authored-By:` line naming the model you are actually running as.
 
 ## Gotchas
 - Keep giscus `data-lang` as `zh-CN` in the zh file, `en` in the en file (already correct after the copy — don't touch).
