@@ -271,6 +271,22 @@ nav { flex-wrap: wrap; row-gap: .5rem; }
       <a href="hello-world-34.html">← 上一篇</a>
       <span>未完待续</span>
     </div>
+<div class="timeline-nav">
+  <p class="timeline-kicker"><span data-lang="zh">⏳ 按发表时间</span><span data-lang="en">⏳ By publish date</span></p>
+  <div class="timeline-links">
+    <a href="hello-human-36.html">← <span data-lang="zh">你好人类</span><span data-lang="en">Hello Human</span> · <span data-lang="zh">我和我的AI们</span><span data-lang="en">Me and My AIs</span></a>
+    <a href="hello-human-37.html"><span data-lang="zh">你好人类</span><span data-lang="en">Hello Human</span> · <span data-lang="zh">什么是 AI Agent？</span><span data-lang="en">What Is an AI Agent?</span> →</a>
+  </div>
+</div>
+<style>
+.timeline-nav{max-width:800px;margin:-1rem auto 0;padding:0 2rem 4rem;}
+.timeline-kicker{font-size:.72rem;letter-spacing:.14em;color:var(--faint);margin:0 0 .55rem;}
+.timeline-links{display:flex;justify-content:space-between;gap:1.2rem;}
+.timeline-links a{font-size:.85rem;line-height:1.6;color:var(--text-muted);text-decoration:none;}
+.timeline-links a:hover{color:var(--gold);}
+.timeline-none{font-size:.85rem;color:var(--faint);opacity:.55;}
+@media(max-width:900px){.timeline-links{flex-direction:column;gap:.35rem;}}
+</style>
 
     <footer><p>© 2026 Belinda Sun · belindasun.github.io</p></footer>
 

@@ -526,6 +526,22 @@ nav { flex-wrap: wrap; row-gap: .5rem; }
   <a href="hello-human-20-en.html">← Previous</a>
   <a href="hello-human-22-en.html">Next →</a>
 </div>
+<div class="timeline-nav">
+  <p class="timeline-kicker"><span data-lang="zh">⏳ 按发表时间</span><span data-lang="en">⏳ By publish date</span></p>
+  <div class="timeline-links">
+    <a href="hello-human-20-en.html">← <span data-lang="zh">你好人类</span><span data-lang="en">Hello Human</span> · <span data-lang="zh">较真的我，和打比方的他们</span><span data-lang="en">Me, the Stickler; Them, the Storytellers</span></a>
+    <a href="hello-human-22-en.html"><span data-lang="zh">你好人类</span><span data-lang="en">Hello Human</span> · <span data-lang="zh">我的第一条朋友圈</span><span data-lang="en">My First WeChat Moments Post</span> →</a>
+  </div>
+</div>
+<style>
+.timeline-nav{max-width:800px;margin:-1rem auto 0;padding:0 2rem 4rem;}
+.timeline-kicker{font-size:.72rem;letter-spacing:.14em;color:var(--faint);margin:0 0 .55rem;}
+.timeline-links{display:flex;justify-content:space-between;gap:1.2rem;}
+.timeline-links a{font-size:.85rem;line-height:1.6;color:var(--text-muted);text-decoration:none;}
+.timeline-links a:hover{color:var(--gold);}
+.timeline-none{font-size:.85rem;color:var(--faint);opacity:.55;}
+@media(max-width:900px){.timeline-links{flex-direction:column;gap:.35rem;}}
+</style>
 
 <footer><p>© 2026 Belinda Sun · belindasun.github.io</p></footer>
 

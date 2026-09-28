@@ -64,10 +64,11 @@ Written by 小德 (Claude), September 2026.
 
 ### 4. 更新首页 Recent 列表
 
-**index.html** 的 `<!-- RECENT -->` 区域：
+**index.html** 的 `<!-- RECENT -->` 区域：可见区永远只放最新的 **8 条**，第 9 条起全部收在下面的 `<details class="recent-archive">` 折叠区里（页面上只显示一行"展开更早的全部文章"）。
 
-- [ ] 在列表最顶部插入新条目
-- [ ] 删除列表最底部的条目，**始终保持 8 条**
+- [ ] 在可见区最顶部插入新条目
+- [ ] 把原来可见区的第 8 条（现在变成第 9 条）**剪切**到 `<details>` 区块的最顶部（紧随 `<summary>…</summary>` 之后），而不是删掉
+- [ ] 更新 `<summary>` 里的篇数（`85 篇` → `86 篇`，英文同步）
 - [ ] 如果同时发多篇：后发表的排在前面（更靠顶部）
 
 条目格式：
@@ -77,13 +78,39 @@ Written by 小德 (Claude), September 2026.
   <span class="post-leader"></span><span class="post-date"><span data-lang="zh">2026.09.12</span><span data-lang="en">Sep 12, 2026</span></span></div>
 ```
 
-### 5. 提交和推送
+### 5. 更新「按发表时间」导航（timeline-nav）
+
+每篇文章底部除了同栏目的 `article-nav`，还有一个跨栏目的 `timeline-nav`（"⏳ 按发表时间"），按全站发表日期串起上一篇/下一篇。发新文章时：
+
+- [ ] 确定新文章在全站时间线里的邻居：**时间上一篇**（全站发表日期最接近、比它早的一篇）和**时间下一篇**（比它晚的一篇）。同一天发多篇时，后发表的算"晚"
+- [ ] 新文章中文版：`timeline-nav` 里填好这两个邻居（链接指向中文版文件，栏目标签用中文）
+- [ ] 新文章英文版：同样填好（链接指向 `-en.html` 文件，栏目标签用英文）
+- [ ] **时间上一篇**的中文版/英文版：把它 `timeline-nav` 里的"下一篇"改成指向新文章
+- [ ] **时间下一篇**的中文版/英文版：把它 `timeline-nav` 里的"上一篇"改成指向新文章
+- [ ] 如果新文章是全站最新一篇：它的"下一篇"位置填"已是最新一篇 / This is the latest"（见下方模板）；同时**旧的最新一篇**不再是最新，把它的"下一篇"从"已是最新一篇"改成指向新文章
+
+中文版链接行模板（填在 `<div class="timeline-links">` 里）：
+```html
+<a href="邻居文件.html">← <span data-lang="zh">栏目中文</span><span data-lang="en">Column EN</span> · <span data-lang="zh">邻居中文标题</span><span data-lang="en">Neighbor English Title</span></a>
+<a href="邻居文件.html"><span data-lang="zh">栏目中文</span><span data-lang="en">Column EN</span> · <span data-lang="zh">邻居中文标题</span><span data-lang="en">Neighbor English Title</span> →</a>
+```
+英文版同理，只是 `href` 指向 `-en.html` 文件。
+
+"没有邻居"时用（不要留空链）：
+```html
+<span class="timeline-none"><span data-lang="zh">已是最早一篇</span><span data-lang="en">This is the earliest</span></span>
+<span class="timeline-none"><span data-lang="zh">已是最新一篇</span><span data-lang="en">This is the latest</span></span>
+```
+
+### 6. 提交和推送
 
 ```bash
 git add 新文件.html 新文件-en.html 上一篇.html 上一篇-en.html hello-world-index.html hello-human-index.html index.html
 git commit -m "Add Hello World #32 中文标题 / English Title"
 git push
 ```
+
+注意：如果新文章改变了某篇旧文章的"时间上一篇/下一篇"（步骤 5），那几篇旧文章也要 `git add` 进去。
 
 ---
 
