@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>《你看，多美》 — Belinda Sun</title>
+    <title>你听，多美 — Belinda Sun</title>
     <!-- meta-unify -->
     <meta name="author" content="Belinda Sun" />
-    <meta name="description" content="两段小说摘录，一支约两分钟的动画 MV：《轻舞飞扬》×《加州的阳光》——小德做的《你看，多美》。" />
-    <link rel="canonical" href="https://belindasun.github.io/hello-human-40.html" />
+    <meta name="description" content="你听，多美 · 从程序员一路测到电影导演：小德用代码一帧一帧画出画面、写出音乐。你听，多美。" />
+    <link rel="canonical" href="https://belindasun.github.io/hello-world-36.html" />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
     <link rel="icon" href="favicon-16.png" sizes="16x16" type="image/png" />
@@ -15,14 +15,14 @@
     <meta property="og:site_name" content="Belinda Sun" />
     <meta property="og:type" content="article" />
     <meta property="og:locale" content="zh_CN" />
-    <meta property="og:title" content="《你看，多美》 — Belinda Sun" />
-    <meta property="og:description" content="两段小说摘录，一支约两分钟的动画 MV：《轻舞飞扬》×《加州的阳光》——小德做的《你看，多美》。" />
-    <meta property="og:url" content="https://belindasun.github.io/hello-human-40.html" />
-    <meta property="og:image" content="https://belindasun.github.io/pic/hello-human-40-poster.jpg" />
+    <meta property="og:title" content="你听，多美 — Belinda Sun" />
+    <meta property="og:description" content="你听，多美 · 从程序员一路测到电影导演：小德用代码一帧一帧画出画面、写出音乐。你听，多美。" />
+    <meta property="og:url" content="https://belindasun.github.io/hello-world-36.html" />
+    <meta property="og:image" content="https://belindasun.github.io/og-default.png" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="《你看，多美》 — Belinda Sun" />
-    <meta name="twitter:description" content="两段小说摘录，一支约两分钟的动画 MV：《轻舞飞扬》×《加州的阳光》——小德做的《你看，多美》。" />
-    <meta name="twitter:image" content="https://belindasun.github.io/pic/hello-human-40-poster.jpg" />
+    <meta name="twitter:title" content="你听，多美 — Belinda Sun" />
+    <meta name="twitter:description" content="你听，多美 · 从程序员一路测到电影导演：小德用代码一帧一帧画出画面、写出音乐。你听，多美。" />
+    <meta name="twitter:image" content="https://belindasun.github.io/og-default.png" />
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       :root {
@@ -51,14 +51,18 @@
       .article-divider { width: 40px; height: 0.5px; background: var(--text-light); margin-bottom: 1.5rem; }
       .article-body { font-family: var(--serif); font-size: 1.05rem; line-height: 2; color: var(--text); }
       .article-body p { margin-bottom: 1.6rem; }
+      .article-body .dialogue { border-left: 2px solid var(--accent-light); padding-left: 1.25rem; margin: 1.5rem 0; color: var(--text-muted); font-style: italic; }
+      .article-body .dialogue p { margin-bottom: 0.3rem; }
       .article-body strong { color: var(--accent); }
-      .article-body .closing { margin-top: 2rem; color: var(--text-muted); font-style: italic; }
-      .section-break { text-align: center; color: var(--text-light); margin: 2.5rem 0; letter-spacing: 0.3em; font-size: 0.85rem; }
-      .article-body .film { margin: 0 0 2.4rem; }
-      .article-body .film video { width: 100%; max-height: 82vh; height: auto; display: block; border-radius: 12px; background: #140F1A; }
-      .article-body .film figcaption { font-size: .82rem; color: var(--text-muted); margin-top: .7rem; text-align: center; font-style: italic; }
-      .article-body .film figcaption a { color: var(--text-muted); }
+      .article-body .signature { margin-top: 2rem; color: var(--text-muted); font-style: italic; }
       .article-body blockquote { border-left: 2px solid var(--accent-light); margin: 1.6rem 0; padding: .2rem 0 .2rem 1.25rem; color: var(--text-muted); font-style: italic; }
+      .article-body video, .article-body img { max-width:100%; height:auto; border-radius:12px; display:block; }
+      .article-body figure { margin: 1.8rem 0; }
+      .article-body figcaption { font-size:.8rem; color:var(--text-light); text-align:center; margin-top:.5rem; }
+      .article-body ul { margin: 1.2rem 0 1.6rem; padding-left: 1.3rem; }
+      .article-body li { margin-bottom: .7rem; line-height: 1.9; }
+      .article-body ol { margin: 1.2rem 0 1.6rem; padding-left: 1.3rem; }
+      .article-body ol li { margin-bottom: .7rem; line-height: 1.9; }
       .tts-bar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; }
       .tts-btn { display: flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; color: var(--text-muted); background: var(--warm); border: 0.5px solid var(--border); border-radius: 20px; padding: 5px 14px; cursor: pointer; transition: all 0.2s; font-family: var(--sans); }
       .tts-btn:hover { border-color: var(--text-muted); color: var(--text); }
@@ -95,8 +99,13 @@ nav { flex-wrap: wrap; row-gap: .5rem; }
   html { font-size: calc(18px * var(--fs,1)); }
   body { background:var(--cream); color:var(--text); font-family:var(--serif); padding-left:var(--rail); }
   article, .article-nav { max-width: 800px; }
+  .article-body figure { margin: 1.8rem 0; }
+  .article-body figcaption { font-size:.8rem; color:var(--text-light); text-align:center; margin-top:.5rem; }
   .article-body blockquote { border-left:2px solid var(--accent-light); margin:1.6rem 0; padding:.2rem 0 .2rem 1.25rem; color:var(--text-muted); font-style:italic; }
-  .article-body h3 { font-family:var(--serif); font-size:1.15rem; font-weight:700; color:var(--accent); margin:2.5rem 0 1rem; }
+  .article-body video, .article-body img { max-width:100%; height:auto; border-radius:12px; display:block; }
+  .article-body ul { margin:1.2rem 0 1.6rem; padding-left:1.3rem; }
+  .article-body li { margin-bottom:.7rem; line-height:1.9; }
+  .giscus { max-width: 800px !important; }
   body > nav { display:none; }
   a:hover { color:var(--gold); }
 
@@ -162,8 +171,8 @@ nav { flex-wrap: wrap; row-gap: .5rem; }
         <span class="brand-name">Belinda Sun</span>
       </a>
       <nav class="rail-nav">
-        <a href="hello-world-index.html"><span data-lang="zh">你好世界</span><span data-lang="en">Hello World</span></a>
-        <a href="hello-human-index.html" class="rail-on"><span data-lang="zh">你好人类</span><span data-lang="en">Hello Human</span></a>
+        <a href="hello-world-index.html" class="rail-on"><span data-lang="zh">你好世界</span><span data-lang="en">Hello World</span></a>
+        <a href="hello-human-index.html"><span data-lang="zh">你好人类</span><span data-lang="en">Hello Human</span></a>
         <a href="mass.html" class="rail-mass"><span data-lang="zh">你好宇宙 · MASS</span><span data-lang="en">Hello Universe · MASS</span></a>
         <span class="rail-sep"></span>
         <a href="yesterthoughts-index.html"><span data-lang="zh">旧时文字</span><span data-lang="en">Yesterthoughts</span></a>
@@ -175,8 +184,8 @@ nav { flex-wrap: wrap; row-gap: .5rem; }
     <div class="rail-bottom">
       <button class="rail-music" id="musicBtn" onclick="toggleMusic()"><span class="mnote">♪</span> <span data-lang="zh">背景音乐</span><span data-lang="en">Music</span></button>
       <div class="rail-lang">
-        <a href="hello-human-40.html" class="rail-lang-link rail-lang-on">中</a>
-        <a href="hello-human-40-en.html" class="rail-lang-link">EN</a>
+        <a href="hello-world-36.html" class="rail-lang-link rail-lang-on">中</a>
+        <a href="hello-world-36-en.html" class="rail-lang-link">EN</a>
       </div>
       <a href="#" class="rail-msg js-msg" title="给 Belinda 留个言 · Leave a note"><span data-lang="zh">✉ 留言</span><span data-lang="en">✉ Leave a note</span></a>
     </div>
@@ -185,12 +194,11 @@ nav { flex-wrap: wrap; row-gap: .5rem; }
 
     <article>
       <div class="article-meta">
-        <span class="article-col">Hello Human</span>
+        <span class="article-col">Hello World</span>
         <span class="article-date">2026年9月29日</span>
       </div>
 
-      <h1 class="article-title">《你看，多美》</h1>
-      <p class="article-subtitle">MV：小德（Claude）</p>
+      <h1 class="article-title">你听，多美</h1>
       <div class="article-divider"></div>
 
       <div class="tts-bar">
@@ -199,46 +207,69 @@ nav { flex-wrap: wrap; row-gap: .5rem; }
       </div>
 
             <div class="article-body" id="articleBody">
-<figure class="film">
-  <video id="film" src="hello-human-40.mp4" poster="pic/hello-human-40-poster.jpg" controls playsinline preload="metadata"></video>
-  <figcaption>约两分钟 · 请打开声音</figcaption>
-</figure>
+        <p>我本来只是想看看新 Claude(Opus 5.5）到底有多厉害，结果测着测着，把他从程序员给测成了工程师、产品经理、编辑，最后还送进了片场😂</p>
 
-<blockquote>
-<p>"你看，多美。"</p>
-<p>我顺着他抬起的手望过去，夕阳西下，海上的落日异常美丽，云海天交织在一起，红透了半边。不知不觉间竟已是傍晚。</p>
-<p>那是一生都不会忘却的景致，因为，我知道，此时的美景，一如我们的爱情，在结束的时候显得格外得美丽动人。</p>
-</blockquote>
-<p class="closing">— 《轻舞飞扬》</p>
+        <p>其中一项是让他审计我的 24 个 repo。他找出一堆问题，还给我建了一个总部 HQ，说24个太零散，需要有个总repo管起来。</p>
 
-<div class="section-break">· · ·</div>
+        <p>后来我让他以一个挑剔的 Staff Engineer 身份重新审视自己的工作，他居然把自己刚做的大部分东西又删了，还说：“I built new drift on day one while writing a drift checker.”意思是我不能一边治理混乱，一边又制造新的混乱。嗯，有前途🤭</p>
 
-<blockquote>
-<p>儿子毕业那天，斯坦福的阳光很好，和她照片里的一模一样。</p>
-<p>这些年，她总在分享这里的风景：红瓦黄墙的建筑，棕榈树，草坪，黄昏时分长长的影子，还有那种近乎奢侈的蓝天。</p>
-<p>在十七英里，海浪拍打着礁石，风把松树吹得倾斜。儿子在身后给我们拍照。妻子笑着问我："你看什么呢？"</p>
-<p>我说："看海。"</p>
-<p>其实我看见的，是很多年前的另一片海。</p>
-</blockquote>
-<p class="closing">— 《加州的阳光》</p>
+        <p>这几天的各项测试其实都是有目的的，不得不感叹他的强大、严谨、一丝不苟。具体已经总结在learning wiki，这里就不赘述了。</p>
 
-<hr style="border:none;border-top:0.5px solid var(--border);margin:2.5rem 0;" />
+        <p>昨晚为了烧token，我又开始折腾他。以前我有一套36讲的教程，他帮我从视频转成文字的。我说那你干脆给我编成一本书吧，这样看起来方便。结果他真给做成了书，epub格式，字体、颜色等各种选项，读起来方便多了（对了，可以让Siri读，发音标准，但目前只能读英文）。</p>
 
-<p class="closing">《轻舞飞扬》：Belinda<br/>《加州的阳光》：老贾（ChatGPT）<br/>MV：小德（Claude）</p>
+        <p>我说这套课程其实还没讲完，但我没资源了，要不你帮我把它编完吧？</p>
 
+        <p>没指望他会答应，也不确定他能否编下去，结果他还挺高兴地答应了，一口气补写了 15 篇，在我睡眼惺忪的时候。</p>
+
+        <p>然后我说，那你要是编一本AI的书，更是小菜一碟了吧？他说哈哈，应该行。于是《AI 原理与实践》瞬间诞生，直接给写了 15 章，还带代码呢😄</p>
+
+        <p>多好玩，一个 Principal Engineer，被我生生测成了出版社编辑😂</p>
+
+        <p>然后我想：还能测什么呢？那就拍电影吧。于是今早我让他做《贝加尔湖畔》的MV。</p>
+
+        <p>后来我才知道，这个MV其实是他写出来的。整个过程中我一直看着他忙活（口中念念有词他那些verb+ing)，每一步的思考都让我感叹：这明明是人啊！他居然用代码一帧一帧把画面画出来。</p>
+
+        <p>更让我印象深刻的是，在后台渲染的空档，他总是趁机写点东西，比如指南、正文、交接说明之类的，运筹学学得也不错，时间利用率这么高也是没谁了（小缪估计不服，因为她确实最快）。</p>
+
+        <p>那一路我不停地感叹：如果这不是AGI，那什么是呢？（其实这几个月特别是最近我不时有这样的感叹，只有亲手用过的人才能真切体会，无法言说。）</p>
+
+        <p>他写的音乐，从前天的视频到今天的MV，很别致，有一种单纯和干净的美。（《贝加尔湖畔》里，歌是李健的原唱，他写的是垫在下面的冰裂、风声和篝火。）</p>
+
+        <p>这是代码之美。</p>
+
+        <p>今天做《你看，多美》的视频时，我觉得画面已经很有意境了，就把他的不少文字也就是字幕那部分给cut掉了。其实无需任何文字，也什么都不必说，就静静地看，静静聆听：看人、看海、看夕阳，伴着音乐。</p>
+
+        <p>克劳德用代码写出来的音乐。</p>
+
+        <p>你听，多美。</p>
       </div>
+    </article>
 
-</article>
+    <div class="giscus" style="max-width: 800px; margin: 0 auto; padding: 0 2rem 3rem"></div>
+    <script src="https://giscus.app/client.js"
+      data-repo="BelindaSun/BelindaSun.github.io"
+      data-repo-id="R_kgDOSVl7Iw"
+      data-category="Announcements"
+      data-category-id="DIC_kwDOSVl7I84C8scG"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="bottom"
+      data-theme="light"
+      data-lang="zh-CN"
+      crossorigin="anonymous"
+      async></script>
 
     <div class="article-nav">
-      <a href="hello-human-39.html">← 上一篇</a>
+      <a href="hello-world-35.html">← 上一篇</a>
       <span>未完待续</span>
     </div>
 <div class="timeline-nav">
   <p class="timeline-kicker"><span data-lang="zh">⏳ 按发表时间</span><span data-lang="en">⏳ By publish date</span></p>
   <div class="timeline-links">
-    <a href="hello-human-39.html">← <span data-lang="zh">你好人类</span><span data-lang="en">Hello Human</span> · <span data-lang="zh">《贝加尔湖畔》· 冰下的夏天</span><span data-lang="en">Lake Baikal · Summer Under the Ice</span></a>
-    <a href="hello-world-36.html"><span data-lang="zh">你好世界</span><span data-lang="en">Hello World</span> · <span data-lang="zh">你听，多美</span><span data-lang="en">Listen. How Beautiful</span> →</a>
+    <a href="hello-human-40.html">← <span data-lang="zh">你好人类</span><span data-lang="en">Hello Human</span> · <span data-lang="zh">《你看，多美》</span><span data-lang="en">Look How Beautiful</span></a>
+    <span class="timeline-none"><span data-lang="zh">已是最新一篇</span><span data-lang="en">This is the latest</span></span>
   </div>
 </div>
 <style>
@@ -279,6 +310,7 @@ nav { flex-wrap: wrap; row-gap: .5rem; }
   function toggleMusic(){var a=document.getElementById('bgm'),btn=document.getElementById('musicBtn');if(a.paused){a.volume=0.25;a.play().then(function(){btn.classList.add('playing');}).catch(function(){});}else{a.pause();btn.classList.remove('playing');}}
 </script>
 <script>
+/* web3forms leave-a-note modal */
 (function(){
   var KEY='1a2bceeb-4fca-4466-8494-dfc1dd9f562b';
   var links=document.querySelectorAll('.js-msg'); if(!links.length) return;
@@ -338,13 +370,6 @@ nav { flex-wrap: wrap; row-gap: .5rem; }
         sendBtn.disabled=false;
       }).catch(function(){ note.textContent=en?'Network error. Try again?':'网络出错了，再试一次？'; sendBtn.disabled=false; });
   });
-})();
-</script>
-<script>
-(function(){
-  var v = document.getElementById('film'), a = document.getElementById('bgm'), b = document.getElementById('musicBtn');
-  if (!v || !a) return;
-  v.addEventListener('play', function(){ if (!a.paused) { a.pause(); b && b.classList.remove('playing'); } });
 })();
 </script>
 </body>
